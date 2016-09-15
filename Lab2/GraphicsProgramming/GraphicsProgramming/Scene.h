@@ -45,6 +45,9 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[12];
 	char mouseText[20];
+
+	// Rotation
+	float rotate;
 };
 
 #endif

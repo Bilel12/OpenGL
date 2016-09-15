@@ -22,8 +22,14 @@ Scene::Scene(Input *in)
 void Scene::update(float dt)
 {
 	// Handle user input
-	// Update object and variables (camera, rotation, etc).
+	if (input->isKeyDown('6')) {
+		rotate += 10.0;
+	}
+	if (input->isKeyDown('4')) {
+		rotate -= 10.0;
+	}
 
+	// Update object and variables (camera, rotation, etc).
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
@@ -46,6 +52,10 @@ void Scene::render() {
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// Translation
+
+	// Rotation (set vectors x, y, z to rotate by those vectors)
+	glRotatef(rotate, 1.0f, 1.0f, 1.0f);
+
 	// glTranslatef(0.0f, 0.0f, 2.0f);
 	glScalef(0.5f, 0.5f, 0.5f);
 
