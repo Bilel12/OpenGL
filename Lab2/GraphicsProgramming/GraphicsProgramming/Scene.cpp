@@ -47,7 +47,7 @@ void Scene::update(float dt)
 void Scene::render() {
 
 	// Clear Color and Depth Buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reset transformations
 	glLoadIdentity();
@@ -57,14 +57,22 @@ void Scene::render() {
 	// Translation
 
 	// Rotation (set vectors x, y, z to rotate by those vectors)
-	glTranslatef(2.0f, 0.0f, 0.0f);
-	glRotatef(rotate, 0.0f, 0.0f, 1.0f);
+	glPushMatrix();
+		glRotatef(rotate, 0.0f, 0.0f, 1.0f);
+		glTranslatef(3.5f, 0.0f, 0.0f);
+		
 
 	//glScalef(0.5f, 0.5f, 0.5f);
 
 	// Render geometry here -------------------------------------
 	drawTriangle();
-
+	glPopMatrix();
+	
+	glPushMatrix();
+		glRotatef(-rotate, 0.0f, 0.0f, 1.0f);
+		glTranslatef(-3.5f, 0.0f, 0.0f);
+		drawTriangle();
+	glPopMatrix();
 	// Geometry rendering ends here -----------------------------
 
 	// Render text, should be last object rendered.
