@@ -56,45 +56,60 @@ void Scene::render() {
 	// Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	// Set up entire scene
+	// Render geometry here -------------------------------------
+	// Set up scene START
 	// Translation
 	glTranslatef(-1.0f, 0.0f, 0.0f);
 	// Tilt the solar system slightly so it isn't on the eye plane
 	glRotatef(20, 1, 0, 0); // Rotate by x-axis
+	// Set up scene END
 
-	// Render geometry here -------------------------------------
-	glPushMatrix(); { // OBJECT1 start. Remember where we are THE SUN
+	glPushMatrix(); // SOLAR SYSTEM
+	{ // OBJECT1 start. Remember where we are THE SUN
 		// render the sun
 		glColor3f(1.0f, 0.9f, 0.0f);
 		gluSphere(gluNewQuadric(), 0.20, 20, 20);
-
-		glPushMatrix(); { // OBJECT2 start. Move from THE SUN
+		//////////////////////////////////////////////////////////////////// ORBIT1
+		glPushMatrix(); 
+		{ // OBJECT2 start. Move from THE SUN by 1
 			// render PLANET1
 			glRotatef(rotation, 0, 1, 0);
 			glTranslatef(1, 0, 0);
 			glScalef(0.1, 0.1, 0.1);
 			gluSphere(gluNewQuadric(), 0.20, 20, 20);
 		} glPopMatrix(); // OBJECT2 end. Move BACK to THE SUN
-
-		glPushMatrix(); { // OBJECT3 start. REMEMBER WHERE WE ARE
+		/////////////////////////////////////////////////////////////////// ORBIT2
+		glPushMatrix(); 
+		{ // OBJECT3 start. REMEMBER WHERE WE ARE. Move from THE SUN by 1.5. Scale down by 0.3
 			// draw PLANET2
 			glRotatef(rotation, 0, 0, 1);
 			glTranslatef(1.5, 0, 0);
 			glScalef(0.3, 0.3, 0.3);
 			glColor3f(0.1f, 0.9f, 1.0f);
 			gluSphere(gluNewQuadric(), 0.20, 20, 20);
-			glPushMatrix(); { // Object 4 start. REMEMBER WHERE WE ARE
+			glPushMatrix(); 
+			{ // Object 4 start. REMEMBER WHERE WE ARE. Move from PLANET2 by 1.5. Futher scale down by 0.3
 				// draw a MOON around PLANET2
 				glRotatef(-rotation * 2.0, 0, 0, 1);
 				glTranslatef(1.5, 0, 0);
 				glScalef(0.3, 0.3, 0.3);
 				glColor3f(0.1f, 0.9f, 1.0f);
 				gluSphere(gluNewQuadric(), 0.20, 20, 20);
+					glPushMatrix(); { // Object 5 start. REMEMBER WHERE WE ARE. Move from MOON by 1.5. Futher Scale down by 0.3
+						// draw a MOON around the MOON
+						glRotatef(-rotation * 2.0, 0, 0, 1);
+						glTranslatef(1.5, 0, 0);
+						glScalef(0.3, 0.3, 0.3);
+						glColor3f(0.1f, 0.9f, 1.0f);
+						gluSphere(gluNewQuadric(), 0.20, 20, 20);
+					} glPopMatrix(); // OBJECT5 end
 			} glPopMatrix(); // OBJECT4 end
-		}glPopMatrix(); // OBJECT3 end	
+		} glPopMatrix(); // OBJECT3 end	
 	} glPopMatrix(); // OBJECT1 end
 	// Reset colour
 	glColor3f(1.0f, 1.0f, 1.0f);
+	// Geometry rendering ends here -----------------------------
+
 	// Render text, should be last object rendered.
 	renderTextOutput();
 	
