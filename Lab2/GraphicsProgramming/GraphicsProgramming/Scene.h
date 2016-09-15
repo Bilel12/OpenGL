@@ -48,6 +48,7 @@ protected:
 
 	// Rotation
 	float rotate;
+	float speed;
 };
 
 #endif

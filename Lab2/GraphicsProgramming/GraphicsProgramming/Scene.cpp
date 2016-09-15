@@ -16,7 +16,8 @@ Scene::Scene(Input *in)
 	// Other OpenGL / render setting should be applied here.
 
 	// Initialise variables
-	
+	rotate = 1.0f;
+	speed = 2.0f;
 }
 
 void Scene::update(float dt)
@@ -30,6 +31,8 @@ void Scene::update(float dt)
 	}
 
 	// Update object and variables (camera, rotation, etc).
+	rotate += speed * dt;
+
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
@@ -54,10 +57,10 @@ void Scene::render() {
 	// Translation
 
 	// Rotation (set vectors x, y, z to rotate by those vectors)
-	glRotatef(rotate, 1.0f, 1.0f, 1.0f);
+	glTranslatef(2.0f, 0.0f, 0.0f);
+	glRotatef(rotate, 0.0f, 0.0f, 1.0f);
 
-	// glTranslatef(0.0f, 0.0f, 2.0f);
-	glScalef(0.5f, 0.5f, 0.5f);
+	//glScalef(0.5f, 0.5f, 0.5f);
 
 	// Render geometry here -------------------------------------
 	drawTriangle();
