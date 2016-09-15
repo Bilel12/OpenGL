@@ -45,6 +45,10 @@ void Scene::render() {
 	// Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
+	// Translation
+	// glTranslatef(0.0f, 0.0f, 2.0f);
+	glScalef(0.5f, 0.5f, 0.5f);
+
 	// Render geometry here -------------------------------------
 	drawTriangle();
 
