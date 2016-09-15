@@ -47,7 +47,8 @@ protected:
 	char mouseText[20];
 
 	// Rotation
-	float rotate;
+	float rotation;
+	float rotation2;
 	float speed;
 };
 

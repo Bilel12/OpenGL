@@ -16,22 +16,24 @@ Scene::Scene(Input *in)
 	// Other OpenGL / render setting should be applied here.
 
 	// Initialise variables
-	rotate = 1.0f;
-	speed = 2.0f;
+	rotation = 1;
+	rotation = 1;
+	speed = 2;
 }
 
 void Scene::update(float dt)
 {
 	// Handle user input
 	if (input->isKeyDown('6')) {
-		rotate += 10.0;
+		rotation += 10.0;
 	}
 	if (input->isKeyDown('4')) {
-		rotate -= 10.0;
+		rotation -= 10.0;
 	}
 
 	// Update object and variables (camera, rotation, etc).
-	rotate += speed * dt;
+	rotation += speed * dt;
+	rotation2 += (speed * 2) * dt;
 
 	// Calculate FPS
 	frame++;
@@ -47,34 +49,52 @@ void Scene::update(float dt)
 void Scene::render() {
 
 	// Clear Color and Depth Buffers
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
+	// Set up entire scene
 	// Translation
-
-	// Rotation (set vectors x, y, z to rotate by those vectors)
-	glPushMatrix();
-		glRotatef(rotate, 0.0f, 0.0f, 1.0f);
-		glTranslatef(3.5f, 0.0f, 0.0f);
-		
-
-	//glScalef(0.5f, 0.5f, 0.5f);
+	glTranslatef(-1.0f, 0.0f, 0.0f);
+	// Tilt the solar system slightly so it isn't on the eye plane
+	glRotatef(20, 1, 0, 0); // Rotate by x-axis
 
 	// Render geometry here -------------------------------------
-	drawTriangle();
-	glPopMatrix();
-	
-	glPushMatrix();
-		glRotatef(-rotate, 0.0f, 0.0f, 1.0f);
-		glTranslatef(-3.5f, 0.0f, 0.0f);
-		drawTriangle();
-	glPopMatrix();
-	// Geometry rendering ends here -----------------------------
+	glPushMatrix(); { // OBJECT1 start. Remember where we are THE SUN
+		// render the sun
+		glColor3f(1.0f, 0.9f, 0.0f);
+		gluSphere(gluNewQuadric(), 0.20, 20, 20);
 
+		glPushMatrix(); { // OBJECT2 start. Move from THE SUN
+			// render PLANET1
+			glRotatef(rotation, 0, 1, 0);
+			glTranslatef(1, 0, 0);
+			glScalef(0.1, 0.1, 0.1);
+			gluSphere(gluNewQuadric(), 0.20, 20, 20);
+		} glPopMatrix(); // OBJECT2 end. Move BACK to THE SUN
+
+		glPushMatrix(); { // OBJECT3 start. REMEMBER WHERE WE ARE
+			// draw PLANET2
+			glRotatef(rotation, 0, 0, 1);
+			glTranslatef(1.5, 0, 0);
+			glScalef(0.3, 0.3, 0.3);
+			glColor3f(0.1f, 0.9f, 1.0f);
+			gluSphere(gluNewQuadric(), 0.20, 20, 20);
+			glPushMatrix(); { // Object 4 start. REMEMBER WHERE WE ARE
+				// draw a MOON around PLANET2
+				glRotatef(-rotation * 2.0, 0, 0, 1);
+				glTranslatef(1.5, 0, 0);
+				glScalef(0.3, 0.3, 0.3);
+				glColor3f(0.1f, 0.9f, 1.0f);
+				gluSphere(gluNewQuadric(), 0.20, 20, 20);
+			} glPopMatrix(); // OBJECT4 end
+		}glPopMatrix(); // OBJECT3 end	
+	} glPopMatrix(); // OBJECT1 end
+	// Reset colour
+	glColor3f(1.0f, 1.0f, 1.0f);
 	// Render text, should be last object rendered.
 	renderTextOutput();
 	
