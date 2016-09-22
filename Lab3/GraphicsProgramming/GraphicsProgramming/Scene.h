@@ -51,7 +51,7 @@ protected:
 	GLfloat Light_Ambient[4];
 	GLfloat Light_Diffuse[4];
 	GLfloat Light_Position[4];
-	GLfloat Light_Direction[4];
+	GLfloat spot_Direction[4];
 };
 
 #endif
