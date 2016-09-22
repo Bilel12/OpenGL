@@ -43,6 +43,15 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[12];
 	char mouseText[20];
+
+	float rotation;
+	float rotation2;
+	float speed;
+
+	GLfloat Light_Ambient[4];
+	GLfloat Light_Diffuse[4];
+	GLfloat Light_Position[4];
+	GLfloat Light_Direction[4];
 };
 
 #endif

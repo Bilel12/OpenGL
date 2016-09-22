@@ -12,11 +12,27 @@ Scene::Scene(Input *in)
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+	glEnable(GL_LIGHTING);								// Enable Lighting
+
 
 	// Other OpenGL / render setting should be applied here.
-
+	Light_Diffuse[0] = 1.0f;
+	Light_Diffuse[1] = 1.0f;
+	Light_Diffuse[2] = 1.0f;
+	Light_Diffuse[3] = 1.0f;
+	Light_Position[0] = -1.0f;
+	Light_Position[1] = 0.0f;
+	Light_Position[2] = 0.0f;
+	Light_Position[3] = 0.0f;
+	Light_Direction[0] = -1.0f;
+	Light_Direction[1] = 0.0f;
+	Light_Direction[2] = 0.0f;
+	Light_Direction[3] = 0.0f;
 	// Initialise variables
-	
+
+	rotation = 1;
+	rotation = 1;
+	speed = 2;
 }
 
 void Scene::update(float dt)
@@ -33,7 +49,11 @@ void Scene::update(float dt)
 		timebase = time;
 		frame = 0;
 	}
+
+	rotation += speed * dt;
+	rotation2 += (speed * 2) * dt;
 }
+
 
 void Scene::render() {
 
@@ -44,12 +64,106 @@ void Scene::render() {
 	glLoadIdentity();
 	// Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
+	glEnable(GL_LIGHT0);
+
+	glRotatef(rotation, 0.0f, 1.0f, 0.0f);
 
 	// Render geometry here -------------------------------------
 	
+	//glBegin(GL_QUADS);
+	//// front face
+	//glColor3f(1.0f, 0.0f, 0.0f);	
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(-0.5f, 0.5f, 0.5f);//////////
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(0.5f, 0.5f, 0.5f);/////////
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(0.5f, -0.5f, 0.5f);/////////
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(-0.5f, -0.5f, 0.5f);//////////
+	//// left face
+	//glColor3f(1.0f, 0.0f, 0.0f);
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(-0.5f, 0.5f, 0.5f);/////////
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(0.5f, 0.5f, 0.5f);////////
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(0.5f, -0.5f, 0.5f);//////////
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glVertex3f(-0.5f, -0.5f, 0.5f);////////
+	//// right face
+	//glColor3f(0.0f, 1.0f, 0.0f);
+	//glNormal3f(1.0f, 0.0f, 0.0f);
+	//glVertex3f(0.5f, 0.5f, 0.5f);
+	//glNormal3f(1.0f, 0.0f, 0.0f);
+	//glVertex3f(0.5f, 0.5f, -0.5f);
+	//glNormal3f(1.0f, 0.0f, 0.0f);
+	//glVertex3f(0.5f, -0.5f, -0.5f);
+	//glNormal3f(1.0f, 0.0f, 0.0f);
+	//glVertex3f(0.5f, -0.5f, 0.5f);
+
+	//// bottom face
+	//glColor3f(0.0f, 0.0f, 1.0f);
+	//glNormal3f(0.0f, -1.0f, 0.0f);
+	//glVertex3f(0.5f, -0.5f, 0.5f);
+	//glNormal3f(0.0f, -1.0f, 0.0f);
+	//glVertex3f(0.5f, -0.5f, -0.5f);
+	//glNormal3f(0.0f, -1.0f, 0.0f);
+	//glVertex3f(-0.5f, -0.5f, -0.5f);
+	//glNormal3f(0.0f, -1.0f, 0.0f);
+	//glVertex3f(-0.5f, -0.5f, 0.5f);
+
+	
+	glBegin(GL_TRIANGLES);
+	// front face
+	glColor3f(1.0f, 0.0f, 0.0f);	
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 0.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);/////////////
+	// left face
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -1.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, -1.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 1.0f, -1.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);/////////////
+	// bottom face
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 0.0f, 0.0f);/////////////
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);/////////////
+
+	glEnd();
 
 	// Geometry rendering ends here -----------------------------
-
 	// Render text, should be last object rendered.
 	renderTextOutput();
 	
