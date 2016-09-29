@@ -47,6 +47,7 @@ protected:
 	float rotation;
 	float rotation2;
 	float speed;
+	GLfloat shininess[1];
 
 	GLfloat Light_Ambient[4];
 	GLfloat Light_Ambient1[4];
@@ -54,12 +55,16 @@ protected:
 	GLfloat Light_Position[4];
 	GLfloat Light_Position1[4];
 	GLfloat spot_Direction[4];
+	GLfloat Light_Specular[4];
 
 	// Populate Light_Ambient
 	GLfloat* populateLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
 	GLfloat* populateLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
 	GLfloat* populateLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
 	GLfloat* populateSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
+	GLfloat* populateLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
+	// Set variables
+	GLfloat* setShininess(float s, GLfloat* shininess);
 };
 
 

@@ -85,17 +85,17 @@ void Scene::render() {
 	// Render geometry here -------------------------------------
 	
 	// Clear Color and Depth Buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reset transformations
 	glLoadIdentity(); // load Identity Matrix 
 					  // Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	GLfloat Light_Ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
-	GLfloat Light_Diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat Light_Specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat Light_Position[] = { -3.0f, 0.0f, 3.0f, 1.0f };
+	populateLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
+	populateLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
+	populateLightSpecular(1.0, 1.0, 1.0, 1.0, Light_Specular);
+	populateLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
 
 	GLfloat shininess[] = { 100.0 };
 	GLfloat highSpec[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -318,4 +318,19 @@ GLfloat* Scene::populateSpotDirection(float x, float y, float z, float w, GLfloa
 	spotDirection[3] = w;
 
 	return spotDirection;
+}
+
+GLfloat* Scene::populateLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
+	lightSpecular[0] = x;
+	lightSpecular[1] = y;
+	lightSpecular[2] = z;
+	lightSpecular[3] = w;
+
+	return lightSpecular;
+}
+
+GLfloat* Scene::setShininess(float s, GLfloat* shininess) {
+	shininess[0] = s;
+
+	return shininess;
 }
