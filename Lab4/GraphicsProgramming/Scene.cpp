@@ -69,8 +69,6 @@ void Scene::render() {
 	glEnable(GL_LIGHT0);
 	glPopMatrix();
 
-	
-
 	glPushMatrix();
 	glBegin(GL_POINT);
 		glVertex3f(0.0f, 0.0f, 0.0f);
@@ -85,75 +83,84 @@ void Scene::render() {
 		glPopMatrix();
 	glPopMatrix();
 	// Render geometry here -------------------------------------
-	glBegin(GL_QUADS);
-	//Front 
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, 1.0f, 1.0f);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(-1.0f, 1.0f, 1.0f);
+	
+	// Clear Color and Depth Buffers
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//Right 
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glNormal3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, -1.0f);
-	glNormal3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glNormal3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 1.0f);
-	glNormal3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);
+	// Reset transformations
+	glLoadIdentity(); // load Identity Matrix 
+					  // Set the camera
+	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	//back
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glNormal3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(1.0f, -1.0f, -1.0f);
-	glNormal3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(-1.0f, -1.0f, -1.0f);
-	glNormal3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(-1.0f, 1.0f, -1.0f);
-	glNormal3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
+	GLfloat Light_Ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	GLfloat Light_Diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat Light_Specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat Light_Position[] = { -3.0f, 0.0f, 3.0f, 1.0f };
 
-	//left
-	glColor3f(0.0f, 1.0f, 1.0f);
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, -1.0f);
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 1.0f);
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, -1.0f);
+	GLfloat shininess[] = { 100.0 };
+	GLfloat highSpec[] = { 1.0, 1.0, 1.0, 1.0 };
 
-	//top
-	glColor3f(1.0f, 0.0f, 1.0f);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 1.0f);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 1.0f);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, -1.0f);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.2);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+	glEnable(GL_LIGHT0);
 
-	//bottom
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, -1.0f);
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, -1.0f);
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+
+	glColor3f(0.8, 0.0, 0.0);
+
+	GLfloat no_mat[] = { 0.2, 0.2, 0.2, 0.2 };
+	GLfloat mat_ambient[] = { 0.7, 0.7, 0.7, 1.0 };
+	GLfloat mat_ambient_colour[] = { 0.8, 0.8, 0.2, 1.0 };
+	GLfloat mat_diffuse[] = { 0.1, 0.5, 0.8, 1.0 };
+	GLfloat mat_specular[] = { 3.0, 3.0, 3.0, 3.0 };
+	GLfloat no_shininess[] = { 300.0 };
+	GLfloat low_shininess[] = { 50 };
+	GLfloat high_shininess[] = { 100 };
+	GLfloat mat_emission[] = { 0.3, 0.2, 0.2, 0.0 };
+
+	// Render geometry here -----------------------------------
+
+	glPushMatrix();
+	glTranslatef(-2.0, -1.0, 0.0);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+	gluSphere(gluNewQuadric(), 1.0, 40, 40);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(2.0, -1.0, 0.0);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+	gluSphere(gluNewQuadric(), 1.0, 40, 40);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, 1.5, 0.0);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+	gluSphere(gluNewQuadric(), 0.5, 40, 40);
+	glPopMatrix();
+
+	// Geometry rendering ends here -----------------------------
 
 	glEnd();
-	glPopMatrix();
+
 	
 	//glBegin(GL_TRIANGLES);
 	//// front face
