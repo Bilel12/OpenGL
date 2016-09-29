@@ -15,12 +15,12 @@ Scene::Scene(Input *in)
 	glEnable(GL_LIGHTING);								// Enable Lighting
 
 	// Other OpenGL / render setting should be applied here.
-	populateLightAmbient(0, 0, 1, 1, Light_Ambient);
-	populateLightAmbient(0, 1, 1, 0, Light_Ambient1);
-	populateLightDiffuse(0, 1, 1, 1, Light_Diffuse);
-	populateLightPosition(0, -1, 0, 1, Light_Position);
-	populateLightPosition(0, 0, 0, 1, Light_Position1);
-	populateSpotDirection(0, -1, 0, 0, spot_Direction);
+	setLightAmbient(0, 0, 1, 1, Light_Ambient);
+	setLightAmbient(0, 1, 1, 0, Light_Ambient1);
+	setLightDiffuse(0, 1, 1, 1, Light_Diffuse);
+	setLightPosition(0, -1, 0, 1, Light_Position);
+	setLightPosition(0, 0, 0, 1, Light_Position1);
+	setSpotDirection(0, -1, 0, 0, spot_Direction);
 
 	// Initialise variables
 	rotation = 1;
@@ -92,10 +92,10 @@ void Scene::render() {
 					  // Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	populateLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
-	populateLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
-	populateLightSpecular(1.0, 1.0, 1.0, 1.0, Light_Specular);
-	populateLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
+	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
+	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
+	setLightSpecular(1.0, 1.0, 1.0, 1.0, Light_Specular);
+	setLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
 
 	set_shininess(100.0, shininess);
 	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);
@@ -284,7 +284,7 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	glMatrixMode(GL_MODELVIEW);
 }
 
-GLfloat* Scene::populateLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient) {
+GLfloat* Scene::setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient) {
 	lightAmbient[0] = x;
 	lightAmbient[1] = y;
 	lightAmbient[2] = z;
@@ -293,7 +293,7 @@ GLfloat* Scene::populateLightAmbient(float x, float y, float z, float w, GLfloat
 	return lightAmbient;
 }
 
-GLfloat* Scene::populateLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse) {
+GLfloat* Scene::setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse) {
 	lightDiffuse[0] = x;
 	lightDiffuse[1] = y;
 	lightDiffuse[2] = z;
@@ -302,7 +302,7 @@ GLfloat* Scene::populateLightDiffuse(float x, float y, float z, float w, GLfloat
 	return lightDiffuse;
 }
 
-GLfloat* Scene::populateLightPosition(float x, float y, float z, float w, GLfloat* lightPosition) {
+GLfloat* Scene::setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition) {
 	lightPosition[0] = x;
 	lightPosition[1] = y;
 	lightPosition[2] = z;
@@ -311,7 +311,7 @@ GLfloat* Scene::populateLightPosition(float x, float y, float z, float w, GLfloa
 	return lightPosition;
 }
 
-GLfloat* Scene::populateSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection) {
+GLfloat* Scene::setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection) {
 	spotDirection[0] = x;
 	spotDirection[1] = y;
 	spotDirection[2] = z;
@@ -320,7 +320,7 @@ GLfloat* Scene::populateSpotDirection(float x, float y, float z, float w, GLfloa
 	return spotDirection;
 }
 
-GLfloat* Scene::populateLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
+GLfloat* Scene::setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
 	lightSpecular[0] = x;
 	lightSpecular[1] = y;
 	lightSpecular[2] = z;

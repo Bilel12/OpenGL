@@ -69,11 +69,11 @@ protected:
 	GLfloat Light_Specular[4];
 
 	// Populate Light_Ambient
-	GLfloat* populateLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
-	GLfloat* populateLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
-	GLfloat* populateLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
-	GLfloat* populateSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
-	GLfloat* populateLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
+	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
+	GLfloat* setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
+	GLfloat* setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
+	GLfloat* setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
+	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
 	// Set variables
 	GLfloat* setHighSpec(float x, float y, float z, float w, GLfloat* highSpec);
 	GLfloat* set_no_mat(float x, float y, float z, float w, GLfloat* no_mat);
