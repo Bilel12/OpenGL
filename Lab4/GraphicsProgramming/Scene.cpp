@@ -100,14 +100,14 @@ void Scene::render() {
 	set_shininess(100.0, shininess);
 	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);
 
-	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
-	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular);
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.2);
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
-	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse);
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.0);
+	glEnable(GL_LIGHT2);
 
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
