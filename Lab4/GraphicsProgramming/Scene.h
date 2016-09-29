@@ -47,7 +47,18 @@ protected:
 	float rotation;
 	float rotation2;
 	float speed;
+	// light variables
+	GLfloat highSpec[4];
+	GLfloat no_mat[4];
+	GLfloat mat_ambient[4];
+	GLfloat mat_ambient_colour[4];
+	GLfloat mat_diffuse[4];
+	GLfloat mat_specular[4];
+	GLfloat mat_emission[4];
 	GLfloat shininess[1];
+	GLfloat no_shininess[1];
+	GLfloat low_shininess[1];
+	GLfloat high_shininess[1];
 
 	GLfloat Light_Ambient[4];
 	GLfloat Light_Ambient1[4];
@@ -64,7 +75,17 @@ protected:
 	GLfloat* populateSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
 	GLfloat* populateLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
 	// Set variables
-	GLfloat* setShininess(float s, GLfloat* shininess);
+	GLfloat* setHighSpec(float x, float y, float z, float w, GLfloat* highSpec);
+	GLfloat* set_no_mat(float x, float y, float z, float w, GLfloat* no_mat);
+	GLfloat* set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient);
+	GLfloat* set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour);
+	GLfloat* set_mat_diffuse(float x, float y, float z, float w, GLfloat* mat_diffuse);
+	GLfloat* set_mat_specular(float x, float y, float z, float w, GLfloat* mat_specular);
+	GLfloat* set_mat_emission(float x, float y, float z, float w, GLfloat* mat_emission);
+	GLfloat* set_shininess(float s, GLfloat* shininess);
+	GLfloat* set_no_shininess(float s, GLfloat* no_shininess);
+	GLfloat* set_low_shininess(float s, GLfloat* low_shininess);
+	GLfloat* set_high_shininess(float s, GLfloat* high_shininess);
 };
 
 
