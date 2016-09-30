@@ -34,7 +34,6 @@ private:
 	// Mouse struct object.
 	bool keys[256];
 	Mouse mouse;
-
 };
 
 #endif

@@ -6,9 +6,9 @@
 
 
 // Include glut, opengl libraries and custom classes
-#include "glut.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+//#include "glut.h"
+//#include <gl/GL.h>
+//#include <gl/GLU.h>
 #include "Scene.h"
 #include "Input.h"
 
@@ -137,9 +137,9 @@ int main(int argc, char **argv)
 	// Init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	//glutInitWindowPosition(100, 100);
-	glutInitWindowSize(800, 600);
-	glutCreateWindow("My first triangle");
+	glutInitWindowPosition(150, 50);
+	glutInitWindowSize(1500, 1000);
+	glutCreateWindow("Matthew Wallace Project");
 	
 	// Register callback functions for change in size and rendering.
 	glutDisplayFunc(renderScene);

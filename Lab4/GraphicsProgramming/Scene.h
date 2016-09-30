@@ -7,9 +7,9 @@
 #define _SCENE_H
 
 // Include GLUT, openGL, input.
-#include "glut.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include "glut.h"	
+#include <gl/GL.h>	// Header file for the OpneGL32 Library
+#include <gl/GLU.h>	// Header file for the GLu32 Library
 #include "Input.h"
 #include <stdio.h>
 // Further includes should go here:
@@ -43,7 +43,7 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[40];
 	char mouseText[40];
-
+	// my variables
 	float rotation;
 	float rotation2;
 	float speed;
