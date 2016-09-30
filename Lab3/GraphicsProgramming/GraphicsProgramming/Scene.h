@@ -41,8 +41,8 @@ protected:
 
 	// For FPS counter and mouse coordinate output.
 	int frame = 0, time, timebase = 0;
-	char fps[12];
-	char mouseText[20];
+	char fps[40];
+	char mouseText[40];
 
 	float rotation;
 	float rotation2;
