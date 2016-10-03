@@ -94,7 +94,7 @@ void Scene::render() {
 
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
 	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
-	setLightSpecular(0.1, 0.1, 0.1, 0.1, Light_Specular);
+	setLightSpecular(1, 1, 1, 1, Light_Specular);
 	setLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
 
 	set_shininess(100.0, shininess);
@@ -127,6 +127,8 @@ void Scene::render() {
 
 	// Render geometry here -----------------------------------
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glColor3f(1, 0, 0);
 	glPushMatrix();
 	glTranslatef(-2.0, -1.0, 0.0);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
