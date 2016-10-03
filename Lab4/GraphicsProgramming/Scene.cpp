@@ -41,13 +41,13 @@ void Scene::update(float dt)
 	case 'p': specular += 0.1; input->SetKeyDown(key); break;
 
 	}*/
-	if (input->isKeyDown('u')) {
-		specular += 0.1;
-		input->SetKeyUp('u');
-	}
 	if (input->isKeyDown('i')) {
-		specular -= 0.1;
+		specular += 0.1;
 		input->SetKeyUp('i');
+	}
+	if (input->isKeyDown('u')) {
+		specular -= 0.1;
+		input->SetKeyUp('u');
 	}
 	// move right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
