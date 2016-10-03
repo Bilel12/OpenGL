@@ -36,18 +36,20 @@ Scene::Scene(Input *in)
 void Scene::update(float dt)
 {
 	// Handle user input
-	/*key = input->isKeyDown('p');
-	switch (key) {
-	case 'p': specular += 0.1; input->SetKeyDown(key); break;
-
-	}*/
-	if (input->isKeyDown('i')) {
+	//key = _getch();
+	//switch (input->isKeyDown(key)) {
+	//	case 'a' : specular -= 1; input->SetKeyDown(key); break;
+	//	default: break;
+	//}
+	// increase specular
+	if (input->isKeyDown('i') || input->isKeyDown('I')) {
 		specular += 0.1;
-		input->SetKeyUp('i');
+		input->SetKeyUp('i'); input->isKeyDown('I');
 	}
-	if (input->isKeyDown('u')) {
+	// reduce specular
+	if (input->isKeyDown('u') || input->isKeyDown('U')) {
 		specular -= 0.1;
-		input->SetKeyUp('u');
+		input->SetKeyUp('u'); input->isKeyDown('U');
 	}
 	// move right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
