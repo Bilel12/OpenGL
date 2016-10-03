@@ -18,30 +18,68 @@ Scene::Scene(Input *in)
 	// Other OpenGL / render setting should be applied here.
 	setLightAmbient(0, 0, 1, 1, Light_Ambient);
 	setLightAmbient(0, 1, 1, 0, Light_Ambient1);
-	setLightDiffuse(0, 1, 1, 1, Light_Diffuse);
 	setLightPosition(0, -1, 0, 1, Light_Position);
-	setLightPosition(0, 0, 0, 1, Light_Position1);
+	setLightDiffuse(0, 1, 1, 1, Light_Diffuse);
+	setLightPosition(0, 0, 1, 1, Light_Position1);
 	setSpotDirection(0, -1, 0, 0, spot_Direction);
 
 	// Initialise variables
-	specular = 0.1;
+	specular = 0.1f;
 	rotation = 1;
-	rotation = 1;
+	rotation2 = 1;
+	position_x = 0;
+	position_y = -1;
+	position_z = 0;
 	speed = 5;
 }
 
 void Scene::update(float dt)
 {
 	// Handle user input
-	if (input->isKeyDown('p')) {
+	/*key = input->isKeyDown('p');
+	switch (key) {
+	case 'p': specular += 0.1; input->SetKeyDown(key); break;
+
+	}*/
+	if (input->isKeyDown('u')) {
 		specular += 0.1;
-		input->SetKeyUp('p');
+		input->SetKeyUp('u');
+	}
+	if (input->isKeyDown('i')) {
+		specular -= 0.1;
+		input->SetKeyUp('i');
+	}
+	// move right
+	if (input->isKeyDown('d') || input->isKeyDown('D')) {
+		position_x += 1;
+		input->SetKeyUp('d'); input->SetKeyUp('D');
+	}
+	// move left
+	if (input->isKeyDown('a') || input->isKeyDown('A')) {
+		position_x -= 1;
+		input->SetKeyUp('a'); input->SetKeyUp('A');
+	}
+	// move up
+	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+		position_y += 1;
+		input->SetKeyUp('w'); input->SetKeyUp('W');
+	}
+	// move down
+	if (input->isKeyDown('s') || input->isKeyDown('S')) {
+		position_y -= 1;
+		input->SetKeyUp('s'); input->SetKeyUp('S');
+	}
+	// move z towards
+	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+		position_z += 1;
+		input->SetKeyUp('r'); input->SetKeyUp('R');
+	}
+	// move z inwards
+	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+		position_z -= 1;
+		input->SetKeyUp('f'); input->SetKeyUp('F');
 	}
 
-	if (input->isKeyDown('d')) {
-		specular -= 0.1;
-		input->SetKeyDown('d');
-	}
 
 	// Update object and variables (camera, rotation, etc).
 	rotation += speed * dt;
@@ -73,26 +111,27 @@ void Scene::render() {
 
 	glPushMatrix();
 	//glRotatef(rotation, 0.0f, 1.0f, 0.0f);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
-	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
-	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
-
-	glEnable(GL_LIGHT0);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
+		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
+		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+		glEnable(GL_LIGHT0);
 	glPopMatrix();
 
 	glPushMatrix();
-	glBegin(GL_POINT);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-	glEnd();
-		glPushMatrix();
-			glRotatef(rotation, 0.0f, 1.0f, 0.0f);
-			glTranslatef(2, 0, 0);
-			glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient1);
-			glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
-			gluSphere(gluNewQuadric(), 0.20, 20, 20);
-			glEnable(GL_LIGHT1);
-		glPopMatrix();
+		glBegin(GL_POINT);
+			glVertex3f(0.0f, 0.0f, 0.0f);
+		glEnd();
+		//glRotatef(rotation, 0.0f, 1.0f, 0.0f);
+		glTranslatef(2, 0, 0);
+		glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient1);
+		glLightfv(GL_LIGHT1, GL_POSITION, Light_Position1);
+		glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular);
+		glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
+		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.25);
+		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.15);
+		gluSphere(gluNewQuadric(), 0.20, 20, 20);
+		glEnable(GL_LIGHT1);
 	glPopMatrix();
 	// Render geometry here -------------------------------------
 	
@@ -107,7 +146,7 @@ void Scene::render() {
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
 	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
 	setLightSpecular(specular, specular, specular, specular, Light_Specular);
-	setLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
+	setLightPosition(position_x, position_y, position_z, 1, Light_Position);
 
 	set_shininess(100.0, shininess);
 	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);

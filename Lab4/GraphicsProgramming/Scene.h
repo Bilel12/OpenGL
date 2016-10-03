@@ -43,10 +43,14 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[40];
 	char mouseText[40];
+	char key;
 
 	float specular;
 	float rotation;
 	float rotation2;
+	float position_x;
+	float position_y;
+	float position_z;
 	float speed;
 	// light variables
 	GLfloat highSpec[4];
