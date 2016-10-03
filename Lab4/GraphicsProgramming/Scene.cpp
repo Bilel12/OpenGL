@@ -178,42 +178,39 @@ void Scene::render() {
 	// Render geometry here -----------------------------------
 
 	glPushMatrix();
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glTranslatef(-2.0, -1.0, 0.0);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
-	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-	gluSphere(gluNewQuadric(), 1, 4000, 4000);
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glTranslatef(-2.0, -1.0, 0.0);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+		gluSphere(gluNewQuadric(), 1, 4000, 4000);
 	glPopMatrix();
 
 	glPushMatrix();
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glTranslatef(2.0, -1.0, 0.0);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
-	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-	gluSphere(gluNewQuadric(), 1.0, 40, 40);
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glTranslatef(2.0, -1.0, 0.0);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+		gluSphere(gluNewQuadric(), 1.0, 40, 40);
 	glPopMatrix();
 
 	glPushMatrix();
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glTranslatef(0.0, 1.5, 0.0);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
-	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-	gluSphere(gluNewQuadric(), 0.5, 40, 40);
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glTranslatef(0.0, 1.5, 0.0);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+		gluSphere(gluNewQuadric(), 0.5, 40, 40);
 	glPopMatrix();
 
 	// Geometry rendering ends here -----------------------------
-
-	glEnd();
-
 	
 	//glBegin(GL_TRIANGLES);
 	//// front face
@@ -260,8 +257,8 @@ void Scene::render() {
 	//glVertex3f(0.0f, 0.0f, 0.0f);/////////////
 
 	//glEnd();
-
 	// Geometry rendering ends here -----------------------------
+
 	// Render text, should be last object rendered.
 	renderTextOutput();
 	
