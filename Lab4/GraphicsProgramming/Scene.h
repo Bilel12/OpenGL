@@ -44,7 +44,7 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[40];
 	char mouseText[40];
-	char key;
+	bool light0, light1;
 
 	float specular;
 	float rotation;

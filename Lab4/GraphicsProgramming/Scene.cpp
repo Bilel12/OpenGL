@@ -24,6 +24,7 @@ Scene::Scene(Input *in)
 	setSpotDirection(0, -1, 0, 0, spot_Direction);
 
 	// Initialise variables
+	light0 = false; light1 = false;
 	specular = 0.1f;
 	rotation = 1;
 	rotation2 = 1;
@@ -81,6 +82,11 @@ void Scene::update(float dt)
 		position_z -= 1;
 		input->SetKeyUp('f'); input->SetKeyUp('F');
 	}
+	if (input->isKeyDown('l') || input->isKeyDown('L')) {
+		light0 = !light0;
+		light1 = !light1;
+		input->SetKeyUp('l'); input->SetKeyUp('L');
+	}
 
 
 	// Update object and variables (camera, rotation, etc).
@@ -115,9 +121,13 @@ void Scene::render() {
 	//glRotatef(rotation, 0.0f, 1.0f, 0.0f);
 		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
-		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
+		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
 		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
-		glEnable(GL_LIGHT0);
+		// enable light1
+		if (light0)
+			glEnable(GL_LIGHT0);
+		else
+			glDisable(GL_LIGHT0);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -130,10 +140,14 @@ void Scene::render() {
 		glLightfv(GL_LIGHT1, GL_POSITION, Light_Position1);
 		glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular);
 		glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
-		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.25);
-		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.15);
+		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
+		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
 		gluSphere(gluNewQuadric(), 0.20, 20, 20);
-		glEnable(GL_LIGHT1);
+		// enable light1
+		if (light1)
+			glEnable(GL_LIGHT1);
+		else
+			glDisable(GL_LIGHT1);
 	glPopMatrix();
 	// Render geometry here -------------------------------------
 	
