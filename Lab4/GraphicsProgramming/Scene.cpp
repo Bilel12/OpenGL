@@ -13,6 +13,7 @@ Scene::Scene(Input *in)
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glEnable(GL_LIGHTING);								// Enable Lighting
+	//glEnable(GL_COLOR_MATERIAL);						// Without it all glColor3f() changes are ignored when lighting is enabled
 
 	// Other OpenGL / render setting should be applied here.
 	setLightAmbient(0, 0, 1, 1, Light_Ambient);
@@ -23,6 +24,7 @@ Scene::Scene(Input *in)
 	setSpotDirection(0, -1, 0, 0, spot_Direction);
 
 	// Initialise variables
+	specular = 0.1;
 	rotation = 1;
 	rotation = 1;
 	speed = 5;
@@ -31,7 +33,20 @@ Scene::Scene(Input *in)
 void Scene::update(float dt)
 {
 	// Handle user input
+	if (input->isKeyDown('p')) {
+		specular += 0.1;
+		input->SetKeyUp('p');
+	}
+
+	if (input->isKeyDown('d')) {
+		specular -= 0.1;
+		input->SetKeyDown('d');
+	}
+
 	// Update object and variables (camera, rotation, etc).
+	rotation += speed * dt;
+	rotation2 += (speed * 2) * dt;
+	Light_Position[2] += speed * dt;
 
 	// Calculate FPS
 	frame++;
@@ -42,10 +57,6 @@ void Scene::update(float dt)
 		timebase = time;
 		frame = 0;
 	}
-
-	rotation += speed * dt;
-	rotation2 += (speed * 2) * dt;
-	Light_Position[2] += speed * dt;
 }
 
 
@@ -66,6 +77,7 @@ void Scene::render() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
 	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position);
 	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+
 	glEnable(GL_LIGHT0);
 	glPopMatrix();
 
@@ -84,8 +96,8 @@ void Scene::render() {
 	glPopMatrix();
 	// Render geometry here -------------------------------------
 	
-	// Clear Color and Depth Buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//// Clear Color and Depth Buffers
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reset transformations
 	glLoadIdentity(); // load Identity Matrix 
@@ -94,7 +106,7 @@ void Scene::render() {
 
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
 	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
-	setLightSpecular(1, 1, 1, 1, Light_Specular);
+	setLightSpecular(specular, specular, specular, specular, Light_Specular);
 	setLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
 
 	set_shininess(100.0, shininess);
@@ -105,15 +117,12 @@ void Scene::render() {
 	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position);
 	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular);
 	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
-	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2);
-	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.0);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
 	glEnable(GL_LIGHT2);
-
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-
-	glColor3f(1, 1, 0);
 
 	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
 	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
@@ -127,9 +136,8 @@ void Scene::render() {
 
 	// Render geometry here -----------------------------------
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glColor3f(1, 0, 0);
 	glPushMatrix();
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(-2.0, -1.0, 0.0);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
@@ -140,6 +148,7 @@ void Scene::render() {
 	glPopMatrix();
 
 	glPushMatrix();
+	glColor3f(0.0f, 1.0f, 0.0f);
 	glTranslatef(2.0, -1.0, 0.0);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
@@ -150,6 +159,7 @@ void Scene::render() {
 	glPopMatrix();
 
 	glPushMatrix();
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glTranslatef(0.0, 1.5, 0.0);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);

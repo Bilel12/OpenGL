@@ -44,6 +44,7 @@ protected:
 	char fps[40];
 	char mouseText[40];
 
+	float specular;
 	float rotation;
 	float rotation2;
 	float speed;
