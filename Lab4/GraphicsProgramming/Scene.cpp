@@ -94,7 +94,7 @@ void Scene::render() {
 
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
 	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
-	setLightSpecular(1.0, 1.0, 1.0, 1.0, Light_Specular);
+	setLightSpecular(0.1, 0.1, 0.1, 0.1, Light_Specular);
 	setLightPosition(-3.0f, 0.0f, 3.0f, 1.0f, Light_Position);
 
 	set_shininess(100.0, shininess);
@@ -113,7 +113,7 @@ void Scene::render() {
 	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 
-	glColor3f(0.8, 0.0, 0.0);
+	glColor3f(1, 1, 0);
 
 	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
 	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
@@ -134,7 +134,7 @@ void Scene::render() {
 	glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
 	glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
 	glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-	gluSphere(gluNewQuadric(), 1.0, 40, 40);
+	gluSphere(gluNewQuadric(), 1, 4000, 4000);
 	glPopMatrix();
 
 	glPushMatrix();
