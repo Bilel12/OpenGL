@@ -73,6 +73,8 @@ void Scene::render() {
 	glVertex3f(1.0f, 1.0f, 0.0f);
 	glEnd();		//end drawing
 
+	glBindTexture(GL_TEXTURE_2D, NULL);
+	glDisable(GL_TEXTURE_2D);
 
 	// Geometry rendering ends here -----------------------------
 
