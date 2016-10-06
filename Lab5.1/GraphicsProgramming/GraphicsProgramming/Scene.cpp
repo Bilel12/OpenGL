@@ -19,13 +19,23 @@ Scene::Scene(Input *in)
 
 	// Initialise variables
 	myTexture = SOIL_load_OGL_texture (
-			"gfx/crate.png",
-			SOIL_LOAD_AUTO,
-			SOIL_CREATE_NEW_ID,
-			SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-
+		"gfx/crate.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	);
 
+	fuckOffFromMyTexture = SOIL_load_OGL_texture(
+		"gfx/tileBrown_02.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	);
+
+	if (fuckOffFromMyTexture == 0)
+	{
+		MessageBox(NULL, "Texture failed to load", "help", MB_OK);
+	}
 }
 
 void Scene::update(float dt)
@@ -54,26 +64,48 @@ void Scene::render() {
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// Render geometry here -------------------------------------
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
+	//glBegin(GL_QUADS);	//Begin drawing state
+	////glColor3f(0.8, 0, 0);
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glTexCoord2f(0.0f, 0.0f);
+	//glVertex3f(-1.0f, 1.0f, 0.0f);
+
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glTexCoord2f(0.0f, 3.0f);
+	//glVertex3f(-1.0f, -1.0f, 0.0f);
+
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glTexCoord2f(3.0f, 3.0f);
+	//glVertex3f(1.0f, -1.0f, 0.0f);
+
+	//glNormal3f(0.0f, 0.0f, 1.0f);
+	//glTexCoord2f(3.0f, 0.0f);
+	//glVertex3f(1.0f, 1.0f, 0.0f);
+	//glEnd();		//end drawing
+
+	glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glBegin(GL_QUADS);	//Begin drawing state
-	//glColor3f(0.8, 0, 0);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 0.0f);
+		//glColor3f(0.8, 0, 0);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-1.0f, 1.0f, 0.0f);
 
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(0.0f, 3.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0.0f, 3.0f);
+		glVertex3f(-1.0f, -1.0f, 0.0f);
 
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(3.0f, 3.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(3.0f, 3.0f);
+		glVertex3f(1.0f, -1.0f, 0.0f);
 
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(3.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(3.0f, 0.0f);
+		glVertex3f(1.0f, 1.0f, 0.0f);
 	glEnd();		//end drawing
 
 	/*glBindTexture(GL_TEXTURE_2D, NULL);

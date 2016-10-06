@@ -12,7 +12,6 @@
 #include <gl/GLU.h>
 #include <gl/GL.h>
 //#include <GL/glew.h>
-
 //#include <GL/glut.h>
 #include "Input.h"
 #include <stdio.h>
@@ -49,6 +48,7 @@ protected:
 	char mouseText[20];
 	
 	GLuint myTexture;
+	GLuint fuckOffFromMyTexture;
 };
 
 #endif
