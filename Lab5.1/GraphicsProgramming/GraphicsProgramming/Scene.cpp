@@ -54,27 +54,25 @@ void Scene::render() {
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// Render geometry here -------------------------------------
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
 	glBegin(GL_QUADS);	//Begin drawing state
 	//glColor3f(0.8, 0, 0);
-
-
 	glNormal3f(0.0f, 0.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-1.0f, 1.0f, 0.0f);
 
 	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(0.0f, 2.0f);
+	glTexCoord2f(0.0f, 3.0f);
 	glVertex3f(-1.0f, -1.0f, 0.0f);
 
 	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(1.0f, 2.0f);
+	glTexCoord2f(3.0f, 3.0f);
 	glVertex3f(1.0f, -1.0f, 0.0f);
 
 	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(1.0f, 0.0f);
+	glTexCoord2f(3.0f, 0.0f);
 	glVertex3f(1.0f, 1.0f, 0.0f);
 	glEnd();		//end drawing
 
