@@ -16,12 +16,14 @@ Scene::Scene(Input *in)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
+
 	// Initialise variables
 	myTexture = SOIL_load_OGL_texture (
 			"gfx/crate.png",
 			SOIL_LOAD_AUTO,
 			SOIL_CREATE_NEW_ID,
 			SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+
 	);
 
 }
@@ -46,26 +48,29 @@ void Scene::render() {
 
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// Render geometry here -------------------------------------
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
 	glBegin(GL_QUADS);	//Begin drawing state
-	glColor3f(0.8, 0, 0);
+	//glColor3f(0.8, 0, 0);
+
+
 	glNormal3f(0.0f, 0.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-1.0f, 1.0f, 0.0f);
 
 	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(0.0f, 1.0f);
+	glTexCoord2f(0.0f, 2.0f);
 	glVertex3f(-1.0f, -1.0f, 0.0f);
 
 	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f);
+	glTexCoord2f(1.0f, 2.0f);
 	glVertex3f(1.0f, -1.0f, 0.0f);
 
 	glNormal3f(0.0f, 0.0f, 1.0f);
@@ -73,8 +78,8 @@ void Scene::render() {
 	glVertex3f(1.0f, 1.0f, 0.0f);
 	glEnd();		//end drawing
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
-	glDisable(GL_TEXTURE_2D);
+	/*glBindTexture(GL_TEXTURE_2D, NULL);
+	glDisable(GL_TEXTURE_2D);*/
 
 	// Geometry rendering ends here -----------------------------
 
