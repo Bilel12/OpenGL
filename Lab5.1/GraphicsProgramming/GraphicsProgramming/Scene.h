@@ -46,7 +46,11 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[12];
 	char mouseText[20];
-	
+	float xrot;	// Rotate On The X Axis
+	float yrot;	// Rotate On The Y Axis
+	float zrot;	// Rotate On The Z Axis
+
+	GLuint textures[5];
 	GLuint myTexture;
 	GLuint BrownTexture;
 	GLuint TriangleTexture;

@@ -18,6 +18,9 @@ Scene::Scene(Input *in)
 	glEnable(GL_TEXTURE_2D);
 
 	// Initialise variables
+	float xrot = 0;	// Rotate On The X Axis
+	float yrot = 0;	// Rotate On The Y Axis
+	float zrot = 0;	// Rotate On The Z Axis
 	myTexture = SOIL_load_OGL_texture (
 		"gfx/crate.png",
 		SOIL_LOAD_AUTO,
@@ -48,7 +51,9 @@ void Scene::update(float dt)
 {
 	// Handle user input
 	// Update object and variables (camera, rotation, etc).
-
+	xrot += 0.7;	// Rotate On The X Axis
+	yrot += 0.7;	// Rotate On The Y Axis
+	zrot += 0.7;
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
@@ -70,80 +75,43 @@ void Scene::render() {
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// Render geometry here -------------------------------------
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
-	//glBegin(GL_QUADS);	//Begin drawing state
-	////glColor3f(0.8, 0, 0);
-	//glNormal3f(0.0f, 0.0f, 1.0f);
-	//glTexCoord2f(0.0f, 0.0f);
-	//glVertex3f(-1.0f, 1.0f, 0.0f);
+	
+	glPushMatrix();
+		glRotatef(xrot, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
+		glRotatef(yrot, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
+		glRotatef(zrot, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 
-	//glNormal3f(0.0f, 0.0f, 1.0f);
-	//glTexCoord2f(0.0f, 3.0f);
-	//glVertex3f(-1.0f, -1.0f, 0.0f);
+		glBindTexture(GL_TEXTURE_2D, TriangleTexture); {
+			//glColor3f(0, 0.5, 0); green
+			glBegin(GL_TRIANGLES);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0, 1);
+			glVertex3f(-1, -1, 0);
 
-	//glNormal3f(0.0f, 0.0f, 1.0f);
-	//glTexCoord2f(3.0f, 3.0f);
-	//glVertex3f(1.0f, -1.0f, 0.0f);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(1, 1);
+			glVertex3f(1, -1, 0);
 
-	//glNormal3f(0.0f, 0.0f, 1.0f);
-	//glTexCoord2f(3.0f, 0.0f);
-	//glVertex3f(1.0f, 1.0f, 0.0f);
-	//glEnd();		//end drawing
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(1, 0);
+			glVertex3f(1, 1, 0);
+			glEnd();
 
-	//glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	//glBegin(GL_QUADS);	//Begin drawing state
-	//	//glColor3f(0.8, 0, 0);
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(0.0f, 0.0f);
-	//	glVertex3f(-1.0f, 1.0f, 0.0f);
+			glBegin(GL_TRIANGLES);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(1, 0);
+			glVertex3f(1, 1, 0);
 
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(0.0f, 1.0f);
-	//	glVertex3f(-1.0f, -1.0f, 0.0f);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0, 0);
+			glVertex3f(-1, 1, 0);
 
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1.0f, 1.0f);
-	//	glVertex3f(1.0f, -1.0f, 0.0f);
-
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1.0f, 0.0f);
-	//	glVertex3f(1.0f, 1.0f, 0.0f);
-	//glEnd();		//end drawing
-
-	glBindTexture(GL_TEXTURE_2D, TriangleTexture); {
-		//glColor3f(0, 0.5, 0); green
-		glBegin(GL_TRIANGLES);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0, 1);
-		glVertex3f(-1, -1, 0);
-
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1, 1);
-		glVertex3f(1, -1, 0);
-
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1, 0);
-		glVertex3f(1, 1, 0);
-		glEnd();
-
-		glBegin(GL_TRIANGLES);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1, 0);
-		glVertex3f(1, 1, 0);
-
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0, 0);
-		glVertex3f(-1, 1, 0);
-
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0, 1);
-		glVertex3f(-1, -1, 0);
-		glEnd();
-	}
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0, 1);
+			glVertex3f(-1, -1, 0);
+			glEnd();
+		}
+	glPopMatrix();
 
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
@@ -224,3 +192,47 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	gluPerspective(fov, ((float)width/(float)height), nearPlane, farPlane);
 	glMatrixMode(GL_MODELVIEW);
 }
+
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
+//glBegin(GL_QUADS);	//Begin drawing state
+////glColor3f(0.8, 0, 0);
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(0.0f, 0.0f);
+//glVertex3f(-1.0f, 1.0f, 0.0f);
+
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(0.0f, 3.0f);
+//glVertex3f(-1.0f, -1.0f, 0.0f);
+
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(3.0f, 3.0f);
+//glVertex3f(1.0f, -1.0f, 0.0f);
+
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(3.0f, 0.0f);
+//glVertex3f(1.0f, 1.0f, 0.0f);
+//glEnd();		//end drawing
+
+//glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//glBegin(GL_QUADS);	//Begin drawing state
+//	//glColor3f(0.8, 0, 0);
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0.0f, 0.0f);
+//	glVertex3f(-1.0f, 1.0f, 0.0f);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0.0f, 1.0f);
+//	glVertex3f(-1.0f, -1.0f, 0.0f);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1.0f, 1.0f);
+//	glVertex3f(1.0f, -1.0f, 0.0f);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1.0f, 0.0f);
+//	glVertex3f(1.0f, 1.0f, 0.0f);
+//glEnd();		//end drawing
