@@ -60,6 +60,7 @@ Temporary Items
 *.userprefs
 
 # Build results
+GraphicsProgramming/GraphicsProgramming/Debug
 [Dd]ebug/*
 ![Dd]ebug/freeglut.dll
 [Dd]ebug/*
