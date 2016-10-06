@@ -7,9 +7,13 @@
 #define _SCENE_H
 
 // Include GLUT, openGL, input.
+#include "glew.h"
 #include "glut.h"
-#include <gl/GL.h>
 #include <gl/GLU.h>
+#include <gl/GL.h>
+//#include <GL/glew.h>
+
+//#include <GL/glut.h>
 #include "Input.h"
 #include <stdio.h>
 // Further includes should go here:
