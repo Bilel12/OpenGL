@@ -61,6 +61,8 @@ Temporary Items
 
 # Build results
 [Dd]ebug/
+![Dd]ebug/freeglut.dll
+![Dd]ebug/glew32.dll
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
