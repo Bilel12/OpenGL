@@ -55,6 +55,7 @@ void Scene::render() {
 	// Render geometry here -------------------------------------
 	glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
 	glBegin(GL_QUADS);	//Begin drawing state
+	glColor3f(0.8, 0, 0);
 	glNormal3f(0.0f, 0.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-1.0f, 1.0f, 0.0f);
