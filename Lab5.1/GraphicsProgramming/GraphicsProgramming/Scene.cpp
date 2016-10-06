@@ -95,169 +95,169 @@ void Scene::render() {
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, 0);
+			glVertex3f(-1, -1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, 0);
+			glVertex3f(1, -1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, 0);
+			glVertex3f(1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, 0);
+			glVertex3f(1, 1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, 0);
+			glVertex3f(-1, 1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, 0);
+			glVertex3f(-1, -1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(1, -1, 0);
+			glVertex3f(1, -1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, -2);
+			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, 0);
+			glVertex3f(1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, -1, -2);
+			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(1, 1, -2);
+			glVertex3f(1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(1, 1, 0);
+			glVertex3f(1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -2);
+			glVertex3f(-1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(-1, 1, -2);
+			glVertex3f(-1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(-1, 1, 0);
+			glVertex3f(-1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(-1, 1, 0);
+			glVertex3f(-1, 1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(-1, -1, 0);
+			glVertex3f(-1, -1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -2);
+			glVertex3f(-1, -1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -2);
+			glVertex3f(-1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(-1, -1, 0);
+			glVertex3f(-1, -1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, -1, 0);
+			glVertex3f(1, -1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, -1, 0);
+			glVertex3f(1, -1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(1, -1, -2);
+			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -2);
+			glVertex3f(-1, -1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -2);
+			glVertex3f(-1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, -2);
+			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, -2);
+			glVertex3f(1, 1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, -2);
+			glVertex3f(1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, -2);
+			glVertex3f(-1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -2);
+			glVertex3f(-1, -1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(1, 1, 0);
+			glVertex3f(1, 1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(1, 1, -2);
+			glVertex3f(1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(-1, 1, -2);
+			glVertex3f(-1, 1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(-1, 1, -2);
+			glVertex3f(-1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, 0);
+			glVertex3f(-1, 1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(1, 1, 0);
+			glVertex3f(1, 1, 1);
 			glEnd();
 		}
 	glPopMatrix();
