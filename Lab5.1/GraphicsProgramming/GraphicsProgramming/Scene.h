@@ -48,7 +48,7 @@ protected:
 	char mouseText[20];
 	
 	GLuint myTexture;
-	GLuint fuckOffFromMyTexture;
+	GLuint BrownTexture;
 };
 
 #endif

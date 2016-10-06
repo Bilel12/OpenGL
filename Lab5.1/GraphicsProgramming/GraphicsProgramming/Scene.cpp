@@ -25,15 +25,14 @@ Scene::Scene(Input *in)
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	);
 
-	fuckOffFromMyTexture = SOIL_load_OGL_texture(
+	BrownTexture = SOIL_load_OGL_texture(
 		"gfx/tileBrown_02.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	);
 
-	if (fuckOffFromMyTexture == 0)
-	{
+	if (BrownTexture == NULL) {
 		MessageBox(NULL, "Texture failed to load", "help", MB_OK);
 	}
 }
@@ -86,27 +85,57 @@ void Scene::render() {
 	//glVertex3f(1.0f, 1.0f, 0.0f);
 	//glEnd();		//end drawing
 
-	glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glBegin(GL_QUADS);	//Begin drawing state
-		//glColor3f(0.8, 0, 0);
+	//glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//glBegin(GL_QUADS);	//Begin drawing state
+	//	//glColor3f(0.8, 0, 0);
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(0.0f, 0.0f);
+	//	glVertex3f(-1.0f, 1.0f, 0.0f);
+
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(0.0f, 1.0f);
+	//	glVertex3f(-1.0f, -1.0f, 0.0f);
+
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1.0f, 1.0f);
+	//	glVertex3f(1.0f, -1.0f, 0.0f);
+
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1.0f, 0.0f);
+	//	glVertex3f(1.0f, 1.0f, 0.0f);
+	//glEnd();		//end drawing
+
+	glBindTexture(GL_TEXTURE_2D, BrownTexture); {
+		glBegin(GL_TRIANGLES);
 		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(-1.0f, 1.0f, 0.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(-1, -1, 0);
 
 		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(-1.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 1);
+		glVertex3f(1, -1, 0);
 
 		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(1.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(1, 1, 0);
+		glEnd();
+
+		glBegin(GL_TRIANGLES);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(1, 1, 0);
 
 		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, 0.0f);
-	glEnd();		//end drawing
+		glTexCoord2f(0, 0);
+		glVertex3f(-1, 1, 0);
+
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(-1, -1, 0);
+		glEnd();
+	}
 
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
