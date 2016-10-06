@@ -60,8 +60,9 @@ Temporary Items
 *.userprefs
 
 # Build results
-[Dd]ebug/
+[Dd]ebug/*
 ![Dd]ebug/freeglut.dll
+[Dd]ebug/*
 ![Dd]ebug/glew32.dll
 [Dd]ebugPublic/
 [Rr]elease/
