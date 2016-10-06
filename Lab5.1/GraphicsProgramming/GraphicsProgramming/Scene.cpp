@@ -115,6 +115,7 @@ void Scene::render() {
 	//glEnd();		//end drawing
 
 	glBindTexture(GL_TEXTURE_2D, TriangleTexture); {
+		//glColor3f(0, 0.5, 0); green
 		glBegin(GL_TRIANGLES);
 		glNormal3f(0.0f, 0.0f, 1.0f);
 		glTexCoord2f(0, 1);
