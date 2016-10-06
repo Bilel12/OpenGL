@@ -51,7 +51,7 @@ void renderScene(void)
 void processNormalKeys(unsigned char key, int x, int y)
 {
 	// If the ESCAPE key was pressed, exit application.
-	if (key == VK_ESCAPE)	// Escape key (in non-windows you can use 27, the ASCII value for escape)
+	if (key == 27)	// Escape key (in non-windows you can use 27, the ASCII value for escape)
 		exit(0);
 	// Send key down to input class.
 	input->SetKeyDown(key);

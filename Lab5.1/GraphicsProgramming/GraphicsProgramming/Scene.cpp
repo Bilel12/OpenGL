@@ -24,6 +24,7 @@ Scene::Scene(Input *in)
 	float xrot = 0;	// Rotate On The X Axis
 	float yrot = 0;	// Rotate On The Y Axis
 	float zrot = 0;	// Rotate On The Z Axis
+	float position_x = 0, position_y = 0, position_z = 0;
 }
 
 void Scene::loadTextures() {
@@ -42,7 +43,7 @@ void Scene::loadTextures() {
 		); textures.push_back(myTexture);
 
 	myTexture = SOIL_load_OGL_texture(
-		"gfx/triangle.png",
+		"gfx/cratearrow.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -59,6 +60,30 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
+	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+		position_x -= 1;
+	}
+	// move down
+	if (input->isKeyDown('s') || input->isKeyDown('S')) {
+		position_x += 1;
+	}
+	// move right
+	if (input->isKeyDown('d') || input->isKeyDown('D')) {
+		position_y += 1;
+	}
+	// move left
+	if (input->isKeyDown('a') || input->isKeyDown('A')) {
+		position_y -= 1;
+	}
+	// move up
+	// move z towards
+	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+		position_z -= 1;
+	}
+	// move z inwards
+	if (input->isKeyDown('t') || input->isKeyDown('T')) {
+		position_z += 1;
+	}
 	// Update object and variables (camera, rotation, etc).
 	xrot += 0.7;	// Rotate On The X Axis
 	yrot += 0.7;	// Rotate On The Y Axis
@@ -86,13 +111,14 @@ void Scene::render() {
 	// Render geometry here -------------------------------------
 	
 	glPushMatrix();
-		glRotatef(xrot, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
-		glRotatef(yrot, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
-		glRotatef(zrot, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
+		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
+		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
+		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 
 		glBindTexture(GL_TEXTURE_2D, *triangle); {
-			//glColor3f(0, 0.5, 0); // green
+			// Front Face
 			glBegin(GL_TRIANGLES);
+			glColor3f(0, 0.5, 0); // green
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 1);
@@ -119,8 +145,9 @@ void Scene::render() {
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 1);
 			glEnd();
-
+			/////////////////////////////
 			glBegin(GL_TRIANGLES);
+			//glColor3f(0, 0, 0.5); // blue
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(1, -1, 1);
@@ -130,25 +157,26 @@ void Scene::render() {
 			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 0);
 			glVertex3f(1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(1, 1);
 			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 0);
+			glTexCoord2f(1, 0);
 			glVertex3f(1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
+			glTexCoord2f(0, 0);
 			glVertex3f(1, 1, 1);
 			glEnd();
-
+			///////////////////////////////////
 			glBegin(GL_TRIANGLES);
+			glColor3f(1, 1, 1);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
@@ -170,12 +198,12 @@ void Scene::render() {
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(-1, -1, 1);
-
+			
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
-
+			//////////////////////////////
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
@@ -203,7 +231,7 @@ void Scene::render() {
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
-
+			///////////////////////////////
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
@@ -231,7 +259,7 @@ void Scene::render() {
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
-
+			///////////////////////
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);

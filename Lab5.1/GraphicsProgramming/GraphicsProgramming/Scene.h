@@ -42,6 +42,7 @@ protected:
 	// For Window and frustum calculation.
 	int width, height;
 	float fov, nearPlane, farPlane;
+	float position_x, position_y, position_z;
 	GLuint* triangle;
 
 	// For FPS counter and mouse coordinate output.
