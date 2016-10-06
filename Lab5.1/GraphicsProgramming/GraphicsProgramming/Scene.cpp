@@ -16,34 +16,43 @@ Scene::Scene(Input *in)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
+	//
+	loadTextures();
 
 	// Initialise variables
+	triangle = &textures[2];
 	float xrot = 0;	// Rotate On The X Axis
 	float yrot = 0;	// Rotate On The Y Axis
 	float zrot = 0;	// Rotate On The Z Axis
-	myTexture = SOIL_load_OGL_texture (
+}
+
+void Scene::loadTextures() {
+	myTexture = SOIL_load_OGL_texture(
 		"gfx/crate.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	);
+		); textures.push_back(myTexture);
 
-	BrownTexture = SOIL_load_OGL_texture(
+	myTexture = SOIL_load_OGL_texture(
 		"gfx/tileBrown_02.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	);
+		); textures.push_back(myTexture);
 
-	TriangleTexture = SOIL_load_OGL_texture(
+	myTexture = SOIL_load_OGL_texture(
 		"gfx/triangle.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	);
+		); textures.push_back(myTexture);
 
-	if (BrownTexture == NULL || TriangleTexture == NULL || myTexture == NULL) {
-		MessageBox(NULL, "Texture failed to load", "help", MB_OK);
+	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
+	for (int i : textures) {
+		if (i == NULL) {
+			MessageBox(NULL, "Texture failed to load", "help", MB_OK);
+		}
 	}
 }
 
@@ -53,7 +62,7 @@ void Scene::update(float dt)
 	// Update object and variables (camera, rotation, etc).
 	xrot += 0.7;	// Rotate On The X Axis
 	yrot += 0.7;	// Rotate On The Y Axis
-	zrot += 0.7;
+	zrot += 0.7;	// Rotate On The Z Axis
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
@@ -81,8 +90,8 @@ void Scene::render() {
 		glRotatef(yrot, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(zrot, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 
-		glBindTexture(GL_TEXTURE_2D, TriangleTexture); {
-			//glColor3f(0, 0.5, 0); green
+		glBindTexture(GL_TEXTURE_2D, *triangle); {
+			//glColor3f(0, 0.5, 0); // green
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
@@ -109,6 +118,34 @@ void Scene::render() {
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 0);
+			glEnd();
+
+			glBegin(GL_TRIANGLES);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0, 1);
+			glVertex3f(1, -1, 0);
+
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(1, 1);
+			glVertex3f(1, -1, -2);
+
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(1, 0);
+			glVertex3f(1, 1, 0);
+			glEnd();
+
+			glBegin(GL_TRIANGLES);
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(1, 0);
+			glVertex3f(1, -1, -2);
+
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0, 0);
+			glVertex3f(1, 1, -2);
+
+			glNormal3f(0.0f, 0.0f, 1.0f);
+			glTexCoord2f(0, 1);
+			glVertex3f(1, 1, 0);
 			glEnd();
 		}
 	glPopMatrix();

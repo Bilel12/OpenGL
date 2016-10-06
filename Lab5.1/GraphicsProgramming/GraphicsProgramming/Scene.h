@@ -15,6 +15,7 @@
 //#include <GL/glut.h>
 #include "Input.h"
 #include <stdio.h>
+#include <vector>
 // Further includes should go here:
 #include "SOIL.h"
 
@@ -28,12 +29,12 @@ public:
 	void update(float dt);
 	// Resizes the OpenGL output based on new window size.
 	void resize(int w, int h);
-
 protected:
 	// Renders text (x, y positions, RGB colour of text, string of text to be rendered)
 	void displayText(float x, float y, float r, float g, float b, char* string);
 	// A function to collate all text output in a single location
 	void renderTextOutput();
+	void loadTextures();
 
 	// For access to user input.
 	Input* input;
@@ -41,6 +42,7 @@ protected:
 	// For Window and frustum calculation.
 	int width, height;
 	float fov, nearPlane, farPlane;
+	GLuint* triangle;
 
 	// For FPS counter and mouse coordinate output.
 	int frame = 0, time, timebase = 0;
@@ -50,7 +52,7 @@ protected:
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
 
-	GLuint textures[5];
+	std::vector<GLuint> textures;
 	GLuint myTexture;
 	GLuint BrownTexture;
 	GLuint TriangleTexture;
