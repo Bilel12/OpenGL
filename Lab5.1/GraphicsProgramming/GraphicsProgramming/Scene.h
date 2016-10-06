@@ -49,6 +49,7 @@ protected:
 	
 	GLuint myTexture;
 	GLuint BrownTexture;
+	GLuint TriangleTexture;
 };
 
 #endif

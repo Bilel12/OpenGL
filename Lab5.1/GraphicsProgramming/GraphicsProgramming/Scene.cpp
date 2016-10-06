@@ -32,7 +32,14 @@ Scene::Scene(Input *in)
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	);
 
-	if (BrownTexture == NULL) {
+	TriangleTexture = SOIL_load_OGL_texture(
+		"gfx/triangle.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	);
+
+	if (BrownTexture == NULL || TriangleTexture == NULL || myTexture == NULL) {
 		MessageBox(NULL, "Texture failed to load", "help", MB_OK);
 	}
 }
@@ -107,7 +114,7 @@ void Scene::render() {
 	//	glVertex3f(1.0f, 1.0f, 0.0f);
 	//glEnd();		//end drawing
 
-	glBindTexture(GL_TEXTURE_2D, BrownTexture); {
+	glBindTexture(GL_TEXTURE_2D, TriangleTexture); {
 		glBegin(GL_TRIANGLES);
 		glNormal3f(0.0f, 0.0f, 1.0f);
 		glTexCoord2f(0, 1);
