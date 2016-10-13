@@ -3,6 +3,15 @@
 
 Camera::Camera()
 {
+	forward.setX(0.0f);
+	forward.setY(0.0f);
+	forward.setZ(10.0f);
+	up.setX(0.0f);
+	up.setX(0.0f);
+	up.setX(1.0f);
+	side.setX(0.0f);
+	side.setY(2.0f);
+	side.setZ(1.0f);
 }
 
 
@@ -38,6 +47,7 @@ void Camera::update() {
 	forward.z = cosP * -cosY;
 
 	// Look At Point
+
 	// To calculate add Forward Vector to Camera position.	
 
 	// Up Vector
@@ -78,13 +88,13 @@ float Camera::getUpZ() {
 }
 
 float Camera::getYaw() {
-	return forward.getX();
+	return side.getX();
 }
 
 float Camera::getPitch() {
-	return forward.getY();
+	return side.getY();
 }
 
 float Camera::getRoll() {
-	return forward.getZ();
+	return side.getZ();
 }

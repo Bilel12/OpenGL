@@ -108,8 +108,10 @@ void Scene::render() {
 	glLoadIdentity();
 	// Set the camera
 	gluLookAt(camera.getForwardX(), camera.getForwardY(), camera.getForwardZ(), 
-	          camera.getYaw(), camera.getPitch(), camera.getRoll(),
-	          camera.getUpX(), camera.getUpY(), camera.getUpZ());
+	          camera.getUpX(), camera.getUpY(), camera.getUpZ(), 
+	          camera.getYaw(), camera.getPitch(), camera.getRoll()
+	         );
+	//gluLookAt(0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 1.0f);
 
 	// Render geometry here -------------------------------------
 	
