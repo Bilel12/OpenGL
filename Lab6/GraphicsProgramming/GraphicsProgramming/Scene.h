@@ -18,6 +18,7 @@
 #include <vector>
 // Further includes should go here:
 #include "SOIL.h"
+#include "Camera.h"
 
 class Scene{
 
@@ -57,6 +58,8 @@ protected:
 	GLuint myTexture;
 	GLuint BrownTexture;
 	GLuint TriangleTexture;
+	Camera camera;
+	Camera* p_camera = &camera;
 };
 
 #endif

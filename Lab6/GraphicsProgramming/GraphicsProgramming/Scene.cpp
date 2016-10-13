@@ -85,6 +85,7 @@ void Scene::update(float dt)
 		position_z += 1;
 	}
 	// Update object and variables (camera, rotation, etc).
+	p_camera->update();
 	xrot += 0.7;	// Rotate On The X Axis
 	yrot += 0.7;	// Rotate On The Y Axis
 	zrot += 0.7;	// Rotate On The Z Axis
@@ -106,7 +107,9 @@ void Scene::render() {
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
-	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	gluLookAt(camera.getForwardX(), camera.getForwardY(), camera.getForwardZ(), 
+	          camera.getYaw(), camera.getPitch(), camera.getRoll(),
+	          camera.getUpX(), camera.getUpY(), camera.getUpZ());
 
 	// Render geometry here -------------------------------------
 	
