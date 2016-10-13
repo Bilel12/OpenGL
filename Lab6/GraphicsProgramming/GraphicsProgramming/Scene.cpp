@@ -60,32 +60,33 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
+	// move camera left
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		position_x -= 1;
+		camera.moveForward(dt);
 	}
-	// move down
+	// move camera up
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		position_x += 1;
+		camera.moveBackwards(dt);
 	}
-	// move right
-	if (input->isKeyDown('d') || input->isKeyDown('D')) {
-		position_y += 1;
-	}
-	// move left
-	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		position_y -= 1;
-	}
-	// move up
-	// move z towards
+	// 
 	if (input->isKeyDown('r') || input->isKeyDown('R')) {
-		position_z -= 1;
+		camera.moveUp(dt);
 	}
 	// move z inwards
-	if (input->isKeyDown('t') || input->isKeyDown('T')) {
-		position_z += 1;
+	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+		camera.moveDown(dt);
+	}
+	// move right
+	if (input->isKeyDown('6')) {
+		camera.addYaw(dt);
+	}
+	// move left
+	if (input->isKeyDown('4')) {
+		camera.subtractYaw(dt);
 	}
 	// Update object and variables (camera, rotation, etc).
 	p_camera->update();
+
 	xrot += 0.7;	// Rotate On The X Axis
 	yrot += 0.7;	// Rotate On The Y Axis
 	zrot += 0.7;	// Rotate On The Z Axis
@@ -107,11 +108,10 @@ void Scene::render() {
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
-	gluLookAt(camera.getForwardX(), camera.getForwardY(), camera.getForwardZ(), 
-	          camera.getUpX(), camera.getUpY(), camera.getUpZ(), 
-	          camera.getYaw(), camera.getPitch(), camera.getRoll()
+	gluLookAt(camera.getPositionX(), camera.getPositionY(), camera.getPositionZ(), 
+	          camera.getLookAtX(), camera.getLookAtY(), camera.getLookAtZ(),
+			  camera.getUpX(), camera.getUpY(), camera.getUpZ()
 	         );
-	//gluLookAt(0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 1.0f);
 
 	// Render geometry here -------------------------------------
 	
