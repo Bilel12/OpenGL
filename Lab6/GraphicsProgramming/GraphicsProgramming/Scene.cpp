@@ -89,7 +89,6 @@ void Scene::update(float dt)
 	camera.getMousePositionX(width, input->getMouseX(), 2);
 	camera.getMousePositionY(height, input->getMouseY(), 2);
 	glutWarpPointer(width / 2, height / 2);
-	glutSetCursor(GLUT_CURSOR_NONE);
 
 	// Update object and variables (camera, rotation, etc).
 	p_camera->update();

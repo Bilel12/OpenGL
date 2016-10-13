@@ -159,7 +159,9 @@ int main(int argc, char **argv)
 	glutMotionFunc(processActiveMouseMove);
 	glutPassiveMotionFunc(processPassiveMouseMove);
 	glutMouseFunc(processMouseButtons);
-
+	// Hide mouse cursor
+	glutSetCursor(GLUT_CURSOR_NONE);
+		
 	// Initialise input and scene objects.
 	input = new Input();
 	scene = new Scene(input);
