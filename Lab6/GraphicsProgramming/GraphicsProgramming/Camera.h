@@ -3,7 +3,6 @@
 
 #include "Vector3.h"
 
-
 class Camera
 {
 public:
@@ -42,6 +41,9 @@ public:
 	float getYaw();
 	float getPitch();
 	float getRoll();
+
+	void getMousePositionX(int width, int mouseX, int speed);
+	void getMousePositionY(int height, int mouseY, int speed);
 
 private:
 	//Vector3* p_forward = &forward;

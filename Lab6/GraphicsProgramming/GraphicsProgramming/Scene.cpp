@@ -55,6 +55,8 @@ void Scene::loadTextures() {
 			MessageBox(NULL, "Texture failed to load", "help", MB_OK);
 		}
 	}
+	
+
 }
 
 void Scene::update(float dt)
@@ -84,12 +86,19 @@ void Scene::update(float dt)
 	if (input->isKeyDown('4')) {
 		camera.subtractYaw(dt);
 	}
+	camera.getMousePositionX(width, input->getMouseX(), 2);
+	camera.getMousePositionY(height, input->getMouseY(), 2);
+	glutWarpPointer(width / 2, height / 2);
+	glutSetCursor(GLUT_CURSOR_NONE);
+
 	// Update object and variables (camera, rotation, etc).
 	p_camera->update();
+	float mousePositionX(int width);
+	float mousePositionY(int height);
 
-	xrot += 0.7;	// Rotate On The X Axis
-	yrot += 0.7;	// Rotate On The Y Axis
-	zrot += 0.7;	// Rotate On The Z Axis
+	//xrot += 0.7;	// Rotate On The X Axis
+	//yrot += 0.7;	// Rotate On The Y Axis
+	//zrot += 0.7;	// Rotate On The Z Axis
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);

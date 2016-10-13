@@ -148,3 +148,10 @@ void Camera::addRoll(float dt) {
 void Camera::subtractroll(float dt) {
 	Roll -= 1 * dt;
 }
+
+void Camera::getMousePositionX(int width, int mouseX, int speed) {
+	Yaw += (mouseX - (width / 2)) / speed;
+}
+void Camera::getMousePositionY(int height, int mouseY, int speed) {
+	Pitch -= (mouseY - (height / 2)) / speed;
+}
