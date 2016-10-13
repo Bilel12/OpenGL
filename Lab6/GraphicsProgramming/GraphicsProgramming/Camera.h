@@ -44,6 +44,7 @@ public:
 	float getRoll();
 
 private:
+	//Vector3* p_forward = &forward;
 	Vector3 position, lookAt, forward, up, side;
 	float Yaw, Pitch, Roll;
 };
