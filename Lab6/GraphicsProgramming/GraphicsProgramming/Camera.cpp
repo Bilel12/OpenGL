@@ -130,6 +130,14 @@ void Camera::moveDown(float dt) {
 	position.subtract(up, dt);
 }
 
+void Camera::moveSideLeft(float dt) {
+	position.subtract(side, dt);
+}
+
+void Camera::moveSideRight(float dt) {
+	position.add(side, dt);
+}
+
 void Camera::addYaw(float dt) {
 	Yaw += 1 * dt;
 }

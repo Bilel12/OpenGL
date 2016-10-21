@@ -70,6 +70,14 @@ void Scene::update(float dt)
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
 	}
+	// move camera to the left
+	if (input->isKeyDown('a') || input->isKeyDown('A')) {
+		camera.moveSideLeft(dt);
+	}
+	// move camera to the right
+	if (input->isKeyDown('d') || input->isKeyDown('D')) {
+		camera.moveSideRight(dt);
+	}
 	// move camera down
 	if (input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveUp(dt);

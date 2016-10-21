@@ -14,6 +14,8 @@ public:
 	void moveBackwards(float dt);
 	void moveUp(float dt);
 	void moveDown(float dt);
+	void moveSideLeft(float dt);
+	void moveSideRight(float dt);
 
 	void addYaw(float dt);
 	void subtractYaw(float dt);
