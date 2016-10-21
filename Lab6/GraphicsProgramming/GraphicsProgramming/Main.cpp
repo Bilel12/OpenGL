@@ -159,6 +159,8 @@ int main(int argc, char **argv)
 	glutMotionFunc(processActiveMouseMove);
 	glutPassiveMotionFunc(processPassiveMouseMove);
 	glutMouseFunc(processMouseButtons);
+	// Position mouse in centre of windows before main loop (window not resized yet)
+	glutWarpPointer(400, 300);
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
 		

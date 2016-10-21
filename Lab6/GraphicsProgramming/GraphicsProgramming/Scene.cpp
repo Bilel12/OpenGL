@@ -71,11 +71,11 @@ void Scene::update(float dt)
 		camera.moveBackwards(dt);
 	}
 	// 
-	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+	if (input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveUp(dt);
 	}
 	// move z inwards
-	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+	if (input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveDown(dt);
 	}
 	// move right
