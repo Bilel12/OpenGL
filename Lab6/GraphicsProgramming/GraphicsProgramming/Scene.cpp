@@ -132,9 +132,8 @@ void Scene::render() {
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 
 		glBindTexture(GL_TEXTURE_2D, *triangle); {
-			// Front Face
-			glBegin(GL_TRIANGLES);
-			glColor3f(0, 0.5, 0); // green
+			/////////////////////////////
+			glBegin(GL_TRIANGLES); // front face
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 1);
@@ -162,146 +161,145 @@ void Scene::render() {
 			glVertex3f(-1, -1, 1);
 			glEnd();
 			/////////////////////////////
-			glBegin(GL_TRIANGLES);
-			glColor3f(1.0, 1.0, 1.0);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glBegin(GL_TRIANGLES); // right side face
+			glNormal3f(1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(1, -1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 0);
 			glVertex3f(1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(1, 1, 1);
 			glEnd();
 			///////////////////////////////////
-			glBegin(GL_TRIANGLES);
-			glColor3f(0, 0, 1.0); // blue face
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glBegin(GL_TRIANGLES); // left side face
+			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 0);
 			glVertex3f(-1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 1);
 			
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
 			//////////////////////////////
-			glBegin(GL_TRIANGLES);
-			glColor3f(1.0, 1.0, 1.0);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glBegin(GL_TRIANGLES); // bottom face
+			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(1, 0);
 			glVertex3f(1, -1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(1, 0);
 			glVertex3f(1, -1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
 			///////////////////////////////
-			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glBegin(GL_TRIANGLES); // back face
+			glColor3f(0, 1, 0); // green
+			glNormal3f(0.0f, 0.0f, -1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, 0.0f, -1.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, 0.0f, -1.0f);
 			glTexCoord2f(1, 0);
 			glVertex3f(1, 1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, 0.0f, -1.0f);
 			glTexCoord2f(1, 0);
 			glVertex3f(1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, 0.0f, -1.0f);
 			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
+			glNormal3f(0.0f, 0.0f, -1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
 			///////////////////////
-			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
+			glBegin(GL_TRIANGLES); // top face
+			glColor3f(0.0, 1.0, 0.0); // green
+			glNormal3f(0.0f, 1.0f, 0.0f);
+			glTexCoord2f(1, 1);
 			glVertex3f(1, 1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 1);
+			glNormal3f(0.0f, 1.0f, 0.0f);
+			glTexCoord2f(1, 0);
 			glVertex3f(1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
+			glNormal3f(0.0f, 1.0f, 0.0f);
+			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
+			glNormal3f(0.0f, 1.0f, 0.0f);
+			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 0);
+			glNormal3f(0.0f, 1.0f, 0.0f);
+			glTexCoord2f(0, 1);
 			glVertex3f(-1, 1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
+			glNormal3f(0.0f, 1.0f, 0.0f);
+			glTexCoord2f(1, 1);
 			glVertex3f(1, 1, 1);
 			glEnd();
 		}
