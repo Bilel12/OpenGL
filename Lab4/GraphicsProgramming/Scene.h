@@ -12,6 +12,7 @@
 #include <gl/GLU.h>	// Header file for the GLu32 Library
 #include "Input.h"
 #include <stdio.h>
+#include <conio.h>
 // Further includes should go here:
 
 
@@ -43,9 +44,18 @@ protected:
 	int frame = 0, time, timebase = 0;
 	char fps[40];
 	char mouseText[40];
+<<<<<<< HEAD
 	// my variables
+=======
+	bool light0, light1;
+
+	float specular;
+>>>>>>> 983094146052a486a9be4fd3a4fe98a59da03dcc
 	float rotation;
 	float rotation2;
+	float position_x;
+	float position_y;
+	float position_z;
 	float speed;
 	// light variables
 	GLfloat highSpec[4];
