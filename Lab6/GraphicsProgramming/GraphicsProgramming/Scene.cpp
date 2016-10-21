@@ -62,30 +62,23 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
-	// move camera left
+	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		camera.moveForward(dt);
 	}
-	// move camera up
+	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
 	}
-	// 
-	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+	// move camera down
+	if (input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveUp(dt);
 	}
-	// move z inwards
-	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+	// move camera down
+	if (input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveDown(dt);
 	}
-	// move right
-	if (input->isKeyDown('6')) {
-		camera.addYaw(dt);
-	}
-	// move left
-	if (input->isKeyDown('4')) {
-		camera.subtractYaw(dt);
-	}
+	// Camera's Yaw and Pitch mouse controll
 	camera.getMousePositionX(width, input->getMouseX(), 2);
 	camera.getMousePositionY(height, input->getMouseY(), 2);
 	glutWarpPointer(width / 2, height / 2);

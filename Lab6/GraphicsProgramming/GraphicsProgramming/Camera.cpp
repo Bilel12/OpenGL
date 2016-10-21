@@ -124,10 +124,10 @@ void Camera::moveBackwards(float dt) {
 }
 
 void Camera::moveUp(float dt) {
-	position.subtract(up, dt);
+	position.add(up, dt);
 }
 void Camera::moveDown(float dt) {
-	position.add(up, dt);
+	position.subtract(up, dt);
 }
 
 void Camera::addYaw(float dt) {
