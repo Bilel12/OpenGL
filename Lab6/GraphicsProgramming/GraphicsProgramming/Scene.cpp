@@ -163,7 +163,7 @@ void Scene::render() {
 			glEnd();
 			/////////////////////////////
 			glBegin(GL_TRIANGLES);
-			//glColor3f(0, 0, 0.5); // blue
+			glColor3f(1.0, 1.0, 1.0);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(1, -1, 1);
@@ -192,35 +192,36 @@ void Scene::render() {
 			glEnd();
 			///////////////////////////////////
 			glBegin(GL_TRIANGLES);
-			glColor3f(1, 1, 1);
+			glColor3f(0, 0, 1.0); // blue face
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
+			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 1);
+			glTexCoord2f(1, 0);
 			glVertex3f(-1, 1, -1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 0);
 			glVertex3f(-1, 1, 1);
 
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 0);
+			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 1);
 			
 			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
+			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
 			//////////////////////////////
 			glBegin(GL_TRIANGLES);
+			glColor3f(1.0, 1.0, 1.0);
 			glNormal3f(0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, -1);
