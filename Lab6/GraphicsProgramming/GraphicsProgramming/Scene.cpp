@@ -86,9 +86,11 @@ void Scene::update(float dt)
 	if (input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveDown(dt);
 	}
-	// Camera's Yaw and Pitch mouse controll
+	// camera's Yaw mouse controll
 	camera.getMousePositionX(width, input->getMouseX(), 2);
+	// camera's Pitch mouse controll
 	camera.getMousePositionY(height, input->getMouseY(), 2);
+	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 
 	// Update object and variables (camera, rotation, etc).
