@@ -47,7 +47,11 @@ public:
 
 private:
 	//Vector3* p_forward = &forward;
-	Vector3 position, lookAt, forward, up, side;
+	Vector3 position;
+	Vector3 lookAt;
+	Vector3 forward;
+	Vector3 up;
+	Vector3 side;
 	float Yaw, Pitch, Roll;
 };
 
