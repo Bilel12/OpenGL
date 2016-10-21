@@ -219,29 +219,29 @@ void Scene::render() {
 			//////////////////////////////
 			glBegin(GL_TRIANGLES); // bottom face
 			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(0, 1);
+			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(1, 1);
+			glTexCoord2f(1, 0);
 			glVertex3f(-1, -1, 1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 0);
 			glVertex3f(1, -1, 1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 0);
 			glVertex3f(1, -1, 1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(0, 0);
+			glTexCoord2f(0, 1);
 			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(0, 1);
+			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
 			glEnd();
 			///////////////////////////////
@@ -277,29 +277,29 @@ void Scene::render() {
 			glBegin(GL_TRIANGLES); // top face
 			glColor3f(0.0, 1.0, 0.0); // green
 			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(1, 1);
+			glTexCoord2f(0, 0);
 			glVertex3f(1, 1, 1);
 
 			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 1);
 			glVertex3f(1, 1, -1);
 
 			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(0, 0);
+			glTexCoord2f(1, 1);
 			glVertex3f(-1, 1, -1);
 			glEnd();
 
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(0, 0);
+			glTexCoord2f(1, 1);
 			glVertex3f(-1, 1, -1);
 
 			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(0, 1);
+			glTexCoord2f(1, 0);
 			glVertex3f(-1, 1, 1);
 
 			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(1, 1);
+			glTexCoord2f(0, 0);
 			glVertex3f(1, 1, 1);
 			glEnd();
 		}
