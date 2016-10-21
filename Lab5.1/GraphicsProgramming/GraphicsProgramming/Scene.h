@@ -43,7 +43,6 @@ protected:
 	int width, height;
 	float fov, nearPlane, farPlane;
 	float position_x, position_y, position_z;
-	GLuint* triangle;
 
 	// For FPS counter and mouse coordinate output.
 	int frame = 0, time, timebase = 0;
@@ -54,6 +53,9 @@ protected:
 	float zrot;	// Rotate On The Z Axis
 
 	std::vector<GLuint> textures;
+	GLuint* triangle;
+	GLuint *checked;
+	GLuint *grass;
 	GLuint myTexture;
 	GLuint BrownTexture;
 	GLuint TriangleTexture;

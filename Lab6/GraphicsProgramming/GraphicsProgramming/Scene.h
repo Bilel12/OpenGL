@@ -40,7 +40,7 @@ protected:
 
 	// For access to user input.
 	Input* input;
-		
+	
 	// For Window and frustum calculation.
 	int width, height;
 	float fov, nearPlane, farPlane;

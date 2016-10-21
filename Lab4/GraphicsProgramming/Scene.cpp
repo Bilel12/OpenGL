@@ -257,7 +257,7 @@ void Scene::render() {
 	//glVertex3f(0.0f, 1.0f, 0.0f);/////////////
 	//// bottom face
 	//glColor3f(1.0f, 0.0f, 0.0f);
-	//glNormal3f(0.0f, 1.0f, 0.0f);
+	//glNormal3f(0.0f, -1.0f, 0.0f);
 	//glVertex3f(0.0f, 0.0f, 0.0f);/////////////
 	//glNormal3f(0.0f, -1.0f, 0.0f);
 	//glVertex3f(1.0f, 0.0f, 0.0f);/////////////
