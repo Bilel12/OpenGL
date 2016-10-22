@@ -63,14 +63,11 @@ void Scene::update(float dt)
 {
 	// Handle user input
 	// move camera forward
-	/*if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		camera.moveForward(dt);
-	}*/
-	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('w') || input->isKeyDown('W')) {
+	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		camera.moveForward(dt);
 	}
 	// move camera backwards
-	if (input->isKeyDown(GLUT_KEY_DOWN) ||input->isKeyDown('s') || input->isKeyDown('S')) {
+	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
 	}
 	// move camera to the left
@@ -82,11 +79,11 @@ void Scene::update(float dt)
 		camera.moveSideRight(dt);
 	}
 	// move camera down
-	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveUp(dt);
 	}
 	// move camera down
-	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveDown(dt);
 	}
 	// camera's Yaw mouse controll
