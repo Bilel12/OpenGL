@@ -106,10 +106,26 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
-	// Twinkle
+	// Toggle twinkle
 	if (input->isKeyDown('t') || input->isKeyDown('T')) {
 		twinkle = !twinkle;
 		input->SetKeyUp('t'); input->isKeyDown('T');
+	}
+	// Tilt The Screen Up
+	if (input->isKeyDown('y') || input->isKeyDown('Y')) {
+		zoom -= 0.2f;
+	}
+	// Tilt The Screen Down
+	if (input->isKeyDown('u') || input->isKeyDown('U')) {
+		zoom += 0.2f;
+	}
+	// Zoom Out
+	if (input->isKeyDown(GLUT_KEY_UP)) {
+		tilt -= 0.5f;
+	}
+	// Zoom In
+	if (input->isKeyDown(GLUT_KEY_DOWN)) {
+		tilt += 0.5f;
 	}
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
@@ -126,12 +142,10 @@ void Scene::update(float dt)
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		camera.moveForward(dt);
-		zoom -= 0.2f;
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
-		zoom += 0.2f;
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
@@ -142,14 +156,12 @@ void Scene::update(float dt)
 		camera.moveSideRight(dt);
 	}
 	// move camera down
-	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
+	if (input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveUp(dt);
-		tilt -= 0.5f;
 	}
 	// move camera down
-	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
+	if (input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveDown(dt);
-		tilt += 0.5f;
 	}
 	// camera's Yaw mouse controll
 	camera.getMousePositionX(width, input->getMouseX(), 2);
