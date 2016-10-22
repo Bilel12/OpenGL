@@ -30,6 +30,7 @@ Scene::Scene(Input *in)
 	position_x = 0, position_y = 0, position_z = 0;
 	
 	blend = false; // blending on/off?
+	twinkle = false;
 }
 
 void Scene::loadTextures() {

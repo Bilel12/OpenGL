@@ -53,6 +53,7 @@ protected:
 	Camera *p_camera = &camera;
 	// For loading textures
 	std::vector<GLuint> textures;
+	GLuint myTexture;
 	GLuint *triangle;
 	GLuint *checked;
 	GLuint *grass;
@@ -62,6 +63,8 @@ protected:
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
+	// Twinkle
+	const int num = 50;
 	// Booleans
 	bool blend; // toggle bledning effect
 	bool twinkle; // toggle twinkle effect
