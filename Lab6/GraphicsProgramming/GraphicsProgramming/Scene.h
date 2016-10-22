@@ -63,11 +63,17 @@ protected:
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
-	// Twinkle
-	const int num = 50;
 	// Booleans
 	bool blend; // toggle bledning effect
 	bool twinkle; // toggle twinkle effect
+	// Twinkle
+	const int num = 50;
+	typedef struct stars {	// Create a structure for star
+		int r, g, b;		// Stars colour
+		GLfloat dist;		// Stars distance from centre
+		GLfloat angle;		// Start current angle
+	};
+	stars star[50];
 };
 
 #endif
