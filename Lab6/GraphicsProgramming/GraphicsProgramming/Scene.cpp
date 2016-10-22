@@ -7,16 +7,19 @@ Scene::Scene(Input *in)
 		
 	//OpenGL settings
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
+	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
-	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+	//LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	// Other OpenGL / render setting should be applied here.
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);					// Set The Blending Function For Translucency
+	glEnable(GL_BLEND);									// Enable Blending
 
 	// loading textures into vector
 	loadTextures();
