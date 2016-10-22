@@ -17,6 +17,8 @@
 Scene* scene;
 Input* input;
 int oldTimeSinceStart = 0;
+// Windows properties
+int windowWidth = 800, windowHeight = 600;
 
 // Called when the window detects a change in size.
 // GLUT handles the window refresh, this function passes the new width and height to the
@@ -77,7 +79,7 @@ void processNormalKeysUp(unsigned char key, int x, int y)
 // Mouse coordinates are handled separately.
 void processSpecialKeys(int key, int x, int y)
 {
-	// TODO: Pass special key press to Input class.
+	input->SetKeyDown(key);
 }
 
 // Handles keyboard input events from GLUT.
@@ -88,7 +90,7 @@ void processSpecialKeys(int key, int x, int y)
 // Mouse coordinates are handled separately.
 void processSpecialKeysUp(int key, int x, int y)
 {
-	// TODO: Pass special key release to Input class.
+	input->SetKeyUp(key);
 }
 
 // Handles mouse movement events from GLUT.
@@ -134,14 +136,11 @@ void processMouseButtons(int button, int state, int x, int y)
 // Initialises Input and Scene class, prior to starting Main Loop.
 int main(int argc, char **argv) 
 {
-	// Windows properties
-	int windowWidth = 800, windowHeight = 600;
-	int x = windowWidth / 2, y = windowHeight / 2;
 	// Init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	//glutInitWindowPosition(100, 100);
-	glutInitWindowSize(800, 600);
+	glutInitWindowSize(windowWidth, windowHeight);
 	glutCreateWindow("My first triangle");
 	
 	// Register callback functions for change in size and rendering.
@@ -154,15 +153,15 @@ int main(int argc, char **argv)
 	glutKeyboardUpFunc(processNormalKeysUp);
 	glutSpecialFunc(NULL);
 	// Special keys not processed, as currently not required.
-	//glutSpecialFunc(processSpecialKeys);
-	//glutSpecialUpFunc(processSpecialKeysUp);
+	glutSpecialFunc(processSpecialKeys);
+	glutSpecialUpFunc(processSpecialKeysUp);
 	
 	// Mouse callbacks
 	glutMotionFunc(processActiveMouseMove);
 	glutPassiveMotionFunc(processPassiveMouseMove);
 	glutMouseFunc(processMouseButtons);
 	// Position mouse in centre of windows before main loop (window not resized yet)
-	glutWarpPointer(400, 300);
+	glutWarpPointer(windowWidth / 2, windowHeight / 2);
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
 		

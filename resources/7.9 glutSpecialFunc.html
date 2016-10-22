@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3O//DTD W3 HTML 2.0//EN">
+<!-- saved from url=(0065)https://www.opengl.org/resources/libraries/glut/spec3/node54.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>7.9 glutSpecialFunc</title>
+</head>
+<body>
+<meta name="description" value="7.9 glutSpecialFunc">
+<meta name="keywords" value="spec3">
+<meta name="resource-type" value="document">
+<meta name="distribution" value="global">
+<p>
+ <br> </p><hr><a name="tex2html1090" href="https://www.opengl.org/resources/libraries/glut/spec3/node55.html"><img align="BOTTOM" alt="next" src="./7.9 glutSpecialFunc_files/next_motif.gif"></a>   <a name="tex2html1088" href="https://www.opengl.org/resources/libraries/glut/spec3/node45.html"><img align="BOTTOM" alt="up" src="./7.9 glutSpecialFunc_files/up_motif.gif"></a>   <a name="tex2html1082" href="https://www.opengl.org/resources/libraries/glut/spec3/node53.html"><img align="BOTTOM" alt="previous" src="./7.9 glutSpecialFunc_files/previous_motif.gif"></a>   <a name="tex2html1092" href="https://www.opengl.org/resources/libraries/glut/spec3/node1.html"><img align="BOTTOM" alt="contents" src="./7.9 glutSpecialFunc_files/contents_motif.gif"></a>   <a name="tex2html1093" href="https://www.opengl.org/resources/libraries/glut/spec3/node113.html"><img align="BOTTOM" alt="index" src="./7.9 glutSpecialFunc_files/index_motif.gif"></a>   <br>
+<b> Next:</b> <a name="tex2html1091" href="https://www.opengl.org/resources/libraries/glut/spec3/node55.html">7.10 glutSpaceballMotionFunc</a>
+<b>Up:</b> <a name="tex2html1089" href="https://www.opengl.org/resources/libraries/glut/spec3/node45.html">7 Callback Registration</a>
+<b> Previous:</b> <a name="tex2html1083" href="https://www.opengl.org/resources/libraries/glut/spec3/node53.html">7.8 glutEntryFunc</a>
+<br> <hr> <p>
+</p><h2><a name="SECTION00089000000000000000">7.9 glutSpecialFunc</a></h2>
+<p>
+<a name="1044">&nbsp;</a> <tt> glutSpecialFunc</tt> sets the special keyboard callback for the <em> current window</em>.
+</p><p>
+ <b> Usage</b>
+</p><pre>void glutSpecialFunc(void (*func)(int key, int x, int y));
+</pre>
+<dl><dt><tt> func</tt>
+</dt><dd>
+The new entry callback function.
+<p>
+ </p></dd></dl>
+<p>
+ <b> Description</b>
+</p><p>
+<tt> glutSpecialFunc</tt> sets the special keyboard callback for the <em> current
+window</em>.  The special keyboard callback is triggered when keyboard
+function or directional keys are pressed.  The <tt> key</tt> callback parameter
+is a <tt> GLUT_KEY_</tt>* constant for the special key pressed. 
+The <tt> x</tt> and <tt> y</tt> callback parameters indicate the mouse in window
+relative coordinates when the key was pressed.  When a new window is created, no
+special callback is initially registered and special key strokes in the
+window are ignored.  Passing <tt> NULL</tt> to <tt> glutSpecialFunc</tt>
+disables the generation of special callbacks.
+</p><p>
+During a special callback, <tt> glutGetModifiers</tt> may be called to determine
+the state of modifier keys when the keystroke generating the callback occurred.
+</p><p>
+An implementation should do its best to provide ways to generate all
+the <tt> GLUT_KEY_</tt>* special keys.  The available <tt> GLUT_KEY_</tt>*
+values are:
+</p><dl><dt><tt> GLUT_KEY_F1</tt>
+</dt><dd>  F1 function key.
+</dd><dt><tt> GLUT_KEY_F2</tt>
+</dt><dd>  F2 function key.
+</dd><dt><tt> GLUT_KEY_F3</tt>
+</dt><dd>  F3 function key.
+</dd><dt><tt> GLUT_KEY_F4</tt>
+</dt><dd>  F4 function key.
+</dd><dt><tt> GLUT_KEY_F5</tt>
+</dt><dd>  F5 function key.
+</dd><dt><tt> GLUT_KEY_F6</tt>
+</dt><dd>  F6 function key.
+</dd><dt><tt> GLUT_KEY_F7</tt>
+</dt><dd>  F7 function key.
+</dd><dt><tt> GLUT_KEY_F8</tt>
+</dt><dd>  F8 function key.
+</dd><dt><tt> GLUT_KEY_F9</tt>
+</dt><dd>  F9 function key.
+</dd><dt><tt> GLUT_KEY_F10</tt>
+</dt><dd>  F10 function key.
+</dd><dt><tt> GLUT_KEY_F11</tt>
+</dt><dd>  F11 function key.
+</dd><dt><tt> GLUT_KEY_F12</tt>
+</dt><dd>  F12 function key.
+</dd><dt><tt> GLUT_KEY_LEFT</tt>
+</dt><dd>  Left directional key.
+</dd><dt><tt> GLUT_KEY_UP</tt>
+</dt><dd>  Up directional key.
+</dd><dt><tt> GLUT_KEY_RIGHT</tt>
+</dt><dd>  Right directional key.
+</dd><dt><tt> GLUT_KEY_DOWN</tt>
+</dt><dd>  Down directional key.
+</dd><dt><tt> GLUT_KEY_PAGE_UP</tt>
+</dt><dd>  Page up directional key.
+</dd><dt><tt> GLUT_KEY_PAGE_DOWN</tt>
+</dt><dd>  Page down directional key.
+</dd><dt><tt> GLUT_KEY_HOME</tt>
+</dt><dd>  Home directional key.
+</dd><dt><tt> GLUT_KEY_END</tt>
+</dt><dd>  End directional key.
+</dd><dt><tt> GLUT_KEY_INSERT</tt>
+</dt><dd> Inset directional key.
+<p>
+ </p></dd></dl>
+Note that the escape, backspace, and delete keys are generated as an ASCII character.
+<p>
+<br> </p><hr><a name="tex2html1090" href="https://www.opengl.org/resources/libraries/glut/spec3/node55.html"><img align="BOTTOM" alt="next" src="./7.9 glutSpecialFunc_files/next_motif.gif"></a>   <a name="tex2html1088" href="https://www.opengl.org/resources/libraries/glut/spec3/node45.html"><img align="BOTTOM" alt="up" src="./7.9 glutSpecialFunc_files/up_motif.gif"></a>   <a name="tex2html1082" href="https://www.opengl.org/resources/libraries/glut/spec3/node53.html"><img align="BOTTOM" alt="previous" src="./7.9 glutSpecialFunc_files/previous_motif.gif"></a>   <a name="tex2html1092" href="https://www.opengl.org/resources/libraries/glut/spec3/node1.html"><img align="BOTTOM" alt="contents" src="./7.9 glutSpecialFunc_files/contents_motif.gif"></a>   <a name="tex2html1093" href="https://www.opengl.org/resources/libraries/glut/spec3/node113.html"><img align="BOTTOM" alt="index" src="./7.9 glutSpecialFunc_files/index_motif.gif"></a>   <br>
+<b> Next:</b> <a name="tex2html1091" href="https://www.opengl.org/resources/libraries/glut/spec3/node55.html">7.10 glutSpaceballMotionFunc</a>
+<b>Up:</b> <a name="tex2html1089" href="https://www.opengl.org/resources/libraries/glut/spec3/node45.html">7 Callback Registration</a>
+<b> Previous:</b> <a name="tex2html1083" href="https://www.opengl.org/resources/libraries/glut/spec3/node53.html">7.8 glutEntryFunc</a>
+<br> <hr> <p>
+<br> </p><hr>
+<p></p><address>
+<i>Mark Kilgard <br>
+Fri Feb 23 08:05:02 PST 1996</i>
+</address>
+
+</body></html>

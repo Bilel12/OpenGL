@@ -63,11 +63,14 @@ void Scene::update(float dt)
 {
 	// Handle user input
 	// move camera forward
-	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+	/*if (input->isKeyDown('w') || input->isKeyDown('w')) {
+		camera.moveForward(dt);
+	}*/
+	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('w') || input->isKeyDown('W')) {
 		camera.moveForward(dt);
 	}
 	// move camera backwards
-	if (input->isKeyDown('s') || input->isKeyDown('S')) {
+	if (input->isKeyDown(GLUT_KEY_DOWN) ||input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
 	}
 	// move camera to the left
