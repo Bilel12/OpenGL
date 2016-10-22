@@ -387,6 +387,14 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	glMatrixMode(GL_MODELVIEW);
 }
 
+int Scene::getWidth() {
+	return width;
+}
+
+int Scene::getHeight() {
+	return height;
+}
+
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 //glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use

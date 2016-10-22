@@ -31,6 +31,8 @@ public:
 	void update(float dt);
 	// Resizes the OpenGL output based on new window size.
 	void resize(int w, int h);
+	int getWidth();
+	int getHeight();
 protected:
 	// Renders text (x, y positions, RGB colour of text, string of text to be rendered)
 	void displayText(float x, float y, float r, float g, float b, char* string);
