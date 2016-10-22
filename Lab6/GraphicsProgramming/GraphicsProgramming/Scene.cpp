@@ -11,6 +11,7 @@ Scene::Scene(Input *in)
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+	LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	// Other OpenGL / render setting should be applied here.
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
@@ -24,6 +25,7 @@ Scene::Scene(Input *in)
 	checked = &textures[3];
 	grass = &textures[4];
 	glass = &textures[5];
+	star_texture = &textures[6];
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
@@ -71,6 +73,13 @@ void Scene::loadTextures() {
 
 	myTexture = SOIL_load_OGL_texture( // 5
 		"gfx/glass.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 6
+		"gfx/star.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT

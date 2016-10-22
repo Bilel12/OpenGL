@@ -67,13 +67,18 @@ protected:
 	bool blend; // toggle bledning effect
 	bool twinkle; // toggle twinkle effect
 	// Twinkle
-	const int num = 50;
 	typedef struct stars {	// Create a structure for star
 		int r, g, b;		// Stars colour
 		GLfloat dist;		// Stars distance from centre
 		GLfloat angle;		// Start current angle
 	};
 	stars star[50];
+	GLfloat zoom;	// Viewing distance away from stars
+	GLfloat tilt;	// Tilt the view
+	GLfloat spin;	// Spin twinkling stars
+
+	GLuint loop;	// General loop variable
+	GLuint *star_texture; // Pointer to start texture
 };
 
 #endif
