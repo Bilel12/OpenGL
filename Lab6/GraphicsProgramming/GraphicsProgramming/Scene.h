@@ -46,6 +46,7 @@ protected:
 	char fps[40];
 	char mouseText[40];
 	float fov, nearPlane, farPlane;
+	HDC hDC = NULL;
 	// For access to user input.
 	Input* input;
 	// For camera access 
@@ -79,6 +80,7 @@ protected:
 
 	GLuint loop;	// General loop variable
 	GLuint *star_texture; // Pointer to start texture
+	void configure_stars();
 };
 
 #endif

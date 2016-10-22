@@ -4,25 +4,25 @@ Scene::Scene(Input *in)
 {
 	// Store pointer for input class
 	input = in;
-		
+	
 	//OpenGL settings
+	
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
-	//LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	// Other OpenGL / render setting should be applied here.
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);					// Set The Blending Function For Translucency
-	glEnable(GL_BLEND);									// Enable Blending
 
 	// loading textures into vector
 	loadTextures();
+	configure_stars();
 	// Initialise variables
 	triangle = &textures[2];
 	checked = &textures[3];
@@ -96,9 +96,25 @@ void Scene::loadTextures() {
 	}
 }
 
+void Scene::configure_stars() {
+	for (loop = 0; loop < 50; ++loop) { // Loop goes through all stars
+		star[loop].angle = 0.0f;					// start all stars at angle 0
+		star[loop].dist = (float(loop) / 50) * 5.0f;  //	calculate distance from centre
+		star[loop].r = rand() % 256;	// Give star[i] random red intesity
+		star[loop].g = rand() % 256;	// Give star[i] random green intensity
+		star[loop].b = rand() % 256;	// Give star[i] random blue intensity
+	}
+}
+
 void Scene::update(float dt)
 {
 	// Handle user input
+	// Twinkle
+	SwapBuffers(hDC); // Swap Buffers (Double Buffering)
+	if (input->isKeyDown('t') || input->isKeyDown('T')) {
+		twinkle = !twinkle;
+		input->SetKeyUp('t'); input->isKeyDown('T');
+	}
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
@@ -109,15 +125,17 @@ void Scene::update(float dt)
 			glDisable(GL_BLEND); // Turn blending off
 			glEnable(GL_DEPTH_TEST); // Turn depth testing on
 		}
-		input->SetKeyUp('b');
+		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		camera.moveForward(dt);
+		zoom -= 0.2f;
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
+		zoom += 0.2f;
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
@@ -130,10 +148,12 @@ void Scene::update(float dt)
 	// move camera down
 	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveUp(dt);
+		tilt -= 0.5f;
 	}
 	// move camera down
 	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveDown(dt);
+		tilt += 0.5f;
 	}
 	// camera's Yaw mouse controll
 	camera.getMousePositionX(width, input->getMouseX(), 2);
@@ -174,6 +194,46 @@ void Scene::render() {
 	         );
 
 	// Render geometry here -------------------------------------
+	// Twinkle
+	glPushMatrix();
+	for (int i = 0; loop < 50; i++) {               // Loop Through All The Stars
+		glBindTexture(GL_TEXTURE_2D, *star_texture);
+		glRotatef(star[loop].angle, 0.0f, 1.0f, 0.0f); // Rotate To The Current Stars Angle
+		glTranslatef(star[loop].dist, 0.0f, 0.0f);    // Move Forward On The X Plane
+		glRotatef(-star[loop].angle, 0.0f, 1.0f, 0.0f);    // Cancel The Current Stars Angle
+		glRotatef(-tilt, 1.0f, 0.0f, 0.0f);        // Cancel The Screen Tilt
+		if (twinkle) {	// Twinkling Stars Enabled
+			// Assign A Color Using Bytes
+			glColor4ub(star[(50 - loop) - 1].r, star[(50 - loop) - 1].g, star[(50 - loop) - 1].b, 255);
+			glBindTexture(GL_TEXTURE_2D, *star_texture);
+			glBegin(GL_QUADS);          // Begin Drawing The Textured Quad
+				glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 0.0f);
+				glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 0.0f);
+				glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, 0.0f);
+				glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
+			glEnd();                // Done Drawing The Textured Quad
+		}
+		glRotatef(spin, 0.0f, 0.0f, 1.0f);         // Rotate The Star On The Z Axis
+		// Assign A Color Using Bytes
+		glColor4ub(star[loop].r, star[loop].g, star[loop].b, 255);
+		glBindTexture(GL_TEXTURE_2D, *star_texture);
+		glBegin(GL_QUADS);              // Begin Drawing The Textured Quad
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 0.0f);
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 0.0f);
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, 0.0f);
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
+		glEnd();
+
+		spin += 0.01f;                    // Used To Spin The Stars
+		star[loop].angle += float(loop) / 50;      // Changes The Angle Of A Star
+		star[loop].dist -= 0.01f;
+		if (star[loop].dist < 0.0f) {           // Is The Star In The Middle Yet
+			star[loop].dist += 5.0f;          // Move The Star 5 Units From The Center
+			star[loop].r = rand() % 256;        // Give It A New Red Value
+			star[loop].g = rand() % 256;        // Give It A New Green Value
+			star[loop].b = rand() % 256;        // Give It A New Blue Value
+		}
+	} glEnd(); glPopMatrix();
 
 	glPushMatrix();
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
@@ -185,7 +245,6 @@ void Scene::render() {
 			glEnable(GL_DEPTH_TEST); // Turn depth testing on
 		}
 		glBindTexture(GL_TEXTURE_2D, *checked); {
-
 			glBegin(GL_QUADS);
 			glNormal3f(0, 0, 1);
 			glTexCoord2f(0, 0);
