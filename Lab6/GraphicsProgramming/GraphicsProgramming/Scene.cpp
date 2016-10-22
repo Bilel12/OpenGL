@@ -86,14 +86,15 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
+	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
 			glDisable(GL_DEPTH_TEST); // Turn depth testing off
 		} else {
-			glDisable(GL_BLEND);
-			glEnable(GL_DEPTH_TEST);
+			glDisable(GL_BLEND); // Turn blending off
+			glEnable(GL_DEPTH_TEST); // Turn depth testing on
 		}
 		input->SetKeyUp('b');
 	}
@@ -133,9 +134,6 @@ void Scene::update(float dt)
 	float mousePositionX(int width);
 	float mousePositionY(int height);
 
-	// Blending
-
-
 	//xrot += 0.7;	// Rotate On The X Axis
 	//yrot += 0.7;	// Rotate On The Y Axis
 	//zrot += 0.7;	// Rotate On The Z Axis
@@ -163,20 +161,18 @@ void Scene::render() {
 	         );
 
 	// Render geometry here -------------------------------------
-	
+
 	glPushMatrix();
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 
-		glPushMatrix();
-		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
-		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
-		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
-
+		if (blend) {
+			glDisable(GL_BLEND); // Turn blending off
+			glEnable(GL_DEPTH_TEST); // Turn depth testing on
+		}
 		glBindTexture(GL_TEXTURE_2D, *checked); {
-			glColor4f(1.0f, 1.0f, 1.0f, 0.5f); // Full Brightness, 50% Alpha
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Blending Function For Translucency Based On Source Alpha Value
+
 			glBegin(GL_QUADS);
 			glNormal3f(0, 0, 1);
 			glTexCoord2f(0, 0);
@@ -195,10 +191,16 @@ void Scene::render() {
 			glVertex3f(5, 5, 0);
 			glEnd();
 		}
-
-
-		glPopMatrix();
-
+	glPopMatrix();
+	
+	glPushMatrix();
+		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
+		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
+		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
+		if (blend) {
+			glEnable(GL_BLEND); // Turn blending on
+			glDisable(GL_DEPTH_TEST); // Turn depth testing off
+		}
 		glBindTexture(GL_TEXTURE_2D, *glass); {
 			glColor4f(1.0f, 1.0f, 1.0f, 0.5f); // Full Brightness, 50% Alpha
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Blending Function For Translucency Based On Source Alpha Value
