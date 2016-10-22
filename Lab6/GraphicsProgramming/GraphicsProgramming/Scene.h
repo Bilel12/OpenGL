@@ -31,8 +31,7 @@ public:
 	void update(float dt);
 	// Resizes the OpenGL output based on new window size.
 	void resize(int w, int h);
-	int getWidth();
-	int getHeight();
+
 protected:
 	// Renders text (x, y positions, RGB colour of text, string of text to be rendered)
 	void displayText(float x, float y, float r, float g, float b, char* string);
@@ -40,35 +39,32 @@ protected:
 	void renderTextOutput();
 	void loadTextures();
 
-	// For access to user input.
-	Input* input;
-	
 	// For Window and frustum calculation.
 	int width, height;
-	float fov, nearPlane, farPlane;
-	float position_x, position_y, position_z;
-	GLuint *triangle;
-	GLuint *checked;
-	GLuint *grass;
-	GLuint *glass;
-
 	// For FPS counter and mouse coordinate output.
 	int frame = 0, time, timebase = 0;
 	char fps[40];
 	char mouseText[40];
+	float fov, nearPlane, farPlane;
+	// For access to user input.
+	Input* input;
+	// For camera access 
+	Camera camera;
+	Camera *p_camera = &camera;
+	// For loading textures
+	std::vector<GLuint> textures;
+	GLuint *triangle;
+	GLuint *checked;
+	GLuint *grass;
+	GLuint *glass;
+	// Rotation variables
+	float position_x, position_y, position_z;
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
-
-	bool bp; // handle B key toggling
-	bool blend; // handle bledning toggle
-
-	std::vector<GLuint> textures;
-	GLuint myTexture;
-	GLuint BrownTexture;
-	GLuint TriangleTexture;
-	Camera camera;
-	Camera *p_camera = &camera;
+	// Booleans
+	bool blend; // toggle bledning effect
+	bool twinkle; // toggle twinkle effect
 };
 
 #endif

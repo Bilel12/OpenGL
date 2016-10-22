@@ -24,11 +24,11 @@ Scene::Scene(Input *in)
 	checked = &textures[3];
 	grass = &textures[4];
 	glass = &textures[5];
-	float xrot = 0;	// Rotate On The X Axis
-	float yrot = 0;	// Rotate On The Y Axis
-	float zrot = 0;	// Rotate On The Z Axis
-	float position_x = 0, position_y = 0, position_z = 0;
-	bp = false; // B key pressed?
+	xrot = 0;	// Rotate On The X Axis
+	yrot = 0;	// Rotate On The Y Axis
+	zrot = 0;	// Rotate On The Z Axis
+	position_x = 0, position_y = 0, position_z = 0;
+	
 	blend = false; // blending on/off?
 }
 
@@ -457,14 +457,6 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	glLoadIdentity();
 	gluPerspective(fov, ((float)width/(float)height), nearPlane, farPlane);
 	glMatrixMode(GL_MODELVIEW);
-}
-
-int Scene::getWidth() {
-	return width;
-}
-
-int Scene::getHeight() {
-	return height;
 }
 
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
