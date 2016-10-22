@@ -47,7 +47,10 @@ protected:
 	int width, height;
 	float fov, nearPlane, farPlane;
 	float position_x, position_y, position_z;
-	GLuint* triangle;
+	GLuint *triangle;
+	GLuint *checked;
+	GLuint *grass;
+	GLuint *glass;
 
 	// For FPS counter and mouse coordinate output.
 	int frame = 0, time, timebase = 0;
@@ -65,7 +68,7 @@ protected:
 	GLuint BrownTexture;
 	GLuint TriangleTexture;
 	Camera camera;
-	Camera* p_camera = &camera;
+	Camera *p_camera = &camera;
 };
 
 #endif

@@ -21,6 +21,9 @@ Scene::Scene(Input *in)
 	loadTextures();
 	// Initialise variables
 	triangle = &textures[2];
+	checked = &textures[3];
+	grass = &textures[4];
+	glass = &textures[5];
 	float xrot = 0;	// Rotate On The X Axis
 	float yrot = 0;	// Rotate On The Y Axis
 	float zrot = 0;	// Rotate On The Z Axis
@@ -30,26 +33,47 @@ Scene::Scene(Input *in)
 }
 
 void Scene::loadTextures() {
-	myTexture = SOIL_load_OGL_texture(
+	myTexture = SOIL_load_OGL_texture( // 0
 		"gfx/crate.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
+	); textures.push_back(myTexture);
 
-	myTexture = SOIL_load_OGL_texture(
+	myTexture = SOIL_load_OGL_texture( // 1
 		"gfx/tileBrown_02.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
+	); textures.push_back(myTexture);
 
-	myTexture = SOIL_load_OGL_texture(
+	myTexture = SOIL_load_OGL_texture( // 2
 		"gfx/cratearrow.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 3
+		"gfx/checked.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 4
+		"gfx/grass1.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 5
+		"gfx/glass.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
 
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
@@ -57,8 +81,6 @@ void Scene::loadTextures() {
 			MessageBox(NULL, "Texture failed to load", "help", MB_OK);
 		}
 	}
-	
-
 }
 
 void Scene::update(float dt)
@@ -147,7 +169,39 @@ void Scene::render() {
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 
-		glBindTexture(GL_TEXTURE_2D, *triangle); {
+		glPushMatrix();
+		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
+		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
+		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
+
+		glBindTexture(GL_TEXTURE_2D, *checked); {
+			glColor4f(1.0f, 1.0f, 1.0f, 0.5f); // Full Brightness, 50% Alpha
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Blending Function For Translucency Based On Source Alpha Value
+			glBegin(GL_QUADS);
+			glNormal3f(0, 0, 1);
+			glTexCoord2f(0, 0);
+			glVertex3f(-5, 5, 0);
+
+			glNormal3f(0, 0, 1);
+			glTexCoord2f(0, 1);
+			glVertex3f(-5, -5, 0);
+
+			glNormal3f(0, 0, 1);
+			glTexCoord2f(1, 1);
+			glVertex3f(5, -5, 0);
+
+			glNormal3f(0, 0, 1);
+			glTexCoord2f(1, 0);
+			glVertex3f(5, 5, 0);
+			glEnd();
+		}
+
+
+		glPopMatrix();
+
+		glBindTexture(GL_TEXTURE_2D, *glass); {
+			glColor4f(1.0f, 1.0f, 1.0f, 0.5f); // Full Brightness, 50% Alpha
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Blending Function For Translucency Based On Source Alpha Value
 			/////////////////////////////
 			glBegin(GL_TRIANGLES); // front face
 			glNormal3f(0.0f, 0.0f, 1.0f);
