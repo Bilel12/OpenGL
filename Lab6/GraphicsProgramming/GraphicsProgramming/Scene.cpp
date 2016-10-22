@@ -16,15 +16,17 @@ Scene::Scene(Input *in)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
-	//
-	loadTextures();
 
+	// loading textures into vector
+	loadTextures();
 	// Initialise variables
 	triangle = &textures[2];
 	float xrot = 0;	// Rotate On The X Axis
 	float yrot = 0;	// Rotate On The Y Axis
 	float zrot = 0;	// Rotate On The Z Axis
 	float position_x = 0, position_y = 0, position_z = 0;
+	bp = false; // B key pressed?
+	blend = false; // blending on/off?
 }
 
 void Scene::loadTextures() {
@@ -62,6 +64,17 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
+	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
+		blend = !blend; // toggle blend (true/false)
+		if (blend) {
+			glEnable(GL_BLEND); // Turn blending on
+			glDisable(GL_DEPTH_TEST); // Turn depth testing off
+		} else {
+			glDisable(GL_BLEND);
+			glEnable(GL_DEPTH_TEST);
+		}
+		input->SetKeyUp('b');
+	}
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		camera.moveForward(dt);
@@ -97,6 +110,9 @@ void Scene::update(float dt)
 	p_camera->update();
 	float mousePositionX(int width);
 	float mousePositionY(int height);
+
+	// Blending
+
 
 	//xrot += 0.7;	// Rotate On The X Axis
 	//yrot += 0.7;	// Rotate On The Y Axis

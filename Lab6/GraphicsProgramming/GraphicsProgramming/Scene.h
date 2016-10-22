@@ -57,6 +57,9 @@ protected:
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
 
+	bool bp; // handle B key toggling
+	bool blend; // handle bledning toggle
+
 	std::vector<GLuint> textures;
 	GLuint myTexture;
 	GLuint BrownTexture;

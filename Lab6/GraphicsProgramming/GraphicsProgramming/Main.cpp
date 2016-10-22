@@ -17,7 +17,7 @@
 Scene* scene;
 Input* input;
 int oldTimeSinceStart = 0;
-// Windows properties
+// Window properties
 int windowWidth = 800, windowHeight = 600;
 
 // Called when the window detects a change in size.
