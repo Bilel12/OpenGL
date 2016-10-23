@@ -431,7 +431,7 @@ void Scene::resize(int w, int h)
 	float ratio = (float)w / (float)h;
 	fov = 45.0f;
 	nearPlane = 0.1f;
-	farPlane = 100.0f;
+	farPlane = 200.0f;
 
 	// Use the Projection Matrix
 	glMatrixMode(GL_PROJECTION);
