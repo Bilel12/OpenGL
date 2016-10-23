@@ -11,15 +11,39 @@ Scene::Scene(Input *in)
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+	glDisable(GL_DEPTH_TEST);							// Disable Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 
 	// Other OpenGL / render setting should be applied here.
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
-	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);									// Enable Blending
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);					// Set The Blending Function For Translucency
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);			// Really Nice Point Smoothing
+	glEnable(GL_TEXTURE_2D);							// Enable Texture Mapping
 
+	static const GLfloat colors[12][3] =               // Rainbow Of Colors
+	{
+		{ 1.0f,0.5f,0.5f },{ 1.0f,0.75f,0.5f },{ 1.0f,1.0f,0.5f },{ 0.75f,1.0f,0.5f },
+		{ 0.5f,1.0f,0.5f },{ 0.5f,1.0f,0.75f },{ 0.5f,1.0f,1.0f },{ 0.5f,0.75f,1.0f },
+		{ 0.5f,0.5f,1.0f },{ 0.75f,0.5f,1.0f },{ 1.0f,0.5f,1.0f },{ 1.0f,0.5f,0.75f }
+	};
+
+	for (loop = 0;loop<MAX_PARTICLES;++loop)				// Initials All The Textures
+	{
+		particle[loop].active = true;								// Make All The Particles Active
+		particle[loop].life = 1.0f;								// Give All The Particles Full Life
+		particle[loop].fade = float(rand() % 100) / 1000.0f + 0.003f;	// Random Fade Speed
+		particle[loop].r = colors[loop*(12 / MAX_PARTICLES)][0];	// Select Red Rainbow Color
+		particle[loop].g = colors[loop*(12 / MAX_PARTICLES)][1];	// Select Red Rainbow Color
+		particle[loop].b = colors[loop*(12 / MAX_PARTICLES)][2];	// Select Red Rainbow Color
+		particle[loop].xi = float((rand() % 50) - 26.0f)*10.0f;		// Random Speed On X Axis
+		particle[loop].yi = float((rand() % 50) - 25.0f)*10.0f;		// Random Speed On Y Axis
+		particle[loop].zi = float((rand() % 50) - 25.0f)*10.0f;		// Random Speed On Z Axis
+		particle[loop].xg = 0.0f;									// Set Horizontal Pull To Zero
+		particle[loop].yg = -0.8f;								// Set Vertical Pull Downward
+		particle[loop].zg = 0.0f;									// Set Pull On Z Axis To Zero
+	}
 	// loading textures into vector
 	loadTextures();
 	
@@ -28,18 +52,13 @@ Scene::Scene(Input *in)
 	checked = &textures[3];
 	grass = &textures[4];
 	glass = &textures[5];
+	particle_texture = &textures[6];
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
 	
 	blend = false; // blending on/off?
-	static const GLfloat colors[12][3] =               // Rainbow Of Colors
-	{
-		{ 1.0f,0.5f,0.5f },{ 1.0f,0.75f,0.5f },{ 1.0f,1.0f,0.5f },{ 0.75f,1.0f,0.5f },
-		{ 0.5f,1.0f,0.5f },{ 0.5f,1.0f,0.75f },{ 0.5f,1.0f,1.0f },{ 0.5f,0.75f,1.0f },
-		{ 0.5f,0.5f,1.0f },{ 0.75f,0.5f,1.0f },{ 1.0f,0.5f,1.0f },{ 1.0f,0.5f,0.75f }
-	};
 }
 
 void Scene::loadTextures() {

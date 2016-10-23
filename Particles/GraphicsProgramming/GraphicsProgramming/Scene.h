@@ -80,7 +80,7 @@ protected:
 	GLuint	loop;						// Misc Loop Variable
 	GLuint	col;						// Current Color Selection
 	GLuint	delay;						// Rainbow Effect Delay
-	GLuint	texture[1];					// Storage For Our Particle Texture
+	GLuint	*particle_texture;					// Storage For Our Particle Texture
 
 	typedef struct						// Create A Structure For Particle
 	{
