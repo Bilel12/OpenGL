@@ -6,6 +6,7 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
+#define	MAX_PARTICLES	1000		// Number Of Particles To Create
 // Include GLUT, openGL, input.
 #include <Windows.h>
 #include "glew.h"
@@ -21,8 +22,6 @@
 #include "SOIL.h"
 #include "Camera.h"
 
-const int num = 50;
-
 class Scene{
 
 public:
@@ -35,25 +34,6 @@ public:
 	void resize(int w, int h);
 
 protected:
-	bool	twinkle;			// Twinkling Stars
-
-	typedef struct				// Create A Structure For Star
-	{
-		int r, g, b;			// Stars Color
-		GLfloat dist,			// Stars Distance From Center
-			angle;			// Stars Current Angle
-	}
-	stars;
-	stars star[num];			// Need To Keep Track Of 'num' Stars
-
-	GLfloat	zoom = -15.0f;		// Distance Away From Stars
-	GLfloat tilt = 90.0f;			// Tilt The View
-	GLfloat	spin;				// Spin Stars
-
-	GLuint	loop;				// General Loop Variable
-	GLuint	texture[1];			// Storage For One textures
-
-	//LRESULT	CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration For WndProc
 	// Renders text (x, y positions, RGB colour of text, string of text to be rendered)
 	void displayText(float x, float y, float r, float g, float b, char* string);
 	// A function to collate all text output in a single location
@@ -67,6 +47,7 @@ protected:
 	char fps[40];
 	char mouseText[40];
 	float fov, nearPlane, farPlane;
+	HDC hDC = NULL;
 	// For access to user input.
 	Input* input;
 	// For camera access 
@@ -79,7 +60,6 @@ protected:
 	GLuint *checked;
 	GLuint *grass;
 	GLuint *glass;
-	GLuint *star_texture;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float xrot;	// Rotate On The X Axis
@@ -87,6 +67,43 @@ protected:
 	float zrot;	// Rotate On The Z Axis
 	// Booleans
 	bool blend; // toggle bledning effect
+	// Particles
+	bool	rainbow = true;				// Rainbow Mode?
+	bool	sp;							// Spacebar Pressed?
+	bool	rp;							// Enter Key Pressed?
+
+	float	slowdown = 2.0f;				// Slow Down Particles
+	float	xspeed;						// Base X Speed (To Allow Keyboard Direction Of Tail)
+	float	yspeed;						// Base Y Speed (To Allow Keyboard Direction Of Tail)
+	float	zoom = -40.0f;				// Used To Zoom Out
+
+	GLuint	loop;						// Misc Loop Variable
+	GLuint	col;						// Current Color Selection
+	GLuint	delay;						// Rainbow Effect Delay
+	GLuint	texture[1];					// Storage For Our Particle Texture
+
+	typedef struct						// Create A Structure For Particle
+	{
+		bool	active;					// Active (Yes/No)
+		float	life;					// Particle Life
+		float	fade;					// Fade Speed
+		float	r;						// Red Value
+		float	g;						// Green Value
+		float	b;						// Blue Value
+		float	x;						// X Position
+		float	y;						// Y Position
+		float	z;						// Z Position
+		float	xi;						// X Direction
+		float	yi;						// Y Direction
+		float	zi;						// Z Direction
+		float	xg;						// X Gravity
+		float	yg;						// Y Gravity
+		float	zg;						// Z Gravity
+	}
+	particles;							// Particles Structure
+
+	particles particle[MAX_PARTICLES];	// Particle Array (Room For Particle Info)
+
 };
 
 #endif

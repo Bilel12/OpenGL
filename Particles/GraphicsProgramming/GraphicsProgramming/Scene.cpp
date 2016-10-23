@@ -22,27 +22,18 @@ Scene::Scene(Input *in)
 
 	// loading textures into vector
 	loadTextures();
-	for (loop = 0; loop<num; loop++)
-	{
-		star[loop].angle = 0.0f;
-		star[loop].dist = (float(loop) / num)*5.0f;
-		star[loop].r = rand() % 256;
-		star[loop].g = rand() % 256;
-		star[loop].b = rand() % 256;
-	}
+	
 	// Initialise variables
 	triangle = &textures[2];
 	checked = &textures[3];
 	grass = &textures[4];
 	glass = &textures[5];
-	star_texture = &textures[6];
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
 	
 	blend = false; // blending on/off?
-	twinkle = false; // twinkle on/off?
 }
 
 void Scene::loadTextures() {
@@ -106,46 +97,38 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
-	// Toggle twinkle
-	if (input->isKeyDown('t') || input->isKeyDown('T')) {
-		twinkle = !twinkle;
-		input->SetKeyUp('t'); input->isKeyDown('T');
-	}
-	// Tilt The Screen Up
-	if (input->isKeyDown('y') || input->isKeyDown('Y')) {
-		zoom -= 0.2f;
-	}
-	// Tilt The Screen Down
-	if (input->isKeyDown('u') || input->isKeyDown('U')) {
-		zoom += 0.2f;
-	}
-	// Zoom Out
-	if (input->isKeyDown(GLUT_KEY_UP)) {
-		tilt -= 0.5f;
-	}
-	// Zoom In
-	if (input->isKeyDown(GLUT_KEY_DOWN)) {
-		tilt += 0.5f;
-	}
-	// Blending
-	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
+	// Toggle blend
+	if (input->isKeyDown('b') || input->isKeyDown('B')) {
 		blend = !blend; // toggle blend (true/false)
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
 			glDisable(GL_DEPTH_TEST); // Turn depth testing off
-		} else {
+		}
+		else {
 			glDisable(GL_BLEND); // Turn blending off
 			glEnable(GL_DEPTH_TEST); // Turn depth testing on
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
+		/*blend = !blend;
+		if (blend) {
+			glEnable(GL_BLEND);
+			glDisable(GL_TEXTURE_DEPTH);
+		} else {
+			glDisable(GL_BLEND);
+			glEnable(GL_TEXTURE_DEPTH);
+		}
+
+		input->SetKeyUp('b'); input->SetKeyUp('B');*/
 	}
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		camera.moveForward(dt);
+		zoom -= 0.2f;
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		camera.moveBackwards(dt);
+		zoom += 0.2f;
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
@@ -156,11 +139,11 @@ void Scene::update(float dt)
 		camera.moveSideRight(dt);
 	}
 	// move camera down
-	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
 		camera.moveUp(dt);
 	}
 	// move camera down
-	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
 		camera.moveDown(dt);
 	}
 	// camera's Yaw mouse controll
@@ -202,53 +185,6 @@ void Scene::render() {
 	         );
 
 	// Render geometry here -------------------------------------
-	// Twinkle
-	glPushMatrix(); {
-	glBindTexture(GL_TEXTURE_2D, *star_texture);			// Select Our Texture
-		for (loop = 0; loop < num; loop++)						// Loop Through All The Stars
-		{
-			glLoadIdentity();								// Reset The View Before We Draw Each Star
-			glTranslatef(0.0f, 0.0f, zoom);					// Zoom Into The Screen (Using The Value In 'zoom')
-			glRotatef(tilt, 1.0f, 0.0f, 0.0f);					// Tilt The View (Using The Value In 'tilt')
-			glRotatef(star[loop].angle, 0.0f, 1.0f, 0.0f);		// Rotate To The Current Stars Angle
-			glTranslatef(star[loop].dist, 0.0f, 0.0f);		// Move Forward On The X Plane
-			glRotatef(-star[loop].angle, 0.0f, 1.0f, 0.0f);	// Cancel The Current Stars Angle
-			glRotatef(-tilt, 1.0f, 0.0f, 0.0f);				// Cancel The Screen Tilt
-
-			if (twinkle)
-			{
-				glColor4ub(star[(num - loop) - 1].r, star[(num - loop) - 1].g, star[(num - loop) - 1].b, 255);
-				glBegin(GL_QUADS);
-				glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 0.0f);
-				glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 0.0f);
-				glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
-				glEnd();
-			}
-
-			glRotatef(spin, 0.0f, 0.0f, 1.0f);
-			glColor4ub(star[loop].r, star[loop].g, star[loop].b, 255);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 0.0f);
-			glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 0.0f);
-			glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f, 0.0f);
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f, 0.0f);
-			glEnd();
-
-			spin += 0.01f;
-			star[loop].angle += float(loop) / num;
-			star[loop].dist -= 0.01f;
-			if (star[loop].dist < 0.0f)
-			{
-				star[loop].dist += 5.0f;
-				star[loop].r = rand() % 256;
-				star[loop].g = rand() % 256;
-				star[loop].b = rand() % 256;
-			}
-		}
-	glEnd(); 
-	} glPopMatrix();
-
 	glPushMatrix();
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
