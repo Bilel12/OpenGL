@@ -104,6 +104,7 @@ protected:
 
 	particles particle[MAX_PARTICLES];	// Particle Array (Room For Particle Info)
 
+	
 };
 
 #endif
