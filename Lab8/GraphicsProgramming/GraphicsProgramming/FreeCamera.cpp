@@ -152,10 +152,10 @@ void FreeCamera::subtractroll(float dt) {
 	Roll -= 1 * dt;
 }
 
-void FreeCamera::getMousePositionX(int width, int mouseX, int speed) {
+void FreeCamera::updateYaw(int width, int mouseX, int speed) {
 	Yaw += static_cast<float>((mouseX - (width / 2)) / speed);
 }
-void FreeCamera::getMousePositionY(int height, int mouseY, int speed) {
+void FreeCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 

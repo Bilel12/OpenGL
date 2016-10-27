@@ -2,6 +2,7 @@
 #define _FREECAMERA_H_
 
 #include "Camera.h"
+#include "Input.h"
 
 class FreeCamera : public Camera
 {
@@ -9,6 +10,7 @@ public:
 	FreeCamera();
 	~FreeCamera();
 
+	Input *input;
 	virtual void update();
 	virtual void moveForward(float dt);
 	virtual void moveBackwards(float dt);
@@ -44,8 +46,8 @@ public:
 	virtual float getPitch();
 	virtual float getRoll();
 
-	virtual void getMousePositionX(int width, int mouseX, int speed);
-	virtual void getMousePositionY(int height, int mouseY, int speed);
+	virtual void updateYaw(int width, int mouseX, int speed);
+	virtual void updatePitch(int height, int mouseY, int speed);
 private:
 	Vector3 position;
 	Vector3 lookAt;

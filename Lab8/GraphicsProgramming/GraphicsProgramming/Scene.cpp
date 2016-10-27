@@ -5,7 +5,6 @@ Scene::Scene(Input *in)
 	// Store pointer for input class
 	input = in;
 	// Camera 
-	//camera = new Camera();
 	//OpenGL settings
 	
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -117,7 +116,7 @@ void Scene::update(float dt)
 	// Handle user input
 	// Camera settings
 	if (input->isKeyDown('1')) {
-		//camera = &securityCamera;
+		camera = &securityCamera;
 		input->SetKeyUp('1');
 	}
 	if (input->isKeyDown('2')) {
@@ -160,9 +159,9 @@ void Scene::update(float dt)
 		camera->moveDown(dt);
 	}
 	// camera's Yaw mouse controll
-	camera->getMousePositionX(width, input->getMouseX(), 2);
+	camera->updateYaw(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll
-	camera->getMousePositionY(height, input->getMouseY(), 2);
+	camera->updatePitch(height, input->getMouseY(), 2);
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 
