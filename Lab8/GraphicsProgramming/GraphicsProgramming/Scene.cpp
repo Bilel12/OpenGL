@@ -182,36 +182,6 @@ void Scene::render() {
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
-
-		if (blend) {
-			glDisable(GL_BLEND); // Turn blending off
-			glEnable(GL_DEPTH_TEST); // Turn depth testing on
-		}
-		glBindTexture(GL_TEXTURE_2D, *checked); {
-			glBegin(GL_QUADS);
-			glNormal3f(0, 0, 1);
-			glTexCoord2f(0, 0);
-			glVertex3f(-5, 5, 0);
-
-			glNormal3f(0, 0, 1);
-			glTexCoord2f(0, 1);
-			glVertex3f(-5, -5, 0);
-
-			glNormal3f(0, 0, 1);
-			glTexCoord2f(1, 1);
-			glVertex3f(5, -5, 0);
-
-			glNormal3f(0, 0, 1);
-			glTexCoord2f(1, 0);
-			glVertex3f(5, 5, 0);
-			glEnd();
-		}
-	glPopMatrix();
-	
-	glPushMatrix();
-		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
-		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
-		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
 			glDisable(GL_DEPTH_TEST); // Turn depth testing off
