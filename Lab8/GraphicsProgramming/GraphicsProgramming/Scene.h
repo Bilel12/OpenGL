@@ -53,7 +53,7 @@ protected:
 	Input* input;
 	// For camera access 
 	FreeCamera freeCamera;
-	SecurityCamera securityCamera;
+	//SecurityCamera securityCamera;
 	Camera *camera = &freeCamera;
 	//Camera *p_camera = &camera;
 	// For loading textures

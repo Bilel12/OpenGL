@@ -117,7 +117,7 @@ void Scene::update(float dt)
 	// Handle user input
 	// Camera settings
 	if (input->isKeyDown('1')) {
-		camera = &securityCamera;
+		//camera = &securityCamera;
 		input->SetKeyUp('1');
 	}
 	if (input->isKeyDown('2')) {

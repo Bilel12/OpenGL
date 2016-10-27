@@ -6,8 +6,8 @@
 class Camera
 {
 public:
-	Camera();
-	virtual ~Camera();
+	//Camera();
+	virtual ~Camera() {}
 	virtual void update() = 0;
 	virtual void moveForward(float dt) = 0;
 	virtual void moveBackwards(float dt) = 0;
@@ -45,15 +45,6 @@ public:
 
 	virtual void getMousePositionX(int width, int mouseX, int speed) = 0;
 	virtual void getMousePositionY(int height, int mouseY, int speed) = 0;
-
-private:
-	//Vector3* p_forward = &forward;
-	Vector3 position;
-	Vector3 lookAt;
-	Vector3 forward;
-	Vector3 up;
-	Vector3 side;
-	float Yaw, Pitch, Roll;
 };
 
 #endif 
