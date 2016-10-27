@@ -44,7 +44,7 @@ protected:
 	// For Window and frustum calculation.
 	int width, height;
 	// For FPS counter and mouse coordinate output.
-	int frame = 0, time, timebase = 0;
+	int frame, time, timebase;
 	char fps[40];
 	char mouseText[40];
 	float fov, nearPlane, farPlane;
@@ -52,11 +52,9 @@ protected:
 	// For access to user input.
 	Input* input;
 	// For camera access 
+	Camera *camera;
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
-	Camera *camera = &freeCamera;
-	//Camera *camera = &freeCamera;
-	//Camera *p_camera = &camera;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;

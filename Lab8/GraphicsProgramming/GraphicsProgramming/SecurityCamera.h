@@ -50,6 +50,8 @@ public:
 
 	virtual void updateYaw(int width, int mouseX, int speed);
 	virtual void updatePitch(int height, int mouseY, int speed);
+
+	void userControll(float dt, int width, int height);
 private:
 	Vector3 position;
 	Vector3 lookAt;

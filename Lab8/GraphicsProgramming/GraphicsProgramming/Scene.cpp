@@ -5,8 +5,9 @@ Scene::Scene(Input *in)
 	// Store pointer for input class
 	input = in;
 	// Camera 
+	camera = &freeCamera;
 	//OpenGL settings
-	
+	frame = 0; timebase = 0;
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
@@ -116,11 +117,11 @@ void Scene::update(float dt)
 	// Handle user input
 	// Camera settings
 	if (input->isKeyDown('1')) {
-		camera = &securityCamera;
+		camera = &freeCamera;
 		input->SetKeyUp('1');
 	}
 	if (input->isKeyDown('2')) {
-		camera = &freeCamera;
+		camera = &securityCamera;
 		input->SetKeyUp('2');
 	}
 
@@ -134,37 +135,38 @@ void Scene::update(float dt)
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
-	// move camera forward
-	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		camera->moveForward(dt);
-	}
-	// move camera backwards
-	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		camera->moveBackwards(dt);
-	}
-	// move camera to the left
-	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		camera->moveSideLeft(dt);
-	}
-	// move camera to the right
-	if (input->isKeyDown('d') || input->isKeyDown('D')) {
-		camera->moveSideRight(dt);
-	}
-	// move camera down
-	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
-		camera->moveUp(dt);
-	}
-	// move camera down
-	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
-		camera->moveDown(dt);
-	}
-	// camera's Yaw mouse controll
-	camera->updateYaw(width, input->getMouseX(), 2);
-	// camera's Pitch mouse controll
-	camera->updatePitch(height, input->getMouseY(), 2);
-	// Force mouse to return to the centre of the window
-	glutWarpPointer(width / 2, height / 2);
+	//// move camera forward
+	//if (input->isKeyDown('w') || input->isKeyDown('w')) {
+	//	camera->moveForward(dt);
+	//}
+	//// move camera backwards
+	//if (input->isKeyDown('s') || input->isKeyDown('S')) {
+	//	camera->moveBackwards(dt);
+	//}
+	//// move camera to the left
+	//if (input->isKeyDown('a') || input->isKeyDown('A')) {
+	//	camera->moveSideLeft(dt);
+	//}
+	//// move camera to the right
+	//if (input->isKeyDown('d') || input->isKeyDown('D')) {
+	//	camera->moveSideRight(dt);
+	//}
+	//// move camera down
+	//if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
+	//	camera->moveUp(dt);
+	//}
+	//// move camera down
+	//if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
+	//	camera->moveDown(dt);
+	//}
+	//// camera's Yaw mouse controll
+	//camera->updateYaw(width, input->getMouseX(), 2);
+	//// camera's Pitch mouse controll
+	//camera->updatePitch(height, input->getMouseY(), 2);
+	//// Force mouse to return to the centre of the window
+	//glutWarpPointer(width / 2, height / 2);
 
+	camera->userControll(dt, width, height);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);

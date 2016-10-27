@@ -19,10 +19,7 @@ SecurityCamera::SecurityCamera() {
 	update();
 }
 
-
-SecurityCamera::~SecurityCamera()
-{
-}
+SecurityCamera::~SecurityCamera() {}
 
 void SecurityCamera::update() {
 	float cosR, cosP, cosY;	//temp values for sin/cos from 
@@ -173,4 +170,8 @@ void SecurityCamera::updateYaw(int width, int mouseX, int speed) {
 }
 void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
+}
+
+void SecurityCamera::userControll(float dt, int width, int height) {
+	return;
 }

@@ -45,6 +45,7 @@ public:
 
 	virtual void updateYaw(int width, int mouseX, int speed) = 0;
 	virtual void updatePitch(int height, int mouseY, int speed) = 0;
+	virtual void userControll(float dt, int width, int height) = 0;
 };
 
 #endif 

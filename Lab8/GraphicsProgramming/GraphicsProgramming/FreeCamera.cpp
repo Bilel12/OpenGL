@@ -1,6 +1,7 @@
 #include "FreeCamera.h"
 
 FreeCamera::FreeCamera() {
+	input = new Input();
 	position.setX(0.0f);
 	position.setY(0.0f);
 	position.setZ(6.0f);
@@ -159,3 +160,35 @@ void FreeCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
+void FreeCamera::userControll(float dt, int width, int height) {
+	// move camera forward
+	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+		moveForward(dt);
+	}
+	// move camera backwards
+	if (input->isKeyDown('s') || input->isKeyDown('S')) {
+		moveBackwards(dt);
+	}
+	// move camera to the left
+	if (input->isKeyDown('a') || input->isKeyDown('A')) {
+		moveSideLeft(dt);
+	}
+	// move camera to the right
+	if (input->isKeyDown('d') || input->isKeyDown('D')) {
+		moveSideRight(dt);
+	}
+	// move camera down
+	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
+		moveUp(dt);
+	}
+	// move camera down
+	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
+		moveDown(dt);
+	}
+	// camera's Yaw mouse controll
+	updateYaw(width, input->getMouseX(), 2);
+	// camera's Pitch mouse controll
+	updatePitch(height, input->getMouseY(), 2);
+	// Force mouse to return to the centre of the window
+	glutWarpPointer(width / 2, height / 2);
+}
