@@ -12,13 +12,14 @@ Scene::Scene(Input *in)
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+	//glDisable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 
 	// Other OpenGL / render setting should be applied here.
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);					// Set The Blending Function For Translucency
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);					// Set The Blending Function For Translucency
 
 	// loading textures into vector
 	loadTextures();
@@ -27,6 +28,9 @@ Scene::Scene(Input *in)
 	checked = &textures[3];
 	grass = &textures[4];
 	glass = &textures[5];
+	aTrans = &textures[6];
+	crateTrans = &textures[7];
+	skybox = &textures[8];
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
@@ -80,11 +84,25 @@ void Scene::loadTextures() {
 	); textures.push_back(myTexture);
 
 	myTexture = SOIL_load_OGL_texture( // 6
-		"gfx/star.png",
+		"gfx/aTrans.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 7
+		"gfx/crateTrans.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 8
+		"gfx/skybox.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
 
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
@@ -97,21 +115,15 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
-	// Twinkle
-	SwapBuffers(hDC); // Swap Buffers (Double Buffering)
-	if (input->isKeyDown('t') || input->isKeyDown('T')) {
-		twinkle = !twinkle;
-		input->SetKeyUp('t'); input->isKeyDown('T');
-	}
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
-			glDisable(GL_DEPTH_TEST); // Turn depth testing off
+			//glDisable(GL_DEPTH_TEST); // Turn depth testing off
 		} else {
 			glDisable(GL_BLEND); // Turn blending off
-			glEnable(GL_DEPTH_TEST); // Turn depth testing on
+			//glEnable(GL_DEPTH_TEST); // Turn depth testing on
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
@@ -171,11 +183,196 @@ void Scene::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// Reset transformations
 	glLoadIdentity();
+
 	// Set the camera
 	gluLookAt(camera.getPositionX(), camera.getPositionY(), camera.getPositionZ(), 
 	          camera.getLookAtX(), camera.getLookAtY(), camera.getLookAtZ(),
 			  camera.getUpX(), camera.getUpY(), camera.getUpZ()
 	         );
+
+	glBindTexture(GL_TEXTURE_2D, *skybox); {
+		glPushMatrix();
+			glTranslatef(camera.getPositionX(), camera.getPositionY(), camera.getPositionZ());
+			glDisable(GL_DEPTH_TEST);
+			{
+				/////////////////////////////
+				glBegin(GL_TRIANGLES); // front face
+				glNormal3f(0.0f, 0.0f, 1.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(-1, -1, 1);
+
+				glNormal3f(0.0f, 0.0f, 1.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(1, -1, 1);
+
+				glNormal3f(0.0f, 0.0f, 1.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(1, 1, 1);
+				glEnd();
+
+				glBegin(GL_TRIANGLES);
+				glNormal3f(0.0f, 0.0f, 1.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(1, 1, 1);
+
+				glNormal3f(0.0f, 0.0f, 1.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(-1, 1, 1);
+
+				glNormal3f(0.0f, 0.0f, 1.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(-1, -1, 1);
+				glEnd();
+				/////////////////////////////
+				glBegin(GL_TRIANGLES); // right side face
+				glNormal3f(1.0f, 0.0f, 0.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(1, -1, 1);
+
+				glNormal3f(1.0f, 0.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(1, -1, -1);
+
+				glNormal3f(1.0f, 0.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
+				glEnd();
+
+				glBegin(GL_TRIANGLES);
+				glNormal3f(1.0f, 0.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(1, -1, -1);
+
+				glNormal3f(1.0f, 0.0f, 0.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(1, 1, -1);
+
+				glNormal3f(1.0f, 0.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
+				glEnd();
+				///////////////////////////////////
+				glBegin(GL_TRIANGLES); // left side face
+				glColor3f(0, 0, 1);
+				glNormal3f(-1.0f, 0.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(-1, -1, -1);
+
+				glNormal3f(-1.0f, 0.0f, 0.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(-1, 1, -1);
+
+				glNormal3f(-1.0f, 0.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(-1, 1, 1);
+				glEnd();
+
+				glBegin(GL_TRIANGLES);
+				glNormal3f(-1.0f, 0.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(-1, 1, 1);
+
+				glNormal3f(-1.0f, 0.0f, 0.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(-1, -1, 1);
+
+				glNormal3f(-1.0f, 0.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(-1, -1, -1);
+				glEnd();
+				//////////////////////////////
+				glBegin(GL_TRIANGLES); // bottom face
+				glColor3f(1, 1, 1);
+				glNormal3f(0.0f, -1.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(-1, -1, -1);
+
+				glNormal3f(0.0f, -1.0f, 0.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(-1, -1, 1);
+
+				glNormal3f(0.0f, -1.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, -1, 1);
+				glEnd();
+
+				glBegin(GL_TRIANGLES);
+				glNormal3f(0.0f, -1.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, -1, 1);
+
+				glNormal3f(0.0f, -1.0f, 0.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(1, -1, -1);
+
+				glNormal3f(0.0f, -1.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(-1, -1, -1);
+				glEnd();
+				///////////////////////////////
+				glBegin(GL_TRIANGLES); // back face
+				glColor3f(0, 1, 0); // green
+				glNormal3f(0.0f, 0.0f, -1.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(-1, -1, -1);
+
+				glNormal3f(0.0f, 0.0f, -1.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(1, -1, -1);
+
+				glNormal3f(0.0f, 0.0f, -1.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(1, 1, -1);
+				glEnd();
+
+				glBegin(GL_TRIANGLES);
+				glNormal3f(0.0f, 0.0f, -1.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(1, 1, -1);
+
+				glNormal3f(0.0f, 0.0f, -1.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(-1, 1, -1);
+
+				glNormal3f(0.0f, 0.0f, -1.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(-1, -1, -1);
+				glEnd();
+				///////////////////////
+				glBegin(GL_TRIANGLES); // top face
+				glColor3f(0.0, 1.0, 0.0); // green
+				glNormal3f(0.0f, 1.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
+
+				glNormal3f(0.0f, 1.0f, 0.0f);
+				glTexCoord2f(0, 1);
+				glVertex3f(1, 1, -1);
+
+				glNormal3f(0.0f, 1.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(-1, 1, -1);
+				glEnd();
+
+				glBegin(GL_TRIANGLES);
+				glNormal3f(0.0f, 1.0f, 0.0f);
+				glTexCoord2f(1, 1);
+				glVertex3f(-1, 1, -1);
+
+				glNormal3f(0.0f, 1.0f, 0.0f);
+				glTexCoord2f(1, 0);
+				glVertex3f(-1, 1, 1);
+
+				glNormal3f(0.0f, 1.0f, 0.0f);
+				glTexCoord2f(0, 0);
+				glVertex3f(1, 1, 1);
+				glEnd();
+			}
+			glEnable(GL_DEPTH_TEST);
+		glEnd();
+	} glPopMatrix();
+
+
 
 	// Render geometry here -------------------------------------
 	glPushMatrix();
@@ -184,11 +381,9 @@ void Scene::render() {
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
-			glDisable(GL_DEPTH_TEST); // Turn depth testing off
+			//glDisable(GL_DEPTH_TEST); // Turn depth testing off
 		}
-		glBindTexture(GL_TEXTURE_2D, *glass); {
-			glColor4f(1.0f, 1.0f, 1.0f, 0.5f); // Full Brightness, 50% Alpha
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Blending Function For Translucency Based On Source Alpha Value
+		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 			/////////////////////////////
 			glBegin(GL_TRIANGLES); // front face
 			glNormal3f(0.0f, 0.0f, 1.0f);
@@ -364,6 +559,69 @@ void Scene::render() {
 		}
 	glPopMatrix();
 
+	glPushMatrix(); {
+		glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
+		glBegin(GL_TRIANGLES); // front face
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(-1, -1, 1.5);
+
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(1, 1);
+		glVertex3f(1, -1, 1.5);
+
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(1, 1, 1.5);
+		glEnd();
+
+		glBegin(GL_TRIANGLES);
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(1, 1, 1.5);
+
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0, 0);
+		glVertex3f(-1, 1, 1.5);
+
+		glNormal3f(0.0f, 0.0f, 1.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(-1, -1, 1.5);
+		glEnd();
+	} glPopMatrix();
+
+	//glPushMatrix(); {
+	//	glBegin(GL_TRIANGLES); // front face
+	//	glColor3f(1, 0, 0); // red
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(0, 1);
+	//	glVertex3f(-1, -1, 1);
+
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1, 1);
+	//	glVertex3f(1, -1, 1);
+
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1, 0);
+	//	glVertex3f(1, 1, 1);
+	//	glEnd();
+
+	//	glBegin(GL_TRIANGLES); // back face
+	//	glColor3f(0, 1, 0); // green
+	//	glNormal3f(0.0f, 0.0f, -1.0f);
+	//	glTexCoord2f(0, 1);
+	//	glVertex3f(-1, -1, -1);
+
+	//	glNormal3f(0.0f, 0.0f, -1.0f);
+	//	glTexCoord2f(1, 1);
+	//	glVertex3f(1, -1, -1);
+
+	//	glNormal3f(0.0f, 0.0f, -1.0f);
+	//	glTexCoord2f(1, 0);
+	//	glVertex3f(1, 1, -1);
+	//	glEnd();
+
+	//} glPopMatrix();
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
 

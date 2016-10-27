@@ -59,6 +59,9 @@ protected:
 	GLuint *checked;
 	GLuint *grass;
 	GLuint *glass;
+	GLuint *aTrans;
+	GLuint *crateTrans;
+	GLuint *skybox;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float xrot;	// Rotate On The X Axis
