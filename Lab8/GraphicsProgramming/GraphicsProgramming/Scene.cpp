@@ -135,37 +135,7 @@ void Scene::update(float dt)
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
-	//// move camera forward
-	//if (input->isKeyDown('w') || input->isKeyDown('w')) {
-	//	camera->moveForward(dt);
-	//}
-	//// move camera backwards
-	//if (input->isKeyDown('s') || input->isKeyDown('S')) {
-	//	camera->moveBackwards(dt);
-	//}
-	//// move camera to the left
-	//if (input->isKeyDown('a') || input->isKeyDown('A')) {
-	//	camera->moveSideLeft(dt);
-	//}
-	//// move camera to the right
-	//if (input->isKeyDown('d') || input->isKeyDown('D')) {
-	//	camera->moveSideRight(dt);
-	//}
-	//// move camera down
-	//if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
-	//	camera->moveUp(dt);
-	//}
-	//// move camera down
-	//if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
-	//	camera->moveDown(dt);
-	//}
-	//// camera's Yaw mouse controll
-	//camera->updateYaw(width, input->getMouseX(), 2);
-	//// camera's Pitch mouse controll
-	//camera->updatePitch(height, input->getMouseY(), 2);
-	//// Force mouse to return to the centre of the window
-	//glutWarpPointer(width / 2, height / 2);
-
+	// Camera input controll
 	camera->userControll(dt, width, height, input);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();

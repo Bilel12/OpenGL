@@ -60,6 +60,8 @@ void SecurityCamera::update() {
 	// Side Vector (right)
 	side = forward.cross(up); // this is a cross product between the forward and up vector. 
 							  // If you don’t need to calculate this,  don’t do it. 
+
+
 }
 
 float SecurityCamera::getPositionX() {
@@ -171,5 +173,8 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 }
 
 void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
+
+
+
 	return;
 }
