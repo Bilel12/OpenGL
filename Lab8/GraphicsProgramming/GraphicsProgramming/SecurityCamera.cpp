@@ -1,7 +1,5 @@
 #include "SecurityCamera.h"
 
-
-
 SecurityCamera::SecurityCamera() {
 	position.setX(4.0f);
 	position.setY(4.0f);
@@ -172,6 +170,6 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
-void SecurityCamera::userControll(float dt, int width, int height) {
+void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
 	return;
 }

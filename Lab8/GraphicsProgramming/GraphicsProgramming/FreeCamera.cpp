@@ -1,7 +1,6 @@
 #include "FreeCamera.h"
 
 FreeCamera::FreeCamera() {
-	input = new Input();
 	position.setX(0.0f);
 	position.setY(0.0f);
 	position.setZ(6.0f);
@@ -160,7 +159,7 @@ void FreeCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
-void FreeCamera::userControll(float dt, int width, int height) {
+void FreeCamera::userControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		moveForward(dt);

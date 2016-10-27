@@ -1,6 +1,7 @@
 #ifndef _SECURITYCAMERA_H
 #define _SECURITYCAMERA_H
 
+#include "Input.h"
 #include "Camera.h"
 
 class SecurityCamera : public Camera
@@ -51,7 +52,7 @@ public:
 	virtual void updateYaw(int width, int mouseX, int speed);
 	virtual void updatePitch(int height, int mouseY, int speed);
 
-	void userControll(float dt, int width, int height);
+	virtual void userControll(float dt, int width, int height, Input *input);
 private:
 	Vector3 position;
 	Vector3 lookAt;

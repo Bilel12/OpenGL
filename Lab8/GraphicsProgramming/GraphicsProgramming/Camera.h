@@ -1,12 +1,13 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "Input.h"
 #include "Vector3.h"
 
 class Camera
 {
 public:
-	//Camera();
+	Camera() {}
 	virtual ~Camera() {}
 	virtual void update() = 0;
 	virtual void moveForward(float dt) = 0;
@@ -45,7 +46,7 @@ public:
 
 	virtual void updateYaw(int width, int mouseX, int speed) = 0;
 	virtual void updatePitch(int height, int mouseY, int speed) = 0;
-	virtual void userControll(float dt, int width, int height) = 0;
+	virtual void userControll(float dt, int width, int height, Input *input) = 0;
 };
 
 #endif 

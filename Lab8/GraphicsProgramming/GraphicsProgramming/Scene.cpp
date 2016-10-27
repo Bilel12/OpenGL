@@ -166,7 +166,7 @@ void Scene::update(float dt)
 	//// Force mouse to return to the centre of the window
 	//glutWarpPointer(width / 2, height / 2);
 
-	camera->userControll(dt, width, height);
+	camera->userControll(dt, width, height, input);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);
