@@ -7,45 +7,44 @@ class Camera
 {
 public:
 	Camera();
-	~Camera();
+	virtual ~Camera();
+	virtual void update() = 0;
+	virtual void moveForward(float dt) = 0;
+	virtual void moveBackwards(float dt) = 0;
+	virtual void moveUp(float dt) = 0;
+	virtual void moveDown(float dt) = 0;
+	virtual void moveSideLeft(float dt) = 0;
+	virtual void moveSideRight(float dt) = 0;
 
-	void update();
-	void moveForward(float dt);
-	void moveBackwards(float dt);
-	void moveUp(float dt);
-	void moveDown(float dt);
-	void moveSideLeft(float dt);
-	void moveSideRight(float dt);
+	virtual void addYaw(float dt) = 0;
+	virtual void subtractYaw(float dt) = 0;
+	virtual void addPitch(float dt) = 0;
+	virtual void subtractPutch(float dt) = 0;
+	virtual void addRoll(float dt) = 0;
+	virtual void subtractroll(float dt) = 0;
 
-	void addYaw(float dt);
-	void subtractYaw(float dt);
-	void addPitch(float dt);
-	void subtractPutch(float dt);
-	void addRoll(float dt);
-	void subtractroll(float dt);
+	virtual float getPositionX() = 0;
+	virtual float getPositionY() = 0;
+	virtual float getPositionZ() = 0;
 
-	float getPositionX();
-	float getPositionY();
-	float getPositionZ();
+	virtual float getForwardX() = 0;
+	virtual float getForwardY() = 0;
+	virtual float getForwardZ() = 0;
 
-	float getForwardX();
-	float getForwardY();
-	float getForwardZ();
+	virtual float getLookAtX() = 0;
+	virtual float getLookAtY() = 0;
+	virtual float getLookAtZ() = 0;
 
-	float getLookAtX();
-	float getLookAtY();
-	float getLookAtZ();
+	virtual float getUpX() = 0;
+	virtual float getUpY() = 0;
+	virtual float getUpZ() = 0;
 
-	float getUpX();
-	float getUpY();
-	float getUpZ();
+	virtual float getYaw() = 0;
+	virtual float getPitch() = 0;
+	virtual float getRoll() = 0;
 
-	float getYaw();
-	float getPitch();
-	float getRoll();
-
-	void getMousePositionX(int width, int mouseX, int speed);
-	void getMousePositionY(int height, int mouseY, int speed);
+	virtual void getMousePositionX(int width, int mouseX, int speed) = 0;
+	virtual void getMousePositionY(int height, int mouseY, int speed) = 0;
 
 private:
 	//Vector3* p_forward = &forward;

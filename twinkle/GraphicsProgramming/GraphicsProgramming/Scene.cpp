@@ -5,6 +5,7 @@ Scene::Scene(Input *in)
 	// Store pointer for input class
 	input = in;
 	
+	
 	//OpenGL settings
 	
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -19,7 +20,7 @@ Scene::Scene(Input *in)
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);					// Set The Blending Function For Translucency
-
+	camera = new Camera();
 	// loading textures into vector
 	loadTextures();
 	for (loop = 0; loop<num; loop++)
@@ -141,37 +142,37 @@ void Scene::update(float dt)
 	}
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		camera.moveForward(dt);
+		camera->moveForward(dt);
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		camera.moveBackwards(dt);
+		camera->moveBackwards(dt);
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		camera.moveSideLeft(dt);
+		camera->moveSideLeft(dt);
 	}
 	// move camera to the right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
-		camera.moveSideRight(dt);
+		camera->moveSideRight(dt);
 	}
 	// move camera down
 	if (input->isKeyDown('r') || input->isKeyDown('R')) {
-		camera.moveUp(dt);
+		camera->moveUp(dt);
 	}
 	// move camera down
 	if (input->isKeyDown('f') || input->isKeyDown('F')) {
-		camera.moveDown(dt);
+		camera->moveDown(dt);
 	}
 	// camera's Yaw mouse controll
-	camera.getMousePositionX(width, input->getMouseX(), 2);
+	camera->getMousePositionX(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll
-	camera.getMousePositionY(height, input->getMouseY(), 2);
+	camera->getMousePositionY(height, input->getMouseY(), 2);
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 
 	// Update object and variables (camera, rotation, etc).
-	p_camera->update();
+	camera->update();
 	float mousePositionX(int width);
 	float mousePositionY(int height);
 
@@ -196,9 +197,9 @@ void Scene::render() {
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
-	gluLookAt(camera.getPositionX(), camera.getPositionY(), camera.getPositionZ(), 
-	          camera.getLookAtX(), camera.getLookAtY(), camera.getLookAtZ(),
-			  camera.getUpX(), camera.getUpY(), camera.getUpZ()
+	gluLookAt(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ(),
+	          camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ(),
+			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 
 	// Render geometry here -------------------------------------

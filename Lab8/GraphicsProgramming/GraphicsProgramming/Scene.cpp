@@ -4,7 +4,8 @@ Scene::Scene(Input *in)
 {
 	// Store pointer for input class
 	input = in;
-	
+	// Camera 
+	//camera = new Camera();
 	//OpenGL settings
 	
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -37,7 +38,6 @@ Scene::Scene(Input *in)
 	position_x = 0, position_y = 0, position_z = 0;
 	
 	blend = false; // blending on/off?
-	twinkle = false; // twinkle on/off?
 }
 
 void Scene::loadTextures() {
@@ -115,51 +115,59 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
+	// Camera settings
+	if (input->isKeyDown('1')) {
+		camera = &securityCamera;
+		input->SetKeyUp('1');
+	}
+	if (input->isKeyDown('2')) {
+		camera = &freeCamera;
+		input->SetKeyUp('2');
+	}
+
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
-			//glDisable(GL_DEPTH_TEST); // Turn depth testing off
 		} else {
 			glDisable(GL_BLEND); // Turn blending off
-			//glEnable(GL_DEPTH_TEST); // Turn depth testing on
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		camera.moveForward(dt);
+		camera->moveForward(dt);
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		camera.moveBackwards(dt);
+		camera->moveBackwards(dt);
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		camera.moveSideLeft(dt);
+		camera->moveSideLeft(dt);
 	}
 	// move camera to the right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
-		camera.moveSideRight(dt);
+		camera->moveSideRight(dt);
 	}
 	// move camera down
 	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
-		camera.moveUp(dt);
+		camera->moveUp(dt);
 	}
 	// move camera down
 	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
-		camera.moveDown(dt);
+		camera->moveDown(dt);
 	}
 	// camera's Yaw mouse controll
-	camera.getMousePositionX(width, input->getMouseX(), 2);
+	camera->getMousePositionX(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll
-	camera.getMousePositionY(height, input->getMouseY(), 2);
+	camera->getMousePositionY(height, input->getMouseY(), 2);
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 
 	// Update object and variables (camera, rotation, etc).
-	p_camera->update();
+	camera->update();
 	float mousePositionX(int width);
 	float mousePositionY(int height);
 
@@ -185,9 +193,9 @@ void Scene::render() {
 	glLoadIdentity();
 
 	// Set the camera
-	gluLookAt(camera.getPositionX(), camera.getPositionY(), camera.getPositionZ(), 
-	          camera.getLookAtX(), camera.getLookAtY(), camera.getLookAtZ(),
-			  camera.getUpX(), camera.getUpY(), camera.getUpZ()
+	gluLookAt(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ(),
+	          camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ(),
+			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 
 	glBindTexture(GL_TEXTURE_2D, *skybox); {
@@ -195,7 +203,7 @@ void Scene::render() {
 	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
 		glPushMatrix();
-			glTranslatef(camera.getPositionX(), camera.getPositionY(), camera.getPositionZ());
+			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 			glDisable(GL_DEPTH_TEST);
 			{
 				/////////////////////////////

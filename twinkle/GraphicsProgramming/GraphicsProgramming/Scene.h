@@ -70,8 +70,7 @@ protected:
 	// For access to user input.
 	Input* input;
 	// For camera access 
-	Camera camera;
-	Camera *p_camera = &camera;
+	Camera *camera;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;

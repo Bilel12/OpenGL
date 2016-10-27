@@ -19,6 +19,8 @@
 #include <vector>
 // Further includes should go here:
 #include "SOIL.h"
+#include "SecurityCamera.h"
+#include "FreeCamera.h"
 #include "Camera.h"
 
 class Scene{
@@ -46,12 +48,14 @@ protected:
 	char fps[40];
 	char mouseText[40];
 	float fov, nearPlane, farPlane;
-	HDC hDC = NULL;
+	
 	// For access to user input.
 	Input* input;
 	// For camera access 
-	Camera camera;
-	Camera *p_camera = &camera;
+	FreeCamera freeCamera;
+	SecurityCamera securityCamera;
+	Camera *camera = &freeCamera;
+	//Camera *p_camera = &camera;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
@@ -69,7 +73,6 @@ protected:
 	float zrot;	// Rotate On The Z Axis
 	// Booleans
 	bool blend; // toggle bledning effect
-	bool twinkle; // toggle twinkle effect
 };
 
 #endif

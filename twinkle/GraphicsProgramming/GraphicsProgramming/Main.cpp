@@ -16,6 +16,7 @@
 // Required variables; pointer to scene and input objects. Initialise variable used in delta time calculation.
 Scene* scene;
 Input* input;
+
 int oldTimeSinceStart = 0;
 // Window properties
 int windowWidth = 800, windowHeight = 600;

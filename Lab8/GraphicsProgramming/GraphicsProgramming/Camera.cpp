@@ -158,8 +158,8 @@ void Camera::subtractroll(float dt) {
 }
 
 void Camera::getMousePositionX(int width, int mouseX, int speed) {
-	Yaw += (mouseX - (width / 2)) / speed;
+	Yaw += static_cast<float>((mouseX - (width / 2)) / speed);
 }
 void Camera::getMousePositionY(int height, int mouseY, int speed) {
-	Pitch -= (mouseY - (height / 2)) / speed;
+	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
