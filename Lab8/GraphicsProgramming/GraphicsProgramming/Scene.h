@@ -51,6 +51,7 @@ protected:
 	char cameraVectorText[60];
 	char cameraLookAtText[60];
 	char cameraUpText[60];
+	char cameraSideText[60];
 	char cameraRotationText[60];
 	float fov, nearPlane, farPlane;
 	
