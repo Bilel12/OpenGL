@@ -137,6 +137,8 @@ void Scene::update(float dt)
 	}
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
+	// Camera controll
+	camera->cameraControll(dt, width, height);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);

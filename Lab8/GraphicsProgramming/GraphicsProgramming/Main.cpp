@@ -130,7 +130,7 @@ void processMouseButtons(int button, int state, int x, int y)
 		}
 	}
 }
-//#define GLUT_WINDOW_WIDTH 800
+
 // Main entery point for application.
 // Initialises GLUT and application window.
 // Registers callback functions for handling GLUT input events

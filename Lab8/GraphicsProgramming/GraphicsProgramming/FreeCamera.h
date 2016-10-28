@@ -1,9 +1,9 @@
 #ifndef _FREECAMERA_H_
 #define _FREECAMERA_H_
 
+#include <glut.h>
 #include "Input.h"
 #include "Camera.h"
-#include "Defines.h"
 
 class FreeCamera : public Camera
 {

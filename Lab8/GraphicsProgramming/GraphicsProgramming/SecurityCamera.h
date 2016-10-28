@@ -1,10 +1,9 @@
 #ifndef _SECURITYCAMERA_H
 #define _SECURITYCAMERA_H
 
-#include "glut.h"
+#include "Defines.h"
 #include "Input.h"
 #include "Camera.h"
-#include "Window.h"
 
 class SecurityCamera : public Camera
 {
@@ -62,8 +61,6 @@ private:
 	Vector3 forward;
 	Vector3 up;
 	Vector3 side;
-	Window win;
-	Window *window = &win;
 	float Yaw, Pitch, Roll;
 };
 

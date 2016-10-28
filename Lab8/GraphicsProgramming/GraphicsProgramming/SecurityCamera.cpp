@@ -1,8 +1,8 @@
 #include "SecurityCamera.h"
 
 SecurityCamera::SecurityCamera() {
-	position.setX(4.0f);
-	position.setY(4.0f);
+	position.setX(0.0f);
+	position.setY(0.0f);
 	position.setZ(6.0f);
 	forward.setX(0.0f);
 	forward.setY(0.0f);
@@ -13,7 +13,6 @@ SecurityCamera::SecurityCamera() {
 	side.setX(0.0f);
 	side.setY(2.0f);
 	side.setZ(1.0f);
-
 	update();
 }
 
@@ -59,9 +58,6 @@ void SecurityCamera::update() {
 
 	// Side Vector (right)
 	side = forward.cross(up); // this is a cross product between the forward and up vector. 
-							  // If you don’t need to calculate this,  don’t do it. 
-
-
 }
 
 float SecurityCamera::getPositionX() {
@@ -177,5 +173,20 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
-	return;
+	// move camera forward
+	moveForward(dt);
+	// move camera backwards
+	//moveBackwards(dt);
+	//// move camera to the left
+	//moveSideLeft(dt);
+	//// move camera to the right
+	//moveSideRight(dt);
+	//// move camera down
+	//moveUp(dt);
+	//// move camera down
+	//moveDown(dt);
+	// camera's Yaw mouse controll, last variable controlls speed
+	//updateYaw(width, input->getMouseX(), 2);
+	// camera's Pitch mouse controll, last variable controlls speed
+	//updatePitch(height, input->getMouseY(), 2);
 }
