@@ -101,13 +101,26 @@ float SecurityCamera::getUpZ() {
 }
 
 float SecurityCamera::getYaw() {
-	return side.getX();
+	//return side.getZ();
+	return Yaw;
 }
 float SecurityCamera::getPitch() {
-	return side.getY();
+	//return side.getY();
+	return Pitch;
 }
 float SecurityCamera::getRoll() {
+	//return side.getX();
+	return Roll;
+}
+
+float SecurityCamera::getSideX() {
 	return side.getZ();
+}
+float SecurityCamera::getSideY() {
+	return side.getY();
+}
+float SecurityCamera::getSideZ() {
+	return side.getX();
 }
 
 void SecurityCamera::setYaw(float arg) {

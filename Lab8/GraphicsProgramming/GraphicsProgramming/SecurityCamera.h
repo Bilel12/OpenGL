@@ -42,6 +42,10 @@ public:
 	virtual float getUpY();
 	virtual float getUpZ();
 
+	virtual float getSideX();
+	virtual float getSideY();
+	virtual float getSideZ();
+
 	virtual float getYaw();
 	virtual float getPitch();
 	virtual float getRoll();

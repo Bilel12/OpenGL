@@ -39,6 +39,10 @@ public:
 	virtual float getUpY() = 0;
 	virtual float getUpZ() = 0;
 
+	virtual float getSideX() = 0;
+	virtual float getSideY() = 0;
+	virtual float getSideZ() = 0;
+
 	virtual float getYaw() = 0;
 	virtual float getPitch() = 0;
 	virtual float getRoll() = 0;

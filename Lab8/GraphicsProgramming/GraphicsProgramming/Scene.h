@@ -46,10 +46,12 @@ protected:
 	// For FPS counter and mouse coordinate output.
 	int frame, time, timebase;
 	char fps[40];
-	char mouseText[40];
-	char cameraPositionText[50];
-	char cameraVectorText[50];
-	char cameraLookAtText[50];
+	char mouseText[60];
+	char cameraPositionText[60];
+	char cameraVectorText[60];
+	char cameraLookAtText[60];
+	char cameraUpText[60];
+	char cameraRotationText[60];
 	float fov, nearPlane, farPlane;
 	
 	// For access to user input.

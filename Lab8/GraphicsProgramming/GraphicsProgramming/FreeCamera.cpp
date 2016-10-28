@@ -101,14 +101,24 @@ float FreeCamera::getUpZ() {
 	return up.getZ();
 }
 
-float FreeCamera::getYaw() {
-	return side.getX();
+float FreeCamera::getSideX() {
+	return side.getZ();
 }
-float FreeCamera::getPitch() {
+float FreeCamera::getSideY() {
 	return side.getY();
 }
+float FreeCamera::getSideZ() {
+	return side.getX();
+}
+
+float FreeCamera::getYaw() {
+	return Yaw;
+}
+float FreeCamera::getPitch() {
+	return Pitch;
+}
 float FreeCamera::getRoll() {
-	return side.getZ();
+	return Roll;
 }
 
 void FreeCamera::moveForward(float dt) {
