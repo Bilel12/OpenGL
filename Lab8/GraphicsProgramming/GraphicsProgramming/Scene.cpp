@@ -647,8 +647,14 @@ void Scene::renderTextOutput()
 {
 	// Render current mouse position and frames per second.
 	sprintf_s(mouseText, "Mouse: %i, %i", input->getMouseX(), input->getMouseY());
+	sprintf_s(cameraPositionText, "Camera: X:%f Y:%f Z:%f", camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
+	sprintf_s(cameraVectorText, "FVector: X:%f Y:%f Z:%f", camera->getForwardX(), camera->getForwardY(), camera->getForwardZ());
+	sprintf_s(cameraLookAtText, "LookAt: X:%f Y:%f Z:%f", camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ());
 	displayText(-1.f, 0.96f, 1.f, 0.f, 0.f, mouseText);
-	displayText(-1.f, 0.90f, 1.f, 0.f, 0.f, fps);
+	displayText(-1.f, 0.90f, 1.f, 0.f, 0.f, cameraPositionText);
+	displayText(-1.f, 0.84f, 1.f, 0.f, 0.f, cameraVectorText);
+	displayText(-1.f, 0.78f, 1.f, 0.f, 0.f, cameraLookAtText);
+	displayText(-1.f, 0.72f, 1.f, 0.f, 0.f, fps);
 }
 
 void Scene::displayText(float x, float y, float r, float g, float b, char* string) {

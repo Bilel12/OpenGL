@@ -47,6 +47,9 @@ protected:
 	int frame, time, timebase;
 	char fps[40];
 	char mouseText[40];
+	char cameraPositionText[50];
+	char cameraVectorText[50];
+	char cameraLookAtText[50];
 	float fov, nearPlane, farPlane;
 	
 	// For access to user input.

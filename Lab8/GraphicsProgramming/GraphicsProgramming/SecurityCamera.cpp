@@ -174,7 +174,7 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
 	// move camera forward
-	moveForward(dt);
+	//moveForward(dt);
 	// move camera backwards
 	//moveBackwards(dt);
 	//// move camera to the left
