@@ -13,6 +13,7 @@ SecurityCamera::SecurityCamera() {
 	side.setX(0.0f);
 	side.setY(2.0f);
 	side.setZ(1.0f);
+	setYaw(-1.0f);
 	update();
 }
 
@@ -164,13 +165,13 @@ void SecurityCamera::subtractYaw(float dt) {
 void SecurityCamera::addPitch(float dt) {
 	Pitch += 1 * dt;
 }
-void SecurityCamera::subtractPutch(float dt) {
+void SecurityCamera::subtractPitch(float dt) {
 	Pitch -= 1 * dt;
 }
 void SecurityCamera::addRoll(float dt) {
 	Roll += 1 * dt;
 }
-void SecurityCamera::subtractroll(float dt) {
+void SecurityCamera::subtractRoll(float dt) {
 	Roll -= 1 * dt;
 }
 
@@ -186,20 +187,10 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
-	// move camera forward
-	//moveForward(dt);
-	// move camera backwards
-	//moveBackwards(dt);
-	//// move camera to the left
-	//moveSideLeft(dt);
-	//// move camera to the right
-	//moveSideRight(dt);
-	//// move camera down
-	//moveUp(dt);
-	//// move camera down
-	//moveDown(dt);
-	// camera's Yaw mouse controll, last variable controlls speed
-	//updateYaw(width, input->getMouseX(), 2);
-	// camera's Pitch mouse controll, last variable controlls speed
-	//updatePitch(height, input->getMouseY(), 2);
+	addYaw(dt);
+	/*if (Yaw == 20);
+	subtractYaw(dt);*/
+	/*while (Yaw >= -40) {
+		subtractYaw(dt);
+	}*/
 }

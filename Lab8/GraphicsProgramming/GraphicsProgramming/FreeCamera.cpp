@@ -152,13 +152,13 @@ void FreeCamera::subtractYaw(float dt) {
 void FreeCamera::addPitch(float dt) {
 	Pitch += 1 * dt;
 }
-void FreeCamera::subtractPutch(float dt) {
+void FreeCamera::subtractPitch(float dt) {
 	Pitch -= 1 * dt;
 }
 void FreeCamera::addRoll(float dt) {
 	Roll += 1 * dt;
 }
-void FreeCamera::subtractroll(float dt) {
+void FreeCamera::subtractRoll(float dt) {
 	Roll -= 1 * dt;
 }
 

@@ -22,9 +22,9 @@ public:
 	virtual void addYaw(float dt);
 	virtual void subtractYaw(float dt);
 	virtual void addPitch(float dt);
-	virtual void subtractPutch(float dt);
+	virtual void subtractPitch(float dt);
 	virtual void addRoll(float dt);
-	virtual void subtractroll(float dt);
+	virtual void subtractRoll(float dt);
 
 	virtual float getPositionX();
 	virtual float getPositionY();

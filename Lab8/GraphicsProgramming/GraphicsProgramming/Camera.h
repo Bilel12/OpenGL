@@ -19,9 +19,9 @@ public:
 	virtual void addYaw(float dt) = 0;
 	virtual void subtractYaw(float dt) = 0;
 	virtual void addPitch(float dt) = 0;
-	virtual void subtractPutch(float dt) = 0;
+	virtual void subtractPitch(float dt) = 0;
 	virtual void addRoll(float dt) = 0;
-	virtual void subtractroll(float dt) = 0;
+	virtual void subtractRoll(float dt) = 0;
 
 	virtual float getPositionX() = 0;
 	virtual float getPositionY() = 0;
