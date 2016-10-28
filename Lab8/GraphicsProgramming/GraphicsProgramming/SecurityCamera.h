@@ -1,8 +1,10 @@
 #ifndef _SECURITYCAMERA_H
 #define _SECURITYCAMERA_H
 
+#include "glut.h"
 #include "Input.h"
 #include "Camera.h"
+#include "Window.h"
 
 class SecurityCamera : public Camera
 {
@@ -53,12 +55,15 @@ public:
 	virtual void updatePitch(int height, int mouseY, int speed);
 
 	virtual void userControll(float dt, int width, int height, Input *input);
+	virtual void cameraControll(float dt, int width, int height);
 private:
 	Vector3 position;
 	Vector3 lookAt;
 	Vector3 forward;
 	Vector3 up;
 	Vector3 side;
+	Window win;
+	Window *window = &win;
 	float Yaw, Pitch, Roll;
 };
 

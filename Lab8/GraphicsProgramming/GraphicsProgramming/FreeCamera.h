@@ -1,9 +1,9 @@
 #ifndef _FREECAMERA_H_
 #define _FREECAMERA_H_
 
-#include <glut.h>
 #include "Input.h"
 #include "Camera.h"
+#include "Defines.h"
 
 class FreeCamera : public Camera
 {
@@ -49,7 +49,8 @@ public:
 	virtual void updateYaw(int width, int mouseX, int speed);
 	virtual void updatePitch(int height, int mouseY, int speed);
 
-	void userControll(float dt, int width, int height, Input *input);
+	virtual void userControll(float dt, int width, int height, Input *input);
+	virtual void cameraControll(float dt, int width, int height);
 private:
 	Vector3 position;
 	Vector3 lookAt;
