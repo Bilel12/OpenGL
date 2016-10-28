@@ -10,15 +10,18 @@
 //#include "glut.h"
 //#include <gl/GL.h>
 //#include <gl/GLU.h>
+#include "Window.h"
 #include "Scene.h"
 #include "Input.h"
 
 // Required variables; pointer to scene and input objects. Initialise variable used in delta time calculation.
-Scene* scene;
-Input* input;
+Scene *scene;
+Input *input;
+Window *window;
+
 int oldTimeSinceStart = 0;
 // Window properties
-int windowWidth = 800, windowHeight = 600;
+//int windowWidth = 800, windowHeight = 600;
 
 // Called when the window detects a change in size.
 // GLUT handles the window refresh, this function passes the new width and height to the
@@ -134,13 +137,15 @@ void processMouseButtons(int button, int state, int x, int y)
 // Registers callback functions for handling GLUT input events
 // Registers callback functions for window resizing and rendering.
 // Initialises Input and Scene class, prior to starting Main Loop.
+
 int main(int argc, char **argv) 
 {
+	window = new Window();
 	// Init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	//glutInitWindowPosition(100, 100);
-	glutInitWindowSize(windowWidth, windowHeight);
+	glutInitWindowSize(window->getWindowWidth(), window->getWindowHeight());
 	glutCreateWindow("My first triangle");
 	
 	// Register callback functions for change in size and rendering.
@@ -161,7 +166,7 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(processPassiveMouseMove);
 	glutMouseFunc(processMouseButtons);
 	// Position mouse in centre of windows before main loop (window not resized yet)
-	glutWarpPointer(windowWidth / 2, windowHeight / 2);
+	glutWarpPointer(window->getHalfWindowWidth(), window->getHalfWindowHeight());
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
 		

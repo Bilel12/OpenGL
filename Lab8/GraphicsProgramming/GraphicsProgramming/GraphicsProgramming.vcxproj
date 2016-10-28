@@ -90,14 +90,17 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SecurityCamera.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SecurityCamera.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

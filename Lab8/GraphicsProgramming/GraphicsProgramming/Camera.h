@@ -7,7 +7,6 @@
 class Camera
 {
 public:
-	Camera() {}
 	virtual ~Camera() {}
 	virtual void update() = 0;
 	virtual void moveForward(float dt) = 0;

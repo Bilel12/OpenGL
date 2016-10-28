@@ -2,7 +2,7 @@
 #define _FREECAMERA_H_
 
 #include <glut.h>
-#include "input.h"
+#include "Input.h"
 #include "Camera.h"
 
 class FreeCamera : public Camera

@@ -173,7 +173,7 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 }
 
 void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
-
+	
 
 
 	return;
