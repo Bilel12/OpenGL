@@ -1,4 +1,4 @@
-#include "SecurityCamera.h"
+﻿#include "SecurityCamera.h"
 
 SecurityCamera::SecurityCamera() {
 	position.setX(0.0f);
@@ -187,10 +187,6 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
-	addYaw(dt);
-	/*if (Yaw == 20);
-	subtractYaw(dt);*/
-	/*while (Yaw >= -40) {
-		subtractYaw(dt);
-	}*/
+	setYaw(mix(dt, width, height));
 }
+

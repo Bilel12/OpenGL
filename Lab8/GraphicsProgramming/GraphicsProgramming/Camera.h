@@ -47,6 +47,10 @@ public:
 	virtual float getPitch() = 0;
 	virtual float getRoll() = 0;
 
+	virtual void setYaw(float arg) = 0;
+	virtual void setPitch(float arg) = 0;
+	virtual void setRoll(float arg) = 0;
+
 	virtual void updateYaw(int width, int mouseX, int speed) = 0;
 	virtual void updatePitch(int height, int mouseY, int speed) = 0;
 	virtual void userControll(float dt, int width, int height, Input *input) = 0;

@@ -5,7 +5,7 @@ Scene::Scene(Input *in)
 	// Store pointer for input class
 	input = in;
 	// Camera 
-	camera = &freeCamera;
+	camera = &securityCamera;
 	//OpenGL settings
 	frame = 0; timebase = 0;
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -36,8 +36,9 @@ Scene::Scene(Input *in)
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
-	
+	x = -40.0f, y = 40.0f, a = 0.5f;
 	blend = false; // blending on/off?
+	bool lerpLeft = false, lerpRight = true;
 }
 
 void Scene::loadTextures() {
@@ -135,10 +136,27 @@ void Scene::update(float dt)
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
+	if (lerpRight) {
+		x += 0.1;
+		y += 0.1;
+		if (x >= 40) {
+			lerpRight = false;
+			lerpLeft = true;
+		}
+	}
+	else if (lerpLeft) {
+		x -= 0.1;
+		y -= 0.1;
+		if (x <= -40) {
+			lerpRight = true;
+			lerpLeft = false;
+		}
+	}
+
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
 	// Camera controll
-	camera->cameraControll(dt, width, height);
+	camera->cameraControll(x, y, a);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);
@@ -147,6 +165,7 @@ void Scene::update(float dt)
 	//xrot += 0.7;	// Rotate On The X Axis
 	//yrot += 0.7;	// Rotate On The Y Axis
 	//zrot += 0.7;	// Rotate On The Z Axis
+
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);

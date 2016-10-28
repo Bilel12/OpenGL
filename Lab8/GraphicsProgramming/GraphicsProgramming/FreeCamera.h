@@ -50,6 +50,10 @@ public:
 	virtual float getPitch();
 	virtual float getRoll();
 
+	virtual void setYaw(float arg) ;
+	virtual void setPitch(float arg);
+	virtual void setRoll(float arg);
+
 	virtual void updateYaw(int width, int mouseX, int speed);
 	virtual void updatePitch(int height, int mouseY, int speed);
 

@@ -50,15 +50,18 @@ public:
 	virtual float getPitch();
 	virtual float getRoll();
 
-	void setYaw(float arg);
-	void setPitch(float arg);
-	void setRoll(float arg);
+	virtual void setYaw(float arg);
+	virtual void setPitch(float arg);
+	virtual void setRoll(float arg);
 
 	virtual void updateYaw(int width, int mouseX, int speed);
 	virtual void updatePitch(int height, int mouseY, int speed);
 
 	virtual void userControll(float dt, int width, int height, Input *input);
 	virtual void cameraControll(float dt, int width, int height);
+	float mix(float x, float y, float a) {
+		return x*(1 - a) + y*a;
+	}
 private:
 	Vector3 position;
 	Vector3 lookAt;

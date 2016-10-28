@@ -121,6 +121,16 @@ float FreeCamera::getRoll() {
 	return Roll;
 }
 
+void FreeCamera::setYaw(float arg) {
+	Yaw = arg;
+}
+void FreeCamera::setPitch(float arg) {
+	Pitch = arg;
+}
+void FreeCamera::setRoll(float arg) {
+	Roll = arg;
+}
+
 void FreeCamera::moveForward(float dt) {
 	position.add(forward, dt);
 }
