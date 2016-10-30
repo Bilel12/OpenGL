@@ -1,9 +1,9 @@
 ﻿#include "SecurityCamera.h"
 
 SecurityCamera::SecurityCamera() {
-	position.setX(0.0f);
-	position.setY(0.0f);
-	position.setZ(6.0f);
+	position.setX(7.5f);
+	position.setY(6.0f);
+	position.setZ(3.0f);
 	forward.setX(0.0f);
 	forward.setY(0.0f);
 	forward.setZ(0.0f);
@@ -13,11 +13,12 @@ SecurityCamera::SecurityCamera() {
 	side.setX(0.0f);
 	side.setY(2.0f);
 	side.setZ(1.0f);
-	setYaw(-1.0f);
+	setYaw(-65.0f);
+	setPitch(-35.0f);
 	// Security camera settings
 	camera_speed = 0.5f;
-	clamp_value = 0.f;
-	leftClamp = -40.f, rightClamp = 40.f;
+	clamp_value = Yaw;
+	leftClamp = Yaw + (-40.f), rightClamp = Yaw + (40.f);
 	lerpRight = true, stop_camera = false;
 	update();
 }
@@ -218,11 +219,27 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 	// camera's Pitch mouse controll, last variable controlls speed
 	//updatePitch(height, input->getMouseY(), 2);
 	// Force mouse to return to the centre of the window
+	if (!stop_camera) {
+		if (lerpRight) {
+			clamp_value += camera_speed * dt;
+			setYaw(clamp_value);
+			if (clamp_value >= rightClamp) {
+				lerpRight = false;
+			}
+		} else {
+			clamp_value -= camera_speed * dt;
+			setYaw(clamp_value);
+			if (clamp_value <= leftClamp) {
+				lerpRight = true;
+			}
+		}
+	}
+
 	glutWarpPointer(width / 2, height / 2);
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
-	if (!stop_camera) {
+	/*if (!stop_camera) {
 		if (lerpRight) {
 			clamp_value += camera_speed * dt;
 			setYaw(clamp_value);
@@ -237,6 +254,7 @@ void SecurityCamera::cameraControll(float dt, int width, int height) {
 				lerpRight = true;
 			}
 		}
-	}
+	}*/
+	return;
 }
 
