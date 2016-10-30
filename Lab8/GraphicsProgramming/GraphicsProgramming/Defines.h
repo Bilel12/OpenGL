@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #include <glut.h>
-
+//TODO
 #define GLUT_WINDOW_WIDTH 800
 #define GLUT_WIDNOW_HEIGHT 600
 #define GLUT_INIT_WINDOW_X	100

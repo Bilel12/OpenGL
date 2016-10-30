@@ -19,12 +19,12 @@ public:
 	virtual void moveSideLeft(float dt);
 	virtual void moveSideRight(float dt);
 
-	virtual void addYaw(float dt);
-	virtual void subtractYaw(float dt);
-	virtual void addPitch(float dt);
-	virtual void subtractPitch(float dt);
-	virtual void addRoll(float dt);
-	virtual void subtractRoll(float dt);
+	virtual void addYaw(float dt, float value);
+	virtual void subtractYaw(float dt, float value);
+	virtual void addPitch(float dt, float value);
+	virtual void subtractPitch(float dt, float value);
+	virtual void addRoll(float dt, float value);
+	virtual void subtractRoll(float dt, float value);
 
 	virtual float getPositionX();
 	virtual float getPositionY();

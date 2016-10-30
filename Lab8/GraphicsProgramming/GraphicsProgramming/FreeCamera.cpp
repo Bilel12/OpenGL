@@ -153,23 +153,23 @@ void FreeCamera::moveSideRight(float dt) {
 	position.add(side, dt);
 }
 
-void FreeCamera::addYaw(float dt) {
-	Yaw += 1 * dt;
+void FreeCamera::addYaw(float dt, float value) {
+	Yaw += value * dt;
 }
-void FreeCamera::subtractYaw(float dt) {
-	Yaw -= 1 * dt;
+void FreeCamera::subtractYaw(float dt, float value) {
+	Yaw -= value * dt;
 }
-void FreeCamera::addPitch(float dt) {
-	Pitch += 1 * dt;
+void FreeCamera::addPitch(float dt, float value) {
+	Pitch += value * dt;
 }
-void FreeCamera::subtractPitch(float dt) {
-	Pitch -= 1 * dt;
+void FreeCamera::subtractPitch(float dt, float value) {
+	Pitch -= value * dt;
 }
-void FreeCamera::addRoll(float dt) {
-	Roll += 1 * dt;
+void FreeCamera::addRoll(float dt, float value) {
+	Roll += value * dt;
 }
-void FreeCamera::subtractRoll(float dt) {
-	Roll -= 1 * dt;
+void FreeCamera::subtractRoll(float dt, float value) {
+	Roll -= value * dt;
 }
 
 void FreeCamera::updateYaw(int width, int mouseX, int speed) {

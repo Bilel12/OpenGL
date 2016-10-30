@@ -107,15 +107,12 @@ float SecurityCamera::getUpZ() {
 }
 
 float SecurityCamera::getYaw() {
-	//return side.getZ();
 	return Yaw;
 }
 float SecurityCamera::getPitch() {
-	//return side.getY();
 	return Pitch;
 }
 float SecurityCamera::getRoll() {
-	//return side.getX();
 	return Roll;
 }
 
@@ -161,23 +158,23 @@ void SecurityCamera::moveSideRight(float dt) {
 	position.add(side, dt);
 }
 
-void SecurityCamera::addYaw(float dt) {
-	Yaw += 1 * dt;
+void SecurityCamera::addYaw(float dt, float value) {
+	Yaw += value * dt;
 }
-void SecurityCamera::subtractYaw(float dt) {
-	Yaw -= 1 * dt;
+void SecurityCamera::subtractYaw(float dt, float value) {
+	Yaw -= value * dt;
 }
-void SecurityCamera::addPitch(float dt) {
-	Pitch += 1 * dt;
+void SecurityCamera::addPitch(float dt, float value) {
+	Pitch += value * dt;
 }
-void SecurityCamera::subtractPitch(float dt) {
-	Pitch -= 1 * dt;
+void SecurityCamera::subtractPitch(float dt, float value) {
+	Pitch -= value * dt;
 }
-void SecurityCamera::addRoll(float dt) {
-	Roll += 1 * dt;
+void SecurityCamera::addRoll(float dt, float value) {
+	Roll += value * dt;
 }
-void SecurityCamera::subtractRoll(float dt) {
-	Roll -= 1 * dt;
+void SecurityCamera::subtractRoll(float dt, float value) {
+	Roll -= value * dt;
 }
 
 void SecurityCamera::updateYaw(int width, int mouseX, int speed) {
@@ -188,7 +185,36 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 }
 
 void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
-	return;
+	// move camera forward
+	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+		
+	}
+	// move camera backwards
+	if (input->isKeyDown('s') || input->isKeyDown('S')) {
+		moveBackwards(dt);
+	}
+	// move camera to the left
+	if (input->isKeyDown('a') || input->isKeyDown('A')) {
+		moveSideLeft(dt);
+	}
+	// move camera to the right
+	if (input->isKeyDown('d') || input->isKeyDown('D')) {
+		moveSideRight(dt);
+	}
+	// move camera down
+	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
+		moveUp(dt);
+	}
+	// move camera down
+	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
+		moveDown(dt);
+	}
+	// camera's Yaw mouse controll, last variable controlls speed
+	updateYaw(width, input->getMouseX(), 2);
+	// camera's Pitch mouse controll, last variable controlls speed
+	updatePitch(height, input->getMouseY(), 2);
+	// Force mouse to return to the centre of the window
+	glutWarpPointer(width / 2, height / 2);
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
