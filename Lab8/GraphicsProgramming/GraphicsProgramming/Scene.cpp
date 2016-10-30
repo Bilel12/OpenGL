@@ -36,9 +36,7 @@ Scene::Scene(Input *in)
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
-	x = -40.0f, y = 40.0f, a = 0.5f;
-	blend = false; // blending on/off?
-	bool lerpLeft = false, lerpRight = true;
+	blend = false; // Blending on or off
 }
 
 void Scene::loadTextures() {
@@ -116,7 +114,7 @@ void Scene::loadTextures() {
 void Scene::update(float dt)
 {
 	// Handle user input
-	// Camera settings
+	// Camera switching
 	if (input->isKeyDown('1')) {
 		camera = &freeCamera;
 		input->SetKeyUp('1');
@@ -125,7 +123,6 @@ void Scene::update(float dt)
 		camera = &securityCamera;
 		input->SetKeyUp('2');
 	}
-
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
@@ -136,27 +133,10 @@ void Scene::update(float dt)
 		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
-	if (lerpRight) {
-		x += 0.1;
-		y += 0.1;
-		if (x >= 40) {
-			lerpRight = false;
-			lerpLeft = true;
-		}
-	}
-	else if (lerpLeft) {
-		x -= 0.1;
-		y -= 0.1;
-		if (x <= -40) {
-			lerpRight = true;
-			lerpLeft = false;
-		}
-	}
-
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
 	// Camera controll
-	camera->cameraControll(x, y, a);
+	camera->cameraControll(dt, width, height);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);

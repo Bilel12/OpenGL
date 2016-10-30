@@ -76,10 +76,8 @@ protected:
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
-	float x, y, a;
 	// Booleans
 	bool blend; // toggle bledning effect
-	bool lerpLeft, lerpRight;
 };
 
 #endif

@@ -69,6 +69,8 @@ private:
 	Vector3 up;
 	Vector3 side;
 	float Yaw, Pitch, Roll;
+	float x, y, a;
+	bool lerpLeft, lerpRight;
 };
 
 #endif
