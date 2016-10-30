@@ -18,7 +18,7 @@ SecurityCamera::SecurityCamera() {
 	camera_speed = 0.5f;
 	clamp_value = 0.f;
 	leftClamp = -40.f, rightClamp = 40.f;
-	lerpRight = true;
+	lerpRight = true, stop_camera = false;
 	update();
 }
 
@@ -187,48 +187,54 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		
+		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); }
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		moveBackwards(dt);
+		if (Pitch >= leftClamp) { subtractPitch(dt, camera_speed + 1.f); }
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		moveSideLeft(dt);
+		if (Yaw >= leftClamp) {
+			subtractYaw(dt, camera_speed + 1.f);
+			clamp_value = Yaw;
+		}
 	}
 	// move camera to the right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
-		moveSideRight(dt);
+		if (Yaw <= rightClamp) { 
+			addYaw(dt, camera_speed + 1.f); 
+			clamp_value = Yaw;
+		}
 	}
-	// move camera down
-	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
-		moveUp(dt);
-	}
-	// move camera down
-	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
-		moveDown(dt);
+	// toggle camera automatic movemnt
+	if (input->isKeyDown('c') || input->isKeyDown('C')) {
+		stop_camera = !stop_camera;
+		input->SetKeyUp('c'); input->SetKeyUp('C');
 	}
 	// camera's Yaw mouse controll, last variable controlls speed
-	updateYaw(width, input->getMouseX(), 2);
+	//updateYaw(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll, last variable controlls speed
-	updatePitch(height, input->getMouseY(), 2);
+	//updatePitch(height, input->getMouseY(), 2);
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
-	if (lerpRight) {
-		clamp_value += camera_speed * dt;
-		setYaw(clamp_value);
-		if (clamp_value >= rightClamp) {
-			lerpRight = false;
+	if (!stop_camera) {
+		if (lerpRight) {
+			clamp_value += camera_speed * dt;
+			setYaw(clamp_value);
+			if (clamp_value >= rightClamp) {
+				lerpRight = false;
+			}
 		}
-	} else {
-		clamp_value -= camera_speed * dt;
-		setYaw(clamp_value);
-		if (clamp_value <= leftClamp) {
-			lerpRight = true;
+		else {
+			clamp_value -= camera_speed * dt;
+			setYaw(clamp_value);
+			if (clamp_value <= leftClamp) {
+				lerpRight = true;
+			}
 		}
 	}
 }

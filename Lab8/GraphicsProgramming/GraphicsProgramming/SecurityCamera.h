@@ -72,6 +72,7 @@ private:
 	float clamp_value, camera_speed;
 	float leftClamp, rightClamp;
 	bool lerpRight;
+	bool stop_camera;
 };
 
 #endif
