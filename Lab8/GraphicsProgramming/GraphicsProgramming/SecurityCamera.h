@@ -69,8 +69,9 @@ private:
 	Vector3 up;
 	Vector3 side;
 	float Yaw, Pitch, Roll;
-	float x, y, a;
-	bool lerpLeft, lerpRight;
+	float clamp_value, camera_speed;
+	float leftClamp, rightClamp;
+	bool lerpRight;
 };
 
 #endif

@@ -14,8 +14,11 @@ SecurityCamera::SecurityCamera() {
 	side.setY(2.0f);
 	side.setZ(1.0f);
 	setYaw(-1.0f);
-	x = 0.0f, y = 0.0f, a = 0.5f;
-	lerpLeft = false, lerpRight = true;
+	// Security camera settings
+	camera_speed = 0.5f;
+	clamp_value = 0.f;
+	leftClamp = -40.f, rightClamp = 40.f;
+	lerpRight = true;
 	update();
 }
 
@@ -190,17 +193,15 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 
 void SecurityCamera::cameraControll(float dt, int width, int height) {
 	if (lerpRight) {
-		x += 0.1 * dt;
-		y += 0.1 * dt;
-		setYaw(x);
-		if (x >= 40) {
+		clamp_value += camera_speed * dt;
+		setYaw(clamp_value);
+		if (clamp_value >= rightClamp) {
 			lerpRight = false;
 		}
 	} else {
-		x -= 0.1 * dt;
-		y -= 0.1 * dt;
-		setYaw(x);
-		if (x <= -40) {
+		clamp_value -= camera_speed * dt;
+		setYaw(clamp_value);
+		if (clamp_value <= leftClamp) {
 			lerpRight = true;
 		}
 	}
