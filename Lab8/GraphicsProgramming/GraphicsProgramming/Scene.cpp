@@ -112,8 +112,7 @@ void Scene::loadTextures() {
 	}
 }
 
-void Scene::update(float dt)
-{
+void Scene::update(float dt){
 	// Handle user input
 	// Camera switching
 	if (input->isKeyDown('1')) {
@@ -123,6 +122,10 @@ void Scene::update(float dt)
 	if (input->isKeyDown('2')) {
 		camera = &securityCamera;
 		input->SetKeyUp('2');
+	}
+	if (input->isKeyDown('3')) {
+		camera = &topDownCamera;
+		input->SetKeyUp('3');
 	}
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?

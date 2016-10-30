@@ -19,8 +19,9 @@
 #include <vector>
 // Further includes should go here:
 #include "SOIL.h"
-#include "SecurityCamera.h"
 #include "FreeCamera.h"
+#include "SecurityCamera.h"
+#include "TopDownCamera.h"
 #include "Camera.h"
 
 class Scene{
@@ -61,6 +62,7 @@ protected:
 	Camera *camera;
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
+	TopDownCamera topDownCamera;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;

@@ -1,15 +1,15 @@
-#ifndef _FREECAMERA_H
-#define _FREECAMERA_H
+#ifndef _TOPDOWNCAMERA_H
+#define _TOPDOWNCAMERA_H
 
-#include <glut.h>
+#include "Defines.h"
 #include "Input.h"
 #include "Camera.h"
 
-class FreeCamera : public Camera
+class TopDownCamera : public Camera
 {
 public:
-	FreeCamera();
-	~FreeCamera();
+	TopDownCamera();
+	~TopDownCamera();
 
 	virtual void update();
 	virtual void moveForward(float dt);
@@ -50,7 +50,7 @@ public:
 	virtual float getPitch();
 	virtual float getRoll();
 
-	virtual void setYaw(float arg) ;
+	virtual void setYaw(float arg);
 	virtual void setPitch(float arg);
 	virtual void setRoll(float arg);
 
@@ -69,3 +69,4 @@ private:
 };
 
 #endif
+
