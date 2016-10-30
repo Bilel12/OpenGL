@@ -37,6 +37,7 @@ Scene::Scene(Input *in)
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
 	blend = false; // Blending on or off
+	wireframe = false; // Wireframe on or off
 }
 
 void Scene::loadTextures() {
@@ -126,12 +127,12 @@ void Scene::update(float dt)
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
-		if (blend) {
-			glEnable(GL_BLEND); // Turn blending on
-		} else {
-			glDisable(GL_BLEND); // Turn blending off
-		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
+	}
+	// Wireframe
+	if (input->isKeyDown('w') && input->isKeyDown('m')) {
+		wireframe = !wireframe; // toggle wireframe (true/false)
+		input->SetKeyUp('w'); input->SetKeyUp('m');
 	}
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
@@ -350,18 +351,22 @@ void Scene::render() {
 		glEnd();
 	} glPopMatrix();
 
-
-
 	// Render geometry here -------------------------------------
+	if (wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	} else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 	glPushMatrix();
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
+		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
-			//glDisable(GL_DEPTH_TEST); // Turn depth testing off
+		} else {
+			glDisable(GL_BLEND); // Turn blending off
 		}
-		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 			/////////////////////////////
 			glBegin(GL_TRIANGLES); // front face
 			glNormal3f(0.0f, 0.0f, 1.0f);
@@ -606,6 +611,7 @@ void Scene::render() {
 	// Geometry rendering ends here -----------------------------
 
 	// Render text, should be last object rendered.
+	glDisable(GL_BLEND); // Turn blending off
 	renderTextOutput();
 	
 	// Swap buffers, after all objects are rendered.

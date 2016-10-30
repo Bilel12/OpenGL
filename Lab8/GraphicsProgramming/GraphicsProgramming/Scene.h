@@ -78,6 +78,7 @@ protected:
 	float zrot;	// Rotate On The Z Axis
 	// Booleans
 	bool blend; // toggle bledning effect
+	bool wireframe;
 };
 
 #endif
