@@ -187,7 +187,9 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); }
+		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); 
+		stop_camera = !stop_camera;
+		}
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
@@ -207,11 +209,11 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 			clamp_value = Yaw;
 		}
 	}
-	// toggle camera automatic movemnt
+	// toggle camera's automatic movemnt
 	if (input->isKeyDown('c') || input->isKeyDown('C')) {
 		stop_camera = !stop_camera;
 		input->SetKeyUp('c'); input->SetKeyUp('C');
-	}
+	}stop_camera = !stop_camera;
 	// camera's Yaw mouse controll, last variable controlls speed
 	//updateYaw(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll, last variable controlls speed
