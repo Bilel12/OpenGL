@@ -648,7 +648,7 @@ void Scene::resize(int w, int h)
 
 	// Set the correct perspective.
 	/*glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100);*/
-	if (orthographic) { glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100); }
+	if (orthographic) { glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, nearPlane, farPlane); }
 	else { gluPerspective(fov, ratio, nearPlane, farPlane); }
 
 	// Get Back to the Modelview
