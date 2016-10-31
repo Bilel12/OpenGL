@@ -38,6 +38,7 @@ Scene::Scene(Input *in)
 	position_x = 0, position_y = 0, position_z = 0;
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
+	orthographic = false; // Orthographic view on or off
 }
 
 void Scene::loadTextures() {
@@ -125,6 +126,7 @@ void Scene::update(float dt){
 	}
 	if (input->isKeyDown('3')) {
 		camera = &topDownCamera;
+		orthographic = !orthographic;
 		input->SetKeyUp('3');
 	}
 	// Blending
@@ -645,7 +647,9 @@ void Scene::resize(int w, int h)
 	glViewport(0, 0, w, h);
 
 	// Set the correct perspective.
-	gluPerspective(fov, ratio, nearPlane, farPlane);
+	/*glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100);*/
+	if (orthographic) { glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100); }
+	else { gluPerspective(fov, ratio, nearPlane, farPlane); }
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);

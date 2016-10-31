@@ -1,7 +1,7 @@
 #ifndef _TOPDOWNCAMERA_H
 #define _TOPDOWNCAMERA_H
 
-#include "Defines.h"
+#include "glut.h"
 #include "Input.h"
 #include "Camera.h"
 

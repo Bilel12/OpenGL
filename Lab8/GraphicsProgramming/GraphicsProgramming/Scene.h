@@ -81,6 +81,7 @@ protected:
 	// Booleans
 	bool blend; // toggle bledning effect
 	bool wireframe;
+	bool orthographic;
 };
 
 #endif
