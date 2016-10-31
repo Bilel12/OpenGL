@@ -59,9 +59,10 @@ Temporary Items
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-[Dd]ebug/*
-![Dd]ebug/freeglut.dll
-![Dd]ebug/glew32.dll
+**/[Dd]ebug/*
+!**/[Dd]ebug/freeglut.dll
+!**/[Dd]ebug/glew32.dll
+!**/[Dd]ebug/gfx
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
