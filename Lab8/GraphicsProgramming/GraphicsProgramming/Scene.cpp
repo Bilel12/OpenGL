@@ -38,7 +38,6 @@ Scene::Scene(Input *in)
 	position_x = 0, position_y = 0, position_z = 0;
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
-	orthographic = false; // Orthographic view on or off
 }
 
 void Scene::loadTextures() {
@@ -647,9 +646,7 @@ void Scene::resize(int w, int h)
 	glViewport(0, 0, w, h);
 
 	// Set the correct perspective.
-	/*glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100);*/
-	if (orthographic) { glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, nearPlane, farPlane); }
-	else { gluPerspective(fov, ratio, nearPlane, farPlane); }
+	gluPerspective(fov, ratio, nearPlane, farPlane);
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);
@@ -690,6 +687,8 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 
 	// Set text colour and position.
 	glColor3f(r, g, b);
+	// unbind texture
+	glBindTexture(GL_TEXTURE_2D,NULL);
 	glRasterPos2f(x, y);
 	// Render text.
 	for (int i = 0; i < j; i++) {
