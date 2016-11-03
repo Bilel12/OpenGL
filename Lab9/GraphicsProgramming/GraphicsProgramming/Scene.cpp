@@ -179,7 +179,7 @@ void Scene::render() {
 	// Point sampling
 	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
-		glPushMatrix();
+		glPushMatrix(); {
 			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 			glDisable(GL_DEPTH_TEST);
 			{
@@ -353,8 +353,8 @@ void Scene::render() {
 				glEnd();
 			}
 			glEnable(GL_DEPTH_TEST);
-		glEnd();
-	} glPopMatrix();
+		} glPopMatrix();
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
 	if (wireframe) {
@@ -364,7 +364,9 @@ void Scene::render() {
 	}
 
 	//shape.render1();
-	shape.render3();
+	glBindTexture(GL_TEXTURE_2D, *crateTrans);
+	shape.render2();
+	glBindTexture(GL_TEXTURE_2D, NULL);
 	//glPushMatrix();
 	//	glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 	//	glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
