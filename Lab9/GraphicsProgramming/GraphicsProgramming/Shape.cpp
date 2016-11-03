@@ -28,6 +28,10 @@ extern float texcoords[]= {	0.0, 0.0, 		//0
 void Shape::render1()
 {
 	// add code to render the cube (above) using method 1
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_INDEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	// glArrayElement()
 
 	
