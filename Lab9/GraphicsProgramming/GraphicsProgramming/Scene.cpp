@@ -243,7 +243,7 @@ void Scene::render() {
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	shape.drawCylinder(1, 2, 20);
+	shape.drawDisk(20, 2);
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
 	//	glBegin(GL_TRIANGLES); // front face

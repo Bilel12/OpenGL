@@ -175,17 +175,18 @@ void Shape::drawIcosahedron() {
 	glEnd();
 }
 
-void Shape::drawDisk(int num_triangles, float radius) {
-		float interval = 2.0 * M_PI / num_triangles;
-		float theta = 0.0;
+void Shape::drawDisk(int edges, float radius) {
+		float interval = 2.0 * M_PI / edges;
+		//float theta = 360.0 / edges;
 		float start = 0.0;
-	for (int i = 0; i < num_triangles; i++) {
-		glBegin(GL_TRIANGLES);
+		float theta = 0.0;
+	for (int i = 0; i < edges; ++i) {
+		glBegin(GL_TRIANGLE_STRIP);
 			glVertex3f(start, start, start);
-			glVertex3f(, , start);
-			glVertex3f(, , start);
+			glVertex3f(radius * cos(theta), radius * sin(theta), start);
+			glVertex3f(radius * cos(theta + interval), radius * sin(theta + interval), start);
 		glEnd();
-		theta + interval;
+		theta += interval;
 	}
 }
 
@@ -193,7 +194,7 @@ void Shape::drawCylinder(float radius, float halfLength, int slices) {
 	for (int i = 0; i<slices; i++) {
 		float theta = ((float)i)*2.0*M_PI;
 		float nextTheta = ((float)i + 1)*2.0*M_PI;
-		glBegin(GL_TRIANGLES);
+		glBegin(GL_TRIANGLE_STRIP);
 		/*vertex at middle of end */ glVertex3f(0.0, halfLength, 0.0);
 		/*vertices at edges of circle*/ glVertex3f(radius*cos(theta), halfLength, radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta), halfLength, radius*sin(nextTheta));
@@ -203,4 +204,18 @@ void Shape::drawCylinder(float radius, float halfLength, int slices) {
 		glVertex3f(0.0, -halfLength, 0.0);
 		glEnd();
 	}
+	
+	//for (int i = 0; i<slices; i++) {
+	//	float theta = ((float)i)*2.0*M_PI;
+	//	float nextTheta = ((float)i + 1)*2.0*M_PI;
+	//	glBegin(GL_TRIANGLE_STRIP);
+	//	/*vertex at middle of end */ glVertex3f(0.0, halfLength, 0.0);
+	//	/*vertices at edges of circle*/ glVertex3f(radius*cos(theta), halfLength, radius*sin(theta));
+	//	glVertex3f(radius*cos(nextTheta), halfLength, radius*sin(nextTheta));
+	//	/* the same vertices at the bottom of the cylinder*/
+	//	glVertex3f(radius*cos(nextTheta), -halfLength, radius*sin(nextTheta));
+	//	glVertex3f(radius*cos(theta), -halfLength, radius*sin(theta));
+	//	glVertex3f(0.0, -halfLength, 0.0);
+	//	glEnd();
+	//}
 }
