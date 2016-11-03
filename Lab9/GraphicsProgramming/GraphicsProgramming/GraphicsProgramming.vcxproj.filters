@@ -83,10 +83,10 @@
     <ClInclude Include="Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Disc.h">
+    <ClInclude Include="Icosahedron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Icosahedron.h">
+    <ClInclude Include="Disk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

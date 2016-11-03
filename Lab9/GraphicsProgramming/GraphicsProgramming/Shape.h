@@ -17,7 +17,7 @@ public:
 	static void drawTorus(int numc, int numt);
 	void drawCircle(int edges);
 	void drawIcosahedron();
-	void drawDisc();
+	void drawDisk();
 	void normalize(float v[3]);
 	void normcrossprod(float v1[3], float v2[3], float out[3]);
 };

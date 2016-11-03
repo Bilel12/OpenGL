@@ -1,6 +1,6 @@
 #include "Skybox.h"
 #include "Cube.h"
-#include "Disc.h"
+#include "Disk.h"
 #include "Icosahedron.h"
 #include "Shape.h"
 
@@ -176,6 +176,6 @@ void Shape::drawIcosahedron() {
 	glEnd();
 }
 
-void Shape::drawDisc() {
+void Shape::drawDisk() {
 
 }
