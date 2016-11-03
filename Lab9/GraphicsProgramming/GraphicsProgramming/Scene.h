@@ -64,6 +64,7 @@ protected:
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
+	
 	Shape shape;
 	// For loading textures
 	std::vector<GLuint> textures;

@@ -196,7 +196,6 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	//shape.render1();
 	glBindTexture(GL_TEXTURE_2D, *crateTrans);
 	if (blend) {
 		glEnable(GL_BLEND); // Turn blending on
@@ -204,9 +203,12 @@ void Scene::render() {
 	else {
 		glDisable(GL_BLEND); // Turn blending off
 	}
+
 	glPushMatrix();
-	shape.render2();
+		shape.render_crate();
+		shape.render_crate();
 	glPopMatrix();
+
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	//glPushMatrix(); {

@@ -9,8 +9,9 @@ class Shape
 {
 	public:
 		void render1();
-		void render2();
 		void render3();
+		void render_crate();
+		void render_crate_blend();
 		void render_skybox();
 
 };
