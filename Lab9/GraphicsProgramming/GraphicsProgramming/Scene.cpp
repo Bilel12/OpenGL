@@ -223,8 +223,9 @@ void Scene::render() {
 	// Draw circle
 	//shape.drawCircle(30);
 	// Draw Icosahedron
+	glColor3f(0, 0, 1);
 	shape.drawIcosahedron();
-
+	glColor3f(1, 1, 1);
 	glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on

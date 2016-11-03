@@ -18,5 +18,7 @@ public:
 	void drawCircle(int edges);
 	void drawIcosahedron();
 	void drawDisc();
+	void normalize(float v[3]);
+	void normcrossprod(float v1[3], float v2[3], float out[3]);
 };
 #endif 
