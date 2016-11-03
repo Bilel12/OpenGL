@@ -86,5 +86,8 @@
     <ClInclude Include="Disc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Icosahedron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

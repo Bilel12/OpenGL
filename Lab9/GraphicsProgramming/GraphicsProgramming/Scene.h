@@ -66,6 +66,7 @@ protected:
 	TopDownCamera topDownCamera;
 	
 	Shape shape;
+	GLuint Torus;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;

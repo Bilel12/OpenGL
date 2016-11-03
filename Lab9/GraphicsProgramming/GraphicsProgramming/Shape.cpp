@@ -1,6 +1,7 @@
 #include "Skybox.h"
 #include "Cube.h"
 #include "Disc.h"
+#include "Icosahedron.h"
 #include "Shape.h"
 
 extern GLubyte indices[] = {
@@ -99,4 +100,58 @@ void Shape::render_skybox() {
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+
+void Shape::drawTorus(int numc, int numt)
+{
+	int i, j, k;
+	double s, t, x, y, z, twopi;
+
+	twopi = 2 * (double)M_PI;
+	for (i = 0; i < numc; i++) {
+		glBegin(GL_QUAD_STRIP);
+		for (j = 0; j <= numt; j++) {
+			for (k = 1; k >= 0; k--) {
+				s = (i + k) % numc + 0.5;
+				t = j % numt;
+
+				x = (1 + .1*cos(s*twopi / numc))*cos(t*twopi / numt);
+				y = (1 + .1*cos(s*twopi / numc))*sin(t*twopi / numt);
+				z = .1 * sin(s * twopi / numc);
+				glVertex3f(x, y, z);
+			}
+		}
+		glEnd();
+	}
+}
+
+void Shape::drawCircle(int edges) {
+	// version I
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < edges; i++)
+		glVertex2f(cos((2 * M_PI*i) / edges), sin((2 * M_PI*i) / edges));
+	glEnd();
+	// version II
+	/*glBegin(GL_LINE_STRIP);
+	for (int i = 0; i <= edges; i++) {
+		if (i == edges) glVertex2f(cos(0), sin(0));
+		else glVertex2f(cos((2 * M_PI*i) / edges), sin((2 * M_PI*i) / edges));
+	}
+	glEnd();*/
+}
+
+void Shape::drawIcosahedron() {
+	glBegin(GL_TRIANGLES);
+	for (int i = 0; i < 20; i++) {
+		/* color information here */
+		glVertex3fv(&vdata[tindices[i][0]][0]);
+		glVertex3fv(&vdata[tindices[i][1]][0]);
+		glVertex3fv(&vdata[tindices[i][2]][0]);
+	}
+	glEnd();
+}
+
+void Shape::drawDisc() {
+
 }

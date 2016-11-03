@@ -9,6 +9,7 @@ Scene::Scene(Input *in)
 	//OpenGL settings
 	frame = 0; timebase = 0;
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
+	glShadeModel(GL_FLAT);
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
@@ -40,6 +41,11 @@ Scene::Scene(Input *in)
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
 	orthographic = false; // Orthographic view on or off
+	// torus
+	Torus = glGenLists(1);
+	glNewList(Torus, GL_COMPILE);
+	shape.drawTorus(8, 25);
+	glEndList();
 }
 
 void Scene::loadTextures() {
@@ -147,6 +153,12 @@ void Scene::update(float dt){
 		wireframe = !wireframe; // toggle wireframe (true/false)
 		input->SetKeyUp('w'); input->SetKeyUp('m');
 	}
+	// Put everything back to the origin
+	if (input->isKeyDown('i') && input->isKeyDown('I')) {
+		glLoadIdentity();
+		glutPostRedisplay(); // returns whatever is in the list to its original location.
+		input->SetKeyUp('i'); input->SetKeyUp('I');
+	}
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
 	// Camera controll
@@ -203,6 +215,15 @@ void Scene::render() {
 	} else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+	// Render torus from list
+	/*glBindTexture(GL_TEXTURE_2D, *crateTrans); {
+		glCallList(Torus);
+		glFlush();
+	} glBindTexture(GL_TEXTURE_2D, NULL);*/
+	// Draw circle
+	//shape.drawCircle(30);
+	// Draw Icosahedron
+	shape.drawIcosahedron();
 
 	glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 		if (blend) {

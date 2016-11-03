@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
+#define _USE_MATH_DEFINES // for C++
+#include <cmath>
 
 class Shape {
 public:
@@ -12,5 +14,9 @@ public:
 	void render_cube();
 	void render_skybox();
 	void render_disc();
+	static void drawTorus(int numc, int numt);
+	void drawCircle(int edges);
+	void drawIcosahedron();
+	void drawDisc();
 };
 #endif 
