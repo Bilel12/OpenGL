@@ -210,11 +210,6 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	if (wireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	} else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
 	// Render torus from list
 	/*glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 		glCallList(Torus);
@@ -223,9 +218,9 @@ void Scene::render() {
 	// Draw circle
 	//shape.drawCircle(30);
 	// Draw Icosahedron
-	glColor3f(0, 0, 1);
-	shape.drawIcosahedron();
-	glColor3f(1, 1, 1);
+	//glColor3f(0, 0, 1);
+	//shape.drawIcosahedron();
+	//glColor3f(1, 1, 1);
 	glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
@@ -242,7 +237,13 @@ void Scene::render() {
 		glPolygonMode(GL_BACK, GL_FILL);
 
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-
+	if (wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	shape.drawCylinder(1, 2, 20);
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
 	//	glBegin(GL_TRIANGLES); // front face

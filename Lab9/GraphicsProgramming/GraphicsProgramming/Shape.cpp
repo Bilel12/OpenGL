@@ -102,9 +102,7 @@ void Shape::render_skybox() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-
-void Shape::drawTorus(int numc, int numt)
-{
+void Shape::drawTorus(int numc, int numt) {
 	int i, j, k;
 	double s, t, x, y, z, twopi;
 
@@ -140,6 +138,7 @@ void Shape::drawCircle(int edges) {
 	}
 	glEnd();*/
 }
+
 void Shape::normalize(float v[3]) {
 	GLfloat d = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 	if (d == 0.0) {
@@ -148,8 +147,7 @@ void Shape::normalize(float v[3]) {
 	v[0] /= d; v[1] /= d; v[2] /= d;
 }
 
-void Shape::normcrossprod(float v1[3], float v2[3], float out[3])
-{
+void Shape::normcrossprod(float v1[3], float v2[3], float out[3]){
 	GLint i, j;
 	GLfloat length;
 
@@ -158,6 +156,7 @@ void Shape::normcrossprod(float v1[3], float v2[3], float out[3])
 	out[2] = v1[0] * v2[1] - v1[1] * v2[0];
 	normalize(out);
 }
+
 void Shape::drawIcosahedron() {
 	glBegin(GL_TRIANGLES);
 	for (int i = 0; i < 20; i++) {
@@ -176,6 +175,32 @@ void Shape::drawIcosahedron() {
 	glEnd();
 }
 
-void Shape::drawDisk() {
+void Shape::drawDisk(int num_triangles, float radius) {
+		float interval = 2.0 * M_PI / num_triangles;
+		float theta = 0.0;
+		float start = 0.0;
+	for (int i = 0; i < num_triangles; i++) {
+		glBegin(GL_TRIANGLES);
+			glVertex3f(start, start, start);
+			glVertex3f(, , start);
+			glVertex3f(, , start);
+		glEnd();
+		theta + interval;
+	}
+}
 
+void Shape::drawCylinder(float radius, float halfLength, int slices) {
+	for (int i = 0; i<slices; i++) {
+		float theta = ((float)i)*2.0*M_PI;
+		float nextTheta = ((float)i + 1)*2.0*M_PI;
+		glBegin(GL_TRIANGLES);
+		/*vertex at middle of end */ glVertex3f(0.0, halfLength, 0.0);
+		/*vertices at edges of circle*/ glVertex3f(radius*cos(theta), halfLength, radius*sin(theta));
+		glVertex3f(radius*cos(nextTheta), halfLength, radius*sin(nextTheta));
+		/* the same vertices at the bottom of the cylinder*/
+		glVertex3f(radius*cos(nextTheta), -halfLength, radius*sin(nextTheta));
+		glVertex3f(radius*cos(theta), -halfLength, radius*sin(theta));
+		glVertex3f(0.0, -halfLength, 0.0);
+		glEnd();
+	}
 }
