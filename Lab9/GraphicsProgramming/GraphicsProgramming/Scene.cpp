@@ -175,186 +175,186 @@ void Scene::render() {
 			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 
-	glBindTexture(GL_TEXTURE_2D, *skybox); {
-	// Point sampling
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
-		glPushMatrix();
-			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
-			glDisable(GL_DEPTH_TEST);
-			{
-				/////////////////////////////
-				glBegin(GL_TRIANGLES); // front face
-				glNormal3f(0.0f, 0.0f, 1.0f);
-				glTexCoord2f(0.25, 0.5);
-				glVertex3f(-1, -1, 1);	// Left bottom
+	//glBindTexture(GL_TEXTURE_2D, *skybox); {
+	//// Point sampling
+	///*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
+	//	glPushMatrix();
+	//		glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
+	//		glDisable(GL_DEPTH_TEST);
+	//		{
+	//			/////////////////////////////
+	//			glBegin(GL_TRIANGLES); // front face
+	//			glNormal3f(0.0f, 0.0f, 1.0f);
+	//			glTexCoord2f(0.25, 0.5);
+	//			glVertex3f(-1, -1, 1);	// Left bottom
 
-				glNormal3f(0.0f, 0.0f, 1.0f);
-				glTexCoord2f(0.5, 0.5);
-				glVertex3f(1, -1, 1);	// Right bottom
+	//			glNormal3f(0.0f, 0.0f, 1.0f);
+	//			glTexCoord2f(0.5, 0.5);
+	//			glVertex3f(1, -1, 1);	// Right bottom
 
-				glNormal3f(0.0f, 0.0f, 1.0f);
-				glTexCoord2f(0.5, 0.25);
-				glVertex3f(1, 1, 1);	// Right top
-				glEnd();
+	//			glNormal3f(0.0f, 0.0f, 1.0f);
+	//			glTexCoord2f(0.5, 0.25);
+	//			glVertex3f(1, 1, 1);	// Right top
+	//			glEnd();
 
-				glBegin(GL_TRIANGLES);
-				glNormal3f(0.0f, 0.0f, 1.0f);
-				glTexCoord2f(0.5, 0.25);
-				glVertex3f(1, 1, 1);	// Right top
+	//			glBegin(GL_TRIANGLES);
+	//			glNormal3f(0.0f, 0.0f, 1.0f);
+	//			glTexCoord2f(0.5, 0.25);
+	//			glVertex3f(1, 1, 1);	// Right top
 
-				glNormal3f(0.0f, 0.0f, 1.0f);
-				glTexCoord2f(0.25, 0.25);
-				glVertex3f(-1, 1, 1);	// Left top
+	//			glNormal3f(0.0f, 0.0f, 1.0f);
+	//			glTexCoord2f(0.25, 0.25);
+	//			glVertex3f(-1, 1, 1);	// Left top
 
-				glNormal3f(0.0f, 0.0f, 1.0f);
-				glTexCoord2f(0.25, 0.5);
-				glVertex3f(-1, -1, 1);	// Left bottom
-				glEnd();
-				/////////////////////////////
-				glBegin(GL_TRIANGLES); // right side face
-				glNormal3f(1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.5, 0.5);
-				glVertex3f(1, -1, 1);	// Right bottom
+	//			glNormal3f(0.0f, 0.0f, 1.0f);
+	//			glTexCoord2f(0.25, 0.5);
+	//			glVertex3f(-1, -1, 1);	// Left bottom
+	//			glEnd();
+	//			/////////////////////////////
+	//			glBegin(GL_TRIANGLES); // right side face
+	//			glNormal3f(1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.5);
+	//			glVertex3f(1, -1, 1);	// Right bottom
 
-				glNormal3f(1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.75, 0.5);
-				glVertex3f(1, -1, -1);	// Left bottom
+	//			glNormal3f(1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.75, 0.5);
+	//			glVertex3f(1, -1, -1);	// Left bottom
 
-				glNormal3f(1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.5, 0.25);
-				glVertex3f(1, 1, 1);	// Right top
-				glEnd();
+	//			glNormal3f(1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.25);
+	//			glVertex3f(1, 1, 1);	// Right top
+	//			glEnd();
 
-				glBegin(GL_TRIANGLES);
-				glNormal3f(1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.5, 0.25);
-				glVertex3f(1, 1, 1);	// Right top
+	//			glBegin(GL_TRIANGLES);
+	//			glNormal3f(1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.25);
+	//			glVertex3f(1, 1, 1);	// Right top
 
-				glNormal3f(1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.75, 0.25);
-				glVertex3f(1, 1, -1);	// Left top
+	//			glNormal3f(1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.75, 0.25);
+	//			glVertex3f(1, 1, -1);	// Left top
 
-				glNormal3f(1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.75, 0.5);
-				glVertex3f(1, -1, -1);	// Left bottom
-				glEnd();
-				///////////////////////////////////
-				glBegin(GL_TRIANGLES); // left side face
-				glNormal3f(-1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0, 0.5);
-				glVertex3f(-1, -1, -1);	// Left bottom
+	//			glNormal3f(1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.75, 0.5);
+	//			glVertex3f(1, -1, -1);	// Left bottom
+	//			glEnd();
+	//			///////////////////////////////////
+	//			glBegin(GL_TRIANGLES); // left side face
+	//			glNormal3f(-1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0, 0.5);
+	//			glVertex3f(-1, -1, -1);	// Left bottom
 
-				glNormal3f(-1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0, 0.25);
-				glVertex3f(-1, 1, -1);	// Left top
+	//			glNormal3f(-1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0, 0.25);
+	//			glVertex3f(-1, 1, -1);	// Left top
 
-				glNormal3f(-1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.25, 0.25);
-				glVertex3f(-1, 1, 1);	// Right top
-				glEnd();
+	//			glNormal3f(-1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.25);
+	//			glVertex3f(-1, 1, 1);	// Right top
+	//			glEnd();
 
-				glBegin(GL_TRIANGLES);
-				glNormal3f(-1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.25, 0.25);
-				glVertex3f(-1, 1, 1);	// Right top
+	//			glBegin(GL_TRIANGLES);
+	//			glNormal3f(-1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.25);
+	//			glVertex3f(-1, 1, 1);	// Right top
 
-				glNormal3f(-1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0.25, 0.5);
-				glVertex3f(-1, -1, 1);	// Right bottom
+	//			glNormal3f(-1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.5);
+	//			glVertex3f(-1, -1, 1);	// Right bottom
 
-				glNormal3f(-1.0f, 0.0f, 0.0f);
-				glTexCoord2f(0, 0.5);
-				glVertex3f(-1, -1, -1);	// Left bottom
-				glEnd();
-				//////////////////////////////
-				glBegin(GL_TRIANGLES); // bottom face
-				glNormal3f(0.0f, -1.0f, 0.0f);
-				glTexCoord2f(0.25, 0.5);
-				glVertex3f(-1, -1, -1);	// Left bottom
+	//			glNormal3f(-1.0f, 0.0f, 0.0f);
+	//			glTexCoord2f(0, 0.5);
+	//			glVertex3f(-1, -1, -1);	// Left bottom
+	//			glEnd();
+	//			//////////////////////////////
+	//			glBegin(GL_TRIANGLES); // bottom face
+	//			glNormal3f(0.0f, -1.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.5);
+	//			glVertex3f(-1, -1, -1);	// Left bottom
 
-				glNormal3f(0.0f, -1.0f, 0.0f);
-				glTexCoord2f(0.25, 0.75);
-				glVertex3f(-1, -1, 1);	// Left top
+	//			glNormal3f(0.0f, -1.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.75);
+	//			glVertex3f(-1, -1, 1);	// Left top
 
-				glNormal3f(0.0f, -1.0f, 0.0f);
-				glTexCoord2f(0.5, 0.75);
-				glVertex3f(1, -1, 1);	// Right top
-				glEnd();
+	//			glNormal3f(0.0f, -1.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.75);
+	//			glVertex3f(1, -1, 1);	// Right top
+	//			glEnd();
 
-				glBegin(GL_TRIANGLES);
-				glNormal3f(0.0f, -1.0f, 0.0f);
-				glTexCoord2f(0.5, 0.75);
-				glVertex3f(1, -1, 1);	// Right top
+	//			glBegin(GL_TRIANGLES);
+	//			glNormal3f(0.0f, -1.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.75);
+	//			glVertex3f(1, -1, 1);	// Right top
 
-				glNormal3f(0.0f, -1.0f, 0.0f);
-				glTexCoord2f(0.5, 0.5);
-				glVertex3f(1, -1, -1);	// Right bottom
+	//			glNormal3f(0.0f, -1.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.5);
+	//			glVertex3f(1, -1, -1);	// Right bottom
 
-				glNormal3f(0.0f, -1.0f, 0.0f);
-				glTexCoord2f(0.25, 0.5);
-				glVertex3f(-1, -1, -1);	// Left bottom
-				glEnd();
-				///////////////////////////////
-				glBegin(GL_TRIANGLES); // back face
-				glNormal3f(0.0f, 0.0f, -1.0f);
-				glTexCoord2f(1, 0.5);
-				glVertex3f(-1, -1, -1);	// Left bottom
+	//			glNormal3f(0.0f, -1.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.5);
+	//			glVertex3f(-1, -1, -1);	// Left bottom
+	//			glEnd();
+	//			///////////////////////////////
+	//			glBegin(GL_TRIANGLES); // back face
+	//			glNormal3f(0.0f, 0.0f, -1.0f);
+	//			glTexCoord2f(1, 0.5);
+	//			glVertex3f(-1, -1, -1);	// Left bottom
 
-				glNormal3f(0.0f, 0.0f, -1.0f);
-				glTexCoord2f(0.75, 0.5);
-				glVertex3f(1, -1, -1);	// Right bottom
+	//			glNormal3f(0.0f, 0.0f, -1.0f);
+	//			glTexCoord2f(0.75, 0.5);
+	//			glVertex3f(1, -1, -1);	// Right bottom
 
-				glNormal3f(0.0f, 0.0f, -1.0f);
-				glTexCoord2f(0.75, 0.25);
-				glVertex3f(1, 1, -1);	// Right top
-				glEnd();
+	//			glNormal3f(0.0f, 0.0f, -1.0f);
+	//			glTexCoord2f(0.75, 0.25);
+	//			glVertex3f(1, 1, -1);	// Right top
+	//			glEnd();
 
-				glBegin(GL_TRIANGLES);
-				glNormal3f(0.0f, 0.0f, -1.0f);
-				glTexCoord2f(0.75, 0.25);
-				glVertex3f(1, 1, -1);	// Right top
+	//			glBegin(GL_TRIANGLES);
+	//			glNormal3f(0.0f, 0.0f, -1.0f);
+	//			glTexCoord2f(0.75, 0.25);
+	//			glVertex3f(1, 1, -1);	// Right top
 
-				glNormal3f(0.0f, 0.0f, -1.0f);
-				glTexCoord2f(1, 0.25);
-				glVertex3f(-1, 1, -1);	// Left top
+	//			glNormal3f(0.0f, 0.0f, -1.0f);
+	//			glTexCoord2f(1, 0.25);
+	//			glVertex3f(-1, 1, -1);	// Left top
 
-				glNormal3f(0.0f, 0.0f, -1.0f);
-				glTexCoord2f(1, 0.5);
-				glVertex3f(-1, -1, -1);	// Left bottom
-				glEnd();
-				///////////////////////
-				glBegin(GL_TRIANGLES); // top face
-				glNormal3f(0.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.5, 0.25);
-				glVertex3f(1, 1, 1);	// Right top
+	//			glNormal3f(0.0f, 0.0f, -1.0f);
+	//			glTexCoord2f(1, 0.5);
+	//			glVertex3f(-1, -1, -1);	// Left bottom
+	//			glEnd();
+	//			///////////////////////
+	//			glBegin(GL_TRIANGLES); // top face
+	//			glNormal3f(0.0f, 1.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.25);
+	//			glVertex3f(1, 1, 1);	// Right top
 
-				glNormal3f(0.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.5, 0);
-				glVertex3f(1, 1, -1);	// Right bottom
+	//			glNormal3f(0.0f, 1.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0);
+	//			glVertex3f(1, 1, -1);	// Right bottom
 
-				glNormal3f(0.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.25, 0);
-				glVertex3f(-1, 1, -1);	// Left bottom
-				glEnd();
+	//			glNormal3f(0.0f, 1.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0);
+	//			glVertex3f(-1, 1, -1);	// Left bottom
+	//			glEnd();
 
-				glBegin(GL_TRIANGLES);
-				glNormal3f(0.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.25, 0);
-				glVertex3f(-1, 1, -1);	// Left bottom
+	//			glBegin(GL_TRIANGLES);
+	//			glNormal3f(0.0f, 1.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0);
+	//			glVertex3f(-1, 1, -1);	// Left bottom
 
-				glNormal3f(0.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.25, 0.25);
-				glVertex3f(-1, 1, 1);	// Left top
+	//			glNormal3f(0.0f, 1.0f, 0.0f);
+	//			glTexCoord2f(0.25, 0.25);
+	//			glVertex3f(-1, 1, 1);	// Left top
 
-				glNormal3f(0.0f, 1.0f, 0.0f);
-				glTexCoord2f(0.5, 0.25);
-				glVertex3f(1, 1, 1);	// Right top
-				glEnd();
-			}
-			glEnable(GL_DEPTH_TEST);
-		glEnd();
-	} glPopMatrix();
+	//			glNormal3f(0.0f, 1.0f, 0.0f);
+	//			glTexCoord2f(0.5, 0.25);
+	//			glVertex3f(1, 1, 1);	// Right top
+	//			glEnd();
+	//		}
+	//		glEnable(GL_DEPTH_TEST);
+	//	glEnd();
+	//} glPopMatrix();
 
 	// Render geometry here -------------------------------------
 	if (wireframe) {
@@ -362,221 +362,223 @@ void Scene::render() {
 	} else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	glPushMatrix();
-		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
-		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
-		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
-		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
-		if (blend) {
-			glEnable(GL_BLEND); // Turn blending on
-		} else {
-			glDisable(GL_BLEND); // Turn blending off
-		}
-			/////////////////////////////
-			glBegin(GL_TRIANGLES); // front face
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, 1);
+	shape.render1();
+	//glPushMatrix();
+	//	glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
+	//	glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
+	//	glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
+	//	glBindTexture(GL_TEXTURE_2D, *crateTrans); {
+	//	if (blend) {
+	//		glEnable(GL_BLEND); // Turn blending on
+	//	} else {
+	//		glDisable(GL_BLEND); // Turn blending off
+	//	}
+	//		/////////////////////////////
+	//		glBegin(GL_TRIANGLES); // front face
+	//		glNormal3f(0.0f, 0.0f, 1.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(-1, -1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, 1);
-			glEnd();
+	//		glNormal3f(0.0f, 0.0f, 1.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(1, -1, 1);
 
-			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, 1);
+	//		glNormal3f(0.0f, 0.0f, 1.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(1, 1, 1);
+	//		glEnd();
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, 1);
+	//		glBegin(GL_TRIANGLES);
+	//		glNormal3f(0.0f, 0.0f, 1.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(1, 1, 1);
 
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, 1);
-			glEnd();
-			/////////////////////////////
-			glBegin(GL_TRIANGLES); // right side face
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(1, -1, 1);
+	//		glNormal3f(0.0f, 0.0f, 1.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(-1, 1, 1);
 
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, -1);
+	//		glNormal3f(0.0f, 0.0f, 1.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(-1, -1, 1);
+	//		glEnd();
+	//		/////////////////////////////
+	//		glBegin(GL_TRIANGLES); // right side face
+	//		glNormal3f(1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(1, -1, 1);
 
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(1, 1, 1);
-			glEnd();
+	//		glNormal3f(1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(1, -1, -1);
 
-			glBegin(GL_TRIANGLES);
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(1, 1, 1);
+	//		glNormal3f(1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(1, 1, 1);
+	//		glEnd();
 
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, -1);
+	//		glBegin(GL_TRIANGLES);
+	//		glNormal3f(1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(1, 1, 1);
 
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, -1);
-			glEnd();
-			///////////////////////////////////
-			glBegin(GL_TRIANGLES); // left side face
-			glColor3f(0, 0, 1);
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(-1, -1, -1);
+	//		glNormal3f(1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(1, 1, -1);
 
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(-1, 1, -1);
+	//		glNormal3f(1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(1, -1, -1);
+	//		glEnd();
+	//		///////////////////////////////////
+	//		glBegin(GL_TRIANGLES); // left side face
+	//		glColor3f(0, 0, 1);
+	//		glNormal3f(-1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(-1, -1, -1);
 
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, 1);
-			glEnd();
+	//		glNormal3f(-1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(-1, 1, -1);
 
-			glBegin(GL_TRIANGLES);
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, 1);
+	//		glNormal3f(-1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(-1, 1, 1);
+	//		glEnd();
 
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, 1);
-			
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(-1, -1, -1);
-			glEnd();
-			//////////////////////////////
-			glBegin(GL_TRIANGLES); // bottom face
-			glColor3f(1, 1, 1);
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(-1, -1, -1);
+	//		glBegin(GL_TRIANGLES);
+	//		glNormal3f(-1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(-1, 1, 1);
 
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(-1, -1, 1);
+	//		glNormal3f(-1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(-1, -1, 1);
+	//		
+	//		glNormal3f(-1.0f, 0.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(-1, -1, -1);
+	//		glEnd();
+	//		//////////////////////////////
+	//		glBegin(GL_TRIANGLES); // bottom face
+	//		glColor3f(1, 1, 1);
+	//		glNormal3f(0.0f, -1.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(-1, -1, -1);
 
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(1, -1, 1);
-			glEnd();
+	//		glNormal3f(0.0f, -1.0f, 0.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(-1, -1, 1);
 
-			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(1, -1, 1);
+	//		glNormal3f(0.0f, -1.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(1, -1, 1);
+	//		glEnd();
 
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(1, -1, -1);
+	//		glBegin(GL_TRIANGLES);
+	//		glNormal3f(0.0f, -1.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(1, -1, 1);
 
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(-1, -1, -1);
-			glEnd();
-			///////////////////////////////
-			glBegin(GL_TRIANGLES); // back face
-			glColor3f(0, 1, 0); // green
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -1);
+	//		glNormal3f(0.0f, -1.0f, 0.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(1, -1, -1);
+	//		glNormal3f(0.0f, -1.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(-1, -1, -1);
+	//		glEnd();
+	//		///////////////////////////////
+	//		glBegin(GL_TRIANGLES); // back face
+	//		glColor3f(0, 1, 0); // green
+	//		glNormal3f(0.0f, 0.0f, -1.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(-1, -1, -1);
 
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, -1);
-			glEnd();
+	//		glNormal3f(0.0f, 0.0f, -1.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(1, -1, -1);
 
-			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(1, 1, -1);
+	//		glNormal3f(0.0f, 0.0f, -1.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(1, 1, -1);
+	//		glEnd();
 
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(-1, 1, -1);
+	//		glBegin(GL_TRIANGLES);
+	//		glNormal3f(0.0f, 0.0f, -1.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(1, 1, -1);
 
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(-1, -1, -1);
-			glEnd();
-			///////////////////////
-			glBegin(GL_TRIANGLES); // top face
-			glColor3f(0.0, 1.0, 0.0); // green
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(1, 1, 1);
+	//		glNormal3f(0.0f, 0.0f, -1.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(-1, 1, -1);
 
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(0, 1);
-			glVertex3f(1, 1, -1);
+	//		glNormal3f(0.0f, 0.0f, -1.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(-1, -1, -1);
+	//		glEnd();
+	//		///////////////////////
+	//		glBegin(GL_TRIANGLES); // top face
+	//		glColor3f(0.0, 1.0, 0.0); // green
+	//		glNormal3f(0.0f, 1.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(1, 1, 1);
 
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(-1, 1, -1);
-			glEnd();
+	//		glNormal3f(0.0f, 1.0f, 0.0f);
+	//		glTexCoord2f(0, 1);
+	//		glVertex3f(1, 1, -1);
 
-			glBegin(GL_TRIANGLES);
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(1, 1);
-			glVertex3f(-1, 1, -1);
+	//		glNormal3f(0.0f, 1.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(-1, 1, -1);
+	//		glEnd();
 
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(1, 0);
-			glVertex3f(-1, 1, 1);
+	//		glBegin(GL_TRIANGLES);
+	//		glNormal3f(0.0f, 1.0f, 0.0f);
+	//		glTexCoord2f(1, 1);
+	//		glVertex3f(-1, 1, -1);
 
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glTexCoord2f(0, 0);
-			glVertex3f(1, 1, 1);
-			glEnd();
-		}
-	glPopMatrix();
+	//		glNormal3f(0.0f, 1.0f, 0.0f);
+	//		glTexCoord2f(1, 0);
+	//		glVertex3f(-1, 1, 1);
 
-	glPushMatrix(); {
-		glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
-		glBegin(GL_TRIANGLES); // front face
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0, 1);
-		glVertex3f(-1, -1, 1.5);
+	//		glNormal3f(0.0f, 1.0f, 0.0f);
+	//		glTexCoord2f(0, 0);
+	//		glVertex3f(1, 1, 1);
+	//		glEnd();
+	//	}
+	//glPopMatrix();
 
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1, 1);
-		glVertex3f(1, -1, 1.5);
+	//glPushMatrix(); {
+	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
+	//	glBegin(GL_TRIANGLES); // front face
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(0, 1);
+	//	glVertex3f(-1, -1, 1.5);
 
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1, 0);
-		glVertex3f(1, 1, 1.5);
-		glEnd();
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1, 1);
+	//	glVertex3f(1, -1, 1.5);
 
-		glBegin(GL_TRIANGLES);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(1, 0);
-		glVertex3f(1, 1, 1.5);
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1, 0);
+	//	glVertex3f(1, 1, 1.5);
+	//	glEnd();
 
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0, 0);
-		glVertex3f(-1, 1, 1.5);
+	//	glBegin(GL_TRIANGLES);
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(1, 0);
+	//	glVertex3f(1, 1, 1.5);
 
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		glTexCoord2f(0, 1);
-		glVertex3f(-1, -1, 1.5);
-		glEnd();
-	} glPopMatrix();
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(0, 0);
+	//	glVertex3f(-1, 1, 1.5);
+
+	//	glNormal3f(0.0f, 0.0f, 1.0f);
+	//	glTexCoord2f(0, 1);
+	//	glVertex3f(-1, -1, 1.5);
+	//	glEnd();
+	//} glPopMatrix();
 
 	//glPushMatrix(); {
 	//	glBegin(GL_TRIANGLES); // front face

@@ -29,10 +29,30 @@ void Shape::render1()
 {
 	// add code to render the cube (above) using method 1
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_INDEX_ARRAY);
+	/*glEnableClientState(GL_INDEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	// glArrayElement()
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);*/
+
+	glVertexPointer(3, GL_FLOAT, 0, verts);
+	glVertexPointer(3, GL_FLOAT, 0, norms);
+	glVertexPointer(2, GL_FLOAT, 0, texcoords);
+
+	glBegin(GL_TRIANGLES); {
+		glArrayElement(0);
+		glArrayElement(1);
+		glArrayElement(2);
+	} glEnd();
+
+	glBegin(GL_TRIANGLES); {
+		glArrayElement(0);
+		glArrayElement(2);
+		glArrayElement(3);
+	} glEnd();
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	/*glDisableClientState(GL_INDEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);*/
 
 	
 
