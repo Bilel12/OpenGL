@@ -18,10 +18,10 @@ extern float cube_verts[] = {
 								1, -1, -1,
 								// left side face
 								-1, -1, -1,
-								-1, 1, -1,
-								-1, 1, 1,
-								-1, 1, 1,
 								-1, -1, 1,
+								-1, 1, 1,
+								-1, 1, 1,
+								-1, 1, -1,
 								-1, -1, -1,
 								// bottom face
 								-1, -1, -1,
@@ -107,10 +107,10 @@ extern float cube_texcoords[] = {
 								1, 1,
 								// left side face  
 								1, 1,
-								1, 0,
-								0, 0,
-								0, 0,
 								0, 1,
+								0, 0,
+								0, 0,
+								1, 0,
 								1, 1,
 								// bottom face
 								1, 1,
