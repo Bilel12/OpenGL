@@ -196,20 +196,22 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	glBindTexture(GL_TEXTURE_2D, *crateTrans);
-	if (blend) {
-		glEnable(GL_BLEND); // Turn blending on
-	}
-	else {
-		glDisable(GL_BLEND); // Turn blending off
-	}
+	glBindTexture(GL_TEXTURE_2D, *crateTrans); {
+		if (blend) {
+			glEnable(GL_BLEND); // Turn blending on
+		}
+		else {
+			glDisable(GL_BLEND); // Turn blending off
+		}
 
-	glPushMatrix();
+		/*glPolygonMode(GL_FRONT, GL_LINE);
 		shape.render_crate();
-		shape.render_crate_blend();
-	glPopMatrix();
+		glPolygonMode(GL_FRONT, GL_FILL);*/
+		glPolygonMode(GL_BACK, GL_LINE);
+		shape.render_cube();
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
