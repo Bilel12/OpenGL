@@ -11,6 +11,7 @@ class Shape
 		void render1();
 		void render2();
 		void render3();
+		void render_skybox();
 
 };
 #endif 
