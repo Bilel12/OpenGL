@@ -5,14 +5,12 @@
 #include <gl/gl.h>
 #include <gl/glu.h>
 
-class Shape
-{
-	public:
-		void render1();
-		void render3();
-		void render_crate();
-		void render_crate_blend();
-		void render_skybox();
-
+class Shape {
+public:
+	void render1();
+	void render3();
+	void render_crate();
+	void render_crate_blend();
+	void render_skybox();
 };
 #endif 

@@ -206,7 +206,7 @@ void Scene::render() {
 
 	glPushMatrix();
 		shape.render_crate();
-		shape.render_crate();
+		shape.render_crate_blend();
 	glPopMatrix();
 
 	glBindTexture(GL_TEXTURE_2D, NULL);

@@ -1,7 +1,6 @@
 #ifndef _DEFINES_H
 #define _DEFINES_H
 
-#include <glut.h>
 ////TODO
 //glutGet(GLUT_WINDOW_WIDTH)
 //glutGet(GLUT_WINDOW_HEIGHT)
