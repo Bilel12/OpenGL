@@ -23,6 +23,7 @@
 #include "SecurityCamera.h"
 #include "TopDownCamera.h"
 #include "Camera.h"
+#include "Shape.h"
 
 class Scene{
 

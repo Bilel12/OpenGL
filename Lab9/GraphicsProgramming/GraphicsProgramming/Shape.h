@@ -7,7 +7,6 @@
 
 class Shape
 {
-
 	public:
 		void render1();
 		void render2();
