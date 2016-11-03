@@ -175,16 +175,23 @@ void Shape::drawIcosahedron() {
 	glEnd();
 }
 
-void Shape::drawDisk(int edges, float radius) {
+void Shape::drawDisk(int edges, float radius, float h, float k) {
 		float interval = 2.0 * M_PI / edges;
-		//float theta = 360.0 / edges;
 		float start = 0.0;
 		float theta = 0.0;
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_STRIP);
-			glVertex3f(start, start, start);
-			glVertex3f(radius * cos(theta), radius * sin(theta), start);
-			glVertex3f(radius * cos(theta + interval), radius * sin(theta + interval), start);
+			glNormal3f(0.0, 0.0, 1.0);
+			glTexCoord2f(0, 0);
+			glVertex3f(h + start, k + start, start);
+
+			glTexCoord2f(1, 1);
+			glNormal3f(0.0, 0.0, 1.0);
+			glVertex3f(h + radius * cos(theta), k + radius * sin(theta), start);
+
+			glTexCoord2f(1, 0);
+			glNormal3f(0.0, 0.0, 1.0);
+			glVertex3f(h + radius * cos(theta + interval), k + radius * sin(theta + interval), start);
 		glEnd();
 		theta += interval;
 	}
@@ -205,17 +212,17 @@ void Shape::drawCylinder(float radius, float halfLength, int slices) {
 		glEnd();
 	}
 	
-	//for (int i = 0; i<slices; i++) {
-	//	float theta = ((float)i)*2.0*M_PI;
-	//	float nextTheta = ((float)i + 1)*2.0*M_PI;
-	//	glBegin(GL_TRIANGLE_STRIP);
-	//	/*vertex at middle of end */ glVertex3f(0.0, halfLength, 0.0);
-	//	/*vertices at edges of circle*/ glVertex3f(radius*cos(theta), halfLength, radius*sin(theta));
-	//	glVertex3f(radius*cos(nextTheta), halfLength, radius*sin(nextTheta));
-	//	/* the same vertices at the bottom of the cylinder*/
-	//	glVertex3f(radius*cos(nextTheta), -halfLength, radius*sin(nextTheta));
-	//	glVertex3f(radius*cos(theta), -halfLength, radius*sin(theta));
-	//	glVertex3f(0.0, -halfLength, 0.0);
-	//	glEnd();
-	//}
+	for (int i = 0; i<slices; i++) {
+		float theta = ((float)i)*2.0*M_PI;
+		float nextTheta = ((float)i + 1)*2.0*M_PI;
+		glBegin(GL_TRIANGLE_STRIP);
+		/*vertex at middle of end */ glVertex3f(0.0, halfLength, 0.0);
+		/*vertices at edges of circle*/ glVertex3f(radius*cos(theta), halfLength, radius*sin(theta));
+		glVertex3f(radius*cos(nextTheta), halfLength, radius*sin(nextTheta));
+		/* the same vertices at the bottom of the cylinder*/
+		glVertex3f(radius*cos(nextTheta), -halfLength, radius*sin(nextTheta));
+		glVertex3f(radius*cos(theta), -halfLength, radius*sin(theta));
+		glVertex3f(0.0, -halfLength, 0.0);
+		glEnd();
+	}
 }

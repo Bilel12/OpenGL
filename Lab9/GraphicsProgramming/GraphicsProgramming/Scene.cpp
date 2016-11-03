@@ -34,6 +34,7 @@ Scene::Scene(Input *in)
 	crateTrans = &textures[7];
 	skybox = &textures[8];
 	crateArrow = &textures[9];
+	tileBrown = &textures[10];
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
@@ -45,6 +46,11 @@ Scene::Scene(Input *in)
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
 	shape.drawTorus(8, 25);
+	glEndList();
+
+	Disk = glGenLists(2);
+	glNewList(Disk, GL_COMPILE);
+	shape.drawDisk(40, 2, 3, 3);
 	glEndList();
 }
 
@@ -114,6 +120,13 @@ void Scene::loadTextures() {
 
 	myTexture = SOIL_load_OGL_texture( // 9
 		"gfx/cratearrow.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 9
+		"gfx/tileBrown_02.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -243,7 +256,11 @@ void Scene::render() {
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	shape.drawDisk(20, 2);
+
+	//glBindTexture(GL_TEXTURE_2D, *tileBrown); {
+		glCallList(Disk);
+		glFlush();	
+	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
 	//	glBegin(GL_TRIANGLES); // front face
