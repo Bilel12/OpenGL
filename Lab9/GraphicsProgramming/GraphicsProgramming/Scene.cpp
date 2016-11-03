@@ -204,12 +204,12 @@ void Scene::render() {
 			glDisable(GL_BLEND); // Turn blending off
 		}
 
-		/*glPolygonMode(GL_FRONT, GL_LINE);
-		shape.render_crate();
-		glPolygonMode(GL_FRONT, GL_FILL);*/
+		glPolygonMode(GL_FRONT, GL_LINE);
+		shape.render_cube();
+		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_LINE);
 		shape.render_cube();
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
