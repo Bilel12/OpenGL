@@ -61,6 +61,23 @@ extern float verts[] = {
 	
 		
 		-1, -1, -1,
+	///////////////////////
+	// top face
+1, 1, 1,
+
+
+1, 1, -1,
+
+
+-1, 1, -1,
+
+-1, 1, -1,
+
+
+-1, 1, 1,
+
+1, 1, 1,
+
 	
                        };
 
@@ -94,7 +111,7 @@ extern float norms[] = {
 		0.0f, -1.0f, 0.0f,
 		0.0f, -1.0f, 0.0f,
 		0.0f, -1.0f, 0.0f,
-	
+	// back face
 0.0f, 0.0f, -1.0f,
 0.0f, 0.0f, -1.0f,
 
@@ -106,128 +123,95 @@ extern float norms[] = {
 
 
 0.0f, 0.0f, -1.0f,
+
+ // top face
+
+0.0f, 1.0f, 0.0f,
+
+0.0f, 1.0f, 0.0f,
+0.0f, 1.0f, 0.0f,
+
+0.0f, 1.0f, 0.0f,
+
+0.0f, 1.0f, 0.0f,
+
+
+0.0f, 1.0f, 0.0f,
+
                        };
 
 
-extern float texcoords[] = { 
-                            // front face
-                            0, 1, 		//0
-                            1, 1, 		//1
-                            1, 0, 		//2
-                            1, 0, 		//3
-                            0, 0,
-                            0, 1,
-							// right side face
-	0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1,
-// left side face  
-						1, 1,
-						 1, 0,
-						  0, 0,
-						 0, 0,
+					   extern float texcoords[] = {
+						   // front face
+						   0, 1, 		//0
+						   1, 1, 		//1
+						   1, 0, 		//2
+						   1, 0, 		//3
+						   0, 0,
+						   0, 1,
+						   // right side face
+   0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1,
+						   // left side face  
+												   1, 1,
+													1, 0,
+													 0, 0,
+													0, 0,
+													 0, 1,
+													 1, 1,
+						   // bottom face
+
+					  1, 1,
+
+					  1, 0,
+
+					  0, 0,
+					  0, 0,
+					  0, 1,
+					  1, 1,
+						   // back face
+
 						  0, 1,
+
+
+
 						  1, 1,
-	 // bottom face
-
-1, 1,
-
-1, 0,
-
-0, 0,
-0, 0,
-0, 1,
-1, 1,
- // back face
-
-0, 1,
 
 
 
-1, 1,
+						  1, 0,
 
 
 
-1, 0,
+						  1, 0,
 
 
 
-1, 0,
+						  0, 0,
 
 
 
-0, 0,
+						  0, 1,
+						   // top face
+
+						   0, 0,
 
 
 
-0, 1,
-
-
-                           };
-
-
-//	///////////////////////////////
-//	glBegin(GL_TRIANGLES); // back face
-//	glColor3f(0, 1, 0); // green
-//	glNormal3f(0.0f, 0.0f, -1.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(-1, -1, -1);
-//
-//	glNormal3f(0.0f, 0.0f, -1.0f);
-//	glTexCoord2f(1, 1);
-//	glVertex3f(1, -1, -1);
-//
-//	glNormal3f(0.0f, 0.0f, -1.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(1, 1, -1);
-//	glEnd();
-//
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0f, 0.0f, -1.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(1, 1, -1);
-//
-//	glNormal3f(0.0f, 0.0f, -1.0f);
-//	glTexCoord2f(0, 0);
-//	glVertex3f(-1, 1, -1);
-//
-//	glNormal3f(0.0f, 0.0f, -1.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(-1, -1, -1);
-//	glEnd();
-//	///////////////////////
-//	glBegin(GL_TRIANGLES); // top face
-//	glColor3f(0.0, 1.0, 0.0); // green
-//	glNormal3f(0.0f, 1.0f, 0.0f);
-//	glTexCoord2f(0, 0);
-//	glVertex3f(1, 1, 1);
-//
-//	glNormal3f(0.0f, 1.0f, 0.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(1, 1, -1);
-//
-//	glNormal3f(0.0f, 1.0f, 0.0f);
-//	glTexCoord2f(1, 1);
-//	glVertex3f(-1, 1, -1);
-//	glEnd();
-//
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0f, 1.0f, 0.0f);
-//	glTexCoord2f(1, 1);
-//	glVertex3f(-1, 1, -1);
-//
-//	glNormal3f(0.0f, 1.0f, 0.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(-1, 1, 1);
-//
-//	glNormal3f(0.0f, 1.0f, 0.0f);
-//	glTexCoord2f(0, 0);
-//	glVertex3f(1, 1, 1);
-//	glEnd();
-//}
-//glPopMatrix();
+						   0, 1,
 
 
 
+						   1, 1,
 
+						   1, 1,
+
+
+
+						   1, 0,
+
+						   0, 0,
+
+					   };
 
 void Shape::render1()
 {
