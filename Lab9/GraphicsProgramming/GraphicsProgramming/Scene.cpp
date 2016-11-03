@@ -363,7 +363,8 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	shape.render1();
+	//shape.render1();
+	shape.render3();
 	//glPushMatrix();
 	//	glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 	//	glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
