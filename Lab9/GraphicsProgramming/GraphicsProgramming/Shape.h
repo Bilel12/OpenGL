@@ -11,5 +11,6 @@ public:
 	void render3();
 	void render_cube();
 	void render_skybox();
+	void render_disc();
 };
 #endif 

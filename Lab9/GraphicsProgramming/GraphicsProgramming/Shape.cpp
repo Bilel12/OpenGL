@@ -1,6 +1,6 @@
 #include "Skybox.h"
 #include "Cube.h"
-#include "Defines.h"
+#include "Disc.h"
 #include "Shape.h"
 
 extern GLubyte indices[] = {
@@ -40,25 +40,6 @@ void Shape::render1() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::render_cube() {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
-	glNormalPointer(GL_FLOAT, 0, cube_norms);
-	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
-
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-
 void Shape::render3() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
@@ -78,6 +59,29 @@ void Shape::render3() {
 	glDisableClientState(GL_INDEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void Shape::render_cube() {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
+	glNormalPointer(GL_FLOAT, 0, cube_norms);
+	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void Shape::render_disc() {
+
 }
 
 void Shape::render_skybox() {

@@ -32,6 +32,7 @@ Scene::Scene(Input *in)
 	aTrans = &textures[6];
 	crateTrans = &textures[7];
 	skybox = &textures[8];
+	crateArrow = &textures[9];
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
@@ -100,6 +101,13 @@ void Scene::loadTextures() {
 
 	myTexture = SOIL_load_OGL_texture( // 8
 		"gfx/skybox.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 9
+		"gfx/cratearrow.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -209,7 +217,7 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_LINE);
 		shape.render_cube();
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL);
 
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 

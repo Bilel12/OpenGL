@@ -76,6 +76,7 @@ protected:
 	GLuint *aTrans;
 	GLuint *crateTrans;
 	GLuint *skybox;
+	GLuint *crateArrow;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float xrot;	// Rotate On The X Axis
