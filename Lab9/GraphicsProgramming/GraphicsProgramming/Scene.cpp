@@ -4,7 +4,7 @@ Scene::Scene(Input *in)
 {
 	// Store pointer for input class
 	input = in;
-	// Camera 
+	// Camera
 	camera = &freeCamera;
 	//OpenGL settings
 	frame = 0; timebase = 0;
@@ -25,16 +25,10 @@ Scene::Scene(Input *in)
 
 	// loading textures into vector
 	loadTextures();
+	// Assign textures to pointers
+	assignTextures();
 	// Initialise variables
-	triangle = &textures[2];
-	checked = &textures[3];
-	grass = &textures[4];
-	glass = &textures[5];
-	aTrans = &textures[6];
-	crateTrans = &textures[7];
-	skybox = &textures[8];
-	crateArrow = &textures[9];
-	tileBrown = &textures[10];
+
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
@@ -50,7 +44,7 @@ Scene::Scene(Input *in)
 
 	Disk = glGenLists(2);
 	glNewList(Disk, GL_COMPILE);
-	shape.drawDisk(40, 2, 3, 3);
+	shape.drawDisk(400, 2, 3, 3);
 	glEndList();
 }
 
@@ -125,12 +119,19 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
 
-	myTexture = SOIL_load_OGL_texture( // 9
+	myTexture = SOIL_load_OGL_texture( // 10
 		"gfx/tileBrown_02.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
+
+		myTexture = SOIL_load_OGL_texture( // 11
+			"gfx/disk.png",
+			SOIL_LOAD_AUTO,
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+			); textures.push_back(myTexture);
 
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
@@ -140,7 +141,19 @@ void Scene::loadTextures() {
 	}
 }
 
-void Scene::update(float dt){
+void Scene::assignTextures() {
+	triangle = &textures[2];
+	checked = &textures[3];
+	grass = &textures[4];
+	glass = &textures[5];
+	aTrans = &textures[6];
+	crateTrans = &textures[7];
+	skybox = &textures[8];
+	crateArrow = &textures[9];
+	disk = &textures[11];
+}
+
+void Scene::update(float dt) {
 	// Handle user input
 	// Camera switching
 	if (input->isKeyDown('1')) {
@@ -257,14 +270,9 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	glBindTexture(GL_TEXTURE_2D, *tileBrown); {
+	glBindTexture(GL_TEXTURE_2D, *disk); {
 		glCallList(Disk);
-		glFlush();	
-
-
-		shape.render1();
-	//} glBindTexture(GL_TEXTURE_2D, NULL);
-
+		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	//glPushMatrix(); {
@@ -338,12 +346,12 @@ void Scene::render() {
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
 	renderTextOutput();
-	
+
 	// Swap buffers, after all objects are rendered.
 	glutSwapBuffers();
 }
 
-void Scene::resize(int w, int h) 
+void Scene::resize(int w, int h)
 {
 	width = w;
 	height = h;

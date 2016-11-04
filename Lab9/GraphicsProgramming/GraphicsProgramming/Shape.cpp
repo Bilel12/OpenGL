@@ -66,7 +66,7 @@ void Shape::drawCube() {
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
 	glNormalPointer(GL_FLOAT, 0, cube_norms);
@@ -160,7 +160,7 @@ void Shape::drawIcosahedron() {
 			d1[j] = vdata[tindices[i][0]][j] - vdata[tindices[i][1]][j];
 			d2[j] = vdata[tindices[i][1]][j] - vdata[tindices[i][2]][j];
 		}
-		
+
 		normcrossprod(d1, d2, norm);
 		glNormal3fv(norm);
 		glVertex3fv(&vdata[tindices[i][0]][0]);
@@ -172,20 +172,21 @@ void Shape::drawIcosahedron() {
 
 void Shape::drawDisk(int edges, float radius, float h, float k) {
 		float interval = 2.0 * M_PI / edges;
+		float diameter = 2 * radius;
 		float start = 0.0;
 		float theta = 0.0;
 	for (int i = 0; i < edges; ++i) {
-		glBegin(GL_TRIANGLE_STRIP);
+		glBegin(GL_TRIANGLE_FAN);
 			glNormal3f(0.0, 0.0, 1.0);
-			glTexCoord2f(0, 0);
+			glTexCoord2f(start + 0.5, start + 0.5);
 			glVertex3f(h + start, k + start, start);
 
-			glTexCoord2f(1, 1);
 			glNormal3f(0.0, 0.0, 1.0);
+			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
 			glVertex3f(h + radius * cos(theta), k + radius * sin(theta), start);
 
-			glTexCoord2f(1, 0);
 			glNormal3f(0.0, 0.0, 1.0);
+			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
 			glVertex3f(h + radius * cos(theta + interval), k + radius * sin(theta + interval), start);
 		glEnd();
 		theta += interval;
@@ -206,7 +207,7 @@ void Shape::drawCylinder(float radius, float halfLength, int slices) {
 		glVertex3f(0.0, -halfLength, 0.0);
 		glEnd();
 	}
-	
+
 	for (int i = 0; i<slices; i++) {
 		float theta = ((float)i)*2.0*M_PI;
 		float nextTheta = ((float)i + 1)*2.0*M_PI;

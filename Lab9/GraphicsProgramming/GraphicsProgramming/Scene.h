@@ -1,7 +1,7 @@
 // Scene class. Configures a basic 3D scene.
 // Interfaces with the Input class to handle user input
 // Calculates and outputs Frames Per Second (FPS) rendered.
-// Important functions are the constructor (initialising the scene), 
+// Important functions are the constructor (initialising the scene),
 // update (for process user input and updating scene objects) and render (renders scene).
 #ifndef _SCENE_H
 #define _SCENE_H
@@ -42,6 +42,7 @@ protected:
 	// A function to collate all text output in a single location
 	void renderTextOutput();
 	void loadTextures();
+	void assignTextures();
 
 	// For Window and frustum calculation.
 	int width, height;
@@ -56,15 +57,15 @@ protected:
 	char cameraSideText[60];
 	char cameraRotationText[60];
 	float fov, nearPlane, farPlane;
-	
+
 	// For access to user input.
 	Input* input;
-	// For camera access 
+	// For camera access
 	Camera *camera;
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
-	
+
 	Shape shape;
 	GLuint Torus;
 	GLuint Disk;
@@ -80,6 +81,7 @@ protected:
 	GLuint *skybox;
 	GLuint *crateArrow;
 	GLuint *tileBrown;
+	GLuint *disk;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float xrot;	// Rotate On The X Axis
