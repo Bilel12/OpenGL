@@ -181,7 +181,7 @@ void FreeCamera::updatePitch(int height, int mouseY, int speed) {
 
 void FreeCamera::userControll(float dt, int width, int height, Input *input) {
 	// move camera forward
-	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+	if (input->isKeyDown('w') || input->isKeyDown('W')) {
 		moveForward(dt);
 	}
 	// move camera backwards

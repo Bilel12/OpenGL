@@ -35,7 +35,7 @@ Scene::Scene(Input *in)
 	position_x = 0, position_y = 0, position_z = 0;
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
-	orthographic = false; // Orthographic view on or off
+	development = true;
 	// torus
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
@@ -166,7 +166,6 @@ void Scene::update(float dt) {
 	}
 	if (input->isKeyDown('3')) {
 		camera = &topDownCamera;
-		orthographic = !orthographic;
 		input->SetKeyUp('3');
 	}
 	// Blending
@@ -175,15 +174,24 @@ void Scene::update(float dt) {
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
 	// Wireframe
-	if (input->isKeyDown('w') && input->isKeyDown('m')) {
+	if (input->isKeyDown('w') && input->isKeyDown('m') ||
+		input->isKeyDown('W') && input->isKeyDown('M')) {
 		wireframe = !wireframe; // toggle wireframe (true/false)
-		input->SetKeyUp('w'); input->SetKeyUp('m');
+		input->SetKeyUp('w'); input->SetKeyUp('m'); 
+		input->SetKeyUp('W'); input->SetKeyUp('M');
 	}
 	// Put everything back to the origin
 	if (input->isKeyDown('i') && input->isKeyDown('I')) {
 		glLoadIdentity();
 		glutPostRedisplay(); // returns whatever is in the list to its original location.
 		input->SetKeyUp('i'); input->SetKeyUp('I');
+	}
+	// Toggle development mode
+	if (input->isKeyDown('d') && input->isKeyDown('e') && input->isKeyDown('v') ||
+		input->isKeyDown('D') && input->isKeyDown('E') && input->isKeyDown('V')) {
+		development = !development;
+		input->SetKeyUp('d'); input->SetKeyUp('e'); input->SetKeyUp('v');
+		input->SetKeyUp('D'); input->SetKeyUp('E');  input->SetKeyUp('V');
 	}
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
@@ -269,12 +277,17 @@ void Scene::render() {
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-
+	// draw disk from list
 	glBindTexture(GL_TEXTURE_2D, *disk); {
 		glCallList(Disk);
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
+	// draw disk with function
+	/*glBindTexture(GL_TEXTURE_2D, *disk); {
+	shape.drawDisk(400, 2, 3, 3);
+	} glBindTexture(GL_TEXTURE_2D, NULL);*/
+	
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
 	//	glBegin(GL_TRIANGLES); // front face
@@ -345,7 +358,7 @@ void Scene::render() {
 
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
-	renderTextOutput();
+	if (development) { renderTextOutput(); }
 
 	// Swap buffers, after all objects are rendered.
 	glutSwapBuffers();
@@ -375,9 +388,7 @@ void Scene::resize(int w, int h)
 	glViewport(0, 0, w, h);
 
 	// Set the correct perspective.
-	/*glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100);*/
-	if (orthographic) { glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, nearPlane, farPlane); }
-	else { gluPerspective(fov, ratio, nearPlane, farPlane); }
+	gluPerspective(fov, ratio, nearPlane, farPlane);
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);

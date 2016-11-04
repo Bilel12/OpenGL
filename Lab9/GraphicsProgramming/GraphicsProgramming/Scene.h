@@ -89,8 +89,8 @@ protected:
 	float zrot;	// Rotate On The Z Axis
 	// Booleans
 	bool blend; // toggle bledning effect
-	bool wireframe;
-	bool orthographic;
+	bool wireframe;	// toggle wireframe mode
+	bool development; // toggle development mode i.e. display text
 };
 
 #endif
