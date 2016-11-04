@@ -171,10 +171,10 @@ void Shape::drawIcosahedron() {
 }
 
 void Shape::drawDisc(int edges, float radius, float h, float k) {
-		float interval = 2.0 * M_PI / edges;
-		float diameter = 2 * radius;
-		float start = 0.0;
-		float theta = 0.0;
+	float interval = 2.0 * M_PI / edges;
+	float diameter = 2 * radius;
+	float start = 0.0;
+	float theta = 0.0;
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_FAN);
 			glNormal3f(0.0, 0.0, 1.0);
@@ -193,8 +193,49 @@ void Shape::drawDisc(int edges, float radius, float h, float k) {
 	}
 }
 
-void Shape::drawSphere(int edges, float radius, float h, float k) {
+void Shape::drawSphere(float radius, int lats, int longs, float h, float k) {
+	float theta = (2.0 * M_PI) / lats; // angle of latitude
+	float delta = M_PI / longs;	// angle of longitude
+	float x = radius *cos(theta) * sin(delta);
+	float y = radius * cos(delta);
+	float z = radius * sin(theta) * sin(delta);
 
+	for (int i = 0; i <= lats; i++) {
+		float lat0 = M_PI * (-0.5 + (float)(i - 1) / lats);
+		float z0 = sin(lat0);
+		float zr0 = cos(lat0);
+
+		float lat1 = M_PI * (-0.5 + (float)i / lats);
+		float z1 = sin(lat1);
+		float zr1 = cos(lat1);
+
+		glBegin(GL_QUAD_STRIP);
+		for (int j = 0; j <= longs; j++) {
+			float lng = 2 * M_PI * (float)(j - 1) / longs;
+			float x = cos(lng);
+			float y = sin(lng);
+
+			glNormal3f(x * zr0, y * zr0, z0);
+			glVertex3f(x * zr0, y * zr0, z0);
+			glNormal3f(x * zr1, y * zr1, z1);
+			glVertex3f(x * zr1, y * zr1, z1);
+		}
+		glEnd();
+	}
+
+	/*for (int i = 0; i < longs; ++i) {
+		for (int j = 0; j < lats; ++j) {
+			glBegin(GL_QUAD_STRIP);
+				glVertex3f(	radius *cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
+
+				glVertex3f(	radius *cos(theta) * sin(delta),				radius * cos(delta) + lats,		radius * sin(theta) * sin(delta));
+
+				glVertex3f(	radius *cos(theta) * sin(delta) + longs,		radius * cos(delta) + lats,		radius * sin(theta) * sin(delta));
+
+				glVertex3f(	radius *cos(theta) * sin(delta) + longs,			radius * cos(delta),			radius * sin(theta) * sin(delta));
+			glEnd();
+		}
+	}*/
 }
 
 void Shape::drawCylinder(float radius, float halfLength, int slices) {

@@ -28,7 +28,6 @@ Scene::Scene(Input *in)
 	// assign textures to pointers
 	assignTextures();
 	// Initialise variables
-
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
@@ -128,16 +127,16 @@ void Scene::loadTextures() {
 }
 
 void Scene::assignTextures() {
-	crate =		 &textures[0]; 
-	tileBrown =	 &textures[1]; 
-	crateArrow = &textures[2]; 
-	checked =	 &textures[3]; 
-	grass =		 &textures[4]; 
-	glass =		 &textures[5]; 
-	aTrans =	 &textures[6]; 
-	crateTrans = &textures[7];
-	skybox =	 &textures[8]; 
-	disk =		 &textures[9];
+	crate		= &textures[0]; 
+	tileBrown	= &textures[1]; 
+	crateArrow	= &textures[2]; 
+	checked		= &textures[3]; 
+	grass		= &textures[4]; 
+	glass		= &textures[5]; 
+	aTrans		= &textures[6]; 
+	crateTrans	= &textures[7];
+	skybox		= &textures[8]; 
+	disk		= &textures[9];
 }
 
 void Scene::update(float dt) {
@@ -222,8 +221,7 @@ void Scene::render() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
 		glPushMatrix(); {
 			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
-			glDisable(GL_DEPTH_TEST);
-			{
+			glDisable(GL_DEPTH_TEST); {
 				shape.drawSkybox();
 			}
 			glEnable(GL_DEPTH_TEST);
@@ -242,22 +240,23 @@ void Scene::render() {
 	//glColor3f(0, 0, 1);
 	//shape.drawIcosahedron();
 	//glColor3f(1, 1, 1);
-	glBindTexture(GL_TEXTURE_2D, *crateTrans); {
-		if (blend) {
-			glEnable(GL_BLEND); // Turn blending on
-		}
-		else {
-			glDisable(GL_BLEND); // Turn blending off
-		}
+	//glBindTexture(GL_TEXTURE_2D, *crateTrans); {
+	//	if (blend) {
+	//		glEnable(GL_BLEND); // Turn blending on
+	//	}
+	//	else {
+	//		glDisable(GL_BLEND); // Turn blending off
+	//	}
 
-		glPolygonMode(GL_FRONT, GL_LINE);
-		shape.drawCube();
-		glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_LINE);
-		shape.drawCube();
-		glPolygonMode(GL_BACK, GL_FILL);
+	//	glPolygonMode(GL_FRONT, GL_LINE);
+	//	shape.drawCube();
+	//	glPolygonMode(GL_FRONT, GL_FILL);
+	//	glPolygonMode(GL_BACK, GL_LINE);
+	//	shape.drawCube();
+	//	glPolygonMode(GL_BACK, GL_FILL);
 
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	//} glBindTexture(GL_TEXTURE_2D, NULL);
+
 	if (wireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
@@ -269,11 +268,12 @@ void Scene::render() {
 		glCallList(Disc);
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-
 	// draw disk with function
 	/*glBindTexture(GL_TEXTURE_2D, *disk); {
 	shape.drawDisc(400, 2, 3, 3);
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
+
+	shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
 
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha

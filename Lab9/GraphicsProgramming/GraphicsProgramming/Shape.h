@@ -18,7 +18,7 @@ public:
 	void drawCylinder(float radius, float halfLength, int slices);
 	void drawIcosahedron();
 	void drawDisc(int edges, float radius, float h, float k);
-	void drawSphere(int edges, float radius, float h, float k);
+	void drawSphere(float radius, int lats, int longs, float h, float k);
 	void normalize(float v[3]);
 	void normcrossprod(float v1[3], float v2[3], float out[3]);
 	//float* moveCube(float x, float y, float z, float* cube_verts);
