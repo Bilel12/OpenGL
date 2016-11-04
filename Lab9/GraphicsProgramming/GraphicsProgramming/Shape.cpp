@@ -170,7 +170,7 @@ void Shape::drawIcosahedron() {
 	glEnd();
 }
 
-void Shape::drawDisk(int edges, float radius, float h, float k) {
+void Shape::drawDisc(int edges, float radius, float h, float k) {
 		float interval = 2.0 * M_PI / edges;
 		float diameter = 2 * radius;
 		float start = 0.0;
@@ -191,6 +191,10 @@ void Shape::drawDisk(int edges, float radius, float h, float k) {
 		glEnd();
 		theta += interval;
 	}
+}
+
+void Shape::drawSphere(int edges, float radius, float h, float k) {
+
 }
 
 void Shape::drawCylinder(float radius, float halfLength, int slices) {
@@ -223,21 +227,21 @@ void Shape::drawCylinder(float radius, float halfLength, int slices) {
 	}
 }
 
-float* Shape::moveCube(float x, float y, float z, float* cube_verts) {
-	//for (int i = 0; i < sizeof(cube_verts) / sizeof(cube_verts[0]); ++i) {
-	for (int i = 0; i < 36; ++i) {
-		if (i % 3 == 0) {
-			if (cube_verts[i] >= 0) { cube_verts[i] = x; }
-			else { cube_verts[i] = -x; }
-		}
-		else if (i % 3 == 1) {
-			if (cube_verts[i] >= y) { cube_verts[i] = y; }
-			else { cube_verts[i] = -y; }
-		}
-		else if (i % 3 == 2) {
-			if (cube_verts[i] >= z) cube_verts[i] = z;
-			else cube_verts[i] = -z;
-		}
-	}
-	return cube_verts;
-}
+//float* Shape::moveCube(float x, float y, float z, float* cube_verts) {
+//	//for (int i = 0; i < sizeof(cube_verts) / sizeof(cube_verts[0]); ++i) {
+//	for (int i = 0; i < 36; ++i) {
+//		if (i % 3 == 0) {
+//			if (cube_verts[i] >= 0) { cube_verts[i] = x; }
+//			else { cube_verts[i] = -x; }
+//		}
+//		else if (i % 3 == 1) {
+//			if (cube_verts[i] >= y) { cube_verts[i] = y; }
+//			else { cube_verts[i] = -y; }
+//		}
+//		else if (i % 3 == 2) {
+//			if (cube_verts[i] >= z) cube_verts[i] = z;
+//			else cube_verts[i] = -z;
+//		}
+//	}
+//	return cube_verts;
+//}

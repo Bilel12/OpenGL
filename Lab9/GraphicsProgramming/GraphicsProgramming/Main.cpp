@@ -1,4 +1,4 @@
-// Main entry point for application. 
+// Main entry point for application.
 // Initialises main window, captures user input and passes onto appropriate class for handling.
 // Utilises FreeGLUT API for window.
 // Initialises Scene and Input class.
@@ -26,7 +26,7 @@ int initWindowX = 100, initWindowY = 100;
 // Called when the window detects a change in size.
 // GLUT handles the window refresh, this function passes the new width and height to the
 // scene object to refresh the OpenGL buffers to the new dimensions.
-void changeSize(int w, int h) 
+void changeSize(int w, int h)
 {
 	scene->resize(w, h);
 }
@@ -34,7 +34,7 @@ void changeSize(int w, int h)
 // Called as part of the GLUT main loop.
 // Calculates delta time (the time between frames, in seconds)
 // Calls Scene update and render for the next frame.
-void renderScene(void) 
+void renderScene(void)
 {
 	// Calculate delta time.
 	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
@@ -50,7 +50,7 @@ void renderScene(void)
 // Handles keyboard input events from GLUT.
 // Called whenever a "normal" key is pressed.
 // Normal keys are defined as any key not including the F keys, CTRL, SHIFT, ALT, etc.
-// Key press is recorded in Input class 
+// Key press is recorded in Input class
 // Parameters include key pressed and current mouse x, y coordinates.
 // Mouse coordinates are handled separately.
 void processNormalKeys(unsigned char key, int x, int y)
@@ -65,7 +65,7 @@ void processNormalKeys(unsigned char key, int x, int y)
 // Handles keyboard input events from GLUT.
 // Called whenever a "normal" key is released.
 // Normal keys are defined as any key not including the F keys, CTRL, SHIFT, ALT, arrow keys, etc.
-// Key press is recorded in Input class 
+// Key press is recorded in Input class
 // Parameters include key pressed and current mouse x, y coordinates.
 // Mouse coordinates are handled separately.
 void processNormalKeysUp(unsigned char key, int x, int y)
@@ -138,7 +138,7 @@ void processMouseButtons(int button, int state, int x, int y)
 // Registers callback functions for window resizing and rendering.
 // Initialises Input and Scene class, prior to starting Main Loop.
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
 	// Init GLUT and create window
 	glutInit(&argc, argv);
@@ -146,7 +146,7 @@ int main(int argc, char **argv)
 	glutInitWindowPosition(initWindowX, initWindowY);
 	glutInitWindowSize(windowWidth, windowHeight);
 	glutCreateWindow("OpenGL");
-	
+
 	// Register callback functions for change in size and rendering.
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
@@ -159,7 +159,7 @@ int main(int argc, char **argv)
 	// Special keys not processed, as currently not required.
 	glutSpecialFunc(processSpecialKeys);
 	glutSpecialUpFunc(processSpecialKeysUp);
-	
+
 	// Mouse callbacks
 	glutMotionFunc(processActiveMouseMove);
 	glutPassiveMotionFunc(processPassiveMouseMove);
@@ -168,7 +168,7 @@ int main(int argc, char **argv)
 	glutWarpPointer(windowWidth / 2, windowHeight / 2);
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
-		
+
 	// Initialise input and scene objects.
 	input = new Input();
 	scene = new Scene(input);

@@ -68,10 +68,12 @@ protected:
 
 	Shape shape;
 	GLuint Torus;
-	GLuint Disk;
+	GLuint Disc;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
+	GLuint *crate;
+	GLuint *tileBrown;
 	GLuint *triangle;
 	GLuint *checked;
 	GLuint *grass;
@@ -80,7 +82,6 @@ protected:
 	GLuint *crateTrans;
 	GLuint *skybox;
 	GLuint *crateArrow;
-	GLuint *tileBrown;
 	GLuint *disk;
 	// Rotation variables
 	float position_x, position_y, position_z;

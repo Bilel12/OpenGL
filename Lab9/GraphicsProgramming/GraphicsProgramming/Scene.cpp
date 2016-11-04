@@ -25,7 +25,7 @@ Scene::Scene(Input *in)
 
 	// loading textures into vector
 	loadTextures();
-	// Assign textures to pointers
+	// assign textures to pointers
 	assignTextures();
 	// Initialise variables
 
@@ -35,16 +35,16 @@ Scene::Scene(Input *in)
 	position_x = 0, position_y = 0, position_z = 0;
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
-	development = true;
+	development = false;
 	// torus
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
 	shape.drawTorus(8, 25);
 	glEndList();
 
-	Disk = glGenLists(2);
-	glNewList(Disk, GL_COMPILE);
-	shape.drawDisk(400, 2, 3, 3);
+	Disc = glGenLists(2);
+	glNewList(Disc, GL_COMPILE);
+	shape.drawDisc(400, 2, 3, 3);
 	glEndList();
 }
 
@@ -54,84 +54,70 @@ void Scene::loadTextures() {
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+		); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 1
 		"gfx/tileBrown_02.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+	); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 2
 		"gfx/cratearrow.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+	); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 3
 		"gfx/checked.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+	); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 4
 		"gfx/grass1.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+	); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 5
 		"gfx/glass.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+	); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 6
 		"gfx/aTrans.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	); textures.push_back(myTexture);
+	); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 7
 		"gfx/crateTrans.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
+		); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 8
 		"gfx/skybox.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
+		); textures.push_back(myTexture); 
 
 	myTexture = SOIL_load_OGL_texture( // 9
-		"gfx/cratearrow.png",
+		"gfx/disk.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
-
-	myTexture = SOIL_load_OGL_texture( // 10
-		"gfx/tileBrown_02.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
-
-		myTexture = SOIL_load_OGL_texture( // 11
-			"gfx/disk.png",
-			SOIL_LOAD_AUTO,
-			SOIL_CREATE_NEW_ID,
-			SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-			); textures.push_back(myTexture);
+		); textures.push_back(myTexture); 
 
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
@@ -142,15 +128,16 @@ void Scene::loadTextures() {
 }
 
 void Scene::assignTextures() {
-	triangle = &textures[2];
-	checked = &textures[3];
-	grass = &textures[4];
-	glass = &textures[5];
-	aTrans = &textures[6];
+	crate =		 &textures[0]; 
+	tileBrown =	 &textures[1]; 
+	crateArrow = &textures[2]; 
+	checked =	 &textures[3]; 
+	grass =		 &textures[4]; 
+	glass =		 &textures[5]; 
+	aTrans =	 &textures[6]; 
 	crateTrans = &textures[7];
-	skybox = &textures[8];
-	crateArrow = &textures[9];
-	disk = &textures[11];
+	skybox =	 &textures[8]; 
+	disk =		 &textures[9];
 }
 
 void Scene::update(float dt) {
@@ -177,7 +164,7 @@ void Scene::update(float dt) {
 	if (input->isKeyDown('w') && input->isKeyDown('m') ||
 		input->isKeyDown('W') && input->isKeyDown('M')) {
 		wireframe = !wireframe; // toggle wireframe (true/false)
-		input->SetKeyUp('w'); input->SetKeyUp('m'); 
+		input->SetKeyUp('w'); input->SetKeyUp('m');
 		input->SetKeyUp('W'); input->SetKeyUp('M');
 	}
 	// Put everything back to the origin
@@ -279,15 +266,15 @@ void Scene::render() {
 	}
 	// draw disk from list
 	glBindTexture(GL_TEXTURE_2D, *disk); {
-		glCallList(Disk);
+		glCallList(Disc);
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// draw disk with function
 	/*glBindTexture(GL_TEXTURE_2D, *disk); {
-	shape.drawDisk(400, 2, 3, 3);
+	shape.drawDisc(400, 2, 3, 3);
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
-	
+
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
 	//	glBegin(GL_TRIANGLES); // front face
