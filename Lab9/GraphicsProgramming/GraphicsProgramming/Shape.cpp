@@ -1,6 +1,5 @@
 #include "Skybox.h"
 #include "Cube.h"
-#include "Disk.h"
 #include "Icosahedron.h"
 #include "Shape.h"
 
@@ -62,12 +61,12 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::render_cube() {
+void Shape::drawCube() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
 	glNormalPointer(GL_FLOAT, 0, cube_norms);
@@ -81,11 +80,7 @@ void Shape::render_cube() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::render_disc() {
-
-}
-
-void Shape::render_skybox() {
+void Shape::drawSkybox() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -225,4 +220,23 @@ void Shape::drawCylinder(float radius, float halfLength, int slices) {
 		glVertex3f(0.0, -halfLength, 0.0);
 		glEnd();
 	}
+}
+
+float* Shape::moveCube(float x, float y, float z, float* cube_verts) {
+	//for (int i = 0; i < sizeof(cube_verts) / sizeof(cube_verts[0]); ++i) {
+	for (int i = 0; i < 36; ++i) {
+		if (i % 3 == 0) {
+			if (cube_verts[i] >= 0) { cube_verts[i] = x; }
+			else { cube_verts[i] = -x; }
+		}
+		else if (i % 3 == 1) {
+			if (cube_verts[i] >= y) { cube_verts[i] = y; }
+			else { cube_verts[i] = -y; }
+		}
+		else if (i % 3 == 2) {
+			if (cube_verts[i] >= z) cube_verts[i] = z;
+			else cube_verts[i] = -z;
+		}
+	}
+	return cube_verts;
 }

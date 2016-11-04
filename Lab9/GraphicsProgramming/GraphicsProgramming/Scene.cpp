@@ -5,7 +5,7 @@ Scene::Scene(Input *in)
 	// Store pointer for input class
 	input = in;
 	// Camera 
-	camera = &securityCamera;
+	camera = &freeCamera;
 	//OpenGL settings
 	frame = 0; timebase = 0;
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -216,7 +216,7 @@ void Scene::render() {
 			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 			glDisable(GL_DEPTH_TEST);
 			{
-				shape.render_skybox();
+				shape.drawSkybox();
 			}
 			glEnable(GL_DEPTH_TEST);
 		} glPopMatrix();
@@ -243,10 +243,10 @@ void Scene::render() {
 		}
 
 		glPolygonMode(GL_FRONT, GL_LINE);
-		shape.render_cube();
+		shape.drawCube();
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_LINE);
-		shape.render_cube();
+		shape.drawCube();
 		glPolygonMode(GL_BACK, GL_FILL);
 
 	} glBindTexture(GL_TEXTURE_2D, NULL);
@@ -257,10 +257,16 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	//glBindTexture(GL_TEXTURE_2D, *tileBrown); {
+	glBindTexture(GL_TEXTURE_2D, *tileBrown); {
 		glCallList(Disk);
 		glFlush();	
+
+
+		shape.render1();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
+
+	} glBindTexture(GL_TEXTURE_2D, NULL);
+
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
 	//	glBegin(GL_TRIANGLES); // front face
