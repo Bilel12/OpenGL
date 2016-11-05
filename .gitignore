@@ -59,17 +59,10 @@ Temporary Items
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-# Build results
-<<<<<<< HEAD
-[Dd]ebug/
-![Dd]ebug/freeglut.dll
-=======
-GraphicsProgramming/GraphicsProgramming/Debug
-[Dd]ebug/*
-![Dd]ebug/freeglut.dll
-[Dd]ebug/*
-![Dd]ebug/glew32.dll
->>>>>>> 983094146052a486a9be4fd3a4fe98a59da03dcc
+**/[Dd]ebug/**
+!**/[Dd]ebug/freeglut.dll
+!**/[Dd]ebug/glew32.dll
+!**/[Dd]ebug/gfx
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -309,3 +302,27 @@ paket-files/
 .idea/
 *.sln.iml
 >>>>>>> 6e81c16214e074373db73020ab0131c97e558a23
+
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint

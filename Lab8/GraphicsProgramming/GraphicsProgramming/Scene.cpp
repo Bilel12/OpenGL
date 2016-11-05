@@ -36,9 +36,9 @@ Scene::Scene(Input *in)
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
-	x = -40.0f, y = 40.0f, a = 0.5f;
-	blend = false; // blending on/off?
-	bool lerpLeft = false, lerpRight = true;
+	blend = false; // Blending on or off
+	wireframe = false; // Wireframe on or off
+	orthographic = false; // Orthographic view on or off
 }
 
 void Scene::loadTextures() {
@@ -113,10 +113,9 @@ void Scene::loadTextures() {
 	}
 }
 
-void Scene::update(float dt)
-{
+void Scene::update(float dt){
 	// Handle user input
-	// Camera settings
+	// Camera switching
 	if (input->isKeyDown('1')) {
 		camera = &freeCamera;
 		input->SetKeyUp('1');
@@ -125,38 +124,25 @@ void Scene::update(float dt)
 		camera = &securityCamera;
 		input->SetKeyUp('2');
 	}
-
+	if (input->isKeyDown('3')) {
+		camera = &topDownCamera;
+		orthographic = !orthographic;
+		input->SetKeyUp('3');
+	}
 	// Blending
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
-		if (blend) {
-			glEnable(GL_BLEND); // Turn blending on
-		} else {
-			glDisable(GL_BLEND); // Turn blending off
-		}
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
-	if (lerpRight) {
-		x += 0.1;
-		y += 0.1;
-		if (x >= 40) {
-			lerpRight = false;
-			lerpLeft = true;
-		}
+	// Wireframe
+	if (input->isKeyDown('w') && input->isKeyDown('m')) {
+		wireframe = !wireframe; // toggle wireframe (true/false)
+		input->SetKeyUp('w'); input->SetKeyUp('m');
 	}
-	else if (lerpLeft) {
-		x -= 0.1;
-		y -= 0.1;
-		if (x <= -40) {
-			lerpRight = true;
-			lerpLeft = false;
-		}
-	}
-
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
 	// Camera controll
-	camera->cameraControll(x, y, a);
+	camera->cameraControll(dt, width, height); // width is just temporary, not used at the moment
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);
@@ -370,18 +356,22 @@ void Scene::render() {
 		glEnd();
 	} glPopMatrix();
 
-
-
 	// Render geometry here -------------------------------------
+	if (wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	} else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 	glPushMatrix();
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
+		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 		if (blend) {
 			glEnable(GL_BLEND); // Turn blending on
-			//glDisable(GL_DEPTH_TEST); // Turn depth testing off
+		} else {
+			glDisable(GL_BLEND); // Turn blending off
 		}
-		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
 			/////////////////////////////
 			glBegin(GL_TRIANGLES); // front face
 			glNormal3f(0.0f, 0.0f, 1.0f);
@@ -626,6 +616,7 @@ void Scene::render() {
 	// Geometry rendering ends here -----------------------------
 
 	// Render text, should be last object rendered.
+	glDisable(GL_BLEND); // Turn blending off
 	renderTextOutput();
 	
 	// Swap buffers, after all objects are rendered.
@@ -656,7 +647,9 @@ void Scene::resize(int w, int h)
 	glViewport(0, 0, w, h);
 
 	// Set the correct perspective.
-	gluPerspective(fov, ratio, nearPlane, farPlane);
+	/*glOrtho(-1.0, 1.0, -1.0, 1.0, 5, 100);*/
+	if (orthographic) { glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, nearPlane, farPlane); }
+	else { gluPerspective(fov, ratio, nearPlane, farPlane); }
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);

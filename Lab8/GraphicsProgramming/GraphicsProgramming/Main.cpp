@@ -20,7 +20,8 @@ Input *input;
 
 int oldTimeSinceStart = 0;
 // Window properties
-//int windowWidth = 800, windowHeight = 600;
+int windowWidth = 800, windowHeight = 600;
+int initWindowX = 100, initWindowY = 100;
 
 // Called when the window detects a change in size.
 // GLUT handles the window refresh, this function passes the new width and height to the
@@ -142,8 +143,8 @@ int main(int argc, char **argv)
 	// Init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(GLUT_INIT_WINDOW_X, GLUT_INIT_WINDOW_Y);
-	glutInitWindowSize(GLUT_WINDOW_WIDTH, GLUT_WIDNOW_HEIGHT);
+	glutInitWindowPosition(initWindowX, initWindowY);
+	glutInitWindowSize(windowWidth, windowHeight);
 	glutCreateWindow("OpenGL");
 	
 	// Register callback functions for change in size and rendering.
@@ -164,7 +165,7 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(processPassiveMouseMove);
 	glutMouseFunc(processMouseButtons);
 	// Position mouse in centre of windows before main loop (window not resized yet)
-	glutWarpPointer(GLUT_WINDOW_WIDTH / 2, GLUT_WIDNOW_HEIGHT / 2);
+	glutWarpPointer(windowWidth / 2, windowHeight / 2);
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
 		

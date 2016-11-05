@@ -19,8 +19,9 @@
 #include <vector>
 // Further includes should go here:
 #include "SOIL.h"
-#include "SecurityCamera.h"
 #include "FreeCamera.h"
+#include "SecurityCamera.h"
+#include "TopDownCamera.h"
 #include "Camera.h"
 
 class Scene{
@@ -61,6 +62,7 @@ protected:
 	Camera *camera;
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
+	TopDownCamera topDownCamera;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
@@ -76,10 +78,10 @@ protected:
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
-	float x, y, a;
 	// Booleans
 	bool blend; // toggle bledning effect
-	bool lerpLeft, lerpRight;
+	bool wireframe;
+	bool orthographic;
 };
 
 #endif
