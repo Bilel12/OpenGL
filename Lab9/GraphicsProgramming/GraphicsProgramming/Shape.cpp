@@ -323,6 +323,35 @@ void Shape::drawFlatCylinder(float radius, float edges, float stacks, float h, f
 	float start = 0.0;
 	float theta = 0.0;
 
+	//for (int i = 0; i < edges; ++i) {
+	//	glBegin(GL_TRIANGLE_STRIP); {
+	//		// top
+	//		glNormal3f(0.0, 0.0, 1.0);
+	//		glTexCoord2f(start + 0.5, start + 0.5);
+	//		glVertex3f(h + start, start, k + start);
+
+	//		glNormal3f(0.0, 0.0, 1.0);
+	//		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+	//		glVertex3f(h + radius * cos(theta), start, k + radius * sin(theta));
+
+	//		glNormal3f(0.0, 0.0, 1.0);
+	//		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+	//		glVertex3f(h + radius * cos(theta + interval), start, k + radius * sin(theta + interval));
+	//		// bottom
+	//		/*glNormal3f(0.0, 0.0, 1.0);
+	//		glTexCoord2f(start + 0.5, start + 0.5);
+	//		glVertex3f(h + start, start , k + start);*/
+
+	//		glNormal3f(0.0, 0.0, 1.0);
+	//		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+	//		glVertex3f(h + radius * cos(theta), start + h, k + radius * sin(theta));
+
+	//		glNormal3f(0.0, 0.0, 1.0);
+	//		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+	//		glVertex3f(h + radius * cos(theta + interval), start + h, k + radius * sin(theta + interval));
+	//	} glEnd();
+	//	theta += interval;
+	//}
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_STRIP); {
 			// top
@@ -340,20 +369,20 @@ void Shape::drawFlatCylinder(float radius, float edges, float stacks, float h, f
 			// bottom
 			glNormal3f(0.0, 0.0, 1.0);
 			glTexCoord2f(start + 0.5, start + 0.5);
-			glVertex3f(h + start, start + h, k + start);
+			glVertex3f(h + start, start + h , k + start);
 
-			glNormal3f(0.0, 0.0, 1.0);
+			/*glNormal3f(0.0, 0.0, 1.0);
 			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
 			glVertex3f(h + radius * cos(theta), start + h, k + radius * sin(theta));
 
 			glNormal3f(0.0, 0.0, 1.0);
 			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-			glVertex3f(h + radius * cos(theta + interval), start + h, k + radius * sin(theta + interval));
+			glVertex3f(h + radius * cos(theta + interval), start + h, k + radius * sin(theta + interval));*/
 		} glEnd();
 		theta += interval;
 	}
-
 }
+
 
 //float* Shape::moveCube(float x, float y, float z, float* cube_verts) {
 //	//for (int i = 0; i < sizeof(cube_verts) / sizeof(cube_verts[0]); ++i) {
