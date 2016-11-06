@@ -275,27 +275,27 @@ void Shape::drawCylinder(float radius, float edges, float height, float x, float
 		glBegin(GL_TRIANGLE_STRIP); {
 			// bottom
 			// Middle of circle
-			glNormal3f(		0.0,									0.0,									1.0									);
+			glNormal3f((x + start) / radius, (y + start) / radius, (z + start) / radius);
 			glTexCoord2f(	start + 0.5,							start + 0.5																	);
 			glVertex3f(		x + start,								y + start,								z + start							);
 			// 
-			glNormal3f(		0.0, 0.0, 1.0																										);
+			glNormal3f( (x + radius * cos(theta) / radius), (y + start) / radius, (z + radius * sin(theta)) / radius);
 			glTexCoord2f(	cos(theta) / diameter + 0.5,			sin(theta) / diameter + 0.5													);
 			glVertex3f(		x + radius * cos(theta),				y + start,								z + radius * sin(theta)				);
 			//
-			glNormal3f(		0.0,									0.0,									1.0									);
+			glNormal3f(	(x + radius * cos(theta + interval)) / radius, (y + start) / radius, (z + radius * sin(theta + interval)) / radius);
 			glTexCoord2f(	cos(theta) / diameter + 0.5,			sin(theta) / diameter + 0.5													);
 			glVertex3f(		x + radius * cos(theta + interval),		y + start,								z + radius * sin(theta + interval)	);
 			// top. Adding height to Y coordinates
-			glNormal3f(		0.0, 0.0, 1.0																								);
+			glNormal3f( (x + radius * cos(theta)) / radius, (y + start + height) / radius, (z + radius * sin(theta)) / radius	);
 			glTexCoord2f(	cos(theta) / diameter + 0.5,			sin(theta) / diameter + 0.5											);
 			glVertex3f(		x + radius * cos(theta),				y + start + height,						z + radius * sin(theta)				);
 			//
-			glNormal3f(		0.0,									0.0,									1.0									);
+			glNormal3f( (x + radius * cos(theta + interval)) / radius, (y + start + height) / radius, (z + radius * sin(theta + interval)) / radius);
 			glTexCoord2f(	cos(theta) / diameter + 0.5,			sin(theta) / diameter + 0.5											);
 			glVertex3f(		x + radius * cos(theta + interval),		y + start + height,						z + radius * sin(theta + interval)	);
 			//
-			glNormal3f(		0.0,									0.0,									1.0									);
+			glNormal3f((x + start) / radius, (y + start + height) / radius, (z + start) / radius);
 			glTexCoord2f(	start + 0.5,							start + 0.5															);
 			glVertex3f(		x + start,								y + start + height,						z + start							);
 			
@@ -327,20 +327,20 @@ void Shape::drawCone(float radius, float edges, float height, float x, float y, 
 	
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_STRIP); {
-			// bottom
-			glNormal3f(		0.0,									0.0,							1.0									);
-			glTexCoord2f(	start + 0.5,							start + 0.5															);
-			glVertex3f(		x + start,								y + start,						z + start							);
+			// bottom disk
+			glNormal3f((x + start) / radius, (y + start) / radius, (z + start) / radius);
+			glTexCoord2f(start + 0.5, start + 0.5);
+			glVertex3f(x + start, y + start, z + start);
+			// 
+			glNormal3f((x + radius * cos(theta) / radius), (y + start) / radius, (z + radius * sin(theta)) / radius);
+			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+			glVertex3f(x + radius * cos(theta), y + start, z + radius * sin(theta));
 			//
-			glNormal3f(		0.0, 0.0, 1.0																								);
-			glTexCoord2f(	cos(theta) / diameter + 0.5,			sin(theta) / diameter + 0.5											);
-			glVertex3f(		x + radius * cos(theta),				y + start,						z + radius * sin(theta)				);
-			//
-			glNormal3f(		0.0,									0.0,							1.0									);
-			glTexCoord2f(	cos(theta) / diameter + 0.5,			sin(theta) / diameter + 0.5											);
-			glVertex3f(		x + radius * cos(theta + interval),		y + start,						z + radius * sin(theta + interval)	);
+			glNormal3f((x + radius * cos(theta + interval)) / radius, (y + start) / radius, (z + radius * sin(theta + interval)) / radius);
+			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+			glVertex3f(x + radius * cos(theta + interval), y + start, z + radius * sin(theta + interval));
 			// tip
-			glNormal3f(		0.0,									0.0,							1.0									);
+			glNormal3f((x + start) / radius, (y + start + height) / radius, (z + start) / radius);
 			glTexCoord2f(	start + 0.5,							start + 0.5															);
 			glVertex3f(		x + start,								y + start + height,				z + start							);
 		} glEnd();
