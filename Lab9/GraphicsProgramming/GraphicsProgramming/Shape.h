@@ -15,7 +15,7 @@ public:
 	void drawSkybox();
 	static void drawTorus(int numc, int numt);
 	void drawCircle(int edges);
-	void drawCylinder(float radius, float halfLength, int slices);
+	void drawCylinder(float radius, float edges, float stacks, float h, float k);
 	void drawIcosahedron();
 	void drawDisc(int edges, float radius, float h, float k);
 	void drawSphere(float radius, int lats, int longs, float h, float k);
