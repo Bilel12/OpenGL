@@ -35,6 +35,7 @@ Scene::Scene(Input *in)
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
 	development = false;
+	draw = false;
 	// torus
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
@@ -179,6 +180,10 @@ void Scene::update(float dt) {
 		input->SetKeyUp('d'); input->SetKeyUp('e'); input->SetKeyUp('v');
 		input->SetKeyUp('D'); input->SetKeyUp('E');  input->SetKeyUp('V');
 	}
+	if (input->isKeyDown(VK_SPACE)) {
+		
+		input->SetKeyUp(VK_SPACE);
+	}
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
 	// Camera controll
@@ -274,7 +279,7 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
 
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
-	shape.drawCylinder(2.0, 10, 10.0, 5.0, 5.0);
+	shape.drawFlatCylinder(2.0, 400., 10.0, 5.0, 5.0);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 
 	//glPushMatrix(); {

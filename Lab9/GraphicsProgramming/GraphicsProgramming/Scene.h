@@ -14,7 +14,7 @@
 #include <gl/GL.h>
 //#include <GL/glew.h>
 //#include <GL/glut.h>
-#include "Input.h"
+//#include "Input.h"
 #include <stdio.h>
 #include <vector>
 // Further includes should go here:
@@ -92,6 +92,7 @@ protected:
 	bool blend; // toggle bledning effect
 	bool wireframe;	// toggle wireframe mode
 	bool development; // toggle development mode i.e. display text
+	bool draw;
 };
 
 #endif

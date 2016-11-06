@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
+#include "Input.h"
 #define _USE_MATH_DEFINES // for C++
 #include <cmath>
 // Remember atom beautify
@@ -16,6 +17,7 @@ public:
 	static void drawTorus(int numc, int numt);
 	void drawCircle(int edges);
 	void drawCylinder(float radius, float edges, float stacks, float h, float k);
+	void drawFlatCylinder(float radius, float edges, float stacks, float h, float k);
 	void drawIcosahedron();
 	void drawDisc(int edges, float radius, float h, float k);
 	void drawFlatDisc(int edges, float radius, float h, float k);
