@@ -16,12 +16,12 @@ public:
 	void drawSkybox();
 	static void drawTorus(int numc, int numt);
 	void drawCircle(int edges);
-	void drawCylinder(float radius, float edges, float stacks, float h, float k);
-	void drawCone(float radius, float height, float stacks, float x, float y, float z);
-	void drawIcosahedron();
+	void drawCylinder(float radius, float edges, float height, float x, float y, float z);
+	void drawCone(float radius, float edges, float height, float x, float y, float z);
 	void drawDisc(int edges, float radius, float x, float y, float z);
 	void drawFlatDisc(int edges, float radius, float h, float k);
 	void drawSphere(float radius, int lats, int longs, float h, float k);
+	void drawIcosahedron();
 	void normalize(float v[3]);
 	void normcrossprod(float v1[3], float v2[3], float out[3]);
 	//float* moveCube(float x, float y, float z, float* cube_verts);

@@ -274,12 +274,13 @@ void Scene::render() {
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 	// draw disk with function
-	/*glBindTexture(GL_TEXTURE_2D, *disk); {
-	shape.drawDisc(400, 2, 3, 3, -10);
-	} glBindTexture(GL_TEXTURE_2D, NULL);*/
+	glBindTexture(GL_TEXTURE_2D, *disk); {
+		shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0);
+		shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
+		shape.drawCylinder(2.0, 50.0, 5.0, 0.0, 5.0, -5.0);
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 	
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
-	shape.drawCone(2.0, 400., 10.0, 5.0, 5.0, -10.);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 
 	//glPushMatrix(); {
@@ -313,38 +314,7 @@ void Scene::render() {
 	//	glEnd();
 	//} glPopMatrix();
 
-	//glPushMatrix(); {
-	//	glBegin(GL_TRIANGLES); // front face
-	//	glColor3f(1, 0, 0); // red
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(0, 1);
-	//	glVertex3f(-1, -1, 1);
 
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1, 1);
-	//	glVertex3f(1, -1, 1);
-
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1, 0);
-	//	glVertex3f(1, 1, 1);
-	//	glEnd();
-
-	//	glBegin(GL_TRIANGLES); // back face
-	//	glColor3f(0, 1, 0); // green
-	//	glNormal3f(0.0f, 0.0f, -1.0f);
-	//	glTexCoord2f(0, 1);
-	//	glVertex3f(-1, -1, -1);
-
-	//	glNormal3f(0.0f, 0.0f, -1.0f);
-	//	glTexCoord2f(1, 1);
-	//	glVertex3f(1, -1, -1);
-
-	//	glNormal3f(0.0f, 0.0f, -1.0f);
-	//	glTexCoord2f(1, 0);
-	//	glVertex3f(1, 1, -1);
-	//	glEnd();
-
-	//} glPopMatrix();
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
 
