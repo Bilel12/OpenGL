@@ -279,7 +279,13 @@ void Scene::render() {
 		shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
 		shape.drawCylinder(2.0, 50.0, 5.0, 0.0, 5.0, -5.0);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-	
+
+	for (float j = 0.0; j < 360.0; ++j) {
+		glPushMatrix();
+			glRotatef(j, 0.0f, 1.0f, 0.0f);
+			shape.drawCircle(100.0);
+		glPopMatrix();
+	}
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 

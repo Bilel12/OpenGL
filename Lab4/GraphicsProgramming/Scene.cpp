@@ -45,42 +45,34 @@ void Scene::update(float dt)
 	// increase specular
 	if (input->isKeyDown('i') || input->isKeyDown('I')) {
 		specular += 0.1;
-		input->SetKeyUp('i'); input->isKeyDown('I');
 	}
 	// reduce specular
 	if (input->isKeyDown('u') || input->isKeyDown('U')) {
 		specular -= 0.1;
-		input->SetKeyUp('u'); input->isKeyDown('U');
 	}
 	// move right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
 		position_x += 1;
-		input->SetKeyUp('d'); input->SetKeyUp('D');
 	}
 	// move left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
 		position_x -= 1;
-		input->SetKeyUp('a'); input->SetKeyUp('A');
 	}
 	// move up
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		position_y += 1;
-		input->SetKeyUp('w'); input->SetKeyUp('W');
 	}
 	// move down
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
 		position_y -= 1;
-		input->SetKeyUp('s'); input->SetKeyUp('S');
 	}
 	// move z towards
 	if (input->isKeyDown('r') || input->isKeyDown('R')) {
 		position_z += 1;
-		input->SetKeyUp('r'); input->SetKeyUp('R');
 	}
 	// move z inwards
 	if (input->isKeyDown('f') || input->isKeyDown('F')) {
 		position_z -= 1;
-		input->SetKeyUp('f'); input->SetKeyUp('F');
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {
 		light0 = !light0;
