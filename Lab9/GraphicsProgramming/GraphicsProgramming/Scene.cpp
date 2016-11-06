@@ -274,8 +274,8 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
 
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
-	//shape.drawCylinder(2.0, 10, 10.0, 5.0, 5.0);
-	shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
+	shape.drawCylinder(2.0, 10, 10.0, 5.0, 5.0);
+	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 
 	//glPushMatrix(); {
 	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
