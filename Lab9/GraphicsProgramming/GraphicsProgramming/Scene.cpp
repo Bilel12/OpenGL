@@ -44,7 +44,7 @@ Scene::Scene(Input *in)
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	shape.drawDisc(400, 2, 3, 3);
+	shape.drawDisc(400, 2, 3, 3, -10);
 	glEndList();
 }
 
@@ -275,11 +275,11 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 	// draw disk with function
 	/*glBindTexture(GL_TEXTURE_2D, *disk); {
-	shape.drawDisc(400, 2, 3, 3);
+	shape.drawDisc(400, 2, 3, 3, -10);
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
-
+	
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
-	shape.drawFlatCylinder(2.0, 400., 10.0, 5.0, 5.0);
+	shape.drawCone(2.0, 400., 10.0, 5.0, 5.0, -10.);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 
 	//glPushMatrix(); {
