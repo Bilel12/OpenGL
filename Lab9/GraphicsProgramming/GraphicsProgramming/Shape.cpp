@@ -193,6 +193,29 @@ void Shape::drawDisc(int edges, float radius, float h, float k) {
 	}
 }
 
+void Shape::drawFlatDisc(int edges, float radius, float h, float k) {
+	float interval = 2.0 * M_PI / edges;
+	float diameter = 2 * radius;
+	float start = 0.0;
+	float theta = 0.0;
+	for (int i = 0; i < edges; ++i) {
+		glBegin(GL_TRIANGLE_FAN);
+		glNormal3f(0.0, 0.0, 1.0);
+		glTexCoord2f(start + 0.5, start + 0.5);
+		glVertex3f(h + start, start, k + start);
+
+		glNormal3f(0.0, 0.0, 1.0);
+		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+		glVertex3f(h + radius * cos(theta), start, k + radius * sin(theta));
+
+		glNormal3f(0.0, 0.0, 1.0);
+		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+		glVertex3f(h + radius * cos(theta + interval), start, k + radius * sin(theta + interval));
+		glEnd();
+		theta += interval;
+	}
+}
+
 void Shape::drawSphere(float radius, int lats, int longs, float h, float k) {
 	//float theta = (2.0 * M_PI) / lats; // angle of latitude
 	//float delta = M_PI / longs;	// angle of longitude

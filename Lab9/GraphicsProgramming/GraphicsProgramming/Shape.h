@@ -18,6 +18,7 @@ public:
 	void drawCylinder(float radius, float edges, float stacks, float h, float k);
 	void drawIcosahedron();
 	void drawDisc(int edges, float radius, float h, float k);
+	void drawFlatDisc(int edges, float radius, float h, float k);
 	void drawSphere(float radius, int lats, int longs, float h, float k);
 	void normalize(float v[3]);
 	void normcrossprod(float v1[3], float v2[3], float out[3]);
