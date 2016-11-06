@@ -97,35 +97,59 @@ void Shape::drawSkybox() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::drawTorus(int numc, int numt) {
-	int i, j, k;
-	double s, t, x, y, z, twopi;
+//void Shape::drawTorus(int numc, int numt) {
+//	int i, j, k;
+//	double s, t, x, y, z, twopi;
+//
+//	twopi = 2 * (double)M_PI;
+//	for (i = 0; i < numc; i++) {
+//		glBegin(GL_QUAD_STRIP);
+//		for (j = 0; j <= numt; j++) {
+//			for (k = 1; k >= 0; k--) {
+//				s = (i + k) % numc + 0.5;
+//				t = j % numt;
+//
+//				x = (1 + .1*cos(s*twopi / numc))*cos(t*twopi / numt);
+//				y = (1 + .1*cos(s*twopi / numc))*sin(t*twopi / numt);
+//				z = .1 * sin(s * twopi / numc);
+//				glVertex3f(x, y, z);
+//			}
+//		}
+//		glEnd();
+//	}
+//}
 
-	twopi = 2 * (double)M_PI;
-	for (i = 0; i < numc; i++) {
-		glBegin(GL_QUAD_STRIP);
-		for (j = 0; j <= numt; j++) {
-			for (k = 1; k >= 0; k--) {
-				s = (i + k) % numc + 0.5;
-				t = j % numt;
-
-				x = (1 + .1*cos(s*twopi / numc))*cos(t*twopi / numt);
-				y = (1 + .1*cos(s*twopi / numc))*sin(t*twopi / numt);
-				z = .1 * sin(s * twopi / numc);
-				glVertex3f(x, y, z);
-			}
+void Shape::drawCircle(int edges, float x, float y, float z) {
+	// version I
+	//glBegin(GL_LINE_LOOP); {
+	glBegin(GL_LINE_SMOOTH); {
+		for (int i = 0; i < edges; ++i) {
+			glNormal3f(		0.0,								1.0,								0.0			);
+			glTexCoord2f(	x + (cos((2 * M_PI * i) / edges)),	y + (sin((2 * M_PI * i) / edges))				);
+			glVertex3f(		x + (cos((2 * M_PI * i) / edges)),	y + (sin((2 * M_PI * i) / edges)),	z + 0.0		);
 		}
-		glEnd();
+	} glEnd();
+	// version II
+	/*glBegin(GL_LINE_STRIP);
+	for (int i = 0; i <= edges; i++) {
+	if (i == edges) glVertex2f(cos(0), sin(0));
+	else glVertex2f(cos((2 * M_PI*i) / edges), sin((2 * M_PI*i) / edges));
 	}
+	glEnd();*/
 }
 
-void Shape::drawCircle(int edges) {
+void Shape::drawSphereTorus(int edges, float x, float y, float z) {
 	// version I
-	glBegin(GL_LINE_LOOP);
-	for (int i = 0; i < edges; ++i) {
-		glVertex3f(cos((2 * M_PI * i) / edges), sin((2 * M_PI * i) / edges), 0.0);
+	for (float j = 0.0; j < 360.0; ++j) {
+		glPushMatrix(); {
+			glRotatef(j, 0.0f, 1.0f, 0.0f);
+			glBegin(GL_LINE_LOOP); {
+				for (int i = 0; i < edges; ++i) {
+					glVertex3f( x + (cos((2 * M_PI * i) / edges)), y + (sin((2 * M_PI * i) / edges)), z + 0.0 );
+				}
+			} glEnd();
+		} glPopMatrix();
 	}
-	glEnd();
 	// version II
 	/*glBegin(GL_LINE_STRIP);
 	for (int i = 0; i <= edges; i++) {

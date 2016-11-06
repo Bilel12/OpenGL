@@ -20,8 +20,8 @@ Input *input;
 
 int oldTimeSinceStart = 0;
 // Window properties
-int windowWidth = 800, windowHeight = 600;
-int initWindowX = 100, initWindowY = 100;
+int windowWidth = 1900, windowHeight = 1100;
+int initWindowX = 0, initWindowY = 0;
 
 // Called when the window detects a change in size.
 // GLUT handles the window refresh, this function passes the new width and height to the

@@ -32,6 +32,7 @@ Scene::Scene(Input *in)
 	yrot = 0;	// Rotate On The Y Axis
 	zrot = 0;	// Rotate On The Z Axis
 	position_x = 0, position_y = 0, position_z = 0;
+	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
 	development = false;
@@ -39,7 +40,7 @@ Scene::Scene(Input *in)
 	// torus
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
-	shape.drawTorus(8, 25);
+	shape.drawSphereTorus(100, 3.0, 0.0, 0.0);
 	glEndList();
 
 	Disc = glGenLists(2);
@@ -142,47 +143,74 @@ void Scene::assignTextures() {
 
 void Scene::update(float dt) {
 	// Handle user input
-	// Camera switching
+	// Press 1 to switch to Free Camera
 	if (input->isKeyDown('1')) {
 		camera = &freeCamera;
 		input->SetKeyUp('1');
 	}
+	// Press 2 to switch to Security Camera
 	if (input->isKeyDown('2')) {
 		camera = &securityCamera;
 		input->SetKeyUp('2');
 	}
+	// Press 3 to switch to TopDown Camera
 	if (input->isKeyDown('3')) {
 		camera = &topDownCamera;
 		input->SetKeyUp('3');
 	}
-	// Blending
+	// Press B to toggle blending mode
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)
 		input->SetKeyUp('b'); input->SetKeyUp('B');
 	}
-	// Wireframe
+	// Press W and M at the same time to toggle wirefram mode
 	if (input->isKeyDown('w') && input->isKeyDown('m') ||
 		input->isKeyDown('W') && input->isKeyDown('M')) {
 		wireframe = !wireframe; // toggle wireframe (true/false)
 		input->SetKeyUp('w'); input->SetKeyUp('m');
 		input->SetKeyUp('W'); input->SetKeyUp('M');
 	}
-	// Put everything back to the origin
+	// TODO Press I to reset camera back to the origin
 	if (input->isKeyDown('i') && input->isKeyDown('I')) {
 		glLoadIdentity();
 		glutPostRedisplay(); // returns whatever is in the list to its original location.
 		input->SetKeyUp('i'); input->SetKeyUp('I');
 	}
-	// Toggle development mode
+	// Press D, E and W at the same tiem to toggle development mode
 	if (input->isKeyDown('d') && input->isKeyDown('e') && input->isKeyDown('v') ||
 		input->isKeyDown('D') && input->isKeyDown('E') && input->isKeyDown('V')) {
 		development = !development;
 		input->SetKeyUp('d'); input->SetKeyUp('e'); input->SetKeyUp('v');
 		input->SetKeyUp('D'); input->SetKeyUp('E');  input->SetKeyUp('V');
 	}
+	// Put X scale up
+	if (input->isKeyDown('x') || input->isKeyDown('X')) {
+		scale_x += 0.1;
+	}
+	// Put Y scale up
+	if (input->isKeyDown('y') || input->isKeyDown('Y')) {
+		scale_y += 0.1;
+	}
+	// Put Z scale up
+	if (input->isKeyDown('z') || input->isKeyDown('Z')) {
+		scale_z += 0.1;
+	}
+	// Put X scale down
+	if (input->isKeyDown('u') || input->isKeyDown('U')) {
+		scale_x -= 0.1;
+	}
+	// Put Y scale down
+	if (input->isKeyDown('i') || input->isKeyDown('I')) {
+		scale_y -= 0.1;
+	}
+	// Put Z scale down
+	if (input->isKeyDown('o') || input->isKeyDown('O')) {
+		scale_z -= 0.1;
+	}
+	// Put both X  and Y scale down
 	if (input->isKeyDown(VK_SPACE)) {
-		
-		input->SetKeyUp(VK_SPACE);
+		scale_x -= 0.1;
+		scale_z -= 0.1;
 	}
 	// Camera input controll
 	camera->userControll(dt, width, height, input);
@@ -273,6 +301,11 @@ void Scene::render() {
 		glCallList(Disc);
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
+	// draw torus from list
+	glBindTexture(GL_TEXTURE_2D, *disk); {
+		glCallList(Torus);
+		glFlush();
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 	// draw disk with function
 	glBindTexture(GL_TEXTURE_2D, *disk); {
 		shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0);
@@ -280,46 +313,11 @@ void Scene::render() {
 		shape.drawCylinder(2.0, 50.0, 5.0, 0.0, 5.0, -5.0);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
-	for (float j = 0.0; j < 360.0; ++j) {
-		glPushMatrix();
-			glRotatef(j, 0.0f, 1.0f, 0.0f);
-			shape.drawCircle(100.0);
-		glPopMatrix();
-	}
+	shape.drawSphereTorus(100, scale_x, scale_y, scale_z);
+
+	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
-
-	//glPushMatrix(); {
-	//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
-	//	glBegin(GL_TRIANGLES); // front face
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(0, 1);
-	//	glVertex3f(-1, -1, 1.5);
-
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1, 1);
-	//	glVertex3f(1, -1, 1.5);
-
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1, 0);
-	//	glVertex3f(1, 1, 1.5);
-	//	glEnd();
-
-	//	glBegin(GL_TRIANGLES);
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(1, 0);
-	//	glVertex3f(1, 1, 1.5);
-
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(0, 0);
-	//	glVertex3f(-1, 1, 1.5);
-
-	//	glNormal3f(0.0f, 0.0f, 1.0f);
-	//	glTexCoord2f(0, 1);
-	//	glVertex3f(-1, -1, 1.5);
-	//	glEnd();
-	//} glPopMatrix();
-
 
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
@@ -457,3 +455,35 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 //	glTexCoord2f(1.0f, 0.0f);
 //	glVertex3f(1.0f, 1.0f, 0.0f);
 //glEnd();		//end drawing
+
+//glPushMatrix(); {
+//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
+//	glBegin(GL_TRIANGLES); // front face
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0, 1);
+//	glVertex3f(-1, -1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1, 1);
+//	glVertex3f(1, -1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1, 0);
+//	glVertex3f(1, 1, 1.5);
+//	glEnd();
+
+//	glBegin(GL_TRIANGLES);
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1, 0);
+//	glVertex3f(1, 1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0, 0);
+//	glVertex3f(-1, 1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0, 1);
+//	glVertex3f(-1, -1, 1.5);
+//	glEnd();
+//} glPopMatrix();
+

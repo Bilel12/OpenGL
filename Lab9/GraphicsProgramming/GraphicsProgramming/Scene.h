@@ -85,6 +85,7 @@ protected:
 	GLuint *disk;
 	// Rotation variables
 	float position_x, position_y, position_z;
+	float scale_x, scale_y, scale_z;
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
