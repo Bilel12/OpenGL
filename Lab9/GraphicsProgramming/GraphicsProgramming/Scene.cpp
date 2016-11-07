@@ -40,7 +40,7 @@ Scene::Scene(Input *in)
 	// torus
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
-	shape.drawSphereTorus(100, 3.0, 0.0, 0.0);
+	shape.drawSphereTorus(100, 3.0, 0.0, 0.0, 0.1);
 	glEndList();
 
 	Disc = glGenLists(2);
@@ -302,10 +302,10 @@ void Scene::render() {
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 	// draw torus from list
-	glBindTexture(GL_TEXTURE_2D, *disk); {
+	/*glBindTexture(GL_TEXTURE_2D, *disk); {
 		glCallList(Torus);
 		glFlush();
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	} glBindTexture(GL_TEXTURE_2D, NULL);*/
 	// draw disk with function
 	glBindTexture(GL_TEXTURE_2D, *disk); {
 		shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0);
@@ -313,7 +313,7 @@ void Scene::render() {
 		shape.drawCylinder(2.0, 50.0, 5.0, 0.0, 5.0, -5.0);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
-	shape.drawSphereTorus(100, scale_x, scale_y, scale_z);
+	shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.13); // frame rate starts droping at rot_interval < 0.13
 
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);

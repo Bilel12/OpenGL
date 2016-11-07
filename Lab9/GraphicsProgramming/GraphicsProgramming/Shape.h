@@ -16,7 +16,7 @@ public:
 	void drawSkybox();
 	//static void drawTorus(int numc, int numt);
 	void drawCircle(int edges, float x, float y, float z);
-	void drawSphereTorus(int edges, float x, float y, float z);
+	void drawSphereTorus(int edges, float x, float y, float z, float rot_interval);
 	void drawCylinder(float radius, float edges, float height, float x, float y, float z);
 	void drawCone(float radius, float edges, float height, float x, float y, float z);
 	void drawDisc(int edges, float radius, float x, float y, float z);

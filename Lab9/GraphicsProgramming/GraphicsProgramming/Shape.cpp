@@ -138,9 +138,9 @@ void Shape::drawCircle(int edges, float x, float y, float z) {
 	glEnd();*/
 }
 
-void Shape::drawSphereTorus(int edges, float x, float y, float z) {
+void Shape::drawSphereTorus(int edges, float x, float y, float z, float rot_interval) {
 	// version I
-	for (float j = 0.0; j < 360.0; ++j) {
+	for (float j = 0.0; j < 360.0; j += rot_interval) {
 		glPushMatrix(); {
 			glRotatef(j, 0.0f, 1.0f, 0.0f);
 			glBegin(GL_LINE_LOOP); {
