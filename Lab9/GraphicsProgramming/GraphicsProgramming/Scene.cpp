@@ -313,8 +313,8 @@ void Scene::render() {
 		shape.drawCylinder(2.0, 50.0, 5.0, 0.0, 5.0, -5.0);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
-	shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.13); // frame rate starts droping at rot_interval < 0.13
-
+	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.13); // frame rate starts droping at rot_interval < 0.13
+	shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
