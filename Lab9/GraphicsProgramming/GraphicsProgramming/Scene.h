@@ -83,6 +83,7 @@ protected:
 	GLuint *skybox;
 	GLuint *crateArrow;
 	GLuint *disk;
+	GLuint *barrel;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float scale_x, scale_y, scale_z;

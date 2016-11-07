@@ -118,7 +118,14 @@ void Scene::loadTextures() {
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture); 
+		); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 10
+		"gfx/barrel.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
 
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
@@ -139,6 +146,7 @@ void Scene::assignTextures() {
 	crateTrans	= &textures[7];
 	skybox		= &textures[8]; 
 	disk		= &textures[9];
+	barrel		= &textures[10];
 }
 
 void Scene::update(float dt) {
@@ -310,11 +318,13 @@ void Scene::render() {
 	glBindTexture(GL_TEXTURE_2D, *disk); {
 		shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0);
 		shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
-		shape.drawCylinder(2.0, 50.0, 5.0, 0.0, 5.0, -5.0);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
-	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.13); // frame rate starts droping at rot_interval < 0.13
-	shape.drawIcosahedron();
+	glBindTexture(GL_TEXTURE_2D, *barrel); {
+		shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0);
+	} glBindTexture(GL_TEXTURE_2D, NULL);
+	shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
+	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
