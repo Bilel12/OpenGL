@@ -258,7 +258,7 @@ void Shape::drawIcosahedron() {
 	glEnd();*/
 }
 
-void Shape::drawSphere(float radius, float lats, float longs, float h, float k) {
+void Shape::drawSphere(float radius, float lats, float longs, float x, float y, float z) {
 	float theta_interval = (2.0 * M_PI) / lats; // angle of latitude
 	float delta_interval = M_PI / longs;	// angle of longitude
 	float theta = 0.0, delta = 0.0;
@@ -270,27 +270,27 @@ void Shape::drawSphere(float radius, float lats, float longs, float h, float k) 
 			glBegin(GL_TRIANGLE_STRIP);
 				glTexCoord2f(uv_lats, uv_longs); // 0
 				glNormal3f( radius * cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
-				glVertex3f(	radius * cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
+				glVertex3f(	x + radius * cos(theta) * sin(delta),				y + radius * cos(delta),			z + radius * sin(theta) * sin(delta));
 
 				glTexCoord2f(uv_lats, uv_longs + uv_longs_interval); // 1
 				glNormal3f( radius * cos(theta) * sin(delta + delta_interval),				radius * cos(delta + delta_interval),		radius * sin(theta) * sin(delta + delta_interval));
-				glVertex3f(	radius * cos(theta) * sin(delta + delta_interval),				radius * cos(delta + delta_interval),		radius * sin(theta) * sin(delta + delta_interval));
+				glVertex3f( x + radius * cos(theta) * sin(delta + delta_interval), y + radius * cos(delta + delta_interval), z + radius * sin(theta) * sin(delta + delta_interval));
 
 				glTexCoord2f(uv_lats + uv_lats_interval, uv_longs + uv_longs_interval); // 2
 				glNormal3f(radius * cos(theta + theta_interval) * sin(delta + delta_interval), radius * cos(delta + delta_interval), radius * sin(theta + theta_interval) * sin(delta + delta_interval));
-				glVertex3f(radius * cos(theta + theta_interval) * sin(delta + delta_interval), radius * cos(delta + delta_interval), radius * sin(theta + theta_interval) * sin(delta + delta_interval));
+				glVertex3f( x + radius * cos(theta + theta_interval) * sin(delta + delta_interval), y + radius * cos(delta + delta_interval), z + radius * sin(theta + theta_interval) * sin(delta + delta_interval));
 
 				glTexCoord2f(uv_lats + uv_lats_interval, uv_longs + uv_longs_interval); // 2
 				glNormal3f(radius * cos(theta + theta_interval) * sin(delta + delta_interval), radius * cos(delta + delta_interval), radius * sin(theta + theta_interval) * sin(delta + delta_interval));
-				glVertex3f(radius * cos(theta + theta_interval) * sin(delta + delta_interval), radius * cos(delta + delta_interval), radius * sin(theta + theta_interval) * sin(delta + delta_interval));
+				glVertex3f( x + radius * cos(theta + theta_interval) * sin(delta + delta_interval), y + radius * cos(delta + delta_interval), z + radius * sin(theta + theta_interval) * sin(delta + delta_interval));
 
 				glTexCoord2f(uv_lats + uv_lats_interval, uv_longs); // 3
 				glNormal3f( radius * cos(theta + theta_interval) * sin(delta),			radius * cos(delta),			radius * sin(theta + theta_interval) * sin(delta));
-				glVertex3f(	radius * cos(theta + theta_interval) * sin(delta),			radius * cos(delta),			radius * sin(theta + theta_interval) * sin(delta));
+				glVertex3f( x + radius * cos(theta + theta_interval) * sin(delta), y + radius * cos(delta), z + radius * sin(theta + theta_interval) * sin(delta));
 
 				glTexCoord2f(uv_lats, uv_longs); // 0
 				glNormal3f(radius * cos(theta) * sin(delta), radius * cos(delta), radius * sin(theta) * sin(delta));
-				glVertex3f(radius * cos(theta) * sin(delta), radius * cos(delta), radius * sin(theta) * sin(delta));
+				glVertex3f( x + radius * cos(theta) * sin(delta), y + radius * cos(delta), z + radius * sin(theta) * sin(delta));
 			glEnd();
 			theta += theta_interval; 
 			uv_lats += uv_lats_interval;
