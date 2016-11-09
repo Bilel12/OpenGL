@@ -35,7 +35,7 @@ Scene::Scene(Input *in)
 	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false; // Blending on or off
 	wireframe = false; // Wireframe on or off
-	development = false;
+	development = true;
 	draw = false;
 	// torus
 	Torus = glGenLists(1);
@@ -323,10 +323,10 @@ void Scene::render() {
 	glBindTexture(GL_TEXTURE_2D, *barrel); {
 		shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-	shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
+	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
-	//shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
+	shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 
 	/*glBindTexture(GL_TEXTURE_2D, NULL);

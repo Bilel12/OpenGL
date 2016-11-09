@@ -259,31 +259,34 @@ void Shape::drawIcosahedron() {
 }
 
 void Shape::drawSphere(float radius, int lats, int longs, float h, float k) {
-	//float theta = (2.0 * M_PI) / lats; // angle of latitude
-	//float delta = M_PI / longs;	// angle of longitude
+	float theta_interval = (2.0 * M_PI) / lats; // angle of latitude
+	float delta_interval = M_PI / longs;	// angle of longitude
+	float theta = 0.0, delta = 0.0;
+	for (int i = 0; i < longs; ++i) {
+		for (int j = 0; j < lats; ++j) {
+			float x = radius *cos(theta) * sin(delta);
+			float y = radius * cos(delta);
+			float z = radius * sin(theta) * sin(delta);
+			glBegin(GL_QUADS);
+				glNormal3f( radius *cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
+				glVertex3f(	radius *cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
 
-	//for (int i = 0; i < longs; ++i) {
-	//	for (int j = 0; j < lats; ++j) {
-	//		float x = radius *cos(theta) * sin(delta);
-	//		float y = radius * cos(delta);
-	//		float z = radius * sin(theta) * sin(delta);
-	//		glBegin(GL_QUAD_STRIP);
-	//			glNormal3f( radius *cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
-	//			glVertex3f(	radius *cos(theta) * sin(delta),				radius * cos(delta),			radius * sin(theta) * sin(delta));
+				glNormal3f( radius *cos(theta) * sin(delta + delta_interval),				radius * cos(delta + delta_interval),		radius * sin(theta) * sin(delta + delta_interval));
+				glVertex3f(	radius *cos(theta) * sin(delta + delta_interval),				radius * cos(delta + delta_interval),		radius * sin(theta) * sin(delta + delta_interval));
 
-	//			glNormal3f( radius *cos(theta) * sin(delta),				radius * cos(delta) + j,		radius * sin(theta) * sin(delta));
-	//			glVertex3f(	radius *cos(theta) * sin(delta),				radius * cos(delta) + j,		radius * sin(theta) * sin(delta));
+				glNormal3f(radius *cos(theta + theta_interval) * sin(delta + delta_interval), radius * cos(delta + delta_interval), radius * sin(theta + theta_interval) * sin(delta + delta_interval));
+				glVertex3f(radius *cos(theta + theta_interval) * sin(delta + delta_interval), radius * cos(delta + delta_interval), radius * sin(theta + theta_interval) * sin(delta + delta_interval));
 
-	//			glNormal3f( radius *cos(theta) * sin(delta) + i,			radius * cos(delta) + j,		radius * sin(theta) * sin(delta));
-	//			glVertex3f(	radius *cos(theta) * sin(delta) + i,			radius * cos(delta) + j,		radius * sin(theta) * sin(delta));
-
-	//			glNormal3f( radius *cos(theta) * sin(delta) + i,			radius * cos(delta),			radius * sin(theta) * sin(delta));
-	//			glVertex3f(	radius *cos(theta) * sin(delta) + i,			radius * cos(delta),			radius * sin(theta) * sin(delta));
-	//		glEnd();
-	//	}
-	//}
+				glNormal3f( radius *cos(theta + theta_interval) * sin(delta),			radius * cos(delta),			radius * sin(theta + theta_interval) * sin(delta));
+				glVertex3f(	radius *cos(theta + theta_interval) * sin(delta),			radius * cos(delta),			radius * sin(theta + theta_interval) * sin(delta));
+			glEnd();
+			theta += theta_interval;
+		}
+		theta = 0.0;
+		delta += delta_interval;
+	}
 	
-	for (int i = 0; i <= lats; i++) {
+	/*for (int i = 0; i <= lats; i++) {
 		float theta = M_PI * (-0.5 + (float)(i - 1) / lats);
 		float z0 = sin(theta);
 		float zr0 = cos(theta);
@@ -304,7 +307,7 @@ void Shape::drawSphere(float radius, int lats, int longs, float h, float k) {
 			glVertex3f(x * zr1, y * zr1, z1);
 		}
 		glEnd();
-	}
+	}*/
 }
 
 void Shape::drawCylinder(float radius, float edges, float height, float x, float y, float z) {
