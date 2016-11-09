@@ -47,6 +47,11 @@ Scene::Scene(Input *in)
 	glNewList(Disc, GL_COMPILE);
 	shape.drawDisc(400, 2, 3, 3, -10);
 	glEndList();
+
+	Sphere = glGenLists(2);
+	glNewList(Sphere, GL_COMPILE);
+	shape.drawSphere(1.0, 100.0, 100.0, 0, 0);
+	glEndList();
 }
 
 void Scene::loadTextures() {
@@ -127,6 +132,13 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
 
+	myTexture = SOIL_load_OGL_texture( // 11
+		"gfx/globe.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
 		if (i == NULL) {
@@ -147,6 +159,7 @@ void Scene::assignTextures() {
 	skybox		= &textures[8]; 
 	disk		= &textures[9];
 	barrel		= &textures[10];
+	globe		= &textures[11];
 }
 
 void Scene::update(float dt) {
@@ -326,7 +339,10 @@ void Scene::render() {
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
-	shape.drawSphere(3.0, 10.0, 10.0, 0, 0);
+	glBindTexture(GL_TEXTURE_2D, *globe); {
+		glCallList(Sphere);
+		glFlush();
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
