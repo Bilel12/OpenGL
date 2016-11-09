@@ -50,6 +50,10 @@ public:
 	virtual float getPitch();
 	virtual float getRoll();
 
+	virtual void setLookAtX(float x);
+	virtual void setLookAtY(float y);
+	virtual void setLookAtZ(float z);
+
 	virtual void setYaw(float arg) ;
 	virtual void setPitch(float arg);
 	virtual void setRoll(float arg);

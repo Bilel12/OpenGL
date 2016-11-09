@@ -369,6 +369,43 @@ void Shape::drawCylinder(float radius, float edges, float height, float x, float
 	}
 }
 
+void Shape::drawCylinderTriangles(float radius, float stacks, float x, float y, float z) {
+	float interval = 2.0 * M_PI / stacks;
+	float diameter = 2 * radius;
+	float start = 0.0;
+	float theta = 0.0;
+	float distance = ( sqrt( pow(radius * cos(theta) - radius * sin(theta), 2) + pow(radius * cos(theta + interval) - radius * sin(theta + interval), 2) ) );
+	for (int i = 0; i < stacks; ++i) {
+		glBegin(GL_QUADS);
+		glNormal3f(0.0, 0.0, 1.0); // 0
+		glTexCoord2f(start + 0.5, start + 0.5);
+		glVertex3f(x + start, y + start, z + start);
+
+		glNormal3f(0.0, 0.0, 1.0); // 1
+		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+		glVertex3f(x + radius * cos(theta), y + start, z + radius * sin(theta));
+
+		glNormal3f(0.0, 0.0, 1.0); // 2
+		glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+		glVertex3f(x + radius * cos(theta + interval), y + start, z + radius * sin(theta + interval));
+		for (int j = 0; j < stacks; ++j) {
+			glNormal3f(0.0, 0.0, 1.0); // 2
+			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+			glVertex3f( x + radius * cos(theta + interval), distance + y + start, z + radius * sin(theta + interval));
+
+			glNormal3f(0.0, 0.0, 1.0); // 1
+			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+			glVertex3f( x + radius * cos(theta), distance + y + start, z + radius * sin(theta));
+			distance += distance;
+		}
+		glNormal3f(0.0, 0.0, 1.0); // 0
+		glTexCoord2f(start + 0.5, start + 0.5);
+		glVertex3f(x + start, distance + y + start, z + start);
+		glEnd();
+		theta += interval;
+	}
+}
+
 void Shape::drawCone(float radius, float edges, float height, float x, float y, float z) {
 	float interval = 2.0 * M_PI / edges;
 	float diameter = 2 * radius;

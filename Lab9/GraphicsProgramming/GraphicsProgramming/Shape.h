@@ -18,6 +18,7 @@ public:
 	void drawCircle(int edges, float x, float y, float z);
 	void drawSphereTorus(int edges, float x, float y, float z, float rot_interval);
 	void drawCylinder(float radius, float edges, float height, float x, float y, float z);
+	void drawCylinderTriangles(float radius, float stacks, float x, float y, float z);
 	void drawCone(float radius, float edges, float height, float x, float y, float z);
 	void drawDisc(int edges, float radius, float x, float y, float z);
 	void drawFlatDisc(int edges, float radius, float h, float k);

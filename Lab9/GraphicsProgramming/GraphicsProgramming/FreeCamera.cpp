@@ -13,6 +13,9 @@ FreeCamera::FreeCamera() {
 	side.setX(0.0f);
 	side.setY(2.0f);
 	side.setZ(1.0f);
+	lookAt.setX(0.0);
+	lookAt.setY(0.0);
+	lookAt.setZ(8.0);
 	update();
 }
 
@@ -119,6 +122,16 @@ float FreeCamera::getPitch() {
 }
 float FreeCamera::getRoll() {
 	return Roll;
+}
+
+void FreeCamera::setLookAtX(float x) {
+	lookAt.setX(x);
+}
+void FreeCamera::setLookAtY(float y) {
+	lookAt.setY(y);
+}
+void FreeCamera::setLookAtZ(float z) {
+	lookAt.setZ(z);
 }
 
 void FreeCamera::setYaw(float arg) {
