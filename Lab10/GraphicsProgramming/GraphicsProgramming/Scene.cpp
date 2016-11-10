@@ -27,6 +27,8 @@ Scene::Scene(Input *in)
 	loadTextures();
 	// assign textures to pointers
 	assignTextures();
+	// load 3D models
+	loadModels();
 	// Initialise variables
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
@@ -139,6 +141,13 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
 
+	myTexture = SOIL_load_OGL_texture( // 12
+		"models/spaceship.jpg",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
 		if (i == NULL) {
@@ -160,6 +169,11 @@ void Scene::assignTextures() {
 	disk		= &textures[9];
 	barrel		= &textures[10];
 	globe		= &textures[11];
+	spaceship	= &textures[12];
+}
+
+void Scene::loadModels() {
+	model.load("models/spaceship.obj", "models/spaceship.jpg");
 }
 
 void Scene::update(float dt) {
@@ -344,8 +358,10 @@ void Scene::render() {
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
-	shape.drawCylinderTriangles(1.0, 2, 0., 0., 0.);
-
+	//shape.drawCylinderTriangles(1.0, 2, 0., 0., 0.);
+	//glBindTexture(GL_TEXTURE_2D, *spaceship); {
+		model.render();
+	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
 

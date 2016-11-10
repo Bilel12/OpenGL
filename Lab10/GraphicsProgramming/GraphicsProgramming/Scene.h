@@ -44,6 +44,7 @@ protected:
 	void renderTextOutput();
 	void loadTextures();
 	void assignTextures();
+	void loadModels();
 
 	// For Window and frustum calculation.
 	int width, height;
@@ -66,6 +67,7 @@ protected:
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
+	Model model;
 
 	Shape shape;
 	GLuint Torus;
@@ -87,6 +89,7 @@ protected:
 	GLuint *disk;
 	GLuint *barrel;
 	GLuint *globe;
+	GLuint *spaceship;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float scale_x, scale_y, scale_z;
