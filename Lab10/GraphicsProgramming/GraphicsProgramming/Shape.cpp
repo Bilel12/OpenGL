@@ -381,10 +381,10 @@ void Shape::drawSphere(double radius, double latitude, double longitude, double 
 					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
 			} glEnd();
 			theta += theta_interval;
-			u_lats += u_lats_interval;
+			v_longs += v_longs_interval;
 		}
-		v_longs += v_longs_interval;
-		theta = 0.0;
+		u_lats += u_lats_interval;
+		theta = 0.0; v_longs = 0.0;
 		delta += delta_interval;
 	}
 	
