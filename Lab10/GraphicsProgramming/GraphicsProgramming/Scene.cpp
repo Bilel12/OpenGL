@@ -351,14 +351,14 @@ void Scene::render() {
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
-	/*glBindTexture(GL_TEXTURE_2D, *globe); {
+	glBindTexture(GL_TEXTURE_2D, *globe); {
 		glCallList(Sphere);
 		glFlush();
-	} glBindTexture(GL_TEXTURE_2D, NULL);*/
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 	//shape.drawCylinderTriangles(1.0, 2, 0., 0., 0.);
 	//glBindTexture(GL_TEXTURE_2D, *spaceship); {
-		model.render();
+	//model.render();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/

@@ -22,6 +22,9 @@ public:
 	void drawCone(float radius, float edges, float height, float x, float y, float z);
 	void drawDisc(int edges, float radius, float x, float y, float z);
 	void drawFlatDisc(int edges, float radius, float h, float k);
+	float calc_x(float radius, float x, float theta, float delta);
+	float calc_y(float radius, float y, float theta, float delta);
+	float calc_z(float radius, float z, float theta, float delta);
 	void drawSphere(float radius, float lats, float longs, float x, float y, float z);
 	void drawIcosahedron();
 	void normalize(float v[3]);

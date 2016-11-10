@@ -19,14 +19,12 @@ using namespace std;
 
 class Model
 {
-
 public:
 
 	bool load(char* modelFilename, char* textureFilename);
 	void render();
 
 private:
-
 	void loadTexture(char*);
 	bool loadModel(char*);
 
