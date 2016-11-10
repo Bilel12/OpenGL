@@ -298,8 +298,8 @@ float Shape::calc_z3(float radius, float z, float theta, float theta_interval, f
 	return z + radius * sin(theta + theta_interval) * sin(delta);
 }
 
-void Shape::drawSphere(float radius, float latitude, float longitude, float x, float y, float z) {
-	float 
+void Shape::drawSphere(double radius, double latitude, double longitude, double x, double y, double z) {
+	double 
 		delta = 0.0, // angle of latitude
 		theta = 0.0, // angle of longitude
 		theta_interval = (2.0 * M_PI) / latitude, // angle of latitude
@@ -311,7 +311,7 @@ void Shape::drawSphere(float radius, float latitude, float longitude, float x, f
 
 	for (int i = 0; i < longitude; ++i) {
 		for (int j = 0; j < latitude; ++j) {
-			float
+			double
 				x0 = calc_x0(radius, x, theta, delta),
 				y0 = calc_y0(radius, y, theta, delta),
 				z0 = calc_z0(radius, z, theta, delta),
@@ -381,9 +381,9 @@ void Shape::drawSphere(float radius, float latitude, float longitude, float x, f
 					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
 			} glEnd();
 			theta += theta_interval;
-		//v_longs += v_longs_interval;
+			u_lats += u_lats_interval;
 		}
-		u_lats += u_lats_interval;
+		v_longs += v_longs_interval;
 		theta = 0.0;
 		delta += delta_interval;
 	}

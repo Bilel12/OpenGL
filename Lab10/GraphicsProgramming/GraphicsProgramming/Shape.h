@@ -34,7 +34,7 @@ public:
 	float calc_x3(float radius, float x, float theta, float delta, float theta_interval);
 	float calc_y3(float radius, float x, float theta, float delta, float theta_interval);
 	float calc_z3(float radius, float x, float theta, float delta, float theta_interval);
-	void drawSphere(float radius, float lats, float longs, float x, float y, float z);
+	void drawSphere(double radius, double latitude, double longitude, double x, double y, double z);
 	void drawIcosahedron();
 	void normalize(float v[3]);
 	void normcrossprod(float v1[3], float v2[3], float out[3]);
