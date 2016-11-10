@@ -181,7 +181,7 @@ void TopDownCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
-void TopDownCamera::userControll(float dt, int width, int height, Input *input) {
+void TopDownCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		moveUp(dt);
@@ -206,15 +206,6 @@ void TopDownCamera::userControll(float dt, int width, int height, Input *input) 
 	//if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
 	//	
 	//}
-	//// camera's Yaw mouse controll, last variable controlls speed
-	//updateYaw(width, input->getMouseX(), 2);
-	//// camera's Pitch mouse controll, last variable controlls speed
-	//updatePitch(height, input->getMouseY(), 2);
-	//// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
-}
-
-void TopDownCamera::cameraControll(float dt, int width, int height) {
-	return;
 }
 

@@ -1,18 +1,10 @@
 ﻿#include "SecurityCamera.h"
 
 SecurityCamera::SecurityCamera() {
-	position.setX(7.5f);
-	position.setY(6.0f);
-	position.setZ(3.0f);
-	forward.setX(0.0f);
-	forward.setY(0.0f);
-	forward.setZ(0.0f);
-	up.setX(0.0f);
-	up.setY(0.0f);
-	up.setZ(1.0f);
-	side.setX(0.0f);
-	side.setY(2.0f);
-	side.setZ(1.0f);
+	position = (Vector3(7.5f, 6.0f, 8.0f));
+	forward = (Vector3(0.0f, 0.0f, 0.0f));
+	up = (Vector3(0.0f, 0.0f, 1.0f));
+	side = (Vector3(0.0f, 2.0f, 1.0f));
 	setYaw(-65.0f);
 	setPitch(-35.0f);
 	// Security camera settings
@@ -29,9 +21,6 @@ void SecurityCamera::update() {
 	float cosR, cosP, cosY;	//temp values for sin/cos from 
 	float sinR, sinP, sinY;
 	// Roll, Pitch and Yall are variables stored by the FreeCamera
-
-	// handle rotation
-
 
 	// Only want to calculate these values once, when rotation changes, not every frame. 
 	cosY = cosf(Yaw*3.1415 / 180);
@@ -185,7 +174,7 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
-void SecurityCamera::userControll(float dt, int width, int height, Input *input) {
+void SecurityCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
 		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); 
@@ -236,25 +225,5 @@ void SecurityCamera::userControll(float dt, int width, int height, Input *input)
 	}
 
 	glutWarpPointer(width / 2, height / 2);
-}
-
-void SecurityCamera::cameraControll(float dt, int width, int height) {
-	/*if (!stop_camera) {
-		if (lerpRight) {
-			clamp_value += camera_speed * dt;
-			setYaw(clamp_value);
-			if (clamp_value >= rightClamp) {
-				lerpRight = false;
-			}
-		}
-		else {
-			clamp_value -= camera_speed * dt;
-			setYaw(clamp_value);
-			if (clamp_value <= leftClamp) {
-				lerpRight = true;
-			}
-		}
-	}*/
-	return;
 }
 

@@ -1,21 +1,11 @@
 #include "FreeCamera.h"
 
 FreeCamera::FreeCamera() {
-	position.setX(0.0f);
-	position.setY(0.0f);
-	position.setZ(6.0f);
-	forward.setX(0.0f);
-	forward.setY(0.0f);
-	forward.setZ(0.0f);
-	up.setX(0.0f);
-	up.setY(0.0f);
-	up.setZ(1.0f);
-	side.setX(0.0f);
-	side.setY(2.0f);
-	side.setZ(1.0f);
-	lookAt.setX(0.0);
-	lookAt.setY(0.0);
-	lookAt.setZ(8.0);
+	position = (Vector3(0.0f, 0.0f, 6.0f));
+	forward = (Vector3(0.0f, 0.0f, 0.0f));
+	up = (Vector3(0.0f, 0.0f, 1.0f));
+	side = (Vector3(0.0f, 0.0f, 0.0f));
+	lookAt = (Vector3(1.0f, 1.0f, 5.0f));
 	update();
 }
 
@@ -192,7 +182,7 @@ void FreeCamera::updatePitch(int height, int mouseY, int speed) {
 	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
-void FreeCamera::userControll(float dt, int width, int height, Input *input) {
+void FreeCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('W')) {
 		moveForward(dt);
@@ -223,8 +213,4 @@ void FreeCamera::userControll(float dt, int width, int height, Input *input) {
 	updatePitch(height, input->getMouseY(), 2);
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
-}
-
-void FreeCamera::cameraControll(float dt, int width, int height) {
-	return;
 }

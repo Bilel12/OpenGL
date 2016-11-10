@@ -140,3 +140,10 @@ Vector3& Vector3::operator-=(const Vector3& v2) {
 	this->z -= v2.z;
 	return *this;
 }
+
+//Vector3& Vector3::operator=(const Vector3& v2) {
+//	this->x = v2.x;
+//	this->y = v2.y;
+//	this->z = v2.z;
+//	return *this;
+//}

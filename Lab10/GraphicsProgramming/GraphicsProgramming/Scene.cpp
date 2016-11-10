@@ -248,9 +248,7 @@ void Scene::update(float dt) {
 		scale_z -= 0.1;
 	}
 	// Camera input controll
-	camera->userControll(dt, width, height, input);
-	// Camera controll
-	camera->cameraControll(dt, width, height); // width is just temporary, not used at the moment
+	camera->cameraControll(dt, width, height, input);
 	// Update object and variables (camera, rotation, etc).
 	camera->update();
 	float mousePositionX(int width);
