@@ -46,6 +46,7 @@ protected:
 	void assignTextures();
 	void loadModels();
 	void loadLists();
+	void renderLists();
 
 	// For Window and frustum calculation.
 	int width, height;

@@ -17,13 +17,15 @@ public:
 	//static void drawTorus(int numc, int numt);
 	void drawCircle(int edges, float x, float y, float z);
 	void drawSphereTorus(int edges, float x, float y, float z, float rot_interval);
-	void drawCylinder(float radius, float edges, float height, float x, float y, float z);
+	void drawCylinder(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
 	void drawCylinderLowPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
 	void drawCylinderHighPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
-	void drawCone(float radius, float edges, float height, float x, float y, float z);
-	void drawDisc(int edges, float radius, float x, float y, float z);
-	void drawFlatDisc(int edges, float radius, float h, float k);
+	void drawCone(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
+	void drawDisc(int edges, float radius, float x, float y, float z, GLuint *texture);
+	void drawFlatDisc(int edges, float radius, float h, float k, GLuint *texture);
 	// Sphere functions
+	void drawSphere(double radius, double latitude, double longitude, double x, double y, double z, GLuint *texture);
+
 	float calc_x0(float radius, float x, float theta, float delta);
 	float calc_y0(float radius, float y, float theta, float delta);
 	float calc_z0(float radius, float z, float theta, float delta);
@@ -56,7 +58,6 @@ public:
 	float calc_n_y3(float radius, float theta, float delta, float theta_interval);
 	float calc_n_z3(float radius, float theta, float delta, float theta_interval);
 
-	void drawSphere(double radius, double latitude, double longitude, double x, double y, double z);
 	void drawIcosahedron();
 	void normalize(float v[3]);
 	void normcrossprod(float v1[3], float v2[3], float out[3]);

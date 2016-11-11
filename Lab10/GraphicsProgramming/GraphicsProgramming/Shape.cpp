@@ -159,11 +159,12 @@ void Shape::drawSphereTorus(int edges, float x, float y, float z, float rot_inte
 	glEnd();*/
 }
 
-void Shape::drawDisc(int edges, float radius, float x, float y, float z) {
+void Shape::drawDisc(int edges, float radius, float x, float y, float z, GLuint * texture) {
 	float interval = 2.0 * M_PI / edges;
 	float diameter = 2 * radius;
 	float start = 0.0;
 	float theta = 0.0;
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_FAN);
 		glNormal3f(0.0, 0.0, 1.0);
@@ -180,13 +181,15 @@ void Shape::drawDisc(int edges, float radius, float x, float y, float z) {
 		glEnd();
 		theta += interval;
 	}
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
-void Shape::drawFlatDisc(int edges, float radius, float h, float k) {
+void Shape::drawFlatDisc(int edges, float radius, float h, float k, GLuint * texture) {
 	float interval = 2.0 * M_PI / edges;
 	float diameter = 2 * radius;
 	float start = 0.0;
 	float theta = 0.0;
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_FAN);
 		glNormal3f(0.0, 0.0, 1.0);
@@ -203,6 +206,7 @@ void Shape::drawFlatDisc(int edges, float radius, float h, float k) {
 		glEnd();
 		theta += interval;
 	}
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 void Shape::normalize(float v[3]) {
@@ -340,7 +344,7 @@ float Shape::calc_n_z3(float radius, float theta, float delta, float theta_inter
 	return sin(theta + theta_interval) * sin(delta) / radius;
 }
 
-void Shape::drawSphere(double radius, double latitude, double longitude, double x, double y, double z) {
+void Shape::drawSphere(double radius, double latitude, double longitude, double x, double y, double z, GLuint * texture) {
 	double
 		delta = 0.0, // angle of latitude
 		theta = 0.0, // angle of longitude
@@ -350,7 +354,7 @@ void Shape::drawSphere(double radius, double latitude, double longitude, double 
 		v_longs = 0.0,
 		u_lats_interval = 1.0 / latitude,
 		v_longs_interval = 1.0 / longitude;
-
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	for (int i = 0; i < longitude; ++i) {
 		for (int j = 0; j < latitude; ++j) {
 			double
@@ -441,6 +445,7 @@ void Shape::drawSphere(double radius, double latitude, double longitude, double 
 		theta = 0.0; v_longs = 0.0;
 		delta += delta_interval;
 	}
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	/*for (int i = 0; i <= lats; i++) {
 		float theta = M_PI * (-0.5 + (float)(i - 1) / lats);
@@ -466,12 +471,13 @@ void Shape::drawSphere(double radius, double latitude, double longitude, double 
 	}*/
 }
 
-void Shape::drawCylinder(float radius, float edges, float height, float x, float y, float z) {
+void Shape::drawCylinder(float radius, float edges, float height, float x, float y, float z, GLuint * texture) {
 	float interval = 2.0 * M_PI / edges;
 	float diameter = 2 * radius;
 	float start = 0.0;
 	float theta = 0.0;
 
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_STRIP); {
 			// bottom
@@ -515,6 +521,7 @@ void Shape::drawCylinder(float radius, float edges, float height, float x, float
 		} glEnd();
 		theta += interval;
 	}
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 void Shape::drawCylinderLowPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {
@@ -690,12 +697,13 @@ void Shape::drawCylinderHighPoli(float radius, float edges, float height, float 
 	}
 }
 
-void Shape::drawCone(float radius, float edges, float height, float x, float y, float z) {
+void Shape::drawCone(float radius, float edges, float height, float x, float y, float z, GLuint * texture) {
 	float interval = 2.0 * M_PI / edges;
 	float diameter = 2 * radius;
 	float start = 0.0;
 	float theta = 0.0;
 
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	for (int i = 0; i < edges; ++i) {
 		glBegin(GL_TRIANGLE_STRIP); {
 			// bottom disk
@@ -718,6 +726,7 @@ void Shape::drawCone(float radius, float edges, float height, float x, float y, 
 		} glEnd();
 		theta += interval;
 	}
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 

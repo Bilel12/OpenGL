@@ -23,14 +23,10 @@ Scene::Scene(Input *in)
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);					// Set The Blending Function For Translucency
 
-	// loading textures into vector
-	loadTextures();
-	// assign textures to pointers
-	assignTextures();
-	// load 3D models
-	loadModels();
-	// load lists
-	loadLists();
+	loadTextures();// loading textures into vector
+	assignTextures();// assign textures to pointers
+	loadModels();// load 3D models from files
+	loadLists();// load lists
 	// Initialise variables
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
@@ -171,12 +167,12 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	shape.drawDisc(400, 2, 3, 3, -10);
+	shape.drawDisc(400, 2, 3, 3, -10, disk);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0.);
+	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0., globe);
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -188,6 +184,14 @@ void Scene::loadLists() {
 	glNewList(HighPoliCylinder, GL_COMPILE);
 	shape.drawCylinderHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
 	glEndList();
+}
+
+void Scene::renderLists() {
+	glCallList(Sphere);
+	glCallList(Disc);
+	glCallList(LowPoliCylinder);
+	glCallList(HighPoliCylinder);
+	glFlush();
 }
 
 void Scene::update(float dt) {
@@ -343,37 +347,20 @@ void Scene::render() {
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	// draw disk from list
-	glBindTexture(GL_TEXTURE_2D, *disk); {
-		glCallList(Disc);
-		glFlush();
-	} glBindTexture(GL_TEXTURE_2D, NULL);
 	// draw torus from list
 	/*glBindTexture(GL_TEXTURE_2D, *disk); {
 		glCallList(Torus);
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);*/
 	// draw disk with function
-	glBindTexture(GL_TEXTURE_2D, *disk); {
-		shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0);
-		shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0, disk);
+	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
 
-	glBindTexture(GL_TEXTURE_2D, *barrel); {
-		shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0);
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0, barrel);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
-	glBindTexture(GL_TEXTURE_2D, *globe); {
-		glCallList(Sphere);
-		glFlush();
-	} glBindTexture(GL_TEXTURE_2D, NULL);
-	
-	glCallList(LowPoliCylinder);
-	glCallList(HighPoliCylinder);
-	glFlush();
-
+	renderLists();
 	model.render();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
