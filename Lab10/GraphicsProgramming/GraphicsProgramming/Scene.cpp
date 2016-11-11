@@ -54,6 +54,16 @@ Scene::Scene(Input *in)
 	glNewList(Sphere, GL_COMPILE);
 	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0.);
 	glEndList();
+
+	LowPoliCylinder = glGenLists(3);
+	glNewList(LowPoliCylinder, GL_COMPILE);
+	shape.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk, globe);
+	glEndList();
+
+	HighPoliCylinder= glGenLists(4);
+	glNewList(HighPoliCylinder, GL_COMPILE);
+	shape.drawCylinderHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
+	glEndList();
 }
 
 void Scene::loadTextures() {
@@ -355,15 +365,16 @@ void Scene::render() {
 		glCallList(Sphere);
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
-	//shape.drawCylinderTrianglesLowPoli(1.0, 2, 0., 0., 0.);
-	//glBindTexture(GL_TEXTURE_2D, *spaceship); {
+	
+	glCallList(LowPoliCylinder);
+	glCallList(HighPoliCylinder);
+	glFlush();
+
 	model.render();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
-	shape.drawCylinderTrianglesLowPoli(3., 6., 3., -5., 0., -1., disk, globe);
-	shape.drawCylinderTrianglesLowPoliHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
+	
 	// Geometry rendering ends here -----------------------------
 
 	// Render text, should be last object rendered.

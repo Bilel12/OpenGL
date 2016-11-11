@@ -73,6 +73,8 @@ protected:
 	GLuint Torus;
 	GLuint Disc;
 	GLuint Sphere;
+	GLuint LowPoliCylinder;
+	GLuint HighPoliCylinder;
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
