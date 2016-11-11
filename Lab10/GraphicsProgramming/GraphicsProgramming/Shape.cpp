@@ -549,27 +549,27 @@ void Shape::drawCylinderTriangles(float radius, float edges, float height, float
 			glBegin(GL_TRIANGLE_STRIP); {
 				// 0 bottom 
 				glNormal3f(0.0, 0.0, 1.0);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f(1, 0);
 				glVertex3f(x + radius * cos(theta + interval), y + start, z + radius * sin(theta + interval));
 				// 1 bottom
 				glNormal3f(0.0, 0.0, 1.0);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f(1, 1);
 				glVertex3f(x + radius * cos(theta), y + start, z + radius * sin(theta));
 				// 2 top
 				glNormal3f((x + radius * cos(theta)) / radius, (y + start + height) / radius, (z + radius * sin(theta)) / radius);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f(0, 1);
 				glVertex3f(x + radius * cos(theta), y + start + height, z + radius * sin(theta));
 				// 2 top
 				glNormal3f((x + radius * cos(theta)) / radius, (y + start + height) / radius, (z + radius * sin(theta)) / radius);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f(0, 1);
 				glVertex3f(x + radius * cos(theta), y + start + height, z + radius * sin(theta));
 				// 3 top
 				glNormal3f((x + radius * cos(theta + interval)) / radius, (y + start + height) / radius, (z + radius * sin(theta + interval)) / radius);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f(0, 0);
 				glVertex3f(x + radius * cos(theta + interval), y + start + height, z + radius * sin(theta + interval));
 				// 0 bottom 
 				glNormal3f(0.0, 0.0, 1.0);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f(1, 0);
 				glVertex3f(x + radius * cos(theta + interval), y + start, z + radius * sin(theta + interval));
 			} glEnd();
 			theta += interval;
