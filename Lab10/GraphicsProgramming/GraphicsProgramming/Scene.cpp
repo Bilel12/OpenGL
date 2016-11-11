@@ -358,7 +358,7 @@ void Scene::render() {
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
 	//shape.drawCylinderTriangles(1.0, 2, 0., 0., 0.);
 	//glBindTexture(GL_TEXTURE_2D, *spaceship); {
-	//model.render();
+	model.render();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
