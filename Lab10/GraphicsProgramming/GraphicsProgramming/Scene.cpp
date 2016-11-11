@@ -363,6 +363,7 @@ void Scene::render() {
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
 	shape.drawCylinderTriangles(3., 6., 3., -5., 0., -1., disk, globe);
+	shape.drawCylinderTrianglesHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
 	// Geometry rendering ends here -----------------------------
 
 	// Render text, should be last object rendered.
