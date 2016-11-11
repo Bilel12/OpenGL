@@ -356,14 +356,14 @@ void Scene::render() {
 		glFlush();
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 	//shape.drawFlatDisc(10.0, 4.0, 1.0, 1.0);
-	//shape.drawCylinderTriangles(1.0, 2, 0., 0., 0.);
+	//shape.drawCylinderTrianglesLowPoli(1.0, 2, 0., 0., 0.);
 	//glBindTexture(GL_TEXTURE_2D, *spaceship); {
 	model.render();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	/*glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisable(GL_TEXTURE_2D);*/
-	shape.drawCylinderTriangles(3., 6., 3., -5., 0., -1., disk, globe);
-	shape.drawCylinderTrianglesHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
+	shape.drawCylinderTrianglesLowPoli(3., 6., 3., -5., 0., -1., disk, globe);
+	shape.drawCylinderTrianglesLowPoliHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
 	// Geometry rendering ends here -----------------------------
 
 	// Render text, should be last object rendered.

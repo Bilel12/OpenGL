@@ -517,7 +517,7 @@ void Shape::drawCylinder(float radius, float edges, float height, float x, float
 	}
 }
 
-void Shape::drawCylinderTriangles(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {
+void Shape::drawCylinderTrianglesLowPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {
 	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
@@ -602,7 +602,7 @@ void Shape::drawCylinderTriangles(float radius, float edges, float height, float
 	}
 }
 
-void Shape::drawCylinderTrianglesHighPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {
+void Shape::drawCylinderTrianglesLowPoliHighPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {
 	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
