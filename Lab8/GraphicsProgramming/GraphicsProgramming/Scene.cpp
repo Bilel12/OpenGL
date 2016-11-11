@@ -125,7 +125,7 @@ void Scene::update(float dt){
 	}
 	if (input->isKeyDown('3')) {
 		camera = &topDownCamera;
-		orthographic = !orthographic;
+//		orthographic = !orthographic;
 		input->SetKeyUp('3');
 	}
 	// Blending
@@ -361,16 +361,17 @@ void Scene::render() {
 	} else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	glPushMatrix();
+	glPushMatrix(); {
 		glRotatef(position_x, 1.0f, 0.0f, 0.0f);                     // Rotate On The X Axis
 		glRotatef(position_y, 0.0f, 1.0f, 0.0f);                     // Rotate On The Y Axis
 		glRotatef(position_z, 0.0f, 0.0f, 1.0f);                     // Rotate On The Z Axis
 		glBindTexture(GL_TEXTURE_2D, *crateTrans); {
-		if (blend) {
-			glEnable(GL_BLEND); // Turn blending on
-		} else {
-			glDisable(GL_BLEND); // Turn blending off
-		}
+			if (blend) {
+				glEnable(GL_BLEND); // Turn blending on
+			}
+			else {
+				glDisable(GL_BLEND); // Turn blending off
+			}
 			/////////////////////////////
 			glBegin(GL_TRIANGLES); // front face
 			glNormal3f(0.0f, 0.0f, 1.0f);
@@ -451,7 +452,7 @@ void Scene::render() {
 			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(0, 1);
 			glVertex3f(-1, -1, 1);
-			
+
 			glNormal3f(-1.0f, 0.0f, 0.0f);
 			glTexCoord2f(1, 1);
 			glVertex3f(-1, -1, -1);
@@ -544,7 +545,7 @@ void Scene::render() {
 			glVertex3f(1, 1, 1);
 			glEnd();
 		}
-	glPopMatrix();
+	} glPopMatrix();
 
 	glPushMatrix(); {
 		glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha

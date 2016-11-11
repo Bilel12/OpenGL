@@ -199,9 +199,11 @@ void Scene::renderShapes() {
 	shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0, disk);
 	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
 	shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0, barrel);
+	shape.drawBlendCube(crateTrans);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
+	//shape.drawIcosahedron();
 }
 
 void Scene::update(float dt) {
@@ -323,51 +325,23 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	// Render torus from list
-	/*glBindTexture(GL_TEXTURE_2D, *crateTrans); {
-		glCallList(Torus);
-		glFlush();
-	} glBindTexture(GL_TEXTURE_2D, NULL);*/
-	// Draw circle
-	//shape.drawCircle(30);
-	// Draw Icosahedron
-	//glColor3f(0, 0, 1);
-	//shape.drawIcosahedron();
-	//glColor3f(1, 1, 1);
-	//glBindTexture(GL_TEXTURE_2D, *crateTrans); {
-	//	if (blend) {
-	//		glEnable(GL_BLEND); // Turn blending on
-	//	}
-	//	else {
-	//		glDisable(GL_BLEND); // Turn blending off
-	//	}
-
-	//	glPolygonMode(GL_FRONT, GL_LINE);
-	//	shape.drawCube();
-	//	glPolygonMode(GL_FRONT, GL_FILL);
-	//	glPolygonMode(GL_BACK, GL_LINE);
-	//	shape.drawCube();
-	//	glPolygonMode(GL_BACK, GL_FILL);
-
-	//} glBindTexture(GL_TEXTURE_2D, NULL);
-
+	if (blend) {
+		glEnable(GL_BLEND); // Turn blending on
+	}
+	else {
+		glDisable(GL_BLEND); // Turn blending off
+	}
+	
 	if (wireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	
-	
 	renderShapes();
 	renderLists();
 	model.render();
-	//} glBindTexture(GL_TEXTURE_2D, NULL);
-	/*glBindTexture(GL_TEXTURE_2D, NULL);
-	glDisable(GL_TEXTURE_2D);*/
-	
 	// Geometry rendering ends here -----------------------------
-
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
 	if (development) { renderTextOutput(); }
@@ -416,7 +390,7 @@ void Scene::renderTextOutput()
 	sprintf_s(cameraUpText, "Up: X:%f Y:%f Z:%f", camera->getUpX(), camera->getUpY(), camera->getUpZ());
 	sprintf_s(cameraSideText, "Side: X:%f Y:%f Z:%f", camera->getSideX(), camera->getSideY(), camera->getSideZ());
 	sprintf_s(cameraRotationText, "Rot: Yaw:%f Pitch:%f Roll:%f", camera->getYaw(), camera->getPitch(), camera->getRoll());
-	displayText(-1.f, 0.96f, 1.f, 0.f, 0.f, mouseText);
+	displayText(-1.f, 0.96f, 0.f, 0.f, 1.f, mouseText);
 	displayText(-1.f, 0.90f, 1.f, 0.f, 0.f, cameraPositionText);
 	displayText(-1.f, 0.84f, 1.f, 0.f, 0.f, cameraVectorText);
 	displayText(-1.f, 0.78f, 1.f, 0.f, 0.f, cameraLookAtText);
@@ -439,6 +413,7 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	// Orthographic lookAt (along the z-axis).
 	gluLookAt(0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
+	glBindTexture(GL_TEXTURE_2D, NULL);
 	// Set text colour and position.
 	glColor3f(r, g, b);
 	glRasterPos2f(x, y);

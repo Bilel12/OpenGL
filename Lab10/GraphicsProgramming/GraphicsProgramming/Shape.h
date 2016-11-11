@@ -12,7 +12,8 @@ class Shape {
 public:
 	void render1();
 	void render3();
-	void drawCube();
+	void drawCube(GLuint * texture);
+	void drawBlendCube(GLuint *texture);
 	void drawSkybox();
 	//static void drawTorus(int numc, int numt);
 	void drawCircle(int edges, float x, float y, float z);
