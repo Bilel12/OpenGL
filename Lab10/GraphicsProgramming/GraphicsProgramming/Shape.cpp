@@ -545,7 +545,7 @@ void Shape::drawCylinderTriangles(float radius, float edges, float height, float
 	// side
 	theta = 0.0;
 	glBindTexture(GL_TEXTURE_2D, *side_texture); {
-		for (int j = 0; j < height; ++j) {
+		for (int j = 0; j <= height; ++j) {
 			glBegin(GL_TRIANGLE_STRIP); {
 				// 0 bottom 
 				glNormal3f(0.0, 0.0, 1.0);
