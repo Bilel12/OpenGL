@@ -187,11 +187,21 @@ void Scene::loadLists() {
 }
 
 void Scene::renderLists() {
+	glCallList(Torus);
 	glCallList(Sphere);
 	glCallList(Disc);
 	glCallList(LowPoliCylinder);
 	glCallList(HighPoliCylinder);
 	glFlush();
+}
+
+void Scene::renderShapes() {
+	shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0, disk);
+	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
+	shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0, barrel);
+	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
+	//shape.drawIcosahedron();
+	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 }
 
 void Scene::update(float dt) {
@@ -347,19 +357,9 @@ void Scene::render() {
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	// draw torus from list
-	/*glBindTexture(GL_TEXTURE_2D, *disk); {
-		glCallList(Torus);
-		glFlush();
-	} glBindTexture(GL_TEXTURE_2D, NULL);*/
-	// draw disk with function
-	shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0, disk);
-	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
-
-	shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0, barrel);
-	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
-	//shape.drawIcosahedron();
-	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
+	
+	
+	renderShapes();
 	renderLists();
 	model.render();
 	//} glBindTexture(GL_TEXTURE_2D, NULL);
