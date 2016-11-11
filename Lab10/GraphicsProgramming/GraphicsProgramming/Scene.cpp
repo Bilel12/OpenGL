@@ -29,6 +29,8 @@ Scene::Scene(Input *in)
 	assignTextures();
 	// load 3D models
 	loadModels();
+	// load lists
+	loadLists();
 	// Initialise variables
 	xrot = 0;	// Rotate On The X Axis
 	yrot = 0;	// Rotate On The Y Axis
@@ -39,31 +41,6 @@ Scene::Scene(Input *in)
 	wireframe = false; // Wireframe on or off
 	development = true;
 	draw = false;
-	// torus
-	Torus = glGenLists(1);
-	glNewList(Torus, GL_COMPILE);
-	shape.drawSphereTorus(100, 3.0, 0.0, 0.0, 0.1);
-	glEndList();
-
-	Disc = glGenLists(2);
-	glNewList(Disc, GL_COMPILE);
-	shape.drawDisc(400, 2, 3, 3, -10);
-	glEndList();
-
-	Sphere = glGenLists(2);
-	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0.);
-	glEndList();
-
-	LowPoliCylinder = glGenLists(3);
-	glNewList(LowPoliCylinder, GL_COMPILE);
-	shape.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk, globe);
-	glEndList();
-
-	HighPoliCylinder= glGenLists(4);
-	glNewList(HighPoliCylinder, GL_COMPILE);
-	shape.drawCylinderHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
-	glEndList();
 }
 
 void Scene::loadTextures() {
@@ -184,6 +161,33 @@ void Scene::assignTextures() {
 
 void Scene::loadModels() {
 	model.load("models/spaceship.obj", "models/spaceship.jpg");
+}
+
+void Scene::loadLists() {
+	Torus = glGenLists(1);
+	glNewList(Torus, GL_COMPILE);
+	shape.drawSphereTorus(100, 3.0, 0.0, 0.0, 0.1);
+	glEndList();
+
+	Disc = glGenLists(2);
+	glNewList(Disc, GL_COMPILE);
+	shape.drawDisc(400, 2, 3, 3, -10);
+	glEndList();
+
+	Sphere = glGenLists(2);
+	glNewList(Sphere, GL_COMPILE);
+	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0.);
+	glEndList();
+
+	LowPoliCylinder = glGenLists(3);
+	glNewList(LowPoliCylinder, GL_COMPILE);
+	shape.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk, globe);
+	glEndList();
+
+	HighPoliCylinder = glGenLists(4);
+	glNewList(HighPoliCylinder, GL_COMPILE);
+	shape.drawCylinderHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
+	glEndList();
 }
 
 void Scene::update(float dt) {
