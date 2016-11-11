@@ -338,42 +338,42 @@ void Shape::drawSphere(double radius, double latitude, double longitude, double 
 				
 
 			glBegin(GL_TRIANGLE_STRIP); {
-				glTexCoord2f(u0, v0); // 0
+				glTexCoord2f(v0, u0); // 0
 				glNormal3f(x0, y0, z0);
 				glVertex3f(x0, y0, z0);
 				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta),
 									radius * sin(theta) * sin(delta)) / 2 * M_PI),
 							(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
 
-				glTexCoord2f(u1, v1); // 1
+				glTexCoord2f(v1, u1); // 1
 				glNormal3f(x1, y1, z1);
 				glVertex3f(x1, y1, z1);
 				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta_interval),
 					radius * sin(theta) * sin(delta_interval)) / 2 * M_PI),
 					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
 
-				glTexCoord2f(u2, v2); // 2
+				glTexCoord2f(v2, u2); // 2
 				glNormal3f(x2, y2, z2);
 				glVertex3f(x2, y2, z2);
 				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta_interval),
 					radius * sin(theta_interval) * sin(delta_interval)) / 2 * M_PI),
 					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
 
-				glTexCoord2f(u2, v2); // 2
+				glTexCoord2f(v2, u2); // 2
 				glNormal3f(x2, y2, z2);
 				glVertex3f(x2, y2, z2);
 				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta_interval),
 					radius * sin(theta_interval) * sin(delta_interval)) / 2 * M_PI),
 					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
 
-				glTexCoord2f(u3, v3); // 3
+				glTexCoord2f(v3, u3); // 3
 				glNormal3f(x3, y3, z3);
 				glVertex3f(x3, y3, z3);
 				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta),
 					radius * sin(theta_interval) * sin(delta)) / 2 * M_PI),
 					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
 
-				glTexCoord2f(u0, v0); // 0
+				glTexCoord2f(v0, u0); // 0
 				glNormal3f(x0, y0, z0);
 				glVertex3f(x0, y0, z0);
 				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta),

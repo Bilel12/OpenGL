@@ -52,7 +52,7 @@ Scene::Scene(Input *in)
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 10.0, 10.0, 0., 0., 0.);
+	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0.);
 	glEndList();
 }
 
