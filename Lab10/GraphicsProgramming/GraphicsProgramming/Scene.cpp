@@ -167,12 +167,12 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	shape.drawDisc(400, 2, 3, 3, -10, disk);
+	shape.drawDisc(100, 2, 3, 3, -10, disk);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 1000.0, 1000.0, 0., 0., 0., globe);
+	shape.drawSphere(3.0, 200.0, 200.0, 0., 0., 0., globe);
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -182,12 +182,12 @@ void Scene::loadLists() {
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	shape.drawCylinderHighPoli(3., 400., 3., 5., 0., -1., disk, globe);
+	shape.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk, globe);
 	glEndList();
 }
 
 void Scene::renderLists() {
-	glCallList(Torus);
+	//glCallList(Torus);
 	glCallList(Sphere);
 	glCallList(Disc);
 	glCallList(LowPoliCylinder);
@@ -196,9 +196,9 @@ void Scene::renderLists() {
 }
 
 void Scene::renderShapes() {
-	shape.drawDisc(400.0, 2.0, -3.0, 3.0, -10.0, disk);
+	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk);
 	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
-	shape.drawCylinder(2.0, 400.0, 3.0, 0.0, 5.0, -5.0, barrel);
+	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
 	shape.drawBlendCube(crateTrans);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
