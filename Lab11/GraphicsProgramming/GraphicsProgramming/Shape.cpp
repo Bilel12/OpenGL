@@ -61,8 +61,39 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
+void Shape::drawFloor(float x, float y, float z) {
+	glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+	glBegin(GL_TRIANGLES); {
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(x + -1, y + -1, z + -1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 1);
+		glVertex3f(x + 1, y + -1, z + -1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(x + 1, y + -1, z + 1);
+	} glEnd();
+	glBegin(GL_TRIANGLES); {
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(x + 1, y + -1, z + 1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(0, 0);
+		glVertex3f(x + -1, y + -1, z + 1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(x + -1, y + -1, z + -1);
+	} glEnd();
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
 void Shape::drawSquare(float x, float y, float z, GLuint *texture) {
-	//glBindTexture(GL_TEXTURE_2D, *texture); {
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
 	glBegin(GL_TRIANGLES); {
 		glNormal3f(0.0f, -1.0f, 0.0f);
@@ -91,7 +122,7 @@ void Shape::drawSquare(float x, float y, float z, GLuint *texture) {
 		glVertex3f(x + -1, y + -1, z + -1);
 	} glEnd();
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	//} glBindTexture(GL_TEXTURE_2D, NULL);
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 void Shape::drawCube(GLuint * texture) {

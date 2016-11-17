@@ -29,9 +29,10 @@ Scene::Scene(Input *in)
 	loadModels();// load 3D models from files
 	loadLists();// load lists
 	// Initialise variables
-	xrot = 0;	// Rotate On The X Axis
-	yrot = 0;	// Rotate On The Y Axis
-	zrot = 0;	// Rotate On The Z Axis
+	xrot = 0.0;	// Rotate On The X Axis
+	yrot = 0.0;	// Rotate On The Y Axis
+	zrot = 0.0;	// Rotate On The Z Axis
+	angle = 0.0;
 	position_x = 0, position_y = 0, position_z = 0;
 	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false; // Blending on or off
@@ -289,7 +290,7 @@ void Scene::update(float dt) {
 	//xrot += 0.7;	// Rotate On The X Axis
 	//yrot += 0.7;	// Rotate On The Y Axis
 	//zrot += 0.7;	// Rotate On The Z Axis
-
+	angle += 0.7;
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
@@ -304,28 +305,26 @@ void Scene::update(float dt) {
 void Scene::render() {
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
 	// Reset transformations
 	glLoadIdentity();
-
 	// Set the camera
 	gluLookAt(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ(),
 	          camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ(),
 			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 	// Render skybox
-	glBindTexture(GL_TEXTURE_2D, *skybox); {
-	// Point sampling
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
-		glPushMatrix(); {
-			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
-			glDisable(GL_DEPTH_TEST); {
-				shape.drawSkybox();
-			}
-			glEnable(GL_DEPTH_TEST);
-		} glPopMatrix();
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	//glBindTexture(GL_TEXTURE_2D, *skybox); {
+	//// Point sampling
+	///*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
+	//	glPushMatrix(); {
+	//		glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
+	//		glDisable(GL_DEPTH_TEST); {
+	//			shape.drawSkybox();
+	//		}
+	//		glEnable(GL_DEPTH_TEST);
+	//	} glPopMatrix();
+	//} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
 	if (blend) {
@@ -341,9 +340,41 @@ void Scene::render() {
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	renderShapes();
+	// Stencil buffer settings
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);		// Turn off writing to the frame buffer
+	glEnable(GL_STENCIL_TEST);									// Enable the stencil test
+	glStencilFunc(GL_ALWAYS, 1, 1);								// Set the stencil function to always pass
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);					// Set the Stencil Operation to replace values when the test passes
+	glDisable(GL_DEPTH_TEST); // Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
+
+	shape.drawFloor(0, .2, 0);									// Draw floor object()
+	glEnable(GL_DEPTH_TEST);									// Enable depth test
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);			// Turn on rendering to the frame buffer
+	glStencilFunc(GL_EQUAL, 1, 1);								// Set stencil function to test if the value is 1
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP); // Set the stencil operation to keep all values (we don’t want to change the stencil)
+
+	glPushMatrix(); {
+		glScalef(1.0, -1.0, 1.0);								// Flip the scale vertically
+		glTranslatef(0, 1, 0);									// Translate down (this will put us under the floor)
+		glRotatef(angle, 0, 1, 0);								// Rotate(the shape will be spinning)
+		model.render();											// Render a model
+	} glPopMatrix();
+	
+	glDisable(GL_STENCIL_TEST);									// Disable stencil test (no longer needed)
+	glEnable(GL_BLEND);											// Enable alpha blending (to combine the floor object with model)
+	glDisable(GL_LIGHTING);										// Disable lighting (100% reflective object)
+	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);							// Set colour of floor object
+	shape.drawFloor(0, .2, 0);									// Draw floor object
+	glEnable(GL_LIGHTING);										// Enable lighting (rest of scene is lit correctly)
+	glDisable(GL_BLEND);										// Disable blend (no longer blending)
+
+	glPushMatrix(); {
+		glTranslatef(0, 1, 0);									// Translate(this is where the model will render, distance should match)
+		glRotatef(angle, 0, 1, 0);
+		model.render();											// Render the real object
+	} glPopMatrix();
+
 	//renderLists();
-	model.render();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off

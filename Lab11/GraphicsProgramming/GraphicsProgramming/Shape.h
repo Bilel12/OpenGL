@@ -16,6 +16,7 @@ public:
 	void drawBlendCube(GLuint *texture);
 	void drawSkybox();
 	//static void drawTorus(int numc, int numt);
+	void drawFloor(float x, float y, float z);
 	void drawSquare(float x, float y, float z, GLuint *texture);
 	void drawCircle(int edges, float x, float y, float z);
 	void drawSphereTorus(int edges, float x, float y, float z, float rot_interval);

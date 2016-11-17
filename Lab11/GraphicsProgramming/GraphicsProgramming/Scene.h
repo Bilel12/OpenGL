@@ -101,6 +101,7 @@ protected:
 	float xrot;	// Rotate On The X Axis
 	float yrot;	// Rotate On The Y Axis
 	float zrot;	// Rotate On The Z Axis
+	float angle;
 	// Booleans
 	bool blend; // toggle bledning effect
 	bool wireframe;	// toggle wireframe mode
