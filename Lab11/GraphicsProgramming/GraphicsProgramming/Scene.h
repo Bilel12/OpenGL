@@ -26,8 +26,7 @@
 #include "Shape.h"
 #include "Model.h"
 
-class Scene{
-
+class Scene {
 public:
 	Scene(Input *in);
 	// Main render function

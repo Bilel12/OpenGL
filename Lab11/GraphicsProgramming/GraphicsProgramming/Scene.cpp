@@ -1,7 +1,6 @@
 #include "Scene.h"
 
-Scene::Scene(Input *in)
-{
+Scene::Scene(Input *in) {
 	// Store pointer for input class
 	input = in;
 	// Camera
@@ -385,7 +384,7 @@ void Scene::render() {
 	glutSwapBuffers();
 }
 
-void Scene::resize(int w, int h)
+void Scene::resize(int w, int h) 
 {
 	width = w;
 	height = h;
@@ -415,8 +414,7 @@ void Scene::resize(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void Scene::renderTextOutput()
-{
+void Scene::renderTextOutput() {
 	// Render current mouse position and frames per second.
 	sprintf_s(mouseText, "Mouse: %i, %i", input->getMouseX(), input->getMouseY());
 	sprintf_s(cameraPositionText, "Cam Pos: X:%f Y:%f Z:%f", camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());

@@ -138,7 +138,7 @@ void processMouseButtons(int button, int state, int x, int y)
 // Registers callback functions for window resizing and rendering.
 // Initialises Input and Scene class, prior to starting Main Loop.
 
-int main(int argc, char **argv)
+int main(int argc, char **argv) 
 {
 	// Init GLUT and create window
 	glutInit(&argc, argv);
