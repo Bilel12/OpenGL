@@ -8,37 +8,36 @@ Scene::Scene(Input *in)
 	camera = &freeCamera;
 	//OpenGL settings
 	frame = 0; timebase = 0;
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
+	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
 	glShadeModel(GL_FLAT);
-	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
-	glClearDepth(1.0f);									// Depth Buffer Setup
-	glClearStencil(0);									// Clear Stencil Buffer
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-	//glDisable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);		// Cornflour Blue Background
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);			// Black Background
+	glClearDepth(1.0f);								// Depth Buffer Setup
+	glClearStencil(0);								// Clear Stencil Buffer
+	glEnable(GL_DEPTH_TEST);						// Enables Depth Testing
+	//glDisable(GL_DEPTH_TEST);						// Disable Depth Testing
+	glDepthFunc(GL_LEQUAL);							// The Type Of Depth Testing To Do
 
 	// Other OpenGL / render setting should be applied here.
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); //For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);				// Really Nice Perspective Calculations
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);	//For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
 	glEnable(GL_TEXTURE_2D);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);					// Set The Blending Function For Translucency
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				// Set The Blending Function For Translucency
 
-	loadTextures();// loading textures into vector
-	assignTextures();// assign textures to pointers
-	loadModels();// load 3D models from files
-	loadLists();// load lists
+	loadTextures();			// loading textures into vector
+	assignTextures();		// assign textures to pointers
+	loadModels();			// load 3D models from files
+	loadLists();			// load lists
 	// Initialise variables
-	xrot = 0.0;	// Rotate On The X Axis
-	yrot = 0.0;	// Rotate On The Y Axis
-	zrot = 0.0;	// Rotate On The Z Axis
-	angle = 0.0;
+	xrot = 0.0;				// Rotate On The X Axis
+	yrot = 0.0;				// Rotate On The Y Axis
+	zrot = 0.0;				// Rotate On The Z Axis
+	angle = 0.0;			// Rotate by angle
 	position_x = 0, position_y = 0, position_z = 0;
 	scale_x = 0, scale_y = 0, scale_z = 0;
-	blend = false; // Blending on or off
-	wireframe = false; // Wireframe on or off
-	development = true;
-	draw = false;
+	blend = false;			// Blending on or off
+	wireframe = false;		// Wireframe on or off
+	development = true;		// Turn on or off text rendering		
 }
 
 void Scene::loadTextures() {
@@ -120,7 +119,7 @@ void Scene::loadTextures() {
 		); textures.push_back(myTexture);
 
 	myTexture = SOIL_load_OGL_texture( // 11
-		"gfx/globe1.png",
+		"gfx/globe2.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -142,23 +141,26 @@ void Scene::loadTextures() {
 }
 
 void Scene::assignTextures() {
-	crate		= &textures[0]; 
-	tileBrown	= &textures[1]; 
-	crateArrow	= &textures[2]; 
-	checked		= &textures[3]; 
-	grass		= &textures[4]; 
-	glass		= &textures[5]; 
-	aTrans		= &textures[6]; 
-	crateTrans	= &textures[7];
-	skybox		= &textures[8]; 
-	disk		= &textures[9];
-	barrel		= &textures[10];
-	globe		= &textures[11];
-	spaceship	= &textures[12];
+	crate_tex =			&textures[0];
+	tileBrown_tex =		&textures[1];
+	crateArrow_tex =	&textures[2];
+	checked_tex =		&textures[3];
+	grass_tex =			&textures[4];
+	glass_tex =			&textures[5];
+	aTrans_tex =		&textures[6];
+	crate_trans_tex =	&textures[7];
+	skybox_tex =		&textures[8];
+	disk_tex =			&textures[9];
+	barrel_tex =		&textures[10];
+	globe_tex =			&textures[11];
+	spaceship_tex =		&textures[12];
 }
 
 void Scene::loadModels() {
-	model.load("models/spaceship.obj", "models/spaceship.jpg");
+	spaceship.load("models/spaceship.obj", "models/spaceship.jpg");
+	models.push_back(&spaceship);
+	drone.load("models/drone.obj", "models/EvilDrone_Diff.jpg");
+	models.push_back(&drone);
 }
 
 void Scene::loadLists() {
@@ -169,22 +171,22 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	shape.drawDisc(100, 2, 3, 3, -10, disk);
+	shape.drawDisc(100, 2, 3, 3, -10, disk_tex);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 50.0, 50.0, 0., 0., 0., globe); // lats and longs must be equal
+	shape.drawSphere(3.0, 50.0, 50.0, globe_tex); // lats and longs must be equal
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
 	glNewList(LowPoliCylinder, GL_COMPILE);
-	shape.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk, globe);
+	shape.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk_tex, globe_tex);
 	glEndList();
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	shape.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk, globe);
+	shape.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk_tex, globe_tex);
 	glEndList();
 }
 
@@ -198,16 +200,60 @@ void Scene::renderLists() {
 }
 
 void Scene::renderShapes() {
-	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk);
-	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
-	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
-	shape.drawBlendCube(crateTrans);
-	//shape.drawSphere(3.0, 10.0, 10.0, 0., 0., 0., globe); // lats and longs must be equal
+	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk_tex);
+	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
+	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
+	shape.drawBlendCube(crate_trans_tex);
+	//shape.drawSphere(3.0, 10.0, 10.0, globe); // lats and longs must be equal
 	//shape.drawSquare(0, .2, 0, crate);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawIcosahedron();
+}
+
+void Scene::renderStencilBuffer(Model *model) {
+	// Stencil buffer settings
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);		// Turn off writing to the frame buffer
+	glEnable(GL_STENCIL_TEST);									// Enable the stencil test
+	glStencilFunc(GL_ALWAYS, 1, 1);								// Set the stencil function to always pass
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);					// Set the Stencil Operation to replace values when the test passes
+	glDisable(GL_DEPTH_TEST);									// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
+	// Draw mirror
+	shape.drawFloor(0, 0, 0);									// Draw floor object()
+	glEnable(GL_DEPTH_TEST);									// Enable depth test
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);			// Turn on rendering to the frame buffer
+	glStencilFunc(GL_EQUAL, 1, 1);								// Set stencil function to test if the value is 1
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);						// Set the stencil operation to keep all values (we don’t want to change the stencil)
+	// Draw reflected object
+	glPushMatrix(); {
+		glScalef(1.0, -1.0, 1.0);								// Flip the scale vertically
+		glTranslatef(0, 1, 0);									// Translate down (this will put us under the floor)
+		glRotatef(angle, 0, 1, 0);								// Rotate(the shape will be spinning)
+		model->render();										// Render a model
+	} glPopMatrix();
+	// Draw mirror
+	glDisable(GL_STENCIL_TEST);									// Disable stencil test (no longer needed)
+	glEnable(GL_BLEND);											// Enable alpha blending (to combine the floor object with model)
+	glDisable(GL_LIGHTING);										// Disable lighting (100% reflective object)
+	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);							// Set colour of floor object
+	shape.drawFloor(0, 0, 0);									// Draw floor object
+	//glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
+	glDisable(GL_BLEND);										// Disable blend (no longer blending)
+	// Draw object to reflect
+	glPushMatrix(); {
+		glTranslatef(0, 1, 0);									// Translate(this is where the model will render, distance should match)
+		glRotatef(angle, 0, 1, 0);
+		model->render();										// Render the real object
+	} glPopMatrix();
+}
+
+void Scene::setRenderMode(bool blend, bool wireframe) {
+	if (blend) glEnable(GL_BLEND);								// Turn blending on
+	else glDisable(GL_BLEND);									// Turn blending off
+	
+	if (wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);	// Turn wireframe on
+	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				// Turn wireframe off
 }
 
 void Scene::update(float dt) {
@@ -314,7 +360,7 @@ void Scene::render() {
 			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 	// Render skybox
-	glBindTexture(GL_TEXTURE_2D, *skybox); {
+	glBindTexture(GL_TEXTURE_2D, *skybox_tex); {
 	// Point sampling
 	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
@@ -328,55 +374,11 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	// Stencil buffer settings
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);		// Turn off writing to the frame buffer
-	glEnable(GL_STENCIL_TEST);									// Enable the stencil test
-	glStencilFunc(GL_ALWAYS, 1, 1);								// Set the stencil function to always pass
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);					// Set the Stencil Operation to replace values when the test passes
-	glDisable(GL_DEPTH_TEST); // Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
+	renderStencilBuffer(models[1]);
 
-	shape.drawFloor(0, .2, 0);									// Draw floor object()
-	glEnable(GL_DEPTH_TEST);									// Enable depth test
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);			// Turn on rendering to the frame buffer
-	glStencilFunc(GL_EQUAL, 1, 1);								// Set stencil function to test if the value is 1
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP); // Set the stencil operation to keep all values (we don’t want to change the stencil)
-
-	glPushMatrix(); {
-		glScalef(1.0, -1.0, 1.0);								// Flip the scale vertically
-		glTranslatef(0, 1, 0);									// Translate down (this will put us under the floor)
-		glRotatef(angle, 0, 1, 0);								// Rotate(the shape will be spinning)
-		model.render();											// Render a model
-	} glPopMatrix();
-	
-	glDisable(GL_STENCIL_TEST);									// Disable stencil test (no longer needed)
-	glEnable(GL_BLEND);											// Enable alpha blending (to combine the floor object with model)
-	glDisable(GL_LIGHTING);										// Disable lighting (100% reflective object)
-	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);							// Set colour of floor object
-	shape.drawFloor(0, .2, 0);									// Draw floor object
-	//glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
-	glDisable(GL_BLEND);										// Disable blend (no longer blending)
-
-	glPushMatrix(); {
-		glTranslatef(0, 1, 0);									// Translate(this is where the model will render, distance should match)
-		glRotatef(angle, 0, 1, 0);
-		model.render();											// Render the real object
-	} glPopMatrix();
-
-	if (blend) {
-		glEnable(GL_BLEND); // Turn blending on
-	}
-	else {
-		glDisable(GL_BLEND); // Turn blending off
-	}
-
-	if (wireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
+	setRenderMode(blend, wireframe);
 	renderShapes();
-	renderLists();
+	//renderLists();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
@@ -489,7 +491,7 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 //glVertex3f(1.0f, 1.0f, 0.0f);
 //glEnd();		//end drawing
 
-//glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
+//glBindTexture(GL_TEXTURE_2D, crate);	//tells opengl which texture to use
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 //glBegin(GL_QUADS);	//Begin drawing state

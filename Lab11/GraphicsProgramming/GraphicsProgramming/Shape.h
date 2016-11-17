@@ -27,23 +27,23 @@ public:
 	void drawDisc(int edges, float radius, float x, float y, float z, GLuint *texture);
 	void drawFlatDisc(int edges, float radius, float h, float k, GLuint *texture);
 	// Sphere functions
-	void drawSphere(double radius, double latitude, double longitude, double x, double y, double z, GLuint *texture);
+	void drawSphere(double radius, double latitude, double longitude, GLuint *texture);
 
-	float calc_x0(float radius, float x, float theta, float delta);
-	float calc_y0(float radius, float y, float theta, float delta);
-	float calc_z0(float radius, float z, float theta, float delta);
+	float calc_x0(float radius, float theta, float delta);
+	float calc_y0(float radius, float theta, float delta);
+	float calc_z0(float radius, float theta, float delta);
 
-	float calc_x1(float radius, float x, float theta, float delta, float delta_interval);
-	float calc_y1(float radius, float x, float theta, float delta, float delta_interval);
-	float calc_z1(float radius, float x, float theta, float delta, float delta_interval);
+	float calc_x1(float radius, float theta, float delta, float delta_interval);
+	float calc_y1(float radius, float theta, float delta, float delta_interval);
+	float calc_z1(float radius, float theta, float delta, float delta_interval);
 
-	float calc_x2(float radius, float x, float theta, float delta, float delta_interval, float theta_interval);
-	float calc_y2(float radius, float x, float theta, float delta, float delta_interval);
-	float calc_z2(float radius, float x, float theta, float delta, float delta_interval, float theta_interval);
+	float calc_x2(float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float calc_y2(float radius, float theta, float delta, float delta_interval);
+	float calc_z2(float radius, float theta, float delta, float delta_interval, float theta_interval);
 
-	float calc_x3(float radius, float x, float theta, float delta, float theta_interval);
-	float calc_y3(float radius, float x, float theta, float delta, float theta_interval);
-	float calc_z3(float radius, float x, float theta, float delta, float theta_interval);
+	float calc_x3(float radius, float theta, float delta, float theta_interval);
+	float calc_y3(float radius, float theta, float delta, float theta_interval);
+	float calc_z3(float radius, float theta, float delta, float theta_interval);
 
 	float calc_n_x0(float radius, float theta, float delta);
 	float calc_n_y0(float radius, float theta, float delta);
