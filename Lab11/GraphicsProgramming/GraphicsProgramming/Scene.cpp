@@ -313,18 +313,18 @@ void Scene::render() {
 			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 	// Render skybox
-	//glBindTexture(GL_TEXTURE_2D, *skybox); {
-	//// Point sampling
-	///*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
-	//	glPushMatrix(); {
-	//		glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
-	//		glDisable(GL_DEPTH_TEST); {
-	//			shape.drawSkybox();
-	//		}
-	//		glEnable(GL_DEPTH_TEST);
-	//	} glPopMatrix();
-	//} glBindTexture(GL_TEXTURE_2D, NULL);
+	glBindTexture(GL_TEXTURE_2D, *skybox); {
+	// Point sampling
+	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
+		glPushMatrix(); {
+			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
+			glDisable(GL_DEPTH_TEST); {
+				shape.drawSkybox();
+			}
+			glEnable(GL_DEPTH_TEST);
+		} glPopMatrix();
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
 	if (blend) {
@@ -365,7 +365,7 @@ void Scene::render() {
 	glDisable(GL_LIGHTING);										// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);							// Set colour of floor object
 	shape.drawFloor(0, .2, 0);									// Draw floor object
-	glEnable(GL_LIGHTING);										// Enable lighting (rest of scene is lit correctly)
+	//glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);										// Disable blend (no longer blending)
 
 	glPushMatrix(); {
