@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 {
 	// Init GLUT and create window
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_STENCIL);
 	glutInitWindowPosition(initWindowX, initWindowY);
 	glutInitWindowSize(windowWidth, windowHeight);
 	glutCreateWindow("OpenGL");

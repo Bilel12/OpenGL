@@ -61,6 +61,39 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
+void Shape::drawSquare(float x, float y, float z, GLuint *texture) {
+	//glBindTexture(GL_TEXTURE_2D, *texture); {
+	glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+	glBegin(GL_TRIANGLES); {
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(x + -1, y + -1, z + -1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 1);
+		glVertex3f(x + 1, y + -1, z + -1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(x + 1, y + -1, z + 1);
+	} glEnd();
+	glBegin(GL_TRIANGLES); { 
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(1, 0);
+		glVertex3f(x + 1, y + -1, z + 1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(0, 0);
+		glVertex3f(x + -1, y + -1, z + 1);
+
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glTexCoord2f(0, 1);
+		glVertex3f(x + -1, y + -1, z + -1);
+	} glEnd();
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	//} glBindTexture(GL_TEXTURE_2D, NULL);
+}
+
 void Shape::drawCube(GLuint * texture) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
@@ -83,12 +116,12 @@ void Shape::drawCube(GLuint * texture) {
 }
 
 void Shape::drawBlendCube(GLuint * texture) {
-		glPolygonMode(GL_FRONT, GL_LINE);
-		drawCube(texture);
-		glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_LINE);
-		drawCube(texture);
-		glPolygonMode(GL_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT, GL_LINE);
+	drawCube(texture);
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_LINE);
+	drawCube(texture);
+	glPolygonMode(GL_BACK, GL_FILL);
 }
 
 void Shape::drawSkybox() {

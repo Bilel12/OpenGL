@@ -13,6 +13,7 @@ Scene::Scene(Input *in)
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
+	glClearStencil(0);									// Clear Stencil Buffer
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	//glDisable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
@@ -196,10 +197,11 @@ void Scene::renderLists() {
 }
 
 void Scene::renderShapes() {
-	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk);
-	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
-	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
-	shape.drawBlendCube(crateTrans);
+	//shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk);
+	//shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
+	//shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
+	//shape.drawBlendCube(crateTrans);
+	shape.drawSquare(0, .2, 0, NULL);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
@@ -301,7 +303,8 @@ void Scene::update(float dt) {
 
 void Scene::render() {
 	// Clear Color and Depth Buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
 	// Reset transformations
 	glLoadIdentity();
 
@@ -339,7 +342,7 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	renderShapes();
-	renderLists();
+	//renderLists();
 	model.render();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
