@@ -8,7 +8,8 @@ extern GLubyte indices[] = {
 							0,   2,   3,
 };
 
-extern GLfloat colors[] = { 1.0, 0.2, 0.2,
+extern GLfloat colors[] = { 
+							1.0, 0.2, 0.2,
 							0.2, 0.2, 1.0,
 							0.8, 1.0, 0.2,
 							0.75, 0.75, 0.75,

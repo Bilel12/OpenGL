@@ -120,7 +120,7 @@ void Scene::loadTextures() {
 		); textures.push_back(myTexture);
 
 	myTexture = SOIL_load_OGL_texture( // 11
-		"gfx/globe.png",
+		"gfx/globe1.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -174,7 +174,7 @@ void Scene::loadLists() {
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 200.0, 200.0, 0., 0., 0., globe);
+	shape.drawSphere(3.0, 50.0, 50.0, 0., 0., 0., globe); // lats and longs must be equal
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -202,6 +202,7 @@ void Scene::renderShapes() {
 	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
 	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
 	shape.drawBlendCube(crateTrans);
+	//shape.drawSphere(3.0, 10.0, 10.0, 0., 0., 0., globe); // lats and longs must be equal
 	//shape.drawSquare(0, .2, 0, crate);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
@@ -375,7 +376,7 @@ void Scene::render() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	renderShapes();
-	//renderLists();
+	renderLists();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
