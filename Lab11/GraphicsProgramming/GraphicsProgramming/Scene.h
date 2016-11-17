@@ -44,11 +44,11 @@ protected:
 	void renderTextOutput();
 	void loadTextures();
 	void assignTextures();
-	void loadModels();
 	void loadLists();
 	void renderLists();
 	void renderShapes();
-	void renderStencilBuffer(Model *model);
+	void loadModels();
+	void renderStencilBuffer(Model model);
 	void setRenderMode(bool blend, bool wireframe);
 	// For Window and frustum calculation.
 	int width, height;
@@ -72,7 +72,6 @@ protected:
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
 	// For loading and rendering models from a file
-	std::vector<Model *> models;
 	Model spaceship;
 	Model drone;
 	// For calling and rendering diffrent shapes

@@ -156,13 +156,6 @@ void Scene::assignTextures() {
 	spaceship_tex =		&textures[12];
 }
 
-void Scene::loadModels() {
-	spaceship.load("models/spaceship.obj", "models/spaceship.jpg");
-	models.push_back(&spaceship);
-	drone.load("models/drone.obj", "models/EvilDrone_Diff.jpg");
-	models.push_back(&drone);
-}
-
 void Scene::loadLists() {
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
@@ -212,7 +205,12 @@ void Scene::renderShapes() {
 	//shape.drawIcosahedron();
 }
 
-void Scene::renderStencilBuffer(Model *model) {
+void Scene::loadModels() {
+	spaceship.load("models/spaceship.obj", "models/spaceship.jpg");
+	drone.load("models/drone.obj", "models/EvilDrone_Diff.jpg");
+}
+
+void Scene::renderStencilBuffer(Model model) {
 	// Stencil buffer settings
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);		// Turn off writing to the frame buffer
 	glEnable(GL_STENCIL_TEST);									// Enable the stencil test
@@ -230,7 +228,7 @@ void Scene::renderStencilBuffer(Model *model) {
 		glScalef(1.0, -1.0, 1.0);								// Flip the scale vertically
 		glTranslatef(0, 1, 0);									// Translate down (this will put us under the floor)
 		glRotatef(angle, 0, 1, 0);								// Rotate(the shape will be spinning)
-		model->render();										// Render a model
+		model.render();										// Render a model
 	} glPopMatrix();
 	// Draw mirror
 	glDisable(GL_STENCIL_TEST);									// Disable stencil test (no longer needed)
@@ -244,7 +242,7 @@ void Scene::renderStencilBuffer(Model *model) {
 	glPushMatrix(); {
 		glTranslatef(0, 1, 0);									// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
-		model->render();										// Render the real object
+		model.render();										// Render the real object
 	} glPopMatrix();
 }
 
@@ -374,8 +372,7 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	renderStencilBuffer(models[1]);
-
+	renderStencilBuffer(spaceship);
 	setRenderMode(blend, wireframe);
 	renderShapes();
 	//renderLists();
