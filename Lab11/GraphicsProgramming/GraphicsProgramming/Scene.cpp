@@ -198,11 +198,11 @@ void Scene::renderLists() {
 }
 
 void Scene::renderShapes() {
-	//shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk);
-	//shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
-	//shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
-	//shape.drawBlendCube(crateTrans);
-	shape.drawSquare(0, .2, 0, NULL);
+	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk);
+	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk);
+	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel);
+	shape.drawBlendCube(crateTrans);
+	//shape.drawSquare(0, .2, 0, crate);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
@@ -327,19 +327,6 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	if (blend) {
-		glEnable(GL_BLEND); // Turn blending on
-	}
-	else {
-		glDisable(GL_BLEND); // Turn blending off
-	}
-	
-	if (wireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
 	// Stencil buffer settings
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);		// Turn off writing to the frame buffer
 	glEnable(GL_STENCIL_TEST);									// Enable the stencil test
@@ -374,6 +361,20 @@ void Scene::render() {
 		model.render();											// Render the real object
 	} glPopMatrix();
 
+	if (blend) {
+		glEnable(GL_BLEND); // Turn blending on
+	}
+	else {
+		glDisable(GL_BLEND); // Turn blending off
+	}
+
+	if (wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	renderShapes();
 	//renderLists();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
