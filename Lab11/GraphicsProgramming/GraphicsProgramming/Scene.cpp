@@ -27,6 +27,7 @@ Scene::Scene(Input *in) {
 	assignTextures();		// assign textures to pointers
 	loadModels();			// load 3D models from files
 	loadLists();			// load lists
+	buildShapes();
 	// Initialise variables
 	xrot = 0.0;				// Rotate On The X Axis
 	yrot = 0.0;				// Rotate On The Y Axis

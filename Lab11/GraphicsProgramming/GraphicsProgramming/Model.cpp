@@ -52,7 +52,7 @@ void Model::render() {
 	glTexCoordPointer(2, GL_FLOAT, 0, texCoords.data());
 	glNormalPointer(GL_FLOAT, 0, normals.data());
 
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
