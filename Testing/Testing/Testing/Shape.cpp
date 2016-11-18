@@ -176,9 +176,17 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 			vertices_sphere.push_back(calc_y2(radius, theta, delta, delta_interval));
 			vertices_sphere.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
 
+			vertices_sphere.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
+			vertices_sphere.push_back(calc_y2(radius, theta, delta, delta_interval));
+			vertices_sphere.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
+
 			vertices_sphere.push_back(calc_x3(radius, theta, theta_interval, delta));
 			vertices_sphere.push_back(calc_y3(radius, theta, theta_interval, delta));
 			vertices_sphere.push_back(calc_z3(radius, theta, theta_interval, delta));
+
+			vertices_sphere.push_back(calc_x0(radius, theta, delta));
+			vertices_sphere.push_back(calc_y0(radius, theta, delta));
+			vertices_sphere.push_back(calc_z0(radius, theta, delta));
 
 			normals_sphere.push_back(calc_n_x0(radius, theta, delta));
 			normals_sphere.push_back(calc_n_y0(radius, theta, delta));
