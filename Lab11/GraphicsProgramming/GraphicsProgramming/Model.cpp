@@ -48,11 +48,11 @@ void Model::render() {
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, vertex.data());
+	glVertexPointer(3, GL_FLOAT, 0, vertices.data());
 	glTexCoordPointer(2, GL_FLOAT, 0, texCoords.data());
 	glNormalPointer(GL_FLOAT, 0, normals.data());
 
-	glDrawArrays(GL_TRIANGLES, 0, vertex.size() / 3);
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -110,9 +110,9 @@ bool Model::loadModel(char* filename) {
 	// TODO: By this point all model has been read from the file, but is not in the correct order.
 	// You NEED to loop over all the data and sort it into a render ready order/format.
 	for (int i = 0; i < faces.size(); i += 3) {
-		vertex.push_back(verts[faces[i] - 1].getX());
-		vertex.push_back(verts[faces[i] - 1].getY());
-		vertex.push_back(verts[faces[i] - 1].getZ());
+		vertices.push_back(verts[faces[i] - 1].getX());
+		vertices.push_back(verts[faces[i] - 1].getY());
+		vertices.push_back(verts[faces[i] - 1].getZ());
 
 		texCoords.push_back(texCs[faces[i + 1] - 1].getX());
 		texCoords.push_back(texCs[faces[i + 1] - 1].getY());

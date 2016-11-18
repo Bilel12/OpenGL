@@ -45,6 +45,7 @@ protected:
 	void assignTextures();
 	void loadLists();
 	void renderLists();
+	void buildShapes();
 	void renderShapes();
 	void loadModels();
 	void renderStencilBuffer(Model model);

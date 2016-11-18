@@ -29,7 +29,7 @@ private:
 	int m_vertexCount;
 	GLuint texture;
 
-	vector<float> vertex, normals, texCoords;
+	vector<float> vertices, normals, texCoords;
 };
 
 #endif
