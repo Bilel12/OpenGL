@@ -509,7 +509,7 @@ void Shape::renderSphere(GLuint *texture) {
 	glTexCoordPointer(2, GL_FLOAT, 0, texcoords_sphere.data());
 	glNormalPointer(GL_FLOAT, 0, normals_sphere.data());
 
-	glDrawArrays(GL_TRIANGLES, 0, vertices_sphere.size() / 3);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices_sphere.size());
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
