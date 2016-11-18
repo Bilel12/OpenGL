@@ -479,18 +479,23 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
 			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
 
+			sphere_texcoords.push_back(v_longs);
 			sphere_texcoords.push_back(u_lats);
+
 			sphere_texcoords.push_back(v_longs);
 			sphere_texcoords.push_back(u_lats + u_lats_interval);
-			sphere_texcoords.push_back(v_longs);
-			sphere_texcoords.push_back(u_lats + u_lats_interval);
+
 			sphere_texcoords.push_back(v_longs + v_longs_interval);
 			sphere_texcoords.push_back(u_lats + u_lats_interval);
+
+			sphere_texcoords.push_back(v_longs + v_longs_interval);
+			sphere_texcoords.push_back(u_lats + u_lats_interval);
+
 			sphere_texcoords.push_back(v_longs + v_longs_interval);
 			sphere_texcoords.push_back(u_lats);
-			sphere_texcoords.push_back(v_longs + v_longs_interval);
-			sphere_texcoords.push_back(u_lats);
+
 			sphere_texcoords.push_back(v_longs);
+			sphere_texcoords.push_back(u_lats);
 
 			theta += theta_interval;
 			v_longs += v_longs_interval;
