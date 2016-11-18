@@ -30,7 +30,7 @@ public:
 	// Sphere functions
 	void buildSphere(double radius, double latitude, double longitude);
 	void renderSphere(GLuint *texture);
-	void drawSphere(double radius, double latitude, double longitude, GLuint *texture);
+	void drawSphere(double radius, double latitude, double longitude, GLuint * texture);
 
 	float calc_x0(float radius, float theta, float delta);
 	float calc_y0(float radius, float theta, float delta);
@@ -69,7 +69,7 @@ public:
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 private:
 	// sphere variables
-	std::vector<double> vertices_sphere, normals_sphere, texcoords_sphere;
+	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords;
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)

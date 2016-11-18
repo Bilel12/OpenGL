@@ -46,15 +46,15 @@ void Model::render() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-	glBindTexture(GL_TEXTURE_2D, texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, vertex.data());
 	glTexCoordPointer(2, GL_FLOAT, 0, texCoords.data());
 	glNormalPointer(GL_FLOAT, 0, normals.data());
 
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawArrays(GL_TRIANGLES, 0, vertex.size() / 3);
-
 	glBindTexture(GL_TEXTURE_2D, NULL);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

@@ -120,7 +120,7 @@ void Scene::loadTextures() {
 		); textures.push_back(myTexture);
 
 	myTexture = SOIL_load_OGL_texture( // 11
-		"gfx/globe.png",
+		"gfx/globe1.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -191,23 +191,24 @@ void Scene::loadLists() {
 
 void Scene::renderLists() {
 	//glCallList(Torus);
-	glCallList(Sphere);
+	//glCallList(Sphere);
 	glCallList(Disc);
-	glCallList(LowPoliCylinder);
-	glCallList(HighPoliCylinder);
+	//glCallList(LowPoliCylinder);
+	//glCallList(HighPoliCylinder);
 	glFlush();
 }
 
 void Scene::buildShapes() {
-	shape.buildSphere(3.0, 10.0, 10.0);
+	shape.buildSphere(2.0, 15.0, 15.0);
 }
 
 void Scene::renderShapes() {
 	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk_tex);
-	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
-	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
+	//shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
+	//shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
+	//shape.drawSphere(3., 5., 5., globe_tex);
 	shape.drawBlendCube(crate_trans_tex);
-	//shape.renderSphere(globe_tex);
+	shape.renderSphere(globe_tex);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
@@ -378,7 +379,7 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	renderStencilBuffer(spaceship);
+	//renderStencilBuffer(spaceship);
 	setRenderMode(blend, wireframe);
 	renderShapes();
 	renderLists();

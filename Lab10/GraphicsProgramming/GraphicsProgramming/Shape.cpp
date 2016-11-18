@@ -132,15 +132,17 @@ void Shape::drawCube(GLuint * texture) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
 	glNormalPointer(GL_FLOAT, 0, cube_norms);
 	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
 
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	int size = (int)(sizeof(cube_verts)) / (int)(sizeof(cube_verts[0])) / 3;
 
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glDrawArrays(GL_TRIANGLES, 0, size);
 	glBindTexture(GL_TEXTURE_2D, NULL);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -434,61 +436,61 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 
 	for (int i = 0; i < longitude; ++i) {
 		for (int j = 0; j < latitude; ++j) {
-			vertices_sphere.push_back(calc_x0(radius, theta, delta));
-			vertices_sphere.push_back(calc_y0(radius, theta, delta));
-			vertices_sphere.push_back(calc_z0(radius, theta, delta));
+			sphere_verts.push_back(calc_x0(radius, theta, delta));
+			sphere_verts.push_back(calc_y0(radius, theta, delta));
+			sphere_verts.push_back(calc_z0(radius, theta, delta));
 
-			vertices_sphere.push_back(calc_x1(radius, theta, delta, delta_interval));
-			vertices_sphere.push_back(calc_y1(radius, theta, delta, delta_interval));
-			vertices_sphere.push_back(calc_z1(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(calc_x1(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(calc_y1(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(calc_z1(radius, theta, delta, delta_interval));
 
-			vertices_sphere.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
-			vertices_sphere.push_back(calc_y2(radius, theta, delta, delta_interval));
-			vertices_sphere.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(calc_y2(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
 
-			vertices_sphere.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
-			vertices_sphere.push_back(calc_y2(radius, theta, delta, delta_interval));
-			vertices_sphere.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(calc_y2(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
 
-			vertices_sphere.push_back(calc_x3(radius, theta, theta_interval, delta));
-			vertices_sphere.push_back(calc_y3(radius, theta, theta_interval, delta));
-			vertices_sphere.push_back(calc_z3(radius, theta, theta_interval, delta));
+			sphere_verts.push_back(calc_x3(radius, theta, theta_interval, delta));
+			sphere_verts.push_back(calc_y3(radius, theta, theta_interval, delta));
+			sphere_verts.push_back(calc_z3(radius, theta, theta_interval, delta));
 
-			vertices_sphere.push_back(calc_x0(radius, theta, delta));
-			vertices_sphere.push_back(calc_y0(radius, theta, delta));
-			vertices_sphere.push_back(calc_z0(radius, theta, delta));
+			sphere_verts.push_back(calc_x0(radius, theta, delta));
+			sphere_verts.push_back(calc_y0(radius, theta, delta));
+			sphere_verts.push_back(calc_z0(radius, theta, delta));
 
-			normals_sphere.push_back(calc_n_x0(radius, theta, delta));
-			normals_sphere.push_back(calc_n_y0(radius, theta, delta));
-			normals_sphere.push_back(calc_n_z0(radius, theta, delta));
-			normals_sphere.push_back(calc_n_x1(radius, theta, delta, delta_interval));
-			normals_sphere.push_back(calc_n_y1(radius, theta, delta, delta_interval));
-			normals_sphere.push_back(calc_n_z1(radius, theta, delta, delta_interval));
-			normals_sphere.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
-			normals_sphere.push_back(calc_n_y2(radius, theta, delta, delta_interval));
-			normals_sphere.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
-			normals_sphere.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
-			normals_sphere.push_back(calc_n_y2(radius, theta, delta, delta_interval));
-			normals_sphere.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
-			normals_sphere.push_back(calc_n_x3(radius, theta, delta, theta_interval));
-			normals_sphere.push_back(calc_n_y3(radius, theta, delta, theta_interval));
-			normals_sphere.push_back(calc_n_z3(radius, theta, delta, theta_interval));
-			normals_sphere.push_back(calc_n_x0(radius, theta, delta));
-			normals_sphere.push_back(calc_n_y0(radius, theta, delta));
-			normals_sphere.push_back(calc_n_z0(radius, theta, delta));
+			sphere_norms.push_back(calc_n_x0(radius, theta, delta));
+			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
+			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
+			sphere_norms.push_back(calc_n_x1(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(calc_n_y1(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(calc_n_z1(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(calc_n_y2(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(calc_n_y2(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(calc_n_x3(radius, theta, delta, theta_interval));
+			sphere_norms.push_back(calc_n_y3(radius, theta, delta, theta_interval));
+			sphere_norms.push_back(calc_n_z3(radius, theta, delta, theta_interval));
+			sphere_norms.push_back(calc_n_x0(radius, theta, delta));
+			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
+			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
 
-			texcoords_sphere.push_back(u_lats);
-			texcoords_sphere.push_back(v_longs);
-			texcoords_sphere.push_back(u_lats + u_lats_interval);
-			texcoords_sphere.push_back(v_longs);
-			texcoords_sphere.push_back(u_lats + u_lats_interval);
-			texcoords_sphere.push_back(v_longs + v_longs_interval);
-			texcoords_sphere.push_back(u_lats + u_lats_interval);
-			texcoords_sphere.push_back(v_longs + v_longs_interval);
-			texcoords_sphere.push_back(u_lats);
-			texcoords_sphere.push_back(v_longs + v_longs_interval);
-			texcoords_sphere.push_back(u_lats);
-			texcoords_sphere.push_back(v_longs);
+			sphere_texcoords.push_back(u_lats);
+			sphere_texcoords.push_back(v_longs);
+			sphere_texcoords.push_back(u_lats + u_lats_interval);
+			sphere_texcoords.push_back(v_longs);
+			sphere_texcoords.push_back(u_lats + u_lats_interval);
+			sphere_texcoords.push_back(v_longs + v_longs_interval);
+			sphere_texcoords.push_back(u_lats + u_lats_interval);
+			sphere_texcoords.push_back(v_longs + v_longs_interval);
+			sphere_texcoords.push_back(u_lats);
+			sphere_texcoords.push_back(v_longs + v_longs_interval);
+			sphere_texcoords.push_back(u_lats);
+			sphere_texcoords.push_back(v_longs);
 
 			theta += theta_interval;
 			v_longs += v_longs_interval;
@@ -505,32 +507,15 @@ void Shape::renderSphere(GLuint *texture) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	// Point Sampling
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
-	// Bilinear
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Mitmapping
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);*/
-	// half mippaing
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);*/
-	// half trilinear
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);*/
-	// Trilinear
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
 	glBindTexture(GL_TEXTURE_2D, *texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, vertices_sphere.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, texcoords_sphere.data());
-	glNormalPointer(GL_FLOAT, 0, normals_sphere.data());
+	glVertexPointer(3, GL_FLOAT, 0, sphere_verts.data());
+	glNormalPointer(GL_FLOAT, 0, sphere_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, sphere_texcoords.data());
 
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices_sphere.size());
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glDrawArrays(GL_TRIANGLES, 0, sphere_verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -540,27 +525,129 @@ void Shape::renderSphere(GLuint *texture) {
 }
 
 void Shape::drawSphere(double radius, double latitude, double longitude, GLuint * texture) {
-	/*for (int i = 0; i <= lats; i++) {
-	float theta = M_PI * (-0.5 + (float)(i - 1) / lats);
-	float z0 = sin(theta);
-	float zr0 = cos(theta);
+	double
+		delta = 0.0, // angle of latitude
+		theta = 0.0, // angle of longitude
+		theta_interval = (2.0 * M_PI) / latitude, // angle of latitude
+		delta_interval = M_PI / longitude, // angle of longitude
+		u_lats = 0.0,
+		v_longs = 0.0,
+		u_lats_interval = 1.0 / latitude,
+		v_longs_interval = 1.0 / longitude;
+	
+	for (int i = 0; i < longitude; ++i) {
+		for (int j = 0; j < latitude; ++j) {
+			double
+				x0 = calc_x0(radius, theta, delta),
+				y0 = calc_y0(radius, theta, delta),
+				z0 = calc_z0(radius, theta, delta),
+				n_x0 = calc_n_x0(radius, theta, delta),
+				n_y0 = calc_n_y0(radius, theta, delta),
+				n_z0 = calc_n_z0(radius, theta, delta),
+				v0 = u_lats,
+				u0 = v_longs + v_longs_interval,
 
-	float delta = M_PI * (-0.5 + (float)i / lats);
-	float z1 = sin(delta);
-	float zr1 = cos(delta);
+				x1 = calc_x1(radius, theta, delta, delta_interval),
+				y1 = calc_y1(radius, theta, delta, delta_interval),
+				z1 = calc_z1(radius, theta, delta, delta_interval),
+				n_x1 = calc_n_x1(radius, theta, delta, delta_interval),
+				n_y1 = calc_n_y1(radius, theta, delta, delta_interval),
+				n_z1 = calc_n_z1(radius, theta, delta, delta_interval),
+				v1 = u_lats + u_lats_interval,
+				u1 = v_longs + v_longs_interval,
 
-	glBegin(GL_QUAD_STRIP);
-	for (int j = 0; j <= longs; j++) {
-	float lng = 2 * M_PI * (float)(j - 1) / longs;
-	float x = cos(lng);
-	float y = sin(lng);
+				x2 = calc_x2(radius, theta, theta_interval, delta, delta_interval),
+				y2 = calc_y2(radius, theta, delta, delta_interval),
+				z2 = calc_z2(radius, theta, theta_interval, delta, delta_interval),
+				n_x2 = calc_n_x2(radius, theta, delta, delta_interval, theta_interval),
+				n_y2 = calc_n_y2(radius, theta, delta, delta_interval),
+				n_z2 = calc_n_z2(radius, theta, delta, delta_interval, theta_interval),
+				v2 = u_lats + u_lats_interval,
+				u2 = v_longs,
 
-	glNormal3f(x * zr0, y * zr0, z0);
-	glVertex3f(x * zr0, y * zr0, z0);
-	glNormal3f(x * zr1, y * zr1, z1);
-	glVertex3f(x * zr1, y * zr1, z1);
+				x3 = calc_x3(radius, theta, theta_interval, delta),
+				y3 = calc_y3(radius, theta, theta_interval, delta),
+				z3 = calc_z3(radius, theta, theta_interval, delta),
+				n_x3 = calc_n_x3(radius, theta, delta, theta_interval),
+				n_y3 = calc_n_y3(radius, theta, delta, theta_interval),
+				n_z3 = calc_n_z3(radius, theta, delta, theta_interval),
+				v3 = u_lats,
+				u3 = v_longs;
+
+			glBindTexture(GL_TEXTURE_2D, *texture); {
+			glBegin(GL_TRIANGLE_STRIP); {
+				glTexCoord2f(u0, v0); // 0
+				glNormal3f(n_x0, n_y0, n_z0);
+				glVertex3f(x0, y0, z0);
+				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta),
+									radius * sin(theta) * sin(delta)) / 2 * M_PI),
+							(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
+
+				glTexCoord2f(u1, v1); // 1
+				glNormal3f(n_x1, n_y1, n_z1);
+				glVertex3f(x1, y1, z1);
+				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta_interval),
+					radius * sin(theta) * sin(delta_interval)) / 2 * M_PI),
+					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
+
+				glTexCoord2f(u2, v2); // 2
+				glNormal3f(n_x2, n_y2, n_z2);
+				glVertex3f(x2, y2, z2);
+				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta_interval),
+					radius * sin(theta_interval) * sin(delta_interval)) / 2 * M_PI),
+					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
+
+				glTexCoord2f(u2, v2); // 2
+				glNormal3f(n_x2, n_y2, n_z2);
+				glVertex3f(x2, y2, z2);
+				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta_interval),
+					radius * sin(theta_interval) * sin(delta_interval)) / 2 * M_PI),
+					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
+
+				glTexCoord2f(u3, v3); // 3
+				glNormal3f(n_x0, n_y0, n_z0);
+				glVertex3f(x3, y3, z3);
+				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta),
+					radius * sin(theta_interval) * sin(delta)) / 2 * M_PI),
+					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
+
+				glTexCoord2f(u0, v0); // 0
+				glNormal3f(n_x0, n_y0, n_z0);
+				glVertex3f(x0, y0, z0);
+				/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta),
+					radius * sin(theta) * sin(delta)) / 2 * M_PI),
+					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
+			} glEnd();
+			} glBindTexture(GL_TEXTURE_2D, NULL);
+			theta += theta_interval;
+			v_longs += v_longs_interval;
+		}
+		u_lats += u_lats_interval;
+		theta = 0.0; v_longs = 0.0;
+		delta += delta_interval;
 	}
-	glEnd();
+
+	/*for (int i = 0; i <= lats; i++) {
+		float theta = M_PI * (-0.5 + (float)(i - 1) / lats);
+		float z0 = sin(theta);
+		float zr0 = cos(theta);
+
+		float delta = M_PI * (-0.5 + (float)i / lats);
+		float z1 = sin(delta);
+		float zr1 = cos(delta);
+
+		glBegin(GL_QUAD_STRIP);
+		for (int j = 0; j <= longs; j++) {
+			float lng = 2 * M_PI * (float)(j - 1) / longs;
+			float x = cos(lng);
+			float y = sin(lng);
+
+			glNormal3f(x * zr0, y * zr0, z0);
+			glVertex3f(x * zr0, y * zr0, z0);
+			glNormal3f(x * zr1, y * zr1, z1);
+			glVertex3f(x * zr1, y * zr1, z1);
+		}
+		glEnd();
 	}*/
 }
 
