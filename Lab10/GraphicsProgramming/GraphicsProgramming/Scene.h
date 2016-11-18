@@ -26,8 +26,7 @@
 #include "Shape.h"
 #include "Model.h"
 
-class Scene{
-
+class Scene {
 public:
 	Scene(Input *in);
 	// Main render function
@@ -44,11 +43,13 @@ protected:
 	void renderTextOutput();
 	void loadTextures();
 	void assignTextures();
-	void loadModels();
 	void loadLists();
 	void renderLists();
+	void buildShapes();
 	void renderShapes();
-
+	void loadModels();
+	void renderStencilBuffer(Model model);
+	void setRenderMode(bool blend, bool wireframe);
 	// For Window and frustum calculation.
 	int width, height;
 	// For FPS counter and mouse coordinate output.
@@ -65,14 +66,17 @@ protected:
 
 	// For access to user input.
 	Input* input;
-	// For camera access
+	// For diffrent cameras access
 	Camera *camera;
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
-	Model model;
-
+	// For loading and rendering models from a file
+	Model spaceship;
+	Model drone;
+	// For calling and rendering diffrent shapes
 	Shape shape;
+	// Objects to create lists
 	GLuint Torus;
 	GLuint Disc;
 	GLuint Sphere;
@@ -81,31 +85,31 @@ protected:
 	// For loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
-	GLuint *crate;
-	GLuint *tileBrown;
-	GLuint *triangle;
-	GLuint *checked;
-	GLuint *grass;
-	GLuint *glass;
-	GLuint *aTrans;
-	GLuint *crateTrans;
-	GLuint *skybox;
-	GLuint *crateArrow;
-	GLuint *disk;
-	GLuint *barrel;
-	GLuint *globe;
-	GLuint *spaceship;
+	GLuint *crate_tex;
+	GLuint *tileBrown_tex;
+	GLuint *triangle_tex;
+	GLuint *checked_tex;
+	GLuint *grass_tex;
+	GLuint *glass_tex;
+	GLuint *aTrans_tex;
+	GLuint *crate_trans_tex;
+	GLuint *skybox_tex;
+	GLuint *crateArrow_tex;
+	GLuint *disk_tex;
+	GLuint *barrel_tex;
+	GLuint *globe_tex;
+	GLuint *spaceship_tex;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float scale_x, scale_y, scale_z;
-	float xrot;	// Rotate On The X Axis
-	float yrot;	// Rotate On The Y Axis
-	float zrot;	// Rotate On The Z Axis
-	// Booleans
-	bool blend; // toggle bledning effect
-	bool wireframe;	// toggle wireframe mode
-	bool development; // toggle development mode i.e. display text
-	bool draw;
+	float xrot;			// Rotate On The X Axis
+	float yrot;			// Rotate On The Y Axis
+	float zrot;			// Rotate On The Z Axis
+	float angle;		// Rotate by angle
+						// Booleans
+	bool blend;			// toggle bledning effect
+	bool wireframe;		// toggle wireframe mode
+	bool development;	// toggle development mode i.e. display text
 };
 
 #endif
