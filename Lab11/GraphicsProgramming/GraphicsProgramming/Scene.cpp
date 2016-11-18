@@ -192,9 +192,9 @@ void Scene::renderLists() {
 }
 
 void Scene::renderShapes() {
-	shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk_tex);
-	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
-	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
+	//shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk_tex);
+	//shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
+	//shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	shape.drawBlendCube(crate_trans_tex);
 	//shape.drawSphere(3.0, 10.0, 10.0, globe); // lats and longs must be equal
 	//shape.drawSquare(0, .2, 0, crate);
@@ -371,7 +371,7 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
-	renderStencilBuffer(spaceship);
+	//renderStencilBuffer(spaceship);
 	setRenderMode(blend, wireframe);
 	renderShapes();
 	//renderLists();

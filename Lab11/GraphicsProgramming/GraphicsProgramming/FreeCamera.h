@@ -4,6 +4,8 @@
 #include "glut.h"
 #include "Input.h"
 #include "Camera.h"
+#define _USE_MATH_DEFINES // for C++
+#include <cmath>
 
 class FreeCamera : public Camera
 {
@@ -69,6 +71,7 @@ private:
 	Vector3 up;
 	Vector3 side;
 	float Yaw, Pitch, Roll;
+	float heading;
 };
 
 #endif

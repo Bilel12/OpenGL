@@ -17,10 +17,8 @@ using namespace std;
 #include "Vector3.h"
 #include "SOIL.h"
 
-class Model
-{
+class Model {
 public:
-
 	bool load(char* modelFilename, char* textureFilename);
 	void render();
 
