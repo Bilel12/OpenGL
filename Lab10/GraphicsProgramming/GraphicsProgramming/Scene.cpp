@@ -207,10 +207,47 @@ void Scene::renderShapes() {
 	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
 	shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	shape.drawBlendCube(crate_trans_tex);
+	//shape.renderSphere(globe_tex);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawIcosahedron();
+}
+
+void Scene::renderStencilBuffer(Model model) {
+	// Stencil buffer settings
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);		// Turn off writing to the frame buffer
+	glEnable(GL_STENCIL_TEST);									// Enable the stencil test
+	glStencilFunc(GL_ALWAYS, 1, 1);								// Set the stencil function to always pass
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);					// Set the Stencil Operation to replace values when the test passes
+	glDisable(GL_DEPTH_TEST);									// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
+																// Draw mirror
+	shape.drawFloor(0, 0, 0);									// Draw floor object()
+	glEnable(GL_DEPTH_TEST);									// Enable depth test
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);			// Turn on rendering to the frame buffer
+	glStencilFunc(GL_EQUAL, 1, 1);								// Set stencil function to test if the value is 1
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);						// Set the stencil operation to keep all values (we don’t want to change the stencil)
+																// Draw reflected object
+	glPushMatrix(); {
+		glScalef(1.0, -1.0, 1.0);								// Flip the scale vertically
+		glTranslatef(0, 1, 0);									// Translate down (this will put us under the floor)
+		glRotatef(angle, 0, 1, 0);								// Rotate(the shape will be spinning)
+		model.render();										// Render a model
+	} glPopMatrix();
+	// Draw mirror
+	glDisable(GL_STENCIL_TEST);									// Disable stencil test (no longer needed)
+	glEnable(GL_BLEND);											// Enable alpha blending (to combine the floor object with model)
+	glDisable(GL_LIGHTING);										// Disable lighting (100% reflective object)
+	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);							// Set colour of floor object
+	shape.drawFloor(0, 0, 0);									// Draw floor object
+																//glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
+	glDisable(GL_BLEND);										// Disable blend (no longer blending)
+																// Draw object to reflect
+	glPushMatrix(); {
+		glTranslatef(0, 1, 0);									// Translate(this is where the model will render, distance should match)
+		glRotatef(angle, 0, 1, 0);
+		model.render();										// Render the real object
+	} glPopMatrix();
 }
 
 void Scene::setRenderMode(bool blend, bool wireframe) {
@@ -302,6 +339,7 @@ void Scene::update(float dt) {
 	//xrot += 0.7;	// Rotate On The X Axis
 	//yrot += 0.7;	// Rotate On The Y Axis
 	//zrot += 0.7;	// Rotate On The Z Axis
+	angle += 0.7;
 
 	// Calculate FPS
 	frame++;
@@ -316,7 +354,7 @@ void Scene::update(float dt) {
 
 void Scene::render() {
 	// Clear Color and Depth Buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	// Reset transformations
 	glLoadIdentity();
 
@@ -340,10 +378,10 @@ void Scene::render() {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	// Render geometry here -------------------------------------
+	renderStencilBuffer(spaceship);
 	setRenderMode(blend, wireframe);
 	renderShapes();
 	renderLists();
-	spaceship.render();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
