@@ -25,9 +25,13 @@ public:
 	void drawCylinderLowPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
 	void drawCylinderHighPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
 	void drawCone(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
+	// Disc functions
 	void buildDisc(int edges, float radius, float x, float y, float z);
 	void renderDisc(GLuint *texture);
 	void drawDisc(int edges, float radius, float x, float y, float z, GLuint *texture);
+	// Flat Disc functions
+	void buildFlatDisc(int edges, float radius, float x, float y, float z);
+	void renderFlatDisc(GLuint *texture);
 	void drawFlatDisc(int edges, float radius, float h, float k, GLuint *texture);
 	// Sphere functions
 	void buildSphere(double radius, double latitude, double longitude);
