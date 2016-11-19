@@ -62,68 +62,124 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
+void Shape::buildFloor(float x, float y, float z) {
+	floor_verts.push_back(x + -1);
+	floor_verts.push_back(y + -1);
+	floor_verts.push_back(z + -1);
+	floor_verts.push_back(x + 1);
+	floor_verts.push_back(y + -1);
+	floor_verts.push_back(z + -1);
+	floor_verts.push_back(x + 1);
+	floor_verts.push_back(y + -1);
+	floor_verts.push_back(z + 1);
+	floor_verts.push_back(x + 1);
+	floor_verts.push_back(y + -1);
+	floor_verts.push_back(z + 1);
+	floor_verts.push_back(x + -1);
+	floor_verts.push_back(y + -1);
+	floor_verts.push_back(z + 1);
+	floor_verts.push_back(x + -1);
+	floor_verts.push_back(y + -1);
+	floor_verts.push_back(z + -1);
+
+	for (int i = 0; i < 6; ++i) {
+		floor_norms.push_back(0.0f);
+		floor_norms.push_back(1.0f);
+		floor_norms.push_back(0.0f);
+	}
+
+	floor_texcoords = { 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1 };
+
+	floor_colors = { 0.5f,  0.5f, 0.5f, 0.5f };
+}
+
+void Shape::renderFloor() {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glColorPointer(3, GL_FLOAT, 0, floor_colors.data());
+	glVertexPointer(3, GL_FLOAT, 0, floor_verts.data());
+	glNormalPointer(GL_FLOAT, 0, floor_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, floor_texcoords.data());
+
+	glDrawArrays(GL_TRIANGLES, 0, floor_verts.size() / 3);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
 void Shape::drawFloor(float x, float y, float z) {
-	glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
-	glBegin(GL_TRIANGLES); {
-		glNormal3f(0.0f, -1.0f, 0.0f);
-		glTexCoord2f(0, 1);
-		glVertex3f(x + -1, y + -1, z + -1);
+	glPushMatrix();
+	glTranslatef(x, y, z);
+		glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+		glBegin(GL_TRIANGLES); {
+			glNormal3f(0.0f, -1.0f, 0.0f);
+			glTexCoord2f(0, 1);
+			glVertex3f(-1, -1, -1);
 
-		glNormal3f(0.0f, -1.0f, 0.0f);
-		glTexCoord2f(1, 1);
-		glVertex3f(x + 1, y + -1, z + -1);
+			glNormal3f(0.0f, -1.0f, 0.0f);
+			glTexCoord2f(1, 1);
+			glVertex3f(1, -1, -1);
 
-		glNormal3f(0.0f, -1.0f, 0.0f);
-		glTexCoord2f(1, 0);
-		glVertex3f(x + 1, y + -1, z + 1);
-	} glEnd();
-	glBegin(GL_TRIANGLES); {
-		glNormal3f(0.0f, -1.0f, 0.0f);
-		glTexCoord2f(1, 0);
-		glVertex3f(x + 1, y + -1, z + 1);
+			glNormal3f(0.0f, -1.0f, 0.0f);
+			glTexCoord2f(1, 0);
+			glVertex3f(1, -1, 1);
+		} glEnd();
+		glBegin(GL_TRIANGLES); {
+			glNormal3f(0.0f, -1.0f, 0.0f);
+			glTexCoord2f(1, 0);
+			glVertex3f(1, -1, 1);
 
-		glNormal3f(0.0f, -1.0f, 0.0f);
-		glTexCoord2f(0, 0);
-		glVertex3f(x + -1, y + -1, z + 1);
+			glNormal3f(0.0f, -1.0f, 0.0f);
+			glTexCoord2f(0, 0);
+			glVertex3f(-1, -1, 1);
 
-		glNormal3f(0.0f, -1.0f, 0.0f);
-		glTexCoord2f(0, 1);
-		glVertex3f(x + -1, y + -1, z + -1);
-	} glEnd();
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			glNormal3f(0.0f, -1.0f, 0.0f);
+			glTexCoord2f(0, 1);
+			glVertex3f(-1, -1, -1);
+		} glEnd();
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glPopMatrix();
 }
 
 void Shape::drawSquare(float x, float y, float z, GLuint *texture) {
+	glPushMatrix();
+	glTranslatef(x, y, z);
 	glBindTexture(GL_TEXTURE_2D, *texture); {
 		glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
 		glBegin(GL_TRIANGLES); {
 			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(x + -1, y + -1, z + -1);
+			glVertex3f(-1, -1, -1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(1, 1);
-			glVertex3f(x + 1, y + -1, z + -1);
+			glVertex3f(1, -1, -1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(x + 1, y + -1, z + 1);
+			glVertex3f(1, -1, 1);
 		} glEnd();
 		glBegin(GL_TRIANGLES); {
 			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(1, 0);
-			glVertex3f(x + 1, y + -1, z + 1);
+			glVertex3f(1, -1, 1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(0, 0);
-			glVertex3f(x + -1, y + -1, z + 1);
+			glVertex3f(-1, -1, 1);
 
 			glNormal3f(0.0f, -1.0f, 0.0f);
 			glTexCoord2f(0, 1);
-			glVertex3f(x + -1, y + -1, z + -1);
+			glVertex3f(-1, -1, -1);
 		} glEnd();
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
+	glPopMatrix();
 }
 
 void Shape::renderCube(GLuint * texture) {
@@ -307,7 +363,6 @@ void Shape::renderDisc(GLuint * texture) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
 	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
@@ -317,7 +372,6 @@ void Shape::renderDisc(GLuint * texture) {
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, disc_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -394,7 +448,6 @@ void Shape::renderFlatDisc(GLuint * texture) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, flat_disc_verts.data());
 	glNormalPointer(GL_FLOAT, 0, flat_disc_norms.data());
@@ -404,7 +457,6 @@ void Shape::renderFlatDisc(GLuint * texture) {
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, flat_disc_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -671,7 +723,6 @@ void Shape::renderSphere(GLuint *texture) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, sphere_verts.data());
 	glNormalPointer(GL_FLOAT, 0, sphere_norms.data());
@@ -681,7 +732,6 @@ void Shape::renderSphere(GLuint *texture) {
 	glDrawArrays(GL_TRIANGLES, 0, sphere_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -1098,7 +1148,6 @@ void Shape::renderCone(GLuint * texture) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, cone_verts.data());
 	glNormalPointer(GL_FLOAT, 0, cone_norms.data());
@@ -1108,7 +1157,6 @@ void Shape::renderCone(GLuint * texture) {
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, cone_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

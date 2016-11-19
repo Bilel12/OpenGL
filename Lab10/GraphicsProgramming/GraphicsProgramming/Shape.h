@@ -19,8 +19,8 @@ public:
 	//static void drawTorus(int numc, int numt);
 	// Floor variables
 	void drawFloor(float x, float y, float z);
-	void drawFloor(float x, float y, float z);
-	void drawFloor(float x, float y, float z);
+	void buildFloor(float x, float y, float z);
+	void renderFloor();
 	void drawSquare(float x, float y, float z, GLuint *texture);
 	// Circle functions
 	void buildCircle(int edges, float x, float y, float z);
@@ -89,6 +89,7 @@ private:
 	std::vector<float> flat_disc_verts, flat_disc_norms, flat_disc_texcoords;	// flat disc varaibles
 	std::vector<float> circle_verts;											// circle variables
 	std::vector<float> cone_verts, cone_norms, cone_texcoords;					// cone variables
+	std::vector<float> floor_verts, floor_norms, floor_texcoords, floor_colors;	// floor variables
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)
