@@ -25,6 +25,8 @@ public:
 	void drawCylinderLowPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
 	void drawCylinderHighPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
 	void drawCone(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
+	void buildDisc(int edges, float radius, float x, float y, float z);
+	void renderDisc(GLuint *texture);
 	void drawDisc(int edges, float radius, float x, float y, float z, GLuint *texture);
 	void drawFlatDisc(int edges, float radius, float h, float k, GLuint *texture);
 	// Sphere functions
@@ -68,8 +70,9 @@ public:
 	//void normalize(float v[3]);
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 private:
-	// sphere variables
-	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords;
+	
+	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords; // sphere variables
+	std::vector<float> disc_verts, disc_norms, disc_texcoords; // disc varaibles
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)

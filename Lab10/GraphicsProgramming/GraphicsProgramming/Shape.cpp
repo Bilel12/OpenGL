@@ -237,13 +237,75 @@ void Shape::drawSphereTorus(int edges, float x, float y, float z, float rot_inte
 	glEnd();*/
 }
 
+void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
+	float 
+		interval = 2.0 * M_PI / edges,
+		diameter = 2 * radius,
+		start = 0.0,
+		theta = 0.0;
+
+	for (int i = 0; i < edges; ++i) {
+		disc_verts.push_back(x + start);
+		disc_verts.push_back(y + start);
+		disc_verts.push_back(z + start);
+		disc_verts.push_back(x + radius * cos(theta));
+		disc_verts.push_back(y + radius * sin(theta));
+		disc_verts.push_back(z + start);
+		disc_verts.push_back(x + radius * cos(theta + interval));
+		disc_verts.push_back(y + radius * sin(theta + interval));
+		disc_verts.push_back(z + start);
+
+		disc_norms.push_back(0.0);
+		disc_norms.push_back(0.0);
+		disc_norms.push_back(1.0);
+		disc_norms.push_back(0.0);
+		disc_norms.push_back(0.0);
+		disc_norms.push_back(1.0);
+		disc_norms.push_back(0.0);
+		disc_norms.push_back(0.0);
+		disc_norms.push_back(1.0);
+
+		disc_texcoords.push_back(start + 0.5);
+		disc_texcoords.push_back(start + 0.5);
+		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
+		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
+
+		theta += interval;
+		}
+}
+
+void Shape::renderDisc(GLuint * texture) {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
+	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
+
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glDrawArrays(GL_TRIANGLES, 0, disc_verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	glBindTexture(GL_TEXTURE_2D, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
 void Shape::drawDisc(int edges, float radius, float x, float y, float z, GLuint * texture) {
 	float interval = 2.0 * M_PI / edges;
 	float diameter = 2 * radius;
 	float start = 0.0;
 	float theta = 0.0;
-	glBindTexture(GL_TEXTURE_2D, *texture); {
 		for (int i = 0; i < edges; ++i) {
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 			glBegin(GL_TRIANGLE_FAN);
 			glNormal3f(0.0, 0.0, 1.0);
 			glTexCoord2f(start + 0.5, start + 0.5);
@@ -460,25 +522,32 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 			sphere_verts.push_back(calc_y0(radius, theta, delta));
 			sphere_verts.push_back(calc_z0(radius, theta, delta));
 
+
 			sphere_norms.push_back(calc_n_x0(radius, theta, delta));
 			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
 			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
+
 			sphere_norms.push_back(calc_n_x1(radius, theta, delta, delta_interval));
 			sphere_norms.push_back(calc_n_y1(radius, theta, delta, delta_interval));
 			sphere_norms.push_back(calc_n_z1(radius, theta, delta, delta_interval));
+
 			sphere_norms.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
 			sphere_norms.push_back(calc_n_y2(radius, theta, delta, delta_interval));
 			sphere_norms.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
+
 			sphere_norms.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
 			sphere_norms.push_back(calc_n_y2(radius, theta, delta, delta_interval));
 			sphere_norms.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
+
 			sphere_norms.push_back(calc_n_x3(radius, theta, delta, theta_interval));
 			sphere_norms.push_back(calc_n_y3(radius, theta, delta, theta_interval));
 			sphere_norms.push_back(calc_n_z3(radius, theta, delta, theta_interval));
+
 			sphere_norms.push_back(calc_n_x0(radius, theta, delta));
 			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
 			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
 
+
 			sphere_texcoords.push_back(v_longs);
 			sphere_texcoords.push_back(u_lats);
 
@@ -496,6 +565,7 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 
 			sphere_texcoords.push_back(v_longs);
 			sphere_texcoords.push_back(u_lats);
+
 
 			theta += theta_interval;
 			v_longs += v_longs_interval;
@@ -913,7 +983,6 @@ void Shape::drawCone(float radius, float edges, float height, float x, float y, 
 		}
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
-
 
 //float* Shape::moveCube(float x, float y, float z, float* cube_verts) {
 //	//for (int i = 0; i < sizeof(cube_verts) / sizeof(cube_verts[0]); ++i) {
