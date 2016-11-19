@@ -63,24 +63,24 @@ void Shape::render3() {
 }
 
 void Shape::buildFloor(float x, float y, float z) {
-	floor_verts.push_back(x + -1);
-	floor_verts.push_back(y + -1);
-	floor_verts.push_back(z + -1);
-	floor_verts.push_back(x + 1);
-	floor_verts.push_back(y + -1);
-	floor_verts.push_back(z + -1);
-	floor_verts.push_back(x + 1);
-	floor_verts.push_back(y + -1);
-	floor_verts.push_back(z + 1);
-	floor_verts.push_back(x + 1);
-	floor_verts.push_back(y + -1);
-	floor_verts.push_back(z + 1);
-	floor_verts.push_back(x + -1);
-	floor_verts.push_back(y + -1);
-	floor_verts.push_back(z + 1);
-	floor_verts.push_back(x + -1);
-	floor_verts.push_back(y + -1);
-	floor_verts.push_back(z + -1);
+	floor_verts = { (x + -1),
+					(y + -1),
+					(z + -1),
+					(x + 1),
+					(y + -1),
+					(z + -1),
+					(x + 1),
+					(y + -1),
+					(z + 1),
+					(x + 1),
+					(y + -1),
+					(z + 1),
+					(x + -1),
+					(y + -1),
+					(z + 1),
+					(x + -1),
+					(y + -1),
+					(z + -1) };
 
 	for (int i = 0; i < 6; ++i) {
 		floor_norms.push_back(0.0f);
@@ -90,24 +90,26 @@ void Shape::buildFloor(float x, float y, float z) {
 
 	floor_texcoords = { 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1 };
 
-	floor_colors = { 0.5f,  0.5f, 0.5f, 0.5f };
+	floor_colors = { 0.5, 0.5, 0.5, 0.5 };
 }
 
-void Shape::renderFloor() {
+void Shape::renderFloor(float R, float G, float B, float A) {
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glColorPointer(3, GL_FLOAT, 0, floor_colors.data());
+	//glColorPointer(3, GL_FLOAT, 0, floor_colors.data());
 	glVertexPointer(3, GL_FLOAT, 0, floor_verts.data());
 	glNormalPointer(GL_FLOAT, 0, floor_norms.data());
 	glTexCoordPointer(2, GL_FLOAT, 0, floor_texcoords.data());
 
+	glColor4f(R, G, B, A);
 	glDrawArrays(GL_TRIANGLES, 0, floor_verts.size() / 3);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

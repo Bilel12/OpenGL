@@ -20,7 +20,8 @@ public:
 	// Floor variables
 	void drawFloor(float x, float y, float z);
 	void buildFloor(float x, float y, float z);
-	void renderFloor();
+	void renderFloor(float R, float G, float B, float A);
+	// Square varaibles
 	void drawSquare(float x, float y, float z, GLuint *texture);
 	// Circle functions
 	void buildCircle(int edges, float x, float y, float z);
