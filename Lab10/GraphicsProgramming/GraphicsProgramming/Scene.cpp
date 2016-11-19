@@ -202,19 +202,21 @@ void Scene::buildShapes() {
 	//shape.buildSphere(2.0, 15.0, 15.0);
 	shape.buildDisc(200.0, 2.0, -3.0, 3.0, -10.0);
 	shape.buildFlatDisc(200.0, 2.0, -3.0, -5.0);
-	shape.buildCircle(60.0, 1., 1., 1.);
+	shape.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
+	//shape.buildCircle(60.0, 1., 1., 1.);
 }
 
 void Scene::renderShapes() {
 	//shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk_tex);
-	//shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
+	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
 	//shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	//shape.drawSphere(3., 5., 5., globe_tex);
 	shape.drawBlendCube(crate_trans_tex);
 	//shape.renderSphere(globe_tex);
 	shape.renderDisc(disk_tex);
 	shape.renderFlatDisc(disk_tex);
-	shape.renderCircle();
+	//shape.renderCone(disk_tex);
+	//shape.renderCircle();
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
@@ -371,18 +373,18 @@ void Scene::render() {
 			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
 	         );
 	// Render skybox
-	glBindTexture(GL_TEXTURE_2D, *skybox_tex); {
+	
 	// Point sampling
 	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
 		glPushMatrix(); {
 			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 			glDisable(GL_DEPTH_TEST); {
-				shape.drawSkybox();
+				shape.drawSkybox(skybox_tex);
 			}
 			glEnable(GL_DEPTH_TEST);
 		} glPopMatrix();
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	
 
 	// Render geometry here -------------------------------------
 	//renderStencilBuffer(spaceship);

@@ -15,8 +15,11 @@ public:
 	void render3();
 	void renderCube(GLuint * texture);
 	void drawBlendCube(GLuint *texture);
-	void drawSkybox();
+	void drawSkybox(GLuint *texture);
 	//static void drawTorus(int numc, int numt);
+	// Floor variables
+	void drawFloor(float x, float y, float z);
+	void drawFloor(float x, float y, float z);
 	void drawFloor(float x, float y, float z);
 	void drawSquare(float x, float y, float z, GLuint *texture);
 	// Circle functions
@@ -27,6 +30,9 @@ public:
 	void drawCylinder(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
 	void drawCylinderLowPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
 	void drawCylinderHighPoli(float radius, float edges, float height, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
+	// Cone functions
+	void buildCone(float radius, float edges, float height, float x, float y, float z);
+	void renderCone(GLuint *texture);
 	void drawCone(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
 	// Disc functions
 	void buildDisc(int edges, float radius, float x, float y, float z);
@@ -78,10 +84,11 @@ public:
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 private:
 	
-	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords; // sphere variables
-	std::vector<float> disc_verts, disc_norms, disc_texcoords; // disc varaibles
-	std::vector<float> flat_disc_verts, flat_disc_norms, flat_disc_texcoords; // flat disc varaibles
-	std::vector<float> circle_verts;
+	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords;			// sphere variables
+	std::vector<float> disc_verts, disc_norms, disc_texcoords;					// disc varaibles
+	std::vector<float> flat_disc_verts, flat_disc_norms, flat_disc_texcoords;	// flat disc varaibles
+	std::vector<float> circle_verts;											// circle variables
+	std::vector<float> cone_verts, cone_norms, cone_texcoords;					// cone variables
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)

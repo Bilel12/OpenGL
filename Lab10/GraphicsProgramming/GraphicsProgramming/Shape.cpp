@@ -29,7 +29,7 @@ void Shape::render1() {
 	glNormalPointer(GL_FLOAT, 0, cube_norms);
 	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
 
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_TRIANGLE_STRIP);
 	for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); ++i) {
 		glArrayElement(indices[i]);
 	}
@@ -53,7 +53,7 @@ void Shape::render3() {
 	glNormalPointer(GL_FLOAT, 0, cube_norms);
 	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+	glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, indices);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
@@ -158,7 +158,7 @@ void Shape::drawBlendCube(GLuint * texture) {
 	glPolygonMode(GL_BACK, GL_FILL);
 }
 
-void Shape::drawSkybox() {
+void Shape::drawSkybox(GLuint *texture) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -168,7 +168,9 @@ void Shape::drawSkybox() {
 	glNormalPointer(GL_FLOAT, 0, skybox_norms);
 	glTexCoordPointer(2, GL_FLOAT, 0, skybox_texcoords);
 
+	glBindTexture(GL_TEXTURE_2D, *texture); {
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+	} glBindTexture(GL_TEXTURE_2D, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -214,7 +216,7 @@ void Shape::renderCircle() {
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, circle_verts.data());
 	
-	glDrawArrays(GL_TRIANGLES, 0, circle_verts.size() / 3);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, circle_verts.size() / 3);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
@@ -312,7 +314,7 @@ void Shape::renderDisc(GLuint * texture) {
 	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
 
 	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLES, 0, disc_verts.size() / 3);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, disc_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
@@ -399,7 +401,7 @@ void Shape::renderFlatDisc(GLuint * texture) {
 	glTexCoordPointer(2, GL_FLOAT, 0, flat_disc_texcoords.data());
 
 	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLES, 0, flat_disc_verts.size() / 3);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, flat_disc_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
@@ -1037,6 +1039,80 @@ void Shape::drawCylinderHighPoli(float radius, float edges, float height, float 
 			theta += interval;
 		} glBindTexture(GL_TEXTURE_2D, NULL);
 	}
+}
+
+void Shape::buildCone(float radius, float edges, float height, float x, float y, float z) {
+	float 
+		interval = 2.0 * M_PI / edges,
+		diameter = 2 * radius,
+		start = 0.0,
+		theta = 0.0;
+
+	for (int i = 0; i < edges; ++i) {
+		// bottom disk
+		cone_verts.push_back(x + start);
+		cone_verts.push_back(y + start);
+		cone_verts.push_back(z + start);
+		cone_verts.push_back(x + radius * cos(theta));
+		cone_verts.push_back(y + start);
+		cone_verts.push_back(z + radius * sin(theta));
+		cone_verts.push_back(x + radius * cos(theta + interval));
+		cone_verts.push_back(y + start);
+		cone_verts.push_back(z + radius * sin(theta + interval));
+		// tip
+		cone_verts.push_back(x + start);
+		cone_verts.push_back(y + start + height);
+		cone_verts.push_back(z + start);
+		// bottom disk
+		cone_norms.push_back((x + start) / radius);
+		cone_norms.push_back((y + start) / radius);
+		cone_norms.push_back((z + start) / radius);
+		cone_norms.push_back((x + radius * cos(theta) / radius));
+		cone_norms.push_back((y + start) / radius);
+		cone_norms.push_back((z + radius * sin(theta)) / radius);
+		cone_norms.push_back((x + radius * cos(theta + interval)) / radius);
+		cone_norms.push_back((y + start) / radius);
+		cone_norms.push_back((z + radius * sin(theta + interval)) / radius);
+		// tip
+		cone_norms.push_back((x + start) / radius);
+		cone_norms.push_back((y + start + height) / radius);
+		cone_norms.push_back((z + start) / radius);
+		// bottom disk
+		cone_texcoords.push_back(start + 0.5);
+		cone_texcoords.push_back(start + 0.5);
+		cone_texcoords.push_back(cos(theta) / diameter + 0.5);
+		cone_texcoords.push_back(sin(theta) / diameter + 0.5);
+		cone_texcoords.push_back(cos(theta) / diameter + 0.5);
+		cone_texcoords.push_back(sin(theta) / diameter + 0.5);
+		// tip
+		cone_texcoords.push_back(start + 0.5);
+		cone_texcoords.push_back(start + 0.5);
+
+		theta += interval;
+	}
+}
+
+void Shape::renderCone(GLuint * texture) {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, cone_verts.data());
+	glNormalPointer(GL_FLOAT, 0, cone_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, cone_texcoords.data());
+
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, cone_verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	glBindTexture(GL_TEXTURE_2D, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void Shape::drawCone(float radius, float edges, float height, float x, float y, float z, GLuint * texture) {
