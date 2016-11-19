@@ -201,6 +201,7 @@ void Scene::renderLists() {
 void Scene::buildShapes() {
 	shape.buildSphere(2.0, 15.0, 15.0);
 	shape.buildDisc(200.0, 2.0, -3.0, 3.0, -10.0);
+	shape.buildFlatDisc(200.0, 2.0, -3.0, -5.0);
 }
 
 void Scene::renderShapes() {
@@ -211,6 +212,7 @@ void Scene::renderShapes() {
 	shape.drawBlendCube(crate_trans_tex);
 	shape.renderSphere(globe_tex);
 	shape.renderDisc(disk_tex);
+	shape.renderFlatDisc(disk_tex);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);

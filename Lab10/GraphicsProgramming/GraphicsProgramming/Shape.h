@@ -30,9 +30,9 @@ public:
 	void renderDisc(GLuint *texture);
 	void drawDisc(int edges, float radius, float x, float y, float z, GLuint *texture);
 	// Flat Disc functions
-	void buildFlatDisc(int edges, float radius, float x, float y, float z);
+	void buildFlatDisc(int edges, float radius, float x, float z);
 	void renderFlatDisc(GLuint *texture);
-	void drawFlatDisc(int edges, float radius, float h, float k, GLuint *texture);
+	void drawFlatDisc(int edges, float radius, float x, float z, GLuint * texture);
 	// Sphere functions
 	void buildSphere(double radius, double latitude, double longitude);
 	void renderSphere(GLuint *texture);
@@ -77,6 +77,7 @@ private:
 	
 	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords; // sphere variables
 	std::vector<float> disc_verts, disc_norms, disc_texcoords; // disc varaibles
+	std::vector<float> flat_disc_verts, flat_disc_norms, flat_disc_texcoords; // flat disc varaibles
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)
