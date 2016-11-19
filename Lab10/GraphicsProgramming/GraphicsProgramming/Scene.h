@@ -24,6 +24,7 @@
 #include "TopDownCamera.h"
 #include "Camera.h"
 #include "Shape.h"
+#include "Draw.h"
 #include "Model.h"
 
 class Scene {
@@ -74,8 +75,11 @@ protected:
 	// For loading and rendering models from a file
 	Model spaceship;
 	Model drone;
-	// For calling and rendering diffrent shapes
+	// For building and rendering shapes
 	Shape shape;
+	Shape disc_1, disc_2;
+	// For drawing shapes
+	Draw draw;
 	// Objects to create lists
 	GLuint Torus;
 	GLuint Disc;

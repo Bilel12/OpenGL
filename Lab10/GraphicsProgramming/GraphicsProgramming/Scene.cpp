@@ -27,7 +27,7 @@ Scene::Scene(Input *in)
 	loadTextures();// loading textures into vector
 	assignTextures();// assign textures to pointers
 	loadModels();// load 3D models from files
-	loadLists();// load lists
+	//loadLists();// load lists
 	buildShapes();
 	// Initialise variables
 	xrot = 0.0;				// Rotate On The X Axis
@@ -165,33 +165,33 @@ void Scene::loadModels() {
 void Scene::loadLists() {
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
-	shape.drawSphereTorus(100, 3.0, 0.0, 0.0, 0.1);
+	draw.drawSphereTorus(100, 3.0, 0.0, 0.0, 0.1);
 	glEndList();
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	shape.drawDisc(100, 2, 3, 3, -10, disk_tex);
+	shape.renderDisc(disk_tex);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.drawSphere(3.0, 200.0, 200.0, globe_tex);
+	shape.renderSphere(globe_tex);
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
 	glNewList(LowPoliCylinder, GL_COMPILE);
-	shape.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk_tex, globe_tex);
+	draw.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk_tex, globe_tex);
 	glEndList();
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	shape.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk_tex, globe_tex);
+	draw.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk_tex, globe_tex);
 	glEndList();
 }
 
 void Scene::renderLists() {
 	//glCallList(Torus);
-	//glCallList(Sphere);
+	glCallList(Sphere);
 	glCallList(Disc);
 	//glCallList(LowPoliCylinder);
 	//glCallList(HighPoliCylinder);
@@ -199,29 +199,26 @@ void Scene::renderLists() {
 }
 
 void Scene::buildShapes() {
-	//shape.buildSphere(2.0, 15.0, 15.0);
-	shape.buildDisc(200.0, 2.0, -3.0, 3.0, -10.0);
+	shape.buildSphere(2.0, 15.0, 15.0);
+	disc_1.buildDisc(200.0, 2.0, -3.0, 3.0, -10.0);
+	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
 	shape.buildFlatDisc(200.0, 2.0, -3.0, -5.0);
 	shape.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
 	shape.buildFloor(0, 0, 0);
-	//shape.buildCircle(60.0, 1., 1., 1.);
+	shape.buildCircle(60.0, 1., 1., 1.);
 }
 
 void Scene::renderShapes() {
-	//shape.drawDisc(200.0, 2.0, -3.0, 3.0, -10.0, disk_tex);
-	shape.drawCone(2.0, 100.0, 10.0, 5.0, 5.0, -10., disk_tex);
-	//shape.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
-	//shape.drawSphere(3., 5., 5., globe_tex);
-	shape.drawBlendCube(crate_trans_tex);
-	//shape.renderSphere(globe_tex);
-	shape.renderDisc(disk_tex);
+	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
+	shape.renderBlendCube(crate_trans_tex);
+	shape.renderSphere(globe_tex);
+	disc_1.renderDisc(disk_tex);
+	disc_2.renderDisc(disk_tex);
 	shape.renderFlatDisc(disk_tex);
-	shape.drawSquare(10, 10, 10, crate_tex);
-	//shape.renderCone(disk_tex);
-	//shape.renderCircle();
+	shape.renderCone(disk_tex);
+	shape.renderCircle();
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
-	//shape.drawCircle(100.0, 0.0, 0.0, 0.0);
 	//shape.drawIcosahedron();
 }
 
@@ -233,7 +230,8 @@ void Scene::renderStencilBuffer(Model model) {
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
 	// Draw mirror
-	shape.renderFloor(0.5, 0.5, 0.5, 0.5);								// Draw floor object()
+	shape.renderFloor(0.5, 0.5, 0.5, 0.5);					
+	// Draw floor object()
 	glEnable(GL_DEPTH_TEST);								// Enable depth test
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);		// Turn on rendering to the frame buffer
 	glStencilFunc(GL_EQUAL, 1, 1);							// Set stencil function to test if the value is 1
@@ -250,7 +248,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	shape.renderFloor(0.5, 0.5, 0.5, 0.5);									// Draw floor object
+	shape.renderFloor(0.5, 0.5, 0.5, 0.5);					// Draw floor object
 	//glEnable(GL_LIGHTING);								// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
@@ -382,7 +380,7 @@ void Scene::render() {
 		glPushMatrix(); {
 			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 			glDisable(GL_DEPTH_TEST); {
-				shape.drawSkybox(skybox_tex);
+				shape.renderSkybox(skybox_tex);
 			}
 			glEnable(GL_DEPTH_TEST);
 		} glPopMatrix();
@@ -392,7 +390,7 @@ void Scene::render() {
 	renderStencilBuffer(spaceship);
 	setRenderMode(blend, wireframe);
 	renderShapes();
-	renderLists();
+	//renderLists();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
