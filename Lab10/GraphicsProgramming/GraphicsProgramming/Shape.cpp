@@ -126,7 +126,7 @@ void Shape::drawSquare(float x, float y, float z, GLuint *texture) {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
-void Shape::drawCube(GLuint * texture) {
+void Shape::renderCube(GLuint * texture) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -151,10 +151,10 @@ void Shape::drawCube(GLuint * texture) {
 
 void Shape::drawBlendCube(GLuint * texture) {
 	glPolygonMode(GL_FRONT, GL_LINE);
-	drawCube(texture);
+	renderCube(texture);
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
-	drawCube(texture);
+	renderCube(texture);
 	glPolygonMode(GL_BACK, GL_FILL);
 }
 
@@ -196,6 +196,29 @@ void Shape::drawSkybox() {
 //		glEnd();
 //	}
 //}
+
+void Shape::buildCircle(int edges, float x, float y, float z) {
+	for (int i = 0; i < edges; ++i) {
+		//glNormal3f(0.0, 1.0, 0.0);
+		//glTexCoord2f(x + (cos((2 * M_PI * i) / edges)), y + (sin((2 * M_PI * i) / edges)));
+		circle_verts.push_back(x + (cos((2 * M_PI * i) / edges)));
+		circle_verts.push_back(y + (sin((2 * M_PI * i) / edges)));
+		circle_verts.push_back(z + 0.0);
+	}
+}
+
+void Shape::renderCircle() {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, circle_verts.data());
+	
+	glDrawArrays(GL_TRIANGLES, 0, circle_verts.size() / 3);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+}
 
 void Shape::drawCircle(int edges, float x, float y, float z) {
 	// version I

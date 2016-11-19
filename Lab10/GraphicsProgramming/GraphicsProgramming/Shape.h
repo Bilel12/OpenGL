@@ -13,12 +13,15 @@ class Shape {
 public:
 	void render1();
 	void render3();
-	void drawCube(GLuint * texture);
+	void renderCube(GLuint * texture);
 	void drawBlendCube(GLuint *texture);
 	void drawSkybox();
 	//static void drawTorus(int numc, int numt);
 	void drawFloor(float x, float y, float z);
 	void drawSquare(float x, float y, float z, GLuint *texture);
+	// Circle functions
+	void buildCircle(int edges, float x, float y, float z);
+	void renderCircle();
 	void drawCircle(int edges, float x, float y, float z);
 	void drawSphereTorus(int edges, float x, float y, float z, float rot_interval);
 	void drawCylinder(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
@@ -78,6 +81,7 @@ private:
 	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords; // sphere variables
 	std::vector<float> disc_verts, disc_norms, disc_texcoords; // disc varaibles
 	std::vector<float> flat_disc_verts, flat_disc_norms, flat_disc_texcoords; // flat disc varaibles
+	std::vector<float> circle_verts;
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)
