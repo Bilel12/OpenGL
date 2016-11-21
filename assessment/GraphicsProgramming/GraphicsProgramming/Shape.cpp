@@ -188,6 +188,24 @@ void Shape::renderCircle() {
 	//glDisableClientState(GL_COLOR_ARRAY);
 }
 
+float Shape::disc_sin(float pos, float radius, float theta) {
+	return pos + radius * cos(theta);
+}
+
+float Shape::disc_cos(float pos, float radius, float theta) {
+	return pos + radius * sin(theta);
+}
+
+float Shape::disc_sin_n(float pos, float radius, float theta)
+{
+	return (pos + radius * sin(theta)) / radius;
+}
+
+float Shape::disc_cos_n(float pos, float radius, float theta)
+{
+	return (pos + radius * cos(theta)) / radius; // TODO should pos be in the brackets?
+}
+
 void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
 	float 
 		interval = 2.0 * M_PI / edges,
@@ -199,11 +217,11 @@ void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
 		disc_verts.push_back(x);
 		disc_verts.push_back(y);
 		disc_verts.push_back(z);
-		disc_verts.push_back(x + radius * cos(theta));
-		disc_verts.push_back(y + radius * sin(theta));
+		disc_verts.push_back(disc_cos(x, radius, theta));
+		disc_verts.push_back(disc_sin(y, radius, theta));
 		disc_verts.push_back(z);
-		disc_verts.push_back(x + radius * cos(theta + interval));
-		disc_verts.push_back(y + radius * sin(theta + interval));
+		disc_verts.push_back(disc_cos(x, radius, theta + interval));
+		disc_verts.push_back(disc_sin(y, radius, theta + interval));
 		disc_verts.push_back(z);
 
 		for (int i = 0; i < 3; ++i) {
@@ -252,28 +270,28 @@ void Shape::buildFlatDisc(int edges, float radius, float x, float z) {
 		theta = 0.0;
 
 	for (int i = 0; i < edges; ++i) {
-		flat_disc_verts.push_back(x);
-		flat_disc_verts.push_back(start);
-		flat_disc_verts.push_back(z);
-		flat_disc_verts.push_back(x + radius * cos(theta));
-		flat_disc_verts.push_back(start);
-		flat_disc_verts.push_back(z + radius * sin(theta));
-		flat_disc_verts.push_back(x + radius * cos(theta + interval));
-		flat_disc_verts.push_back(start);
-		flat_disc_verts.push_back(z + radius * sin(theta + interval));
+		disc_verts.push_back(x);
+		disc_verts.push_back(start);
+		disc_verts.push_back(z);
+		disc_verts.push_back(x + radius * cos(theta));
+		disc_verts.push_back(start);
+		disc_verts.push_back(z + radius * sin(theta));
+		disc_verts.push_back(x + radius * cos(theta + interval));
+		disc_verts.push_back(start);
+		disc_verts.push_back(z + radius * sin(theta + interval));
 
 		for (int i = 0; i < 3; ++i) {
-			flat_disc_norms.push_back(0.0);
-			flat_disc_norms.push_back(1.0);
-			flat_disc_norms.push_back(0.0);
+			disc_norms.push_back(0.0);
+			disc_norms.push_back(1.0);
+			disc_norms.push_back(0.0);
 		}
 
-		flat_disc_texcoords.push_back(0.5);
-		flat_disc_texcoords.push_back(0.5);
-		flat_disc_texcoords.push_back(cos(theta) / diameter + 0.5);
-		flat_disc_texcoords.push_back(sin(theta) / diameter + 0.5);
-		flat_disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		flat_disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+		disc_texcoords.push_back(0.5);
+		disc_texcoords.push_back(0.5);
+		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
+		disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
 
 		theta += interval;
 	}
@@ -286,12 +304,12 @@ void Shape::renderFlatDisc(GLuint * texture) {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, flat_disc_verts.data());
-	glNormalPointer(GL_FLOAT, 0, flat_disc_norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, flat_disc_texcoords.data());
+	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
+	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
 
 	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, flat_disc_verts.size() / 3);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, disc_verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -499,83 +517,178 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
+		theta = 0.0,
 		y_value = height / edges,
-		theta = 0.0;
-	// top
+		u = 0.0,
+		v = 0.0,
+		u_inter = 1.0 / edges,
+		v_inter = 1.0 / height;
+
+	
+	// bottom disk
+	float start = 0.0;
 	for (int i = 0; i < edges; ++i) {
-		glBegin(GL_TRIANGLE_FAN); {
-			glNormal3f(0.0, 0.0, -1.0);
-			glTexCoord2f( 0.5,  0.5);
-			glVertex3f(x , y , z );
+		verts.push_back(x);
+		verts.push_back(start);
+		verts.push_back(z);
+		verts.push_back(x + radius * cos(theta));
+		verts.push_back(start);
+		verts.push_back(z + radius * sin(theta));
+		verts.push_back(x + radius * cos(theta + interval));
+		verts.push_back(start);
+		verts.push_back(z + radius * sin(theta + interval));
 
-			glNormal3f(0.0, 0.0, -1.0);
-			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-			glVertex3f(x + radius * cos(theta), y , z + radius * sin(theta));
+		for (int i = 0; i < 3; ++i) {
+			norms.push_back(0.0);
+			norms.push_back(-1.0);
+			norms.push_back(0.0);
+		}
 
-			glNormal3f(0.0, 0.0, -1.0);
-			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-			glVertex3f(x + radius * cos(theta + interval), y , z + radius * sin(theta + interval));
-		} glEnd();
+		texcoords.push_back(0.5);
+		texcoords.push_back(0.5);
+		texcoords.push_back(cos(theta) / diameter + 0.5);
+		texcoords.push_back(sin(theta) / diameter + 0.5);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+
 		theta += interval;
 	}
 	// side
 	theta = 0.0;
-	for (int j = 0; j < edges; ++j) {
-		glBegin(GL_TRIANGLE_STRIP); {
-			// 0 bottom 
-			glNormal3f(0.0, 0.0, 1.0);
-			glTexCoord2f(0, 1);
-			glVertex3f(x + radius * cos(theta + interval), y , z + radius * sin(theta + interval));
-			// 1 bottom
-			glNormal3f(0.0, 0.0, 1.0);
-			glTexCoord2f(1, 1);
-			glVertex3f(x + radius * cos(theta), y , z + radius * sin(theta));
-			// 2 top
-			glNormal3f((x + radius * cos(theta)) / radius, (y  + height) / radius, (z + radius * sin(theta)) / radius);
-			glTexCoord2f(1, 0);
-			glVertex3f(x + radius * cos(theta), y  + height, z + radius * sin(theta));
-			// 2 top
-			glNormal3f((x + radius * cos(theta)) / radius, (y  + height) / radius, (z + radius * sin(theta)) / radius);
-			glTexCoord2f(1, 0);
-			glVertex3f(x + radius * cos(theta), y  + height, z + radius * sin(theta));
-			// 3 top
-			glNormal3f((x + radius * cos(theta + interval)) / radius, (y  + height) / radius, (z + radius * sin(theta + interval)) / radius);
-			glTexCoord2f(0, 0);
-			glVertex3f(x + radius * cos(theta + interval), y  + height, z + radius * sin(theta + interval));
-			// 0 bottom 
-			glNormal3f(0.0, 0.0, 1.0);
-			glTexCoord2f(0, 1);
-			glVertex3f(x + radius * cos(theta + interval), y , z + radius * sin(theta + interval));
-		} glEnd();
-		theta += interval;
+	for (int i = 1; i <= height; ++i) {
+		for (int j = 0; j < edges; ++j) {
+			glBegin(GL_TRIANGLE_STRIP); {
+				float disc_sin(float pos, float radius, float theta);
+				float disc_cos(float pos, float radius, float theta);
+
+				float  y0 = y + y_value * (i - 1);
+				float y1 = y + y_value * i;
+				// 0 bottom
+				verts.push_back(disc_cos(x, radius, theta));
+				verts.push_back(y0);
+				verts.push_back(disc_sin(z, radius, theta));
+				// 1 bottom
+				verts.push_back(disc_cos(x, radius, theta + interval));
+				verts.push_back(y0);
+				verts.push_back(disc_sin(z, radius, theta + interval));
+				// 2 top
+				verts.push_back(disc_cos(x, radius, theta + interval));
+				verts.push_back(y1);
+				verts.push_back(disc_sin(z, radius, theta + interval));
+				// 2 top
+				verts.push_back(disc_cos(x, radius, theta + interval));
+				verts.push_back(y1);
+				verts.push_back(disc_sin(z, radius, theta + interval));
+				// 3 top
+				verts.push_back(disc_cos(x, radius, theta));
+				verts.push_back(y1);
+				verts.push_back(disc_sin(z, radius, theta));
+				// 0 bottom
+				verts.push_back(disc_cos(x, radius, theta));
+				verts.push_back(y0);
+				verts.push_back(disc_sin(z, radius, theta));
+
+				// 0 bottom
+				texcoords.push_back(u);
+				texcoords.push_back(v);
+				// 1 bottom
+				texcoords.push_back(u + u_inter);
+				texcoords.push_back(v);
+				// 2 top
+				texcoords.push_back(u + u_inter);
+				texcoords.push_back(v + v_inter);
+				// 2 top
+				texcoords.push_back(u + u_inter);
+				texcoords.push_back(v + v_inter);
+				// 3 top
+				texcoords.push_back(u);
+				texcoords.push_back(v + v_inter);
+				// 0 bottom
+				texcoords.push_back(u);
+				texcoords.push_back(v);
+
+				// 0 bottom
+				verts.push_back(disc_cos_n(x, radius, theta));
+				verts.push_back(y0);
+				verts.push_back(disc_sin_n(z, radius, theta));
+				// 1 bottom
+				verts.push_back(disc_cos_n(x, radius, theta + interval));
+				verts.push_back(y0);
+				verts.push_back(disc_sin_n(z, radius, theta + interval));
+				// 2 top
+				verts.push_back(disc_cos_n(x, radius, theta + interval));
+				verts.push_back(y1);
+				verts.push_back(disc_sin_n(z, radius, theta + interval));
+				// 2 top
+				verts.push_back(disc_cos_n(x, radius, theta + interval));
+				verts.push_back(y1);
+				verts.push_back(disc_sin_n(z, radius, theta + interval));
+				// 3 top
+				verts.push_back(disc_cos_n(x, radius, theta));
+				verts.push_back(y1);
+				verts.push_back(disc_sin_n(z, radius, theta));
+				// 0 bottom
+				verts.push_back(disc_cos_n(x, radius, theta));
+				verts.push_back(y0);
+				verts.push_back(disc_sin_n(z, radius, theta));
+
+			} glEnd();
+			theta += interval;
+			u += u_inter;
+		}
+		v += v_inter;
+		u = 0;
+		theta = 0.0;
 	}
-	// bottom disk
+	// top disk
 	theta = 0.0;
 	for (int i = 0; i < edges; ++i) {
-		glBegin(GL_TRIANGLE_FAN); {
-			// Middle
-			glNormal3f((x ) / radius, (y  + height) / radius, (z ) / radius);
-			glTexCoord2f( 0.5,  0.5);
-			glVertex3f(x , y  + height, z );
+		verts.push_back(x);
+		verts.push_back(y + y_value * height);
+		verts.push_back(z);
+		verts.push_back(x + radius * cos(theta));
+		verts.push_back(y + y_value * height);
+		verts.push_back(z + radius * sin(theta));
+		verts.push_back(x + radius * cos(theta + interval));
+		verts.push_back(y + y_value * height);
+		verts.push_back(z + radius * sin(theta + interval));
 
-			// Tringle's first edge
-			glNormal3f((x + radius * cos(theta)) / radius, (y  + height) / radius, (z + radius * sin(theta)) / radius);
-			//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
-			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-			glVertex3f(x + radius * cos(theta), y  + height, z + radius * sin(theta));
+		for (int i = 0; i < 3; ++i) {
+			norms.push_back(0.0);
+			norms.push_back(1.0);
+			norms.push_back(0.0);
+		}
 
-			// Triangle's second edge
-			glNormal3f((x + radius * cos(theta + interval)) / radius, (y  + height) / radius, (z + radius * sin(theta + interval)) / radius);
-			//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
-			glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-			glVertex3f(x + radius * cos(theta + interval), y  + height, z + radius * sin(theta + interval));
-		} glEnd();
+		texcoords.push_back(0.5);
+		texcoords.push_back(0.5);
+		texcoords.push_back(cos(theta) / diameter + 0.5);
+		texcoords.push_back(sin(theta) / diameter + 0.5);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+
 		theta += interval;
 	}
 }
 
-void Shape::renderCylinder(GLuint * disk_tex, GLuint * side_tex) {
+void Shape::renderCylinder(GLuint *texture, GLuint *tex) {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, verts.data());
+	glNormalPointer(GL_FLOAT, 0, norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void Shape::buildCone(float radius, float edges, float height, float x, float y, float z) {

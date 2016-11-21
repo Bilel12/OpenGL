@@ -26,14 +26,12 @@ public:
 	void buildCone(float radius, float edges, float height, float x, float y, float z);
 	void renderCone(GLuint *texture);
 	// Disc functions
-	/*float disc_x1(float radius, float theta, float delta);
-	float disc_y1(float radius, float theta, float delta);
-	float disc_z1(float radius, float theta, float delta);
-	float disc_x2(float radius, float theta, float delta);
-	float disc_y2(float radius, float theta, float delta);
-	float disc_z2(float radius, float theta, float delta);*/
 	void buildDisc(int edges, float radius, float x, float y, float z);
 	void renderDisc(GLuint *texture);
+	float disc_sin(float pos, float radius, float theta);
+	float disc_cos(float pos, float radius, float theta);
+	float disc_sin_n(float pos, float radius, float theta);
+	float disc_cos_n(float pos, float radius, float theta);
 	// Flat Disc functions
 	void buildFlatDisc(int edges, float radius, float x, float z);
 	void renderFlatDisc(GLuint *texture);
@@ -81,11 +79,11 @@ public:
 private:
 	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords;							// sphere variables
 	std::vector<float> disc_verts, disc_norms, disc_texcoords;									// disc varaibles
-	std::vector<float> flat_disc_verts, flat_disc_norms, flat_disc_texcoords;					// flat disc varaibles
 	std::vector<float> circle_verts;															// circle variables
 	std::vector<float> cone_verts, cone_norms, cone_texcoords;									// cone variables
 	std::vector<float> floor_verts, floor_norms, floor_texcoords, floor_colors;					// floor variables
 	std::vector<float> cylinder_verts, cylinder_norms, cylinder_texcoords, cylinder_colors;		// cylinder variables
+	std::vector<float> verts, norms, texcoords;
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)
