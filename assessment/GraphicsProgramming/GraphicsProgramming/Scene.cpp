@@ -113,7 +113,7 @@ void Scene::loadTextures() {
 		); textures.push_back(myTexture);
 
 	myTexture = SOIL_load_OGL_texture( // 10
-		"gfx/barrel.png",
+		"gfx/barrel_side.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -128,6 +128,20 @@ void Scene::loadTextures() {
 
 	myTexture = SOIL_load_OGL_texture( // 12
 		"models/spaceship.jpg",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 13
+		"gfx/barrel_lid_1.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 14
+		"gfx/barrel_lid_2.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -152,9 +166,11 @@ void Scene::assignTextures() {
 	crate_trans_tex = &textures[7];
 	skybox_tex = &textures[8];
 	disk_tex = &textures[9];
-	barrel_tex = &textures[10];
+	barrel_side_tex = &textures[10];
 	globe_tex = &textures[11];
 	spaceship_tex = &textures[12];
+	barrel_lid_1_tex = &textures[13];
+	barrel_lid_2_tex = &textures[14];
 }
 
 void Scene::loadModels() {
@@ -200,7 +216,7 @@ void Scene::renderLists() {
 
 void Scene::buildShapes() {
 	shape.buildSphere(2.0, 15.0, 15.0);
-	disc_1.buildDisc(200.0, 2.0, -3.0, 3.0, -10.0);
+	disc_1.buildDisc(10.0, 2.0, -3.0, 3.0, -10.0);
 	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
 	shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
 	shape.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
@@ -213,7 +229,7 @@ void Scene::renderShapes() {
 	shape.renderBlendCube(crate_trans_tex);
 	shape.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
-	disc_2.renderDisc(disk_tex);
+	disc_2.renderDisc(barrel_lid_2_tex);
 	shape.renderFlatDisc(disk_tex);
 	shape.renderCone(disk_tex);
 	shape.renderCircle();
@@ -224,7 +240,7 @@ void Scene::renderShapes() {
 
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
-	draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., disk_tex, globe_tex);
+	draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
 	draw.drawCylinderHighPoli(2., 1., 50., -3., 3., 3., disk_tex, globe_tex);
 }
 

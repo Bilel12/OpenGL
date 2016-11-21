@@ -512,21 +512,21 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 		u_inter = 1.0 / edges,
 		v_inter = 1.0 / height;
 
-	glPolygonMode(GL_FRONT, GL_LINE);
+	//glPolygonMode(GL_FRONT, GL_LINE);
 	// bottom disk
 	glBindTexture(GL_TEXTURE_2D, *disk_texture); {
 		for (int i = 0; i < edges; ++i) {
 			glBegin(GL_TRIANGLE_FAN); {
-				glNormal3f(0.0, 0.0, 1.0);
-				glTexCoord2f( 0.5,  0.5);
+				glNormal3f(0.0, -1.0, 0.0);
+				glTexCoord2f(0.5, 0.5);
 				glVertex3f(x , y , z);
 
-				glNormal3f(0.0, 0.0, 1.0);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glNormal3f(0.0, -1.0, 0.0);
+				glTexCoord2f((cos(theta) / diameter) + 0.5, (sin(theta) / diameter) + 0.5);
 				glVertex3f(x + radius * cos(theta), y , z + radius * sin(theta));
 
-				glNormal3f(0.0, 0.0, 1.0);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glNormal3f(0.0, -1.0, 0.0);
+				glTexCoord2f((cos(theta + interval) / diameter) + 0.5, (sin(theta + interval) / diameter) + 0.5);
 				glVertex3f(x + radius * cos(theta + interval), y , z + radius * sin(theta + interval));
 			} glEnd();
 			theta += interval;
@@ -542,19 +542,19 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 					float y_0 = y + y_value * (i - 1);
 					float y_1 = y + y_value * i;
 					// 0 bottom 
-					//glNormal3f(0.0, 0.0, 1.0);
+					glNormal3f((x + radius * cos(theta)) / radius, (y_0 / radius), (z + radius * sin(theta)) / radius);
 					glTexCoord2f(u, v);
 					glVertex3f(x + radius * cos(theta), y_0, z + radius * sin(theta));
 					// 1 bottom
-					//glNormal3f(0.0, 0.0, 1.0);
+					glNormal3f((x + radius * cos(theta + interval)) / radius, (y_0 / radius), (z + radius * sin(theta + interval)) / radius);
 					glTexCoord2f(u + u_inter, v);
 					glVertex3f(x + radius * cos(theta + interval), y_0, z + radius * sin(theta + interval));
 					// 2 top
+					glNormal3f((x + radius * cos(theta)) / radius, (y_1 / radius), (z + radius * sin(theta)) / radius);
 					glTexCoord2f(u, v + v_inter);
-					//glNormal3f((x + radius * cos(theta)) / radius, y + (y_value / radius), (z + radius * sin(theta)) / radius);
 					glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
 					// 3 top
-					//glNormal3f((x + radius * cos(theta + interval)) / radius, (y + y_value) / radius, (z + radius * sin(theta + interval)) / radius);
+					glNormal3f((x + radius * cos(theta + interval)) / radius, (y_1 / radius), (z + radius * sin(theta + interval)) / radius);
 					glTexCoord2f(u + u_inter, v + v_inter);
 					glVertex3f(x + radius * cos(theta + interval), y_1, z + radius * sin(theta + interval));
 					
@@ -574,26 +574,26 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 		for (int i = 0; i < edges; ++i) {
 			glBegin(GL_TRIANGLE_FAN); {
 				// Middle
-				glNormal3f((x) / radius, (y + y_value * height ) / radius, (z) / radius);
-				glTexCoord2f( 0.5,  0.5);
+				glNormal3f(0.0, 1.0, 0.0);
+				glTexCoord2f(0.5, 0.5);
 				glVertex3f(x , y + y_value * height, z );
 
 				// Tringle's first edge
-				glNormal3f((x + radius * cos(theta)) / radius, (y + y_value * height) / radius, (z + radius * sin(theta)) / radius);
+				glNormal3f(0.0, 1.0, 0.0);
 				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f((cos(theta) / diameter) + 0.5, (sin(theta) / diameter) + 0.5);
 				glVertex3f(x + radius * cos(theta), y + y_value * height, z + radius * sin(theta));
 
 				// Triangle's second edge
-				glNormal3f((x + radius * cos(theta + interval)) / radius, (y + y_value * height) / radius, (z + radius * sin(theta + interval)) / radius);
+				glNormal3f(0.0, 1.0, 0.0);
 				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
-				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
+				glTexCoord2f((cos(theta + interval) / diameter + 0.5), (sin(theta + interval) / diameter) + 0.5);
 				glVertex3f(x + radius * cos(theta + interval), y + y_value * height, z + radius * sin(theta + interval));
 			} glEnd();
 			theta += interval;
 		} glBindTexture(GL_TEXTURE_2D, NULL);
 	}
-	glPolygonMode(GL_FRONT, GL_FILL);
+	//glPolygonMode(GL_FRONT, GL_FILL);
 }
 
 void Draw::drawCylinderHighPoli(float radius, float height, float edges, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {

@@ -101,7 +101,9 @@ protected:
 	GLuint *skybox_tex;
 	GLuint *crateArrow_tex;
 	GLuint *disk_tex;
-	GLuint *barrel_tex;
+	GLuint *barrel_side_tex;
+	GLuint *barrel_lid_1_tex;
+	GLuint *barrel_lid_2_tex;
 	GLuint *globe_tex;
 	GLuint *spaceship_tex;
 	// Rotation variables

@@ -206,22 +206,18 @@ void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
 		disc_verts.push_back(y + radius * sin(theta + interval));
 		disc_verts.push_back(z);
 
-		disc_norms.push_back(0.0);
-		disc_norms.push_back(0.0);
-		disc_norms.push_back(1.0);
-		disc_norms.push_back(0.0);
-		disc_norms.push_back(0.0);
-		disc_norms.push_back(1.0);
-		disc_norms.push_back(0.0);
-		disc_norms.push_back(0.0);
-		disc_norms.push_back(1.0);
+		for (int i = 0; i < 3; ++i) {
+			disc_norms.push_back(0.0);
+			disc_norms.push_back(0.0);
+			disc_norms.push_back(1.0);
+		}
 
-		disc_texcoords.push_back(start + 0.5);
-		disc_texcoords.push_back(start + 0.5);
+		disc_texcoords.push_back(0.5);
+		disc_texcoords.push_back(0.5);
 		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
 		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
-		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
-		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
+		disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
 
 		theta += interval;
 		}
@@ -266,22 +262,18 @@ void Shape::buildFlatDisc(int edges, float radius, float x, float z) {
 		flat_disc_verts.push_back(start);
 		flat_disc_verts.push_back(z + radius * sin(theta + interval));
 
-		flat_disc_norms.push_back(0.0);
-		flat_disc_norms.push_back(1.0);
-		flat_disc_norms.push_back(0.0);
-		flat_disc_norms.push_back(0.0);
-		flat_disc_norms.push_back(1.0);
-		flat_disc_norms.push_back(0.0);
-		flat_disc_norms.push_back(0.0);
-		flat_disc_norms.push_back(1.0);
-		flat_disc_norms.push_back(0.0);
+		for (int i = 0; i < 3; ++i) {
+			flat_disc_norms.push_back(0.0);
+			flat_disc_norms.push_back(1.0);
+			flat_disc_norms.push_back(0.0);
+		}
 
-		flat_disc_texcoords.push_back(start + 0.5);
-		flat_disc_texcoords.push_back(start + 0.5);
+		flat_disc_texcoords.push_back(0.5);
+		flat_disc_texcoords.push_back(0.5);
 		flat_disc_texcoords.push_back(cos(theta) / diameter + 0.5);
 		flat_disc_texcoords.push_back(sin(theta) / diameter + 0.5);
-		flat_disc_texcoords.push_back(cos(theta) / diameter + 0.5);
-		flat_disc_texcoords.push_back(sin(theta) / diameter + 0.5);
+		flat_disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		flat_disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
 
 		theta += interval;
 	}
