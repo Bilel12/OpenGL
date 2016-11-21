@@ -26,9 +26,12 @@ public:
 	void buildCone(float radius, float edges, float height, float x, float y, float z);
 	void renderCone(GLuint *texture);
 	// Disc functions
-	/*float disc_x0(float radius, float theta, float delta);
-	float disc_y0(float radius, float theta, float delta);
-	float disc_z0(float radius, float theta, float delta);*/
+	/*float disc_x1(float radius, float theta, float delta);
+	float disc_y1(float radius, float theta, float delta);
+	float disc_z1(float radius, float theta, float delta);
+	float disc_x2(float radius, float theta, float delta);
+	float disc_y2(float radius, float theta, float delta);
+	float disc_z2(float radius, float theta, float delta);*/
 	void buildDisc(int edges, float radius, float x, float y, float z);
 	void renderDisc(GLuint *texture);
 	// Flat Disc functions

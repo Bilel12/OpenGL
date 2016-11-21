@@ -595,33 +595,38 @@ void Shape::buildCone(float radius, float edges, float height, float x, float y,
 
 	for (int i = 0; i < edges; ++i) {
 		// bottom disk
-		cone_verts.push_back(x + start);
-		cone_verts.push_back(y + start);
-		cone_verts.push_back(z + start);
+		cone_verts.push_back(x);
+		cone_verts.push_back(y);
+		cone_verts.push_back(z);
 		cone_verts.push_back(x + radius * cos(theta));
-		cone_verts.push_back(y + start);
+		cone_verts.push_back(y);
 		cone_verts.push_back(z + radius * sin(theta));
 		cone_verts.push_back(x + radius * cos(theta + interval));
-		cone_verts.push_back(y + start);
+		cone_verts.push_back(y);
 		cone_verts.push_back(z + radius * sin(theta + interval));
 		// tip
-		cone_verts.push_back(x + start);
-		cone_verts.push_back(y + start + height);
-		cone_verts.push_back(z + start);
+		cone_verts.push_back(x);
+		cone_verts.push_back(y + height);
+		cone_verts.push_back(z);
 		// bottom disk
-		cone_norms.push_back((x + start) / radius);
-		cone_norms.push_back((y + start) / radius);
-		cone_norms.push_back((z + start) / radius);
+		for (int i = 0; i < 3; ++i) {
+			cone_norms.push_back(0);
+			cone_norms.push_back(-1);
+			cone_norms.push_back(0);
+		} // TODO normals
+		/*cone_norms.push_back((x) / radius);
+		cone_norms.push_back((y) / radius);
+		cone_norms.push_back((z) / radius);
 		cone_norms.push_back((x + radius * cos(theta) / radius));
-		cone_norms.push_back((y + start) / radius);
+		cone_norms.push_back((y) / radius);
 		cone_norms.push_back((z + radius * sin(theta)) / radius);
 		cone_norms.push_back((x + radius * cos(theta + interval)) / radius);
-		cone_norms.push_back((y + start) / radius);
-		cone_norms.push_back((z + radius * sin(theta + interval)) / radius);
+		cone_norms.push_back((y) / radius);
+		cone_norms.push_back((z + radius * sin(theta + interval)) / radius);*/
 		// tip
-		cone_norms.push_back((x + start) / radius);
-		cone_norms.push_back((y + start + height) / radius);
-		cone_norms.push_back((z + start) / radius);
+		cone_norms.push_back((x) / radius);
+		cone_norms.push_back((y + height) / radius);
+		cone_norms.push_back((z) / radius);
 		// bottom disk
 		cone_texcoords.push_back(start + 0.5);
 		cone_texcoords.push_back(start + 0.5);

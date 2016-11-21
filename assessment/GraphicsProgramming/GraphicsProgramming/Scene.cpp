@@ -211,7 +211,7 @@ void Scene::buildShapes() {
 void Scene::renderShapes() {
 	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	shape.renderBlendCube(crate_trans_tex);
-	//shape.renderSphere(globe_tex);
+	shape.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
 	disc_2.renderDisc(disk_tex);
 	shape.renderFlatDisc(disk_tex);
