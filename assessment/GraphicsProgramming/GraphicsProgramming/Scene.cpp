@@ -224,8 +224,8 @@ void Scene::renderShapes() {
 
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
-	draw.drawCylinderLowPoli(2., 50., 10., 3., 3., 3., disk_tex, globe_tex);
-	draw.drawCylinderHighPoli(2., 50., 10., -3., 3., 3., disk_tex, globe_tex);
+	draw.drawCylinderLowPoli(2., 10., 50., 3., 3., 3., disk_tex, globe_tex);
+	draw.drawCylinderHighPoli(2., 10., 50., -3., 3., 3., disk_tex, globe_tex);
 }
 
 void Scene::renderStencilBuffer(Model model) {
