@@ -240,83 +240,83 @@ void Draw::drawFlatDisc(int edges, float radius, float x, float z, GLuint * text
 //whether it's a member function or a non-member friend function, 
 //is implicitly an inline function.
 
-float Draw::calc_x0(float radius, float theta, float delta) {
+float Draw::sphere_x0(float radius, float theta, float delta) {
 	return radius * cos(theta) * sin(delta);
 }
-float Draw::calc_y0(float radius, float theta, float delta) {
+float Draw::sphere_y0(float radius, float theta, float delta) {
 	return radius * cos(delta);
 }
-float Draw::calc_z0(float radius, float theta, float delta) {
+float Draw::sphere_z0(float radius, float theta, float delta) {
 	return radius * sin(theta) * sin(delta);
 }
 
-float Draw::calc_x1(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_x1(float radius, float theta, float delta, float delta_interval) {
 	return radius * cos(theta) * sin(delta + delta_interval);
 }
-float Draw::calc_y1(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_y1(float radius, float theta, float delta, float delta_interval) {
 	return radius * cos(delta + delta_interval);
 }
-float Draw::calc_z1(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_z1(float radius, float theta, float delta, float delta_interval) {
 	return radius * sin(theta) * sin(delta + delta_interval);
 }
 
-float Draw::calc_x2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
+float Draw::sphere_x2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
 	return radius * cos(theta + theta_interval) * sin(delta + delta_interval);
 }
-float Draw::calc_y2(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_y2(float radius, float theta, float delta, float delta_interval) {
 	return radius * cos(delta + delta_interval);
 }
-float Draw::calc_z2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
+float Draw::sphere_z2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
 	return radius * sin(theta + theta_interval) * sin(delta + delta_interval);
 }
 
-float Draw::calc_x3(float radius, float theta, float theta_interval, float delta) {
+float Draw::sphere_x3(float radius, float theta, float theta_interval, float delta) {
 	return radius * cos(theta + theta_interval) * sin(delta);
 }
-float Draw::calc_y3(float radius, float theta, float theta_interval, float delta) {
+float Draw::sphere_y3(float radius, float theta, float theta_interval, float delta) {
 	return radius * cos(delta);
 }
-float Draw::calc_z3(float radius, float theta, float theta_interval, float delta) {
+float Draw::sphere_z3(float radius, float theta, float theta_interval, float delta) {
 	return radius * sin(theta + theta_interval) * sin(delta);
 }
 
-float Draw::calc_n_x0(float radius, float theta, float delta) {
+float Draw::sphere_n_x0(float radius, float theta, float delta) {
 	return cos(theta) * sin(delta) / radius;
 }
-float Draw::calc_n_y0(float radius, float theta, float delta) {
+float Draw::sphere_n_y0(float radius, float theta, float delta) {
 	return cos(delta) / radius;
 }
-float Draw::calc_n_z0(float radius, float theta, float delta) {
+float Draw::sphere_n_z0(float radius, float theta, float delta) {
 	return sin(theta) * sin(delta) / radius;
 }
 
-float Draw::calc_n_x1(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_n_x1(float radius, float theta, float delta, float delta_interval) {
 	return cos(theta) * sin(delta + delta_interval) / radius;
 }
-float Draw::calc_n_y1(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_n_y1(float radius, float theta, float delta, float delta_interval) {
 	return cos(delta + delta_interval) / radius;
 }
-float Draw::calc_n_z1(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_n_z1(float radius, float theta, float delta, float delta_interval) {
 	return sin(theta) * sin(delta + delta_interval) / radius;
 }
 
-float Draw::calc_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
+float Draw::sphere_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
 	return cos(theta + theta_interval) * sin(delta + delta_interval) / radius;
 }
-float Draw::calc_n_y2(float radius, float theta, float delta, float delta_interval) {
+float Draw::sphere_n_y2(float radius, float theta, float delta, float delta_interval) {
 	return cos(delta + delta_interval) / radius;
 }
-float Draw::calc_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
+float Draw::sphere_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
 	return sin(theta + theta_interval) * sin(delta + delta_interval) / radius;
 }
 
-float Draw::calc_n_x3(float radius, float theta, float delta, float theta_interval) {
+float Draw::sphere_n_x3(float radius, float theta, float delta, float theta_interval) {
 	return cos(theta + theta_interval) * sin(delta) / radius;
 }
-float Draw::calc_n_y3(float radius, float theta, float delta, float theta_interval) {
+float Draw::sphere_n_y3(float radius, float theta, float delta, float theta_interval) {
 	return cos(delta) / radius;
 }
-float Draw::calc_n_z3(float radius, float theta, float delta, float theta_interval) {
+float Draw::sphere_n_z3(float radius, float theta, float delta, float theta_interval) {
 	return sin(theta + theta_interval) * sin(delta) / radius;
 }
 
@@ -334,39 +334,39 @@ void Draw::drawSphere(double radius, double latitude, double longitude, GLuint *
 	for (int i = 0; i < longitude; ++i) {
 		for (int j = 0; j < latitude; ++j) {
 			double
-				x0 = calc_x0(radius, theta, delta),
-				y0 = calc_y0(radius, theta, delta),
-				z0 = calc_z0(radius, theta, delta),
-				n_x0 = calc_n_x0(radius, theta, delta),
-				n_y0 = calc_n_y0(radius, theta, delta),
-				n_z0 = calc_n_z0(radius, theta, delta),
+				x0 = sphere_x0(radius, theta, delta),
+				y0 = sphere_y0(radius, theta, delta),
+				z0 = sphere_z0(radius, theta, delta),
+				n_x0 = sphere_n_x0(radius, theta, delta),
+				n_y0 = sphere_n_y0(radius, theta, delta),
+				n_z0 = sphere_n_z0(radius, theta, delta),
 				v0 = u_lats,
 				u0 = v_longs + v_longs_interval,
 
-				x1 = calc_x1(radius, theta, delta, delta_interval),
-				y1 = calc_y1(radius, theta, delta, delta_interval),
-				z1 = calc_z1(radius, theta, delta, delta_interval),
-				n_x1 = calc_n_x1(radius, theta, delta, delta_interval),
-				n_y1 = calc_n_y1(radius, theta, delta, delta_interval),
-				n_z1 = calc_n_z1(radius, theta, delta, delta_interval),
+				x1 = sphere_x1(radius, theta, delta, delta_interval),
+				y1 = sphere_y1(radius, theta, delta, delta_interval),
+				z1 = sphere_z1(radius, theta, delta, delta_interval),
+				n_x1 = sphere_n_x1(radius, theta, delta, delta_interval),
+				n_y1 = sphere_n_y1(radius, theta, delta, delta_interval),
+				n_z1 = sphere_n_z1(radius, theta, delta, delta_interval),
 				v1 = u_lats + u_lats_interval,
 				u1 = v_longs + v_longs_interval,
 
-				x2 = calc_x2(radius, theta, theta_interval, delta, delta_interval),
-				y2 = calc_y2(radius, theta, delta, delta_interval),
-				z2 = calc_z2(radius, theta, theta_interval, delta, delta_interval),
-				n_x2 = calc_n_x2(radius, theta, delta, delta_interval, theta_interval),
-				n_y2 = calc_n_y2(radius, theta, delta, delta_interval),
-				n_z2 = calc_n_z2(radius, theta, delta, delta_interval, theta_interval),
+				x2 = sphere_x2(radius, theta, theta_interval, delta, delta_interval),
+				y2 = sphere_y2(radius, theta, delta, delta_interval),
+				z2 = sphere_z2(radius, theta, theta_interval, delta, delta_interval),
+				n_x2 = sphere_n_x2(radius, theta, delta, delta_interval, theta_interval),
+				n_y2 = sphere_n_y2(radius, theta, delta, delta_interval),
+				n_z2 = sphere_n_z2(radius, theta, delta, delta_interval, theta_interval),
 				v2 = u_lats + u_lats_interval,
 				u2 = v_longs,
 
-				x3 = calc_x3(radius, theta, theta_interval, delta),
-				y3 = calc_y3(radius, theta, theta_interval, delta),
-				z3 = calc_z3(radius, theta, theta_interval, delta),
-				n_x3 = calc_n_x3(radius, theta, delta, theta_interval),
-				n_y3 = calc_n_y3(radius, theta, delta, theta_interval),
-				n_z3 = calc_n_z3(radius, theta, delta, theta_interval),
+				x3 = sphere_x3(radius, theta, theta_interval, delta),
+				y3 = sphere_y3(radius, theta, theta_interval, delta),
+				z3 = sphere_z3(radius, theta, theta_interval, delta),
+				n_x3 = sphere_n_x3(radius, theta, delta, theta_interval),
+				n_y3 = sphere_n_y3(radius, theta, delta, theta_interval),
+				n_z3 = sphere_n_z3(radius, theta, delta, theta_interval),
 				v3 = u_lats,
 				u3 = v_longs;
 
@@ -505,8 +505,7 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
-		y_value = 0.0,
-		y_interval = height / edges,
+		y_value = height / edges,
 		theta = 0.0;
 	glPolygonMode(GL_FRONT, GL_LINE);
 	// bottom disk
@@ -530,62 +529,64 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 	// side
 	theta = 0.0;
-	glBindTexture(GL_TEXTURE_2D, *side_texture); {
-		for (int i = 0; i < height; ++i) {
+	//glBindTexture(GL_TEXTURE_2D, *side_texture); {
+		for (int i = 1; i <= height; ++i) {
 			for (int j = 0; j < edges; ++j) {
-				glBegin(GL_TRIANGLES); {
+				glBegin(GL_TRIANGLE_STRIP); {
+					float y_0 = y + y_value * (i - 1);
+					float y_1 = y + y_value * i;
 					// 0 bottom 
 					//glNormal3f(0.0, 0.0, 1.0);
 					glTexCoord2f(0, 1);
-					glVertex3f(x + radius * cos(theta + interval), y, z + radius * sin(theta + interval));
+					glVertex3f(x + radius * cos(theta + interval), y + y_0, z + radius * sin(theta + interval));
 					// 1 bottom
 					//glNormal3f(0.0, 0.0, 1.0);
 					glTexCoord2f(1, 1);
-					glVertex3f(x + radius * cos(theta), y + y_value, z + radius * sin(theta));
+					glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
 					// 2 top
 					//glNormal3f((x + radius * cos(theta)) / radius, y + (y_value / radius), (z + radius * sin(theta)) / radius);
 					glTexCoord2f(1, 0);
-					glVertex3f(x + radius * cos(theta), y + y_value, z + radius * sin(theta));
+					glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
 					// 2 top
 					//glNormal3f((x + radius * cos(theta)) / radius, (y + y_value) / radius, (z + radius * sin(theta)) / radius);
 					glTexCoord2f(1, 0);
-					glVertex3f(x + radius * cos(theta), y + y_value, z + radius * sin(theta));
+					glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
 					// 3 top
 					//glNormal3f((x + radius * cos(theta + interval)) / radius, (y + y_value) / radius, (z + radius * sin(theta + interval)) / radius);
 					glTexCoord2f(0, 0);
-					glVertex3f(x + radius * cos(theta + interval), y + y_value, z + radius * sin(theta + interval));
+					glVertex3f(x + radius * cos(theta + interval), y_1, z + radius * sin(theta + interval));
 					// 0 bottom 
 					//glNormal3f(0.0, 0.0, 1.0);
 					glTexCoord2f(0, 1);
-					glVertex3f(x + radius * cos(theta + interval), y, z + radius * sin(theta + interval));
+					glVertex3f(x + radius * cos(theta + interval), y_0, z + radius * sin(theta + interval));
 				} glEnd();
 				theta += interval;
 			}
-			//theta = 0.0;
-			y_value += y_interval;
+			theta = 0.0;
+			//y_value *= i;
 		}
-	} glBindTexture(GL_TEXTURE_2D, NULL);
+	//} glBindTexture(GL_TEXTURE_2D, NULL);
 	// top disk
 	theta = 0.0;
 	glBindTexture(GL_TEXTURE_2D, *disk_texture); {
 		for (int i = 0; i < edges; ++i) {
 			glBegin(GL_TRIANGLE_FAN); {
 				// Middle
-				glNormal3f((x) / radius, (y + y_value - y_interval) / radius, (z) / radius);
+				glNormal3f((x) / radius, (y + y_value * height ) / radius, (z) / radius);
 				glTexCoord2f( 0.5,  0.5);
-				glVertex3f(x , y + y_value - y_interval, z );
+				glVertex3f(x , y + y_value * height, z );
 
 				// Tringle's first edge
-				glNormal3f((x + radius * cos(theta)) / radius, (y + y_value) / radius, (z + radius * sin(theta)) / radius);
+				glNormal3f((x + radius * cos(theta)) / radius, (y + y_value * height) / radius, (z + radius * sin(theta)) / radius);
 				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
 				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-				glVertex3f(x + radius * cos(theta), y + y_value - y_interval, z + radius * sin(theta));
+				glVertex3f(x + radius * cos(theta), y + y_value * height, z + radius * sin(theta));
 
 				// Triangle's second edge
-				glNormal3f((x + radius * cos(theta + interval)) / radius, (y + y_value) / radius, (z + radius * sin(theta + interval)) / radius);
+				glNormal3f((x + radius * cos(theta + interval)) / radius, (y + y_value * height) / radius, (z + radius * sin(theta + interval)) / radius);
 				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
 				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
-				glVertex3f(x + radius * cos(theta + interval), y + y_value - y_interval, z + radius * sin(theta + interval));
+				glVertex3f(x + radius * cos(theta + interval), y + y_value * height, z + radius * sin(theta + interval));
 			} glEnd();
 			theta += interval;
 		} glBindTexture(GL_TEXTURE_2D, NULL);

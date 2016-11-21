@@ -202,7 +202,7 @@ void Scene::buildShapes() {
 	shape.buildSphere(2.0, 15.0, 15.0);
 	disc_1.buildDisc(200.0, 2.0, -3.0, 3.0, -10.0);
 	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
-	shape.buildFlatDisc(200.0, 2.0, -3.0, -5.0);
+	shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
 	shape.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
 	shape.buildFloor(0, 0, 0);
 	shape.buildCircle(60.0, 1., 1., 1.);
@@ -224,8 +224,8 @@ void Scene::renderShapes() {
 
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
-	draw.drawCylinderLowPoli(2., 10., 50., 3., 3., 3., disk_tex, globe_tex);
-	draw.drawCylinderHighPoli(2., 10., 50., -3., 3., 3., disk_tex, globe_tex);
+	draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., disk_tex, globe_tex);
+	draw.drawCylinderHighPoli(2., 1., 50., -3., 3., 3., disk_tex, globe_tex);
 }
 
 void Scene::renderStencilBuffer(Model model) {
@@ -354,7 +354,7 @@ void Scene::update(float dt) {
 	//zrot += 0.7;	// Rotate On The Z Axis
 	angle += 0.7;
 
-	// Calculate FPS
+	// sphereulate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
 

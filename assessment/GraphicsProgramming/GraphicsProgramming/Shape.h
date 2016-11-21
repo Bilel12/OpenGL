@@ -26,6 +26,9 @@ public:
 	void buildCone(float radius, float edges, float height, float x, float y, float z);
 	void renderCone(GLuint *texture);
 	// Disc functions
+	/*float disc_x0(float radius, float theta, float delta);
+	float disc_y0(float radius, float theta, float delta);
+	float disc_z0(float radius, float theta, float delta);*/
 	void buildDisc(int edges, float radius, float x, float y, float z);
 	void renderDisc(GLuint *texture);
 	// Flat Disc functions
@@ -37,37 +40,37 @@ public:
 	// Sphere functions
 	void buildSphere(double radius, double latitude, double longitude);
 	void renderSphere(GLuint *texture);
-	float calc_x0(float radius, float theta, float delta);
-	float calc_y0(float radius, float theta, float delta);
-	float calc_z0(float radius, float theta, float delta);
+	float sphere_x0(float radius, float theta, float delta);
+	float sphere_y0(float radius, float theta, float delta);
+	float sphere_z0(float radius, float theta, float delta);
 
-	float calc_x1(float radius, float theta, float delta, float delta_interval);
-	float calc_y1(float radius, float theta, float delta, float delta_interval);
-	float calc_z1(float radius, float theta, float delta, float delta_interval);
+	float sphere_x1(float radius, float theta, float delta, float delta_interval);
+	float sphere_y1(float radius, float theta, float delta, float delta_interval);
+	float sphere_z1(float radius, float theta, float delta, float delta_interval);
 
-	float calc_x2(float radius, float theta, float delta, float delta_interval, float theta_interval);
-	float calc_y2(float radius, float theta, float delta, float delta_interval);
-	float calc_z2(float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_x2(float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_y2(float radius, float theta, float delta, float delta_interval);
+	float sphere_z2(float radius, float theta, float delta, float delta_interval, float theta_interval);
 
-	float calc_x3(float radius, float theta, float delta, float theta_interval);
-	float calc_y3(float radius, float theta, float delta, float theta_interval);
-	float calc_z3(float radius, float theta, float delta, float theta_interval);
+	float sphere_x3(float radius, float theta, float delta, float theta_interval);
+	float sphere_y3(float radius, float theta, float delta, float theta_interval);
+	float sphere_z3(float radius, float theta, float delta, float theta_interval);
 
-	float calc_n_x0(float radius, float theta, float delta);
-	float calc_n_y0(float radius, float theta, float delta);
-	float calc_n_z0(float radius, float theta, float delta);
+	float sphere_n_x0(float radius, float theta, float delta);
+	float sphere_n_y0(float radius, float theta, float delta);
+	float sphere_n_z0(float radius, float theta, float delta);
 
-	float calc_n_x1(float radius, float theta, float delta, float delta_interval);
-	float calc_n_y1(float radius, float theta, float delta, float delta_interval);
-	float calc_n_z1(float radius, float theta, float delta, float delta_interval);
+	float sphere_n_x1(float radius, float theta, float delta, float delta_interval);
+	float sphere_n_y1(float radius, float theta, float delta, float delta_interval);
+	float sphere_n_z1(float radius, float theta, float delta, float delta_interval);
 
-	float calc_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval);
-	float calc_n_y2(float radius, float theta, float delta, float delta_interval);
-	float calc_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_n_y2(float radius, float theta, float delta, float delta_interval);
+	float sphere_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval);
 
-	float calc_n_x3(float radius, float theta, float delta, float theta_interval);
-	float calc_n_y3(float radius, float theta, float delta, float theta_interval);
-	float calc_n_z3(float radius, float theta, float delta, float theta_interval);
+	float sphere_n_x3(float radius, float theta, float delta, float theta_interval);
+	float sphere_n_y3(float radius, float theta, float delta, float theta_interval);
+	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
 
 	//void drawIcosahedron();
 	//void normalize(float v[3]);

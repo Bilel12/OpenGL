@@ -196,15 +196,15 @@ void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
 		theta = 0.0;
 
 	for (int i = 0; i < edges; ++i) {
-		disc_verts.push_back(x + start);
-		disc_verts.push_back(y + start);
-		disc_verts.push_back(z + start);
+		disc_verts.push_back(x);
+		disc_verts.push_back(y);
+		disc_verts.push_back(z);
 		disc_verts.push_back(x + radius * cos(theta));
 		disc_verts.push_back(y + radius * sin(theta));
-		disc_verts.push_back(z + start);
+		disc_verts.push_back(z);
 		disc_verts.push_back(x + radius * cos(theta + interval));
 		disc_verts.push_back(y + radius * sin(theta + interval));
-		disc_verts.push_back(z + start);
+		disc_verts.push_back(z);
 
 		disc_norms.push_back(0.0);
 		disc_norms.push_back(0.0);
@@ -256,9 +256,9 @@ void Shape::buildFlatDisc(int edges, float radius, float x, float z) {
 		theta = 0.0;
 
 	for (int i = 0; i < edges; ++i) {
-		flat_disc_verts.push_back(x + start);
+		flat_disc_verts.push_back(x);
 		flat_disc_verts.push_back(start);
-		flat_disc_verts.push_back(z + start);
+		flat_disc_verts.push_back(z);
 		flat_disc_verts.push_back(x + radius * cos(theta));
 		flat_disc_verts.push_back(start);
 		flat_disc_verts.push_back(z + radius * sin(theta));
@@ -311,83 +311,83 @@ void Shape::renderFlatDisc(GLuint * texture) {
 //no need to use inline since a function defined entirely inside a class/struct/union definition, 
 //whether it's a member function or a non-member friend function, 
 //is implicitly an inline function.
-float Shape::calc_x0(float radius, float theta, float delta) {
+float Shape::sphere_x0(float radius, float theta, float delta) {
 	return radius * cos(theta) * sin(delta);
 }
-float Shape::calc_y0(float radius, float theta, float delta) {
+float Shape::sphere_y0(float radius, float theta, float delta) {
 	return radius * cos(delta);
 }
-float Shape::calc_z0(float radius, float theta, float delta) {
+float Shape::sphere_z0(float radius, float theta, float delta) {
 	return radius * sin(theta) * sin(delta);
 }
 
-float Shape::calc_x1(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_x1(float radius, float theta, float delta, float delta_interval) {
 	return radius * cos(theta) * sin(delta + delta_interval);
 }
-float Shape::calc_y1(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_y1(float radius, float theta, float delta, float delta_interval) {
 	return radius * cos(delta + delta_interval);
 }
-float Shape::calc_z1(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_z1(float radius, float theta, float delta, float delta_interval) {
 	return radius * sin(theta) * sin(delta + delta_interval);
 }
 
-float Shape::calc_x2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
+float Shape::sphere_x2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
 	return radius * cos(theta + theta_interval) * sin(delta + delta_interval);
 }
-float Shape::calc_y2(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_y2(float radius, float theta, float delta, float delta_interval) {
 	return radius * cos(delta + delta_interval);
 }
-float Shape::calc_z2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
+float Shape::sphere_z2(float radius, float theta, float theta_interval, float delta, float delta_interval) {
 	return radius * sin(theta + theta_interval) * sin(delta + delta_interval);
 }
 
-float Shape::calc_x3(float radius, float theta, float theta_interval, float delta) {
+float Shape::sphere_x3(float radius, float theta, float theta_interval, float delta) {
 	return radius * cos(theta + theta_interval) * sin(delta);
 }
-float Shape::calc_y3(float radius, float theta, float theta_interval, float delta) {
+float Shape::sphere_y3(float radius, float theta, float theta_interval, float delta) {
 	return radius * cos(delta);
 }
-float Shape::calc_z3(float radius, float theta, float theta_interval, float delta) {
+float Shape::sphere_z3(float radius, float theta, float theta_interval, float delta) {
 	return radius * sin(theta + theta_interval) * sin(delta);
 }
 
-float Shape::calc_n_x0(float radius, float theta, float delta) {
+float Shape::sphere_n_x0(float radius, float theta, float delta) {
 	return cos(theta) * sin(delta) / radius;
 }
-float Shape::calc_n_y0(float radius, float theta, float delta) {
+float Shape::sphere_n_y0(float radius, float theta, float delta) {
 	return cos(delta) / radius;
 }
-float Shape::calc_n_z0(float radius, float theta, float delta) {
+float Shape::sphere_n_z0(float radius, float theta, float delta) {
 	return sin(theta) * sin(delta) / radius;
 }
 
-float Shape::calc_n_x1(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_n_x1(float radius, float theta, float delta, float delta_interval) {
 	return cos(theta) * sin(delta + delta_interval) / radius;
 }
-float Shape::calc_n_y1(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_n_y1(float radius, float theta, float delta, float delta_interval) {
 	return cos(delta + delta_interval) / radius;
 }
-float Shape::calc_n_z1(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_n_z1(float radius, float theta, float delta, float delta_interval) {
 	return sin(theta) * sin(delta + delta_interval) / radius;
 }
 
-float Shape::calc_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
+float Shape::sphere_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
 	return cos(theta + theta_interval) * sin(delta + delta_interval) / radius;
 }
-float Shape::calc_n_y2(float radius, float theta, float delta, float delta_interval) {
+float Shape::sphere_n_y2(float radius, float theta, float delta, float delta_interval) {
 	return cos(delta + delta_interval) / radius;
 }
-float Shape::calc_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
+float Shape::sphere_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
 	return sin(theta + theta_interval) * sin(delta + delta_interval) / radius;
 }
 
-float Shape::calc_n_x3(float radius, float theta, float delta, float theta_interval) {
+float Shape::sphere_n_x3(float radius, float theta, float delta, float theta_interval) {
 	return cos(theta + theta_interval) * sin(delta) / radius;
 }
-float Shape::calc_n_y3(float radius, float theta, float delta, float theta_interval) {
+float Shape::sphere_n_y3(float radius, float theta, float delta, float theta_interval) {
 	return cos(delta) / radius;
 }
-float Shape::calc_n_z3(float radius, float theta, float delta, float theta_interval) {
+float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_interval) {
 	return sin(theta + theta_interval) * sin(delta) / radius;
 }
 
@@ -404,54 +404,54 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 
 	for (int i = 0; i < longitude; ++i) {
 		for (int j = 0; j < latitude; ++j) {
-			sphere_verts.push_back(calc_x0(radius, theta, delta));
-			sphere_verts.push_back(calc_y0(radius, theta, delta));
-			sphere_verts.push_back(calc_z0(radius, theta, delta));
+			sphere_verts.push_back(sphere_x0(radius, theta, delta));
+			sphere_verts.push_back(sphere_y0(radius, theta, delta));
+			sphere_verts.push_back(sphere_z0(radius, theta, delta));
 
-			sphere_verts.push_back(calc_x1(radius, theta, delta, delta_interval));
-			sphere_verts.push_back(calc_y1(radius, theta, delta, delta_interval));
-			sphere_verts.push_back(calc_z1(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(sphere_x1(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(sphere_y1(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(sphere_z1(radius, theta, delta, delta_interval));
 
-			sphere_verts.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
-			sphere_verts.push_back(calc_y2(radius, theta, delta, delta_interval));
-			sphere_verts.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(sphere_x2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(sphere_y2(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(sphere_z2(radius, theta, theta_interval, delta, delta_interval));
 
-			sphere_verts.push_back(calc_x2(radius, theta, theta_interval, delta, delta_interval));
-			sphere_verts.push_back(calc_y2(radius, theta, delta, delta_interval));
-			sphere_verts.push_back(calc_z2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(sphere_x2(radius, theta, theta_interval, delta, delta_interval));
+			sphere_verts.push_back(sphere_y2(radius, theta, delta, delta_interval));
+			sphere_verts.push_back(sphere_z2(radius, theta, theta_interval, delta, delta_interval));
 
-			sphere_verts.push_back(calc_x3(radius, theta, theta_interval, delta));
-			sphere_verts.push_back(calc_y3(radius, theta, theta_interval, delta));
-			sphere_verts.push_back(calc_z3(radius, theta, theta_interval, delta));
+			sphere_verts.push_back(sphere_x3(radius, theta, theta_interval, delta));
+			sphere_verts.push_back(sphere_y3(radius, theta, theta_interval, delta));
+			sphere_verts.push_back(sphere_z3(radius, theta, theta_interval, delta));
 
-			sphere_verts.push_back(calc_x0(radius, theta, delta));
-			sphere_verts.push_back(calc_y0(radius, theta, delta));
-			sphere_verts.push_back(calc_z0(radius, theta, delta));
+			sphere_verts.push_back(sphere_x0(radius, theta, delta));
+			sphere_verts.push_back(sphere_y0(radius, theta, delta));
+			sphere_verts.push_back(sphere_z0(radius, theta, delta));
 
 
-			sphere_norms.push_back(calc_n_x0(radius, theta, delta));
-			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
-			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
+			sphere_norms.push_back(sphere_n_x0(radius, theta, delta));
+			sphere_norms.push_back(sphere_n_y0(radius, theta, delta));
+			sphere_norms.push_back(sphere_n_z0(radius, theta, delta));
 
-			sphere_norms.push_back(calc_n_x1(radius, theta, delta, delta_interval));
-			sphere_norms.push_back(calc_n_y1(radius, theta, delta, delta_interval));
-			sphere_norms.push_back(calc_n_z1(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(sphere_n_x1(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(sphere_n_y1(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(sphere_n_z1(radius, theta, delta, delta_interval));
 
-			sphere_norms.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
-			sphere_norms.push_back(calc_n_y2(radius, theta, delta, delta_interval));
-			sphere_norms.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(sphere_n_x2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(sphere_n_y2(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(sphere_n_z2(radius, theta, delta, delta_interval, theta_interval));
 
-			sphere_norms.push_back(calc_n_x2(radius, theta, delta, delta_interval, theta_interval));
-			sphere_norms.push_back(calc_n_y2(radius, theta, delta, delta_interval));
-			sphere_norms.push_back(calc_n_z2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(sphere_n_x2(radius, theta, delta, delta_interval, theta_interval));
+			sphere_norms.push_back(sphere_n_y2(radius, theta, delta, delta_interval));
+			sphere_norms.push_back(sphere_n_z2(radius, theta, delta, delta_interval, theta_interval));
 
-			sphere_norms.push_back(calc_n_x3(radius, theta, delta, theta_interval));
-			sphere_norms.push_back(calc_n_y3(radius, theta, delta, theta_interval));
-			sphere_norms.push_back(calc_n_z3(radius, theta, delta, theta_interval));
+			sphere_norms.push_back(sphere_n_x3(radius, theta, delta, theta_interval));
+			sphere_norms.push_back(sphere_n_y3(radius, theta, delta, theta_interval));
+			sphere_norms.push_back(sphere_n_z3(radius, theta, delta, theta_interval));
 
-			sphere_norms.push_back(calc_n_x0(radius, theta, delta));
-			sphere_norms.push_back(calc_n_y0(radius, theta, delta));
-			sphere_norms.push_back(calc_n_z0(radius, theta, delta));
+			sphere_norms.push_back(sphere_n_x0(radius, theta, delta));
+			sphere_norms.push_back(sphere_n_y0(radius, theta, delta));
+			sphere_norms.push_back(sphere_n_z0(radius, theta, delta));
 
 
 			sphere_texcoords.push_back(v_longs);
