@@ -1,7 +1,6 @@
 #include "Scene.h"
 
-Scene::Scene(Input *in)
-{
+Scene::Scene(Input *in) {
 	// Store pointer for input class
 	input = in;
 	// Camera

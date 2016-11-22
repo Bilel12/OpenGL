@@ -138,12 +138,17 @@ void Shape::renderCube(GLuint * texture) {
 }
 
 void Shape::renderBlendCube(GLuint * texture) {
-	glPolygonMode(GL_FRONT, GL_LINE);
-	renderCube(texture);
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
-	renderCube(texture);
-	glPolygonMode(GL_BACK, GL_FILL);
+	glPushMatrix();
+	glScalef(1.5, 1.5, 1.5);
+	glTranslatef(-10, 0, 0);
+	glRotatef(45, 0, 0, 1);
+		glPolygonMode(GL_FRONT, GL_LINE);
+		renderCube(texture);
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_LINE);
+		renderCube(texture);
+		glPolygonMode(GL_BACK, GL_FILL);
+	glPopMatrix();
 }
 
 void Shape::renderSkybox(GLuint *texture) {

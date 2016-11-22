@@ -70,28 +70,6 @@ void Draw::drawSquare(float x, float y, float z, GLuint *texture) {
 	glPopMatrix();
 }
 
-//void Draw::drawTorus(int numc, int numt) {
-//	int i, j, k;
-//	double s, t, x, y, z, twopi;
-//
-//	twopi = 2 * (double)M_PI;
-//	for (i = 0; i < numc; i++) {
-//		glBegin(GL_QUAD_STRIP);
-//		for (j = 0; j <= numt; j++) {
-//			for (k = 1; k >= 0; k--) {
-//				s = (i + k) % numc + 0.5;
-//				t = j % numt;
-//
-//				x = (1 + .1*cos(s*twopi / numc))*cos(t*twopi / numt);
-//				y = (1 + .1*cos(s*twopi / numc))*sin(t*twopi / numt);
-//				z = .1 * sin(s * twopi / numc);
-//				glVertex3f(x, y, z);
-//			}
-//		}
-//		glEnd();
-//	}
-//}
-
 void Draw::drawCircle(int edges, float x, float y, float z) {
 	// version I
 	//glBegin(GL_LINE_LOOP); {
@@ -184,62 +162,9 @@ void Draw::drawFlatDisc(int edges, float radius, float x, float z, GLuint * text
 	}
 }
 
-//void Draw::normalize(float v[3]) {
-//	GLfloat d = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-//	if (d == 0.0) {
-//		return;
-//	}
-//	v[0] /= d; v[1] /= d; v[2] /= d;
-//}
-//
-//void Draw::normcrossprod(float v1[3], float v2[3], float out[3]) {
-//	GLint i, j;
-//	GLfloat length;
-//
-//	out[0] = v1[1] * v2[2] - v1[2] * v2[1];
-//	out[1] = v1[2] * v2[0] - v1[0] * v2[2];
-//	out[2] = v1[0] * v2[1] - v1[1] * v2[0];
-//	normalize(out);
-//}
-
-//void Draw::drawIcosahedron() {
-//	//glBegin(GL_TRIANGLES);
-//	//for (int i = 0; i < 20; i++) {
-//	//	glNormal3fv(&vdata[tindices[i][0]][0]);
-//	//	glVertex3fv(&vdata[tindices[i][0]][0]);
-//	//	glNormal3fv(&vdata[tindices[i][1]][0]);
-//	//	glVertex3fv(&vdata[tindices[i][1]][0]);
-//	//	glNormal3fv(&vdata[tindices[i][2]][0]);
-//	//	glVertex3fv(&vdata[tindices[i][2]][0]);
-//	//}
-//	//glEnd();
-//
-//
-//	for (int i = 0; i < 20; i++) {
-//		subdivide(&vdata[tindices[i][0]][0],
-//			&vdata[tindices[i][1]][0],
-//			&vdata[tindices[i][2]][0]);
-//	}
-//	/*glBegin(GL_TRIANGLES);
-//	for (int i = 0; i < 50; i++) {
-//		float d1[3], d2[3], norm[3];
-//		for (int j = 0; j < 3; j++) {
-//			d1[j] = vdata[tindices[i][0]][j] - vdata[tindices[i][1]][j];
-//			d2[j] = vdata[tindices[i][1]][j] - vdata[tindices[i][2]][j];
-//		}
-//
-//		normcrossprod(d1, d2, norm);
-//		glNormal3fv(norm);
-//		glVertex3fv(&vdata[tindices[i][0]][0]);
-//		glVertex3fv(&vdata[tindices[i][1]][0]);
-//		glVertex3fv(&vdata[tindices[i][2]][0]);
-//	}
-//	glEnd();*/
-//}
 //no need to use inline since a function defined entirely inside a class/struct/union definition, 
 //whether it's a member function or a non-member friend function, 
 //is implicitly an inline function.
-
 float Draw::sphere_x0(float radius, float theta, float delta) {
 	return radius * cos(theta) * sin(delta);
 }
@@ -743,46 +668,76 @@ void Draw::drawCone(float radius, float edges, float height, float x, float y, f
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
-//float* Draw::moveCube(float x, float y, float z, float* cube_verts) {
-//	//for (int i = 0; i < sizeof(cube_verts) / sizeof(cube_verts[0]); ++i) {
-//	for (int i = 0; i < 36; ++i) {
-//		if (i % 3 == 0) {
-//			if (cube_verts[i] >= 0) { cube_verts[i] = x; }
-//			else { cube_verts[i] = -x; }
+//void Draw::drawTorus(int numc, int numt) {
+//	int i, j, k;
+//	double s, t, x, y, z, twopi;
+//
+//	twopi = 2 * (double)M_PI;
+//	for (i = 0; i < numc; i++) {
+//		glBegin(GL_QUAD_STRIP);
+//		for (j = 0; j <= numt; j++) {
+//			for (k = 1; k >= 0; k--) {
+//				s = (i + k) % numc + 0.5;
+//				t = j % numt;
+//
+//				x = (1 + .1*cos(s*twopi / numc))*cos(t*twopi / numt);
+//				y = (1 + .1*cos(s*twopi / numc))*sin(t*twopi / numt);
+//				z = .1 * sin(s * twopi / numc);
+//				glVertex3f(x, y, z);
+//			}
 //		}
-//		else if (i % 3 == 1) {
-//			if (cube_verts[i] >= y) { cube_verts[i] = y; }
-//			else { cube_verts[i] = -y; }
-//		}
-//		else if (i % 3 == 2) {
-//			if (cube_verts[i] >= z) cube_verts[i] = z;
-//			else cube_verts[i] = -z;
-//		}
+//		glEnd();
 //	}
-//	return cube_verts;
 //}
-// TODO
-//// 0 bottom 
-////glNormal3f(0.0, 0.0, 1.0);
-//glTexCoord2f(u, v);
-//glVertex3f(x + radius * cos(theta + interval), y + y_0, z + radius * sin(theta + interval));
-//// 1 bottom
-////glNormal3f(0.0, 0.0, 1.0);
-//glTexCoord2f(u, v + v_inter);
-//glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
-//// 2 top
-////glNormal3f((x + radius * cos(theta)) / radius, y + (y_value / radius), (z + radius * sin(theta)) / radius);
-//glTexCoord2f(u + u_inter, v + v_inter);
-//glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
-//// 2 top
-////glNormal3f((x + radius * cos(theta)) / radius, (y + y_value) / radius, (z + radius * sin(theta)) / radius);
-//glTexCoord2f(u + u_inter, v + v_inter);
-//glVertex3f(x + radius * cos(theta), y_1, z + radius * sin(theta));
-//// 3 top
-////glNormal3f((x + radius * cos(theta + interval)) / radius, (y + y_value) / radius, (z + radius * sin(theta + interval)) / radius);
-//glTexCoord2f(u + u_inter, v);
-//glVertex3f(x + radius * cos(theta + interval), y_1, z + radius * sin(theta + interval));
-//// 0 bottom 
-////glNormal3f(0.0, 0.0, 1.0);
-//glTexCoord2f(u, v);
-//glVertex3f(x + radius * cos(theta + interval), y_0, z + radius * sin(theta + interval));
+//void Draw::normalize(float v[3]) {
+//	GLfloat d = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+//	if (d == 0.0) {
+//		return;
+//	}
+//	v[0] /= d; v[1] /= d; v[2] /= d;
+//}
+//
+//void Draw::normcrossprod(float v1[3], float v2[3], float out[3]) {
+//	GLint i, j;
+//	GLfloat length;
+//
+//	out[0] = v1[1] * v2[2] - v1[2] * v2[1];
+//	out[1] = v1[2] * v2[0] - v1[0] * v2[2];
+//	out[2] = v1[0] * v2[1] - v1[1] * v2[0];
+//	normalize(out);
+//}
+
+//void Draw::drawIcosahedron() {
+//	//glBegin(GL_TRIANGLES);
+//	//for (int i = 0; i < 20; i++) {
+//	//	glNormal3fv(&vdata[tindices[i][0]][0]);
+//	//	glVertex3fv(&vdata[tindices[i][0]][0]);
+//	//	glNormal3fv(&vdata[tindices[i][1]][0]);
+//	//	glVertex3fv(&vdata[tindices[i][1]][0]);
+//	//	glNormal3fv(&vdata[tindices[i][2]][0]);
+//	//	glVertex3fv(&vdata[tindices[i][2]][0]);
+//	//}
+//	//glEnd();
+//
+//
+//	for (int i = 0; i < 20; i++) {
+//		subdivide(&vdata[tindices[i][0]][0],
+//			&vdata[tindices[i][1]][0],
+//			&vdata[tindices[i][2]][0]);
+//	}
+//	/*glBegin(GL_TRIANGLES);
+//	for (int i = 0; i < 50; i++) {
+//		float d1[3], d2[3], norm[3];
+//		for (int j = 0; j < 3; j++) {
+//			d1[j] = vdata[tindices[i][0]][j] - vdata[tindices[i][1]][j];
+//			d2[j] = vdata[tindices[i][1]][j] - vdata[tindices[i][2]][j];
+//		}
+//
+//		normcrossprod(d1, d2, norm);
+//		glNormal3fv(norm);
+//		glVertex3fv(&vdata[tindices[i][0]][0]);
+//		glVertex3fv(&vdata[tindices[i][1]][0]);
+//		glVertex3fv(&vdata[tindices[i][2]][0]);
+//	}
+//	glEnd();*/
+//}

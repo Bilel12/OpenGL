@@ -1,11 +1,14 @@
 #include "FreeCamera.h"
 
 FreeCamera::FreeCamera() {
-	position = (Vector3(0.0f, 0.0f, 6.0f));
-	forward = (Vector3(0.0f, 0.0f, 0.0f));
-	up = (Vector3(0.0f, 0.0f, 1.0f));
-	side = (Vector3(0.0f, 0.0f, 0.0f));
-	lookAt = (Vector3(1.0f, 1.0f, 5.0f));
+	position.set(0.0f, 0.0f, 6.0f);
+	forward.set(0.0f, 0.0f, 0.0f);
+	up.set(0.0f, 0.0f, 0.0f);
+	side.set(0.0f, 0.0f, 0.0f);
+	lookAt.set(1.0f, 1.0f, 5.0f);
+	setYaw(0);
+	setPitch(0);
+	setRoll(0);
 	update();
 }
 

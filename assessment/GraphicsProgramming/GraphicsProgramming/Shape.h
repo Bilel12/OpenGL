@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES // for C++
 #include <cmath>
 #include <vector>
+#include "Vector3.h"
 // Remember atom beautify
 class Shape {
 public:
@@ -85,6 +86,7 @@ private:
 	std::vector<float> floor_verts, floor_norms, floor_texcoords, floor_colors;					// floor variables
 	std::vector<float> cylinder_verts, cylinder_norms, cylinder_texcoords, cylinder_colors;		// cylinder variables
 	std::vector<float> verts, norms, texcoords;
+	Vector3 pos, rot, scl;
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)
