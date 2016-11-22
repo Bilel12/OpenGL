@@ -11,6 +11,8 @@
 // Remember atom beautify
 class Shape {
 public:
+	Shape();
+	~Shape();
 	void render1();
 	void render3();
 	void renderCube(GLuint * texture);
@@ -18,7 +20,7 @@ public:
 	void renderSkybox(GLuint *texture);
 	//static void drawTorus(int numc, int numt);
 	// Floor variables
-	void buildFloor(float x, float y, float z);
+	void buildFloor(float pos_x, float pos_y, float pos_z, float rot_angle, float rot_x, float rot_y, float rot_z, float sca_x, float sca_y, float sca_z);
 	void renderFloor(float R, float G, float B, float A);
 	// Circle functions
 	void buildCircle(int edges, float x, float y, float z);
@@ -74,6 +76,11 @@ public:
 	float sphere_n_y3(float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
 
+	Vector3 getTranslate();
+	Vector3	getRotation();
+	Vector3 getScale();
+	float setRotAngle(float arg);
+	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();
 	//void normalize(float v[3]);
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
@@ -86,7 +93,7 @@ private:
 	std::vector<float> floor_verts, floor_norms, floor_texcoords, floor_colors;					// floor variables
 	std::vector<float> cylinder_verts, cylinder_norms, cylinder_texcoords, cylinder_colors;		// cylinder variables
 	std::vector<float> verts, norms, texcoords;
-	Vector3 pos, rot, scl;
+	float rot_angle;
 };
 
 //void drawtriangle(float *v1, float *v2, float *v3)

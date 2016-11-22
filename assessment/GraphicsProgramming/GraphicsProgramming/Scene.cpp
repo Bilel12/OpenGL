@@ -227,7 +227,7 @@ void Scene::buildShapes() {
 	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
 	//shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
 	cone.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
-	floor.buildFloor(0, 0, 0);
+	floor.buildFloor(0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
 	//shape.buildCircle(60.0, 1., 1., 1.);
 	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
 }
@@ -388,6 +388,12 @@ void Scene::update(float dt) {
 		timebase = time;
 		frame = 0;
 	}
+
+	floor.setRotAngle(angle);
+	floor.rotation.setZ(1);
+	floor.rotation.setX(1);
+	floor.scale.setX(10);
+	floor.translate.setX(1);
 }
 
 void Scene::render() {
