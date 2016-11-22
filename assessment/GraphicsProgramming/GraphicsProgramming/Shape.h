@@ -35,9 +35,10 @@ public:
 	// Flat Disc functions
 	void buildFlatDisc(int edges, float radius, float x, float z);
 	void renderFlatDisc(GLuint *texture);
-	// Cylinder functions
+	// Cylinder functions and variables
 	void buildCylinder(float radius, float height, float edges, float x, float y, float z);
-	void renderCylinder(GLuint *disk_tex, GLuint *side_tex);
+	void renderCylinder(GLuint *disk_texture, GLuint *side_texture);
+	int edgesCylinder;
 	// Sphere functions
 	void buildSphere(double radius, double latitude, double longitude);
 	void renderSphere(GLuint *texture);
@@ -79,6 +80,7 @@ public:
 private:
 	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords;							// sphere variables
 	std::vector<float> disc_verts, disc_norms, disc_texcoords;									// disc varaibles
+	std::vector<float> disc1_verts, disc1_norms, disc1_texcoords;									// disc varaibles
 	std::vector<float> circle_verts;															// circle variables
 	std::vector<float> cone_verts, cone_norms, cone_texcoords;									// cone variables
 	std::vector<float> floor_verts, floor_norms, floor_texcoords, floor_colors;					// floor variables

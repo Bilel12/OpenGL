@@ -191,16 +191,13 @@ void Shape::renderCircle() {
 float Shape::disc_sin(float pos, float radius, float theta) {
 	return pos + radius * cos(theta);
 }
-
 float Shape::disc_cos(float pos, float radius, float theta) {
 	return pos + radius * sin(theta);
 }
-
 float Shape::disc_sin_n(float pos, float radius, float theta)
 {
 	return (pos + radius * sin(theta)) / radius;
 }
-
 float Shape::disc_cos_n(float pos, float radius, float theta)
 {
 	return (pos + radius * cos(theta)) / radius; // TODO should pos be in the brackets?
@@ -497,7 +494,7 @@ void Shape::renderSphere(GLuint *texture) {
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, sphere_verts.data());
 	glNormalPointer(GL_FLOAT, 0, sphere_norms.data());
@@ -514,6 +511,7 @@ void Shape::renderSphere(GLuint *texture) {
 }
 
 void Shape::buildCylinder(float radius, float edges, float height, float x, float y, float z) {
+	edgesCylinder = (int)(edges);
 	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
@@ -524,115 +522,137 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 		u_inter = 1.0 / edges,
 		v_inter = 1.0 / height;
 
-	
 	// bottom disk
-	float start = 0.0;
 	for (int i = 0; i < edges; ++i) {
-		verts.push_back(x);
-		verts.push_back(start);
-		verts.push_back(z);
-		verts.push_back(x + radius * cos(theta));
-		verts.push_back(start);
-		verts.push_back(z + radius * sin(theta));
-		verts.push_back(x + radius * cos(theta + interval));
-		verts.push_back(start);
-		verts.push_back(z + radius * sin(theta + interval));
+		disc_verts.push_back(x);
+		disc_verts.push_back(y);
+		disc_verts.push_back(z);
+		disc_verts.push_back(x + radius * cos(theta));
+		disc_verts.push_back(y);
+		disc_verts.push_back(z + radius * sin(theta));
+		disc_verts.push_back(x + radius * cos(theta + interval));
+		disc_verts.push_back(y);
+		disc_verts.push_back(z + radius * sin(theta + interval));
 
 		for (int i = 0; i < 3; ++i) {
-			norms.push_back(0.0);
-			norms.push_back(-1.0);
-			norms.push_back(0.0);
+			disc_norms.push_back(0.0);
+			disc_norms.push_back(-1.0);
+			disc_norms.push_back(0.0);
 		}
 
-		texcoords.push_back(0.5);
-		texcoords.push_back(0.5);
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+		disc_texcoords.push_back(0.5);
+		disc_texcoords.push_back(0.5);
+		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
+		disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+
+		theta += interval;
+	}
+	// top disk
+	theta = 0.0;
+	for (int i = 0; i < edges; ++i) {
+		disc1_verts.push_back(x);
+		disc1_verts.push_back(y + y_value * height);
+		disc1_verts.push_back(z);
+		disc1_verts.push_back(x + radius * cos(theta));
+		disc1_verts.push_back(y + y_value * height);
+		disc1_verts.push_back(z + radius * sin(theta));
+		disc1_verts.push_back(x + radius * cos(theta + interval));
+		disc1_verts.push_back(y + y_value * height);
+		disc1_verts.push_back(z + radius * sin(theta + interval));
+
+		for (int i = 0; i < 3; ++i) {
+			disc1_norms.push_back(0.0);
+			disc1_norms.push_back(1.0);
+			disc1_norms.push_back(0.0);
+		}
+
+		disc1_texcoords.push_back(0.5);
+		disc1_texcoords.push_back(0.5);
+		disc1_texcoords.push_back(cos(theta) / diameter + 0.5);
+		disc1_texcoords.push_back(sin(theta) / diameter + 0.5);
+		disc1_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		disc1_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
 
 		theta += interval;
 	}
 	// side
-	theta = 0.0;
+	theta = 0.0; 
 	for (int i = 1; i <= height; ++i) {
 		for (int j = 0; j < edges; ++j) {
-			glBegin(GL_TRIANGLE_STRIP); {
-				float disc_sin(float pos, float radius, float theta);
-				float disc_cos(float pos, float radius, float theta);
+			float  y0 = y + y_value * (i - 1);
+			float y1 = y + y_value * i;
 
-				float  y0 = y + y_value * (i - 1);
-				float y1 = y + y_value * i;
-				// 0 bottom
-				verts.push_back(disc_cos(x, radius, theta));
-				verts.push_back(y0);
-				verts.push_back(disc_sin(z, radius, theta));
-				// 1 bottom
-				verts.push_back(disc_cos(x, radius, theta + interval));
-				verts.push_back(y0);
-				verts.push_back(disc_sin(z, radius, theta + interval));
-				// 2 top
-				verts.push_back(disc_cos(x, radius, theta + interval));
-				verts.push_back(y1);
-				verts.push_back(disc_sin(z, radius, theta + interval));
-				// 2 top
-				verts.push_back(disc_cos(x, radius, theta + interval));
-				verts.push_back(y1);
-				verts.push_back(disc_sin(z, radius, theta + interval));
-				// 3 top
-				verts.push_back(disc_cos(x, radius, theta));
-				verts.push_back(y1);
-				verts.push_back(disc_sin(z, radius, theta));
-				// 0 bottom
-				verts.push_back(disc_cos(x, radius, theta));
-				verts.push_back(y0);
-				verts.push_back(disc_sin(z, radius, theta));
+			// 0 bottom
+			verts.push_back(disc_cos(x, radius, theta));
+			verts.push_back(y0);
+			verts.push_back(disc_sin(z, radius, theta));
+			// 1 bottom
+			verts.push_back(disc_cos(x, radius, theta + interval));
+			verts.push_back(y0);
+			verts.push_back(disc_sin(z, radius, theta + interval));
+			// 2 top
+			verts.push_back(disc_cos(x, radius, theta + interval));
+			verts.push_back(y1);
+			verts.push_back(disc_sin(z, radius, theta + interval));
+			//// 2 top
+			//verts.push_back(disc_cos(x, radius, theta + interval));
+			//verts.push_back(y1);
+			//verts.push_back(disc_sin(z, radius, theta + interval));
+			// 3 top
+			verts.push_back(disc_cos(x, radius, theta));
+			verts.push_back(y1);
+			verts.push_back(disc_sin(z, radius, theta));
+			// 0 bottom
+			verts.push_back(disc_cos(x, radius, theta));
+			verts.push_back(y0);
+			verts.push_back(disc_sin(z, radius, theta));
 
-				// 0 bottom
-				texcoords.push_back(u);
-				texcoords.push_back(v);
-				// 1 bottom
-				texcoords.push_back(u + u_inter);
-				texcoords.push_back(v);
-				// 2 top
-				texcoords.push_back(u + u_inter);
-				texcoords.push_back(v + v_inter);
-				// 2 top
-				texcoords.push_back(u + u_inter);
-				texcoords.push_back(v + v_inter);
-				// 3 top
-				texcoords.push_back(u);
-				texcoords.push_back(v + v_inter);
-				// 0 bottom
-				texcoords.push_back(u);
-				texcoords.push_back(v);
+			// 0 bottom
+			texcoords.push_back(u);
+			texcoords.push_back(v);
+			// 1 bottom
+			texcoords.push_back(u + u_inter);
+			texcoords.push_back(v);
+			// 2 top
+			texcoords.push_back(u + u_inter);
+			texcoords.push_back(v + v_inter);
+			//// 2 top
+			//texcoords.push_back(u + u_inter);
+			//texcoords.push_back(v + v_inter);
+			// 3 top
+			texcoords.push_back(u);
+			texcoords.push_back(v + v_inter);
+			// 0 bottom
+			texcoords.push_back(u);
+			texcoords.push_back(v);
 
-				// 0 bottom
-				verts.push_back(disc_cos_n(x, radius, theta));
-				verts.push_back(y0);
-				verts.push_back(disc_sin_n(z, radius, theta));
-				// 1 bottom
-				verts.push_back(disc_cos_n(x, radius, theta + interval));
-				verts.push_back(y0);
-				verts.push_back(disc_sin_n(z, radius, theta + interval));
-				// 2 top
-				verts.push_back(disc_cos_n(x, radius, theta + interval));
-				verts.push_back(y1);
-				verts.push_back(disc_sin_n(z, radius, theta + interval));
-				// 2 top
-				verts.push_back(disc_cos_n(x, radius, theta + interval));
-				verts.push_back(y1);
-				verts.push_back(disc_sin_n(z, radius, theta + interval));
-				// 3 top
-				verts.push_back(disc_cos_n(x, radius, theta));
-				verts.push_back(y1);
-				verts.push_back(disc_sin_n(z, radius, theta));
-				// 0 bottom
-				verts.push_back(disc_cos_n(x, radius, theta));
-				verts.push_back(y0);
-				verts.push_back(disc_sin_n(z, radius, theta));
+			// 0 bottom
+			norms.push_back(disc_cos_n(x, radius, theta));
+			norms.push_back(y0);
+			norms.push_back(disc_sin_n(z, radius, theta));
+			// 1 bottom
+			norms.push_back(disc_cos_n(x, radius, theta + interval));
+			norms.push_back(y0);
+			norms.push_back(disc_sin_n(z, radius, theta + interval));
+			// 2 top
+			norms.push_back(disc_cos_n(x, radius, theta + interval));
+			norms.push_back(y1);
+			norms.push_back(disc_sin_n(z, radius, theta + interval));
+			//// 2 top
+			//norms.push_back(disc_cos_n(x, radius, theta + interval));
+			//norms.push_back(y1);
+			//norms.push_back(disc_sin_n(z, radius, theta + interval));
+			// 3 top
+			norms.push_back(disc_cos_n(x, radius, theta));
+			norms.push_back(y1);
+			norms.push_back(disc_sin_n(z, radius, theta));
+			// 0 bottom
+			norms.push_back(disc_cos_n(x, radius, theta));
+			norms.push_back(y0);
+			norms.push_back(disc_sin_n(z, radius, theta));
 
-			} glEnd();
 			theta += interval;
 			u += u_inter;
 		}
@@ -640,37 +660,49 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 		u = 0;
 		theta = 0.0;
 	}
-	// top disk
-	theta = 0.0;
-	for (int i = 0; i < edges; ++i) {
-		verts.push_back(x);
-		verts.push_back(y + y_value * height);
-		verts.push_back(z);
-		verts.push_back(x + radius * cos(theta));
-		verts.push_back(y + y_value * height);
-		verts.push_back(z + radius * sin(theta));
-		verts.push_back(x + radius * cos(theta + interval));
-		verts.push_back(y + y_value * height);
-		verts.push_back(z + radius * sin(theta + interval));
-
-		for (int i = 0; i < 3; ++i) {
-			norms.push_back(0.0);
-			norms.push_back(1.0);
-			norms.push_back(0.0);
-		}
-
-		texcoords.push_back(0.5);
-		texcoords.push_back(0.5);
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
-
-		theta += interval;
-	}
 }
 
-void Shape::renderCylinder(GLuint *texture, GLuint *tex) {
+void Shape::renderCylinder(GLuint *disc_texture, GLuint *side_texture) {
+	// bottom disc
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	//auto *p_verts = disc_verts.data();
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
+	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
+
+	glBindTexture(GL_TEXTURE_2D, *disc_texture);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, disc_verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// top disc
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, disc1_verts.data());
+	glNormalPointer(GL_FLOAT, 0, disc1_norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
+
+	glBindTexture(GL_TEXTURE_2D, *disc_texture);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, disc1_verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// side
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -681,7 +713,7 @@ void Shape::renderCylinder(GLuint *texture, GLuint *tex) {
 	glNormalPointer(GL_FLOAT, 0, norms.data());
 	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
+	glBindTexture(GL_TEXTURE_2D, *side_texture);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 

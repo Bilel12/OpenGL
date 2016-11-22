@@ -215,24 +215,26 @@ void Scene::renderLists() {
 }
 
 void Scene::buildShapes() {
-	shape.buildSphere(2.0, 15.0, 15.0);
+	sphere.buildSphere(2.0, 15.0, 15.0);
 	disc_1.buildDisc(10.0, 2.0, -3.0, 3.0, -10.0);
 	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
-	shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
-	shape.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
-	shape.buildFloor(0, 0, 0);
-	shape.buildCircle(60.0, 1., 1., 1.);
+	//shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
+	cone.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
+	floor.buildFloor(0, 0, 0);
+	//shape.buildCircle(60.0, 1., 1., 1.);
+	//cylinder.buildCylinder(2., 3., 20., 3., 3., 3.);
 }
 
 void Scene::renderShapes() {
 	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
-	shape.renderBlendCube(crate_trans_tex);
-	shape.renderSphere(globe_tex);
+	blend_cube.renderBlendCube(crate_trans_tex);
+	sphere.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
 	disc_2.renderDisc(barrel_lid_2_tex);
-	shape.renderFlatDisc(disk_tex);
-	shape.renderCone(disk_tex);
-	shape.renderCircle();
+	//shape.renderFlatDisc(disk_tex);
+	cone.renderCone(disk_tex);
+	//shape.renderCircle();
+	//cylinder.renderCylinder(barrel_lid_1_tex, barrel_side_tex);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawIcosahedron();
@@ -241,7 +243,6 @@ void Scene::renderShapes() {
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
 	draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
-	draw.drawCylinderHighPoli(2., 1., 50., -3., 3., 3., disk_tex, globe_tex);
 }
 
 void Scene::renderStencilBuffer(Model model) {
@@ -252,7 +253,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
 	// Draw mirror
-	shape.renderFloor(0.5, 0.5, 0.5, 0.5);					
+	floor.renderFloor(0.5, 0.5, 0.5, 0.5);					
 	// Draw floor object()
 	glEnable(GL_DEPTH_TEST);								// Enable depth test
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);		// Turn on rendering to the frame buffer
@@ -270,7 +271,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	shape.renderFloor(0.5, 0.5, 0.5, 0.5);					// Draw floor object
+	floor.renderFloor(0.5, 0.5, 0.5, 0.5);					// Draw floor object
 	//glEnable(GL_LIGHTING);								// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect

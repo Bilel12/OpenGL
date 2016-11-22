@@ -501,6 +501,21 @@ void Draw::drawCylinder(float radius, float edges, float height, float x, float 
 	glPolygonMode(GL_FRONT, GL_FILL);
 }
 
+float Draw::disc_sin(float pos, float radius, float theta) {
+	return pos + radius * cos(theta);
+}
+float Draw::disc_cos(float pos, float radius, float theta) {
+	return pos + radius * sin(theta);
+}
+float Draw::disc_sin_n(float pos, float radius, float theta)
+{
+	return (pos + radius * sin(theta)) / radius;
+}
+float Draw::disc_cos_n(float pos, float radius, float theta)
+{
+	return (pos + radius * cos(theta)) / radius; // TODO should pos be in the brackets?
+}
+
 void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture) {
 	float
 		interval = 2.0 * M_PI / edges,
@@ -533,30 +548,36 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 			theta += interval;
 		}
 	} glBindTexture(GL_TEXTURE_2D, NULL);
+	// top disk
+	theta = 0.0;
+	glBindTexture(GL_TEXTURE_2D, *disk_texture); {
+		for (int i = 0; i < edges; ++i) {
+			glBegin(GL_TRIANGLES); {
+				// Disc's middle
+				glNormal3f(0.0, 1.0, 0.0);
+				glTexCoord2f(0.5, 0.5);
+				glVertex3f(x, y + y_value * height, z);
+				// Tringle's first edge
+				glNormal3f(0.0, 1.0, 0.0);
+				glTexCoord2f((cos(theta) / diameter) + 0.5, (sin(theta) / diameter) + 0.5);
+				glVertex3f(x + radius * cos(theta), y + y_value * height, z + radius * sin(theta));
+				// Triangle's second edge
+				glNormal3f(0.0, 1.0, 0.0);
+				glTexCoord2f((cos(theta + interval) / diameter + 0.5), (sin(theta + interval) / diameter) + 0.5);
+				glVertex3f(x + radius * cos(theta + interval), y + y_value * height, z + radius * sin(theta + interval));
+			} glEnd();
+			theta += interval;
+		} glBindTexture(GL_TEXTURE_2D, NULL);
+	}
 	// side
 	theta = 0.0;
 	glBindTexture(GL_TEXTURE_2D, *side_texture); {
 		for (int i = 1; i <= height; ++i) {
 			for (int j = 0; j < edges; ++j) {
-				//glBegin(GL_TRIANGLE_STRIP); {
 				glBegin(GL_TRIANGLE_STRIP); {
+				//glBegin(GL_TRIANGLES); {
 					float  y0 = y + y_value * (i - 1);
 					float y1 = y + y_value * i;
-					/*x0 = 
-					y0 = y + y_value * (i - 1),
-					z0 =
-
-					x1 = 
-					y1 = y + y_value * i;
-					z1 =
-
-					x2 = 
-					y2 = 
-					z2 =
-
-					x3 = 
-					y3 = 
-					z3 =*/
 					// 0 bottom 
 					glNormal3f((x + radius * cos(theta)) / radius, (y0 / radius), (z + radius * sin(theta)) / radius);
 					glTexCoord2f(u, v);
@@ -569,10 +590,10 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 					glNormal3f((x + radius * cos(theta + interval)) / radius, (y1 / radius), (z + radius * sin(theta + interval)) / radius);
 					glTexCoord2f(u + u_inter, v + v_inter);
 					glVertex3f(x + radius * cos(theta + interval), y1, z + radius * sin(theta + interval));
-					// 2 top
-					glNormal3f((x + radius * cos(theta + interval)) / radius, (y1 / radius), (z + radius * sin(theta + interval)) / radius);
-					glTexCoord2f(u + u_inter, v + v_inter);
-					glVertex3f(x + radius * cos(theta + interval), y1, z + radius * sin(theta + interval));
+					//// 2 top
+					//glNormal3f((x + radius * cos(theta + interval)) / radius, (y1 / radius), (z + radius * sin(theta + interval)) / radius);
+					//glTexCoord2f(u + u_inter, v + v_inter);
+					//glVertex3f(x + radius * cos(theta + interval), y1, z + radius * sin(theta + interval));
 					// 3 top
 					glNormal3f((x + radius * cos(theta)) / radius, (y1 / radius), (z + radius * sin(theta)) / radius);
 					glTexCoord2f(u, v + v_inter);
@@ -592,27 +613,8 @@ void Draw::drawCylinderLowPoli(float radius, float height, float edges, float x,
 			//y_value *= i;
 		}
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-	// top disk
-	theta = 0.0;
-	glBindTexture(GL_TEXTURE_2D, *disk_texture); {
-		for (int i = 0; i < edges; ++i) {
-			glBegin(GL_TRIANGLE_FAN); {
-				// Disc's middle
-				glNormal3f(0.0, 1.0, 0.0);
-				glTexCoord2f(0.5, 0.5);
-				glVertex3f(x , y + y_value * height, z );
-				// Tringle's first edge
-				glNormal3f(0.0, 1.0, 0.0);
-				glTexCoord2f((cos(theta) / diameter) + 0.5, (sin(theta) / diameter) + 0.5);
-				glVertex3f(x + radius * cos(theta), y + y_value * height, z + radius * sin(theta));
-				// Triangle's second edge
-				glNormal3f(0.0, 1.0, 0.0);
-				glTexCoord2f((cos(theta + interval) / diameter + 0.5), (sin(theta + interval) / diameter) + 0.5);
-				glVertex3f(x + radius * cos(theta + interval), y + y_value * height, z + radius * sin(theta + interval));
-			} glEnd();
-			theta += interval;
-		} glBindTexture(GL_TEXTURE_2D, NULL);
-	}
+	
+	
 	//glPolygonMode(GL_FRONT, GL_FILL);
 }
 

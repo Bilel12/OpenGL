@@ -78,7 +78,12 @@ protected:
 	Model drone;
 	// For building and rendering shapes
 	Shape shape;
+	Shape sphere;
+	Shape cone;
 	Shape disc_1, disc_2;
+	Shape blend_cube;
+	Shape floor;
+	Shape cylinder;
 	// For drawing shapes
 	Draw draw;
 	// Objects to create lists
