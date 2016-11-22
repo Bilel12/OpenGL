@@ -46,12 +46,13 @@ protected:
 	void assignTextures();
 	void loadLists();
 	void renderLists();
-	void buildShapes();
-	void renderShapes();
 	void drawShapes();
+	void setRenderMode(bool blend, bool wireframe);
 	void loadModels();
 	void renderStencilBuffer(Model model);
-	void setRenderMode(bool blend, bool wireframe);
+	void buildShapes();
+	void renderShapes();
+	void updateVariables();
 	// For Window and frustum calculation.
 	int width, height;
 	// For FPS counter and mouse coordinate output.

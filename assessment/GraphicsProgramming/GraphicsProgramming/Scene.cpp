@@ -221,36 +221,18 @@ void Scene::renderLists() {
 	glFlush();
 }
 
-void Scene::buildShapes() {
-	sphere.buildSphere(2.0, 15.0, 15.0);
-	disc_1.buildDisc(10.0, 2.0, -3.0, 3.0, -10.0);
-	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
-	//shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
-	cone.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
-	floor.buildFloor(0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
-	//shape.buildCircle(60.0, 1., 1., 1.);
-	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
-}
-
-void Scene::renderShapes() {
-	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
-	blend_cube.renderBlendCube(crate_trans_tex);
-	sphere.renderSphere(globe_tex);
-	disc_1.renderDisc(disk_tex);
-	disc_2.renderDisc(barrel_lid_2_tex);
-	//shape.renderFlatDisc(disk_tex);
-	cone.renderCone(disk_tex);
-	cylinder.renderCylinder(barrel_tex);
-	//shape.renderCircle();
-	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
-	//shape.drawIcosahedron();
-	//shape.drawIcosahedron();
-}
-
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
 	//draw.drawCylinderTwoTex(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
 	//draw.drawCylinderOneTex(2., 10., 20., 3., 3., 3., barrel_tex);
+}
+
+void Scene::setRenderMode(bool blend, bool wireframe) {
+	if (blend) glEnable(GL_BLEND);								// Turn blending on
+	else glDisable(GL_BLEND);									// Turn blending off
+
+	if (wireframe) { glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); }	// Turn wireframe on
+	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				// Turn wireframe off
 }
 
 void Scene::renderStencilBuffer(Model model) {
@@ -290,12 +272,42 @@ void Scene::renderStencilBuffer(Model model) {
 	} glPopMatrix();
 }
 
-void Scene::setRenderMode(bool blend, bool wireframe) {
-	if (blend) glEnable(GL_BLEND);								// Turn blending on
-	else glDisable(GL_BLEND);									// Turn blending off
+void Scene::buildShapes() {
+	sphere.buildSphere(2.0, 15.0, 15.0);
+	disc_1.buildDisc(10.0, 2.0, -3.0, 3.0, -10.0);
+	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
+	//shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
+	cone.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
+	floor.buildFloor(0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
+	//shape.buildCircle(60.0, 1., 1., 1.);
+	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
+}
 
-	if (wireframe) { glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); }	// Turn wireframe on
-	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				// Turn wireframe off
+void Scene::renderShapes() {
+	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
+	blend_cube.renderBlendCube(crate_trans_tex);
+	sphere.renderSphere(globe_tex);
+	disc_1.renderDisc(disk_tex);
+	disc_2.renderDisc(barrel_lid_2_tex);
+	//shape.renderFlatDisc(disk_tex);
+	cone.renderCone(disk_tex);
+	cylinder.renderCylinder(barrel_tex);
+	//shape.renderCircle();
+	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
+	//shape.drawIcosahedron();
+	//shape.drawIcosahedron();
+}
+
+void Scene::updateVariables() {
+	//xrot += 0.7;	// Rotate On The X Axis
+	//yrot += 0.7;	// Rotate On The Y Axis
+	//zrot += 0.7;	// Rotate On The Z Axis
+	angle += 0.7;
+	/*floor.setRotAngle(angle);
+	floor.rotation.setZ(1);
+	floor.rotation.setX(1);
+	floor.scale.setX(10);
+	floor.translate.setX(1);*/
 }
 
 void Scene::update(float dt) {
@@ -373,13 +385,10 @@ void Scene::update(float dt) {
 	camera->update();
 	float mousePositionX(int width);
 	float mousePositionY(int height);
+	//
+	updateVariables();
 
-	//xrot += 0.7;	// Rotate On The X Axis
-	//yrot += 0.7;	// Rotate On The Y Axis
-	//zrot += 0.7;	// Rotate On The Z Axis
-	angle += 0.7;
-
-	// sphereulate FPS
+	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
 
@@ -388,12 +397,6 @@ void Scene::update(float dt) {
 		timebase = time;
 		frame = 0;
 	}
-
-	floor.setRotAngle(angle);
-	floor.rotation.setZ(1);
-	floor.rotation.setX(1);
-	floor.scale.setX(10);
-	floor.translate.setX(1);
 }
 
 void Scene::render() {
