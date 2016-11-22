@@ -2,6 +2,8 @@
 #define _DRAW_H
 
 #include <windows.h>
+#include "glew.h"
+#include "glut.h"
 #include <gl/gl.h>
 #include <gl/glu.h>
 #define _USE_MATH_DEFINES // for C++
@@ -20,8 +22,8 @@ public:
 	void drawSphereTorus(int edges, float x, float y, float z, float rot_interval);
 	// Cylinder functions
 	void drawCylinder(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
-	void drawCylinderLowPoli(float radius, float height, float edges, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
-	void drawCylinderHighPoli(float radius, float height, float edges, float x, float y, float z, GLuint *texture);
+	void drawCylinderTwoTex(float radius, float height, float edges, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
+	void drawCylinderOneTex(float radius, float height, float edges, float x, float y, float z, GLuint *texture);
 	float disc_sin(float pos, float radius, float theta);
 	float disc_cos(float pos, float radius, float theta);
 	float disc_sin_n(float pos, float radius, float theta);

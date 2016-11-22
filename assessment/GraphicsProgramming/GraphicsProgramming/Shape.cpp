@@ -511,16 +511,15 @@ void Shape::renderSphere(GLuint *texture) {
 }
 
 void Shape::buildCylinder(float radius, float edges, float height, float x, float y, float z) {
-	edgesCylinder = (int)(edges);
 	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
 		theta = 0.0,
 		y_value = height / edges,
 		u = 0.0,
-		v = 0.0,
+		v = 0.45,
 		u_inter = 1.0 / edges,
-		v_inter = 1.0 / height;
+		v_inter = 0.55 / height;
 
 	// bottom disk
 	for (int i = 0; i < edges; ++i) {
@@ -540,12 +539,12 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 			disc_norms.push_back(0.0);
 		}
 
-		disc_texcoords.push_back(0.5);
-		disc_texcoords.push_back(0.5);
-		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
-		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
-		disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+		disc_texcoords.push_back(0.215);
+		disc_texcoords.push_back(0.215);
+		disc_texcoords.push_back(cos(theta) / diameter + 0.215);
+		disc_texcoords.push_back(sin(theta) / diameter + 0.215);
+		disc_texcoords.push_back(cos(theta + interval) / diameter + 0.215);
+		disc_texcoords.push_back(sin(theta + interval) / diameter + 0.215);
 
 		theta += interval;
 	}
@@ -650,12 +649,12 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 			norms.push_back(0.0);
 		}
 
-		texcoords.push_back(0.5);
-		texcoords.push_back(0.5);
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+		texcoords.push_back(0.75);
+		texcoords.push_back(0.25);
+		texcoords.push_back(cos(theta) / diameter + 0.75);
+		texcoords.push_back(sin(theta) / diameter + 0.25);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.75);
+		texcoords.push_back(sin(theta + interval) / diameter + 0.25);
 
 		theta += interval;
 	}
@@ -670,8 +669,8 @@ void Shape::renderCylinder(GLuint *texture) {
 
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, verts.data());
-	glNormalPointer(GL_FLOAT, 0, verts.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, verts.data());
+	glNormalPointer(GL_FLOAT, 0, norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
 	glBindTexture(GL_TEXTURE_2D, *texture);
 	glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);

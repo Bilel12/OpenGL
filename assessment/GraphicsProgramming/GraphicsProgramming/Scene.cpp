@@ -204,12 +204,12 @@ void Scene::loadLists() {
 
 	LowPoliCylinder = glGenLists(3);
 	glNewList(LowPoliCylinder, GL_COMPILE);
-	draw.drawCylinderLowPoli(3., 6., 3., -5., 0., -1., disk_tex, globe_tex);
+	draw.drawCylinderTwoTex(3., 6., 3., -5., 0., -1., disk_tex, globe_tex);
 	glEndList();
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	draw.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk_tex);
+	draw.drawCylinderOneTex(3., 100., 3., 5., 0., -1., disk_tex);
 	glEndList();
 }
 
@@ -241,7 +241,7 @@ void Scene::renderShapes() {
 	disc_2.renderDisc(barrel_lid_2_tex);
 	//shape.renderFlatDisc(disk_tex);
 	cone.renderCone(disk_tex);
-	//cylinder.renderCylinder(barrel_tex);
+	cylinder.renderCylinder(barrel_tex);
 	//shape.renderCircle();
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
@@ -250,8 +250,8 @@ void Scene::renderShapes() {
 
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
-	//draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
-	draw.drawCylinderHighPoli(2., 10., 20., 3., 3., 3., barrel_tex);
+	//draw.drawCylinderTwoTex(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
+	//draw.drawCylinderOneTex(2., 10., 20., 3., 3., 3., barrel_tex);
 }
 
 void Scene::renderStencilBuffer(Model model) {
