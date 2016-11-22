@@ -524,15 +524,15 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 
 	// bottom disk
 	for (int i = 0; i < edges; ++i) {
-		disc_verts.push_back(x);
-		disc_verts.push_back(y);
-		disc_verts.push_back(z);
-		disc_verts.push_back(x + radius * cos(theta));
-		disc_verts.push_back(y);
-		disc_verts.push_back(z + radius * sin(theta));
-		disc_verts.push_back(x + radius * cos(theta + interval));
-		disc_verts.push_back(y);
-		disc_verts.push_back(z + radius * sin(theta + interval));
+		verts.push_back(x);
+		verts.push_back(y);
+		verts.push_back(z);
+		verts.push_back(x + radius * cos(theta));
+		verts.push_back(y);
+		verts.push_back(z + radius * sin(theta));
+		verts.push_back(x + radius * cos(theta + interval));
+		verts.push_back(y);
+		verts.push_back(z + radius * sin(theta + interval));
 
 		for (int i = 0; i < 3; ++i) {
 			disc_norms.push_back(0.0);
@@ -549,65 +549,36 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 
 		theta += interval;
 	}
-	// top disk
-	theta = 0.0;
-	for (int i = 0; i < edges; ++i) {
-		disc1_verts.push_back(x);
-		disc1_verts.push_back(y + y_value * height);
-		disc1_verts.push_back(z);
-		disc1_verts.push_back(x + radius * cos(theta));
-		disc1_verts.push_back(y + y_value * height);
-		disc1_verts.push_back(z + radius * sin(theta));
-		disc1_verts.push_back(x + radius * cos(theta + interval));
-		disc1_verts.push_back(y + y_value * height);
-		disc1_verts.push_back(z + radius * sin(theta + interval));
-
-		for (int i = 0; i < 3; ++i) {
-			disc1_norms.push_back(0.0);
-			disc1_norms.push_back(1.0);
-			disc1_norms.push_back(0.0);
-		}
-
-		disc1_texcoords.push_back(0.5);
-		disc1_texcoords.push_back(0.5);
-		disc1_texcoords.push_back(cos(theta) / diameter + 0.5);
-		disc1_texcoords.push_back(sin(theta) / diameter + 0.5);
-		disc1_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		disc1_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
-
-		theta += interval;
-	}
 	// side
-	theta = 0.0; 
 	for (int i = 1; i <= height; ++i) {
 		for (int j = 0; j < edges; ++j) {
 			float  y0 = y + y_value * (i - 1);
 			float y1 = y + y_value * i;
 
 			// 0 bottom
-			verts.push_back(disc_cos(x, radius, theta));
+			verts.push_back(x + radius * cos(theta));
 			verts.push_back(y0);
-			verts.push_back(disc_sin(z, radius, theta));
+			verts.push_back(z + radius * sin(theta));
 			// 1 bottom
-			verts.push_back(disc_cos(x, radius, theta + interval));
+			verts.push_back(x + radius * cos(theta + interval));
 			verts.push_back(y0);
-			verts.push_back(disc_sin(z, radius, theta + interval));
+			verts.push_back(z + radius * sin(theta + interval));
 			// 2 top
-			verts.push_back(disc_cos(x, radius, theta + interval));
+			verts.push_back(x + radius * cos(theta + interval));
 			verts.push_back(y1);
-			verts.push_back(disc_sin(z, radius, theta + interval));
-			//// 2 top
-			//verts.push_back(disc_cos(x, radius, theta + interval));
-			//verts.push_back(y1);
-			//verts.push_back(disc_sin(z, radius, theta + interval));
+			verts.push_back(z + radius * sin(theta + interval));
+			// 2 top
+			verts.push_back(x + radius * cos(theta + interval));
+			verts.push_back(y1);
+			verts.push_back(z + radius * sin(theta + interval));
 			// 3 top
-			verts.push_back(disc_cos(x, radius, theta));
+			verts.push_back(x + radius * cos(theta));
 			verts.push_back(y1);
-			verts.push_back(disc_sin(z, radius, theta));
+			verts.push_back(z + radius * sin(theta));
 			// 0 bottom
-			verts.push_back(disc_cos(x, radius, theta));
+			verts.push_back(x + radius * cos(theta));
 			verts.push_back(y0);
-			verts.push_back(disc_sin(z, radius, theta));
+			verts.push_back(z + radius * sin(theta));
 
 			// 0 bottom
 			texcoords.push_back(u);
@@ -618,9 +589,9 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 			// 2 top
 			texcoords.push_back(u + u_inter);
 			texcoords.push_back(v + v_inter);
-			//// 2 top
-			//texcoords.push_back(u + u_inter);
-			//texcoords.push_back(v + v_inter);
+			// 2 top
+			texcoords.push_back(u + u_inter);
+			texcoords.push_back(v + v_inter);
 			// 3 top
 			texcoords.push_back(u);
 			texcoords.push_back(v + v_inter);
@@ -629,21 +600,21 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 			texcoords.push_back(v);
 
 			// 0 bottom
-			norms.push_back(disc_cos_n(x, radius, theta));
-			norms.push_back(y0);
-			norms.push_back(disc_sin_n(z, radius, theta));
+			norms.push_back((x + radius * cos(theta)) / radius);
+			norms.push_back(y0 / radius);
+			norms.push_back((z + radius * sin(theta)) / radius);
 			// 1 bottom
-			norms.push_back(disc_cos_n(x, radius, theta + interval));
-			norms.push_back(y0);
-			norms.push_back(disc_sin_n(z, radius, theta + interval));
+			norms.push_back((x + radius * cos(theta + interval)) / radius);
+			norms.push_back(y0 / radius);
+			norms.push_back((z + radius * sin(theta + interval)) / radius);
+			// 2 top
+			norms.push_back((x + radius * cos(theta + interval)) / radius);
+			norms.push_back(y1 / radius);
+			norms.push_back((z + radius * sin(theta + interval)) / radius);
 			// 2 top
 			norms.push_back(disc_cos_n(x, radius, theta + interval));
 			norms.push_back(y1);
 			norms.push_back(disc_sin_n(z, radius, theta + interval));
-			//// 2 top
-			//norms.push_back(disc_cos_n(x, radius, theta + interval));
-			//norms.push_back(y1);
-			//norms.push_back(disc_sin_n(z, radius, theta + interval));
 			// 3 top
 			norms.push_back(disc_cos_n(x, radius, theta));
 			norms.push_back(y1);
@@ -660,49 +631,38 @@ void Shape::buildCylinder(float radius, float edges, float height, float x, floa
 		u = 0;
 		theta = 0.0;
 	}
+	// top disk
+	theta = 0.0;
+	for (int i = 0; i < edges; ++i) {
+		verts.push_back(x);
+		verts.push_back(y + y_value * height);
+		verts.push_back(z);
+		verts.push_back(x + radius * cos(theta));
+		verts.push_back(y + y_value * height);
+		verts.push_back(z + radius * sin(theta));
+		verts.push_back(x + radius * cos(theta + interval));
+		verts.push_back(y + y_value * height);
+		verts.push_back(z + radius * sin(theta + interval));
+
+		for (int i = 0; i < 3; ++i) {
+			norms.push_back(0.0);
+			norms.push_back(1.0);
+			norms.push_back(0.0);
+		}
+
+		texcoords.push_back(0.5);
+		texcoords.push_back(0.5);
+		texcoords.push_back(cos(theta) / diameter + 0.5);
+		texcoords.push_back(sin(theta) / diameter + 0.5);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
+		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+
+		theta += interval;
+	}
+	theta = 0.0;
 }
 
-void Shape::renderCylinder(GLuint *disc_texture, GLuint *side_texture) {
-	// bottom disc
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//auto *p_verts = disc_verts.data();
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
-	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
-
-	glBindTexture(GL_TEXTURE_2D, *disc_texture);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, disc_verts.size() / 3);
-	glBindTexture(GL_TEXTURE_2D, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	// top disc
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, disc1_verts.data());
-	glNormalPointer(GL_FLOAT, 0, disc1_norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
-
-	glBindTexture(GL_TEXTURE_2D, *disc_texture);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, disc1_verts.size() / 3);
-	glBindTexture(GL_TEXTURE_2D, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	// side
+void Shape::renderCylinder(GLuint *texture) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -710,11 +670,11 @@ void Shape::renderCylinder(GLuint *disc_texture, GLuint *side_texture) {
 
 	//glColorPointer(3, GL_FLOAT, 0, colors);
 	glVertexPointer(3, GL_FLOAT, 0, verts.data());
-	glNormalPointer(GL_FLOAT, 0, norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+	glNormalPointer(GL_FLOAT, 0, verts.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, verts.data());
 
-	glBindTexture(GL_TEXTURE_2D, *side_texture);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
+	glBindTexture(GL_TEXTURE_2D, *texture);
+	glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);

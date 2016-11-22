@@ -147,6 +147,13 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
 
+	myTexture = SOIL_load_OGL_texture( // 15
+		"gfx/barrel.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
 		if (i == NULL) {
@@ -171,6 +178,7 @@ void Scene::assignTextures() {
 	spaceship_tex = &textures[12];
 	barrel_lid_1_tex = &textures[13];
 	barrel_lid_2_tex = &textures[14];
+	barrel_tex = &textures[15];
 }
 
 void Scene::loadModels() {
@@ -201,7 +209,7 @@ void Scene::loadLists() {
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	draw.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk_tex, globe_tex);
+	draw.drawCylinderHighPoli(3., 100., 3., 5., 0., -1., disk_tex);
 	glEndList();
 }
 
@@ -222,7 +230,7 @@ void Scene::buildShapes() {
 	cone.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
 	floor.buildFloor(0, 0, 0);
 	//shape.buildCircle(60.0, 1., 1., 1.);
-	//cylinder.buildCylinder(2., 3., 20., 3., 3., 3.);
+	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
 }
 
 void Scene::renderShapes() {
@@ -233,8 +241,8 @@ void Scene::renderShapes() {
 	disc_2.renderDisc(barrel_lid_2_tex);
 	//shape.renderFlatDisc(disk_tex);
 	cone.renderCone(disk_tex);
+	//cylinder.renderCylinder(barrel_tex);
 	//shape.renderCircle();
-	//cylinder.renderCylinder(barrel_lid_1_tex, barrel_side_tex);
 	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
 	//shape.drawIcosahedron();
 	//shape.drawIcosahedron();
@@ -242,7 +250,8 @@ void Scene::renderShapes() {
 
 void Scene::drawShapes() {
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
-	draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
+	//draw.drawCylinderLowPoli(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
+	draw.drawCylinderHighPoli(2., 10., 20., 3., 3., 3., barrel_tex);
 }
 
 void Scene::renderStencilBuffer(Model model) {

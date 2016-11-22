@@ -111,6 +111,7 @@ protected:
 	GLuint *barrel_lid_2_tex;
 	GLuint *globe_tex;
 	GLuint *spaceship_tex;
+	GLuint *barrel_tex;
 	// Rotation variables
 	float position_x, position_y, position_z;
 	float scale_x, scale_y, scale_z;

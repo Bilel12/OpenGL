@@ -21,7 +21,7 @@ public:
 	// Cylinder functions
 	void drawCylinder(float radius, float edges, float height, float x, float y, float z, GLuint *texture);
 	void drawCylinderLowPoli(float radius, float height, float edges, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
-	void drawCylinderHighPoli(float radius, float height, float edges, float x, float y, float z, GLuint *disk_texture, GLuint *side_texture);
+	void drawCylinderHighPoli(float radius, float height, float edges, float x, float y, float z, GLuint *texture);
 	float disc_sin(float pos, float radius, float theta);
 	float disc_cos(float pos, float radius, float theta);
 	float disc_sin_n(float pos, float radius, float theta);

@@ -37,7 +37,7 @@ public:
 	void renderFlatDisc(GLuint *texture);
 	// Cylinder functions and variables
 	void buildCylinder(float radius, float height, float edges, float x, float y, float z);
-	void renderCylinder(GLuint *disk_texture, GLuint *side_texture);
+	void renderCylinder(GLuint *disk_texture);
 	int edgesCylinder;
 	// Sphere functions
 	void buildSphere(double radius, double latitude, double longitude);
