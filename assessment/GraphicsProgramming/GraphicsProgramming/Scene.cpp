@@ -6,7 +6,6 @@ Scene::Scene(Input *in) {
 	// Camera
 	camera = &freeCamera;
 	//OpenGL settings
-	frame = 0; timebase = 0;
 	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
 	glShadeModel(GL_FLAT);
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);		// Cornflour Blue Background
@@ -29,11 +28,6 @@ Scene::Scene(Input *in) {
 	//loadLists();// load lists
 	buildShapes();
 	// Initialise variables
-	xrot = 0.0;				// Rotate On The X Axis
-	yrot = 0.0;				// Rotate On The Y Axis
-	zrot = 0.0;				// Rotate On The Z Axis
-	angle = 0.0;			// Rotate by angle
-	position_x = 0, position_y = 0, position_z = 0;
 	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false;			// Blending on or off
 	wireframe = false;		// Wireframe on or off
@@ -162,22 +156,22 @@ void Scene::loadTextures() {
 }
 
 void Scene::assignTextures() {
-	crate_tex = &textures[0];
-	tileBrown_tex = &textures[1];
-	crateArrow_tex = &textures[2];
-	checked_tex = &textures[3];
-	grass_tex = &textures[4];
-	glass_tex = &textures[5];
-	aTrans_tex = &textures[6];
-	crate_trans_tex = &textures[7];
-	skybox_tex = &textures[8];
-	disk_tex = &textures[9];
-	barrel_side_tex = &textures[10];
-	globe_tex = &textures[11];
-	spaceship_tex = &textures[12];
-	barrel_lid_1_tex = &textures[13];
-	barrel_lid_2_tex = &textures[14];
-	barrel_tex = &textures[15];
+	crate_tex			= &textures[0];
+	tileBrown_tex		= &textures[1];
+	crateArrow_tex		= &textures[2];
+	checked_tex			= &textures[3];
+	grass_tex			= &textures[4];
+	glass_tex			= &textures[5];
+	aTrans_tex			= &textures[6];
+	crate_trans_tex		= &textures[7];
+	skybox_tex			= &textures[8];
+	disk_tex			= &textures[9];
+	barrel_side_tex		= &textures[10];
+	globe_tex			= &textures[11];
+	spaceship_tex		= &textures[12];
+	barrel_lid_1_tex	= &textures[13];
+	barrel_lid_2_tex	= &textures[14];
+	barrel_tex			= &textures[15];
 }
 
 void Scene::loadModels() {
@@ -222,9 +216,13 @@ void Scene::renderLists() {
 }
 
 void Scene::drawShapes() {
+	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
 	//draw.drawCylinderTwoTex(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
 	//draw.drawCylinderOneTex(2., 10., 20., 3., 3., 3., barrel_tex);
+	//draw.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
+	//draw.drawIcosahedron();
+	//draw.drawIcosahedron();
 }
 
 void Scene::setRenderMode(bool blend, bool wireframe) {
@@ -284,34 +282,36 @@ void Scene::buildShapes() {
 						1, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
 
 	disc_2.buildDisc(	200, 2,				// edges, radius
-						1, 1, 1,			// scale x, scale y, scale z, 
-						3, 3, 3,			// translate x, translate y, translate z, 
+						1, 1, 1,			// scale x, scale y, scale z,
+						3, 3, 3,			// translate x, translate y, translate z,
 						1, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
 
 	disc_flat.buildDisc(10, 2,				// edges, radius
-						1, 1, 1, 			// scale x, scale y, scale z, 
-						-3, -3, -3, 		// translate x, translate y, translate z, 
+						1, 1, 1, 			// scale x, scale y, scale z
+						-3, -3, -3, 		// translate x, translate y, translate z
 						90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	circle.buildCircle(	50,					// edges, radius
-						1, 1, 1, 			// scale x, scale y, scale z, 
-						-5, 0, 0, 			// translate x, translate y, translate z, 
+						1, 1, 1, 			// scale x, scale y, scale z
+						-5, 0, 0, 			// translate x, translate y, translate z
 						0, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
 
-	floor.buildFloor(	1, 1, 1,			// scale x, scale y, scale z, 
-						0, 0, 0,			// translate x, translate y, translate z, 
+	floor.buildFloor(	1, 1, 1,			// scale x, scale y, scale z
+						0, 0, 0,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
-	cone.buildCone(2.0, 10.0, 10.0, 5.0, 5.0, -10.);
+	cone.buildCone(		2, 10, 10,			// radius, edges, height
+						1, 1, 1,			// scale x, scale y, scale z
+						5, 5, -10,			// translate x, translate y, translate z
+						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	cylinder.buildCylinder(	2, 20, 10,		// radius, edges, height
-							1, 1, 1,		// scale x, scale y, scale z, 
-							3, 3, 3,		// translate x, translate y, translate z, 
+							1, 1, 1,		// scale x, scale y, scale z
+							3, 3, 3,		// translate x, translate y, translate z
 							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
 }
 
 void Scene::renderShapes() {
-	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	sphere.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
 	disc_2.renderDisc(disk_tex);
@@ -319,15 +319,9 @@ void Scene::renderShapes() {
 	circle.renderCircle();
 	cone.renderCone(disk_tex);
 	cylinder.renderCylinder(barrel_tex);
-	//draw.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
-	//draw.drawIcosahedron();
-	//draw.drawIcosahedron();
 }
 
 void Scene::updateVariables() {
-	//xrot += 0.7;	// Rotate On The X Axis
-	//yrot += 0.7;	// Rotate On The Y Axis
-	//zrot += 0.7;	// Rotate On The Z Axis
 	angle += 0.7;
 	/*floor.rotate(angle);
 	floor.rotation.setZ(1);
@@ -577,7 +571,7 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 //glVertex3f(1.0f, 1.0f, 0.0f);
 //glEnd();		//end drawing
 
-//glBindTexture(GL_TEXTURE_2D, fuckOffFromMyTexture);	//tells opengl which texture to use
+//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 //glBegin(GL_QUADS);	//Begin drawing state

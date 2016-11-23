@@ -691,7 +691,16 @@ void Shape::renderCylinder(GLuint *texture) {
 	} glPopMatrix();
 }
 
-void Shape::buildCone(float radius, float edges, float height, float x, float y, float z) {
+void Shape::buildCone(	float radius, float edges, float height,
+						float sca_x, float sca_y, float sca_z,
+						float pos_x, float pos_y, float pos_z,
+						float angle, float rot_x, float rot_y, float rot_z ) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+
 	float 
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
@@ -700,38 +709,38 @@ void Shape::buildCone(float radius, float edges, float height, float x, float y,
 
 	for (int i = 0; i < edges; ++i) {
 		// bottom disk
-		verts.push_back(x);
-		verts.push_back(y);
-		verts.push_back(z);
-		verts.push_back(x + radius * cos(theta));
-		verts.push_back(y);
-		verts.push_back(z + radius * sin(theta));
-		verts.push_back(x + radius * cos(theta + interval));
-		verts.push_back(y);
-		verts.push_back(z + radius * sin(theta + interval));
+		verts.push_back(0.0);
+		verts.push_back(0.0);
+		verts.push_back(0.0);
+		verts.push_back(radius * cos(theta));
+		verts.push_back(0.0);
+		verts.push_back(radius * sin(theta));
+		verts.push_back(radius * cos(theta + interval));
+		verts.push_back(0.0);
+		verts.push_back(radius * sin(theta + interval));
 		// tip
-		verts.push_back(x);
-		verts.push_back(y + height);
-		verts.push_back(z);
+		verts.push_back(0.0);
+		verts.push_back(height);
+		verts.push_back(0.0);
 		// bottom disk
 		for (int i = 0; i < 3; ++i) {
 			norms.push_back(0);
 			norms.push_back(-1);
 			norms.push_back(0);
 		} // TODO normals
-		norms.push_back((x) / radius);
-		norms.push_back((y) / radius);
-		norms.push_back((z) / radius);
-		norms.push_back((x + radius * cos(theta) / radius));
-		norms.push_back((y) / radius);
-		norms.push_back((z + radius * sin(theta)) / radius);
-		norms.push_back((x + radius * cos(theta + interval)) / radius);
-		norms.push_back((y) / radius);
-		norms.push_back((z + radius * sin(theta + interval)) / radius);
+		norms.push_back((0.0) / radius);
+		norms.push_back((0.0) / radius);
+		norms.push_back((0.0) / radius);
+		norms.push_back((radius * cos(theta) / radius));
+		norms.push_back((0.0) / radius);
+		norms.push_back((radius * sin(theta)) / radius);
+		norms.push_back((radius * cos(theta + interval)) / radius);
+		norms.push_back((0.0) / radius);
+		norms.push_back((radius * sin(theta + interval)) / radius);
 		// tip
-		norms.push_back((x) / radius);
-		norms.push_back((y + height) / radius);
-		norms.push_back((z) / radius);
+		norms.push_back((0.0) / radius);
+		norms.push_back((height) / radius);
+		norms.push_back((0.0) / radius);
 		// bottom disk
 		texcoords.push_back(start + 0.5);
 		texcoords.push_back(start + 0.5);
@@ -748,22 +757,28 @@ void Shape::buildCone(float radius, float edges, float height, float x, float y,
 }
 
 void Shape::renderCone(GLuint * texture) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
 
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, verts.data());
-	glNormalPointer(GL_FLOAT, 0, norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
-	glBindTexture(GL_TEXTURE_2D, NULL);
+		//glColorPointer(3, GL_FLOAT, 0, colors);
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+		glNormalPointer(GL_FLOAT, 0, norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glBindTexture(GL_TEXTURE_2D, *texture);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
 }

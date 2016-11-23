@@ -31,7 +31,10 @@ public:
 					 float angle, float rot_x, float rot_y, float rot_z);
 	void renderCircle();
 	// Cone functions
-	void buildCone(float radius, float edges, float height, float x, float y, float z);
+	void buildCone(	float radius, float edges, float height, 
+					float sca_x, float sca_y, float sca_z,
+					float pos_x, float pos_y, float pos_z,
+					float angle, float rot_x, float rot_y, float rot_z);
 	void renderCone(GLuint *texture);
 	// Disc functions
 	void buildDisc(float edges, float radius, 
