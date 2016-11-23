@@ -23,13 +23,13 @@ public:
 	void buildFloor(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
 	void renderFloor(float R, float G, float B, float A);
 	// Circle functions
-	void buildCircle(int edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
+	void buildCircle(float edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
 	void renderCircle();
 	// Cone functions
 	void buildCone(float radius, float edges, float height, float x, float y, float z);
 	void renderCone(GLuint *texture);
 	// Disc functions
-	void buildDisc(int edges, float radius, float x, float y, float z);
+	void buildDisc(float edges, float radius, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
 	void renderDisc(GLuint *texture);
 	float disc_sin(float pos, float radius, float theta);
 	float disc_cos(float pos, float radius, float theta);

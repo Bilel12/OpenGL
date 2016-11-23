@@ -195,7 +195,7 @@ void Shape::renderSkybox(GLuint *texture) {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::buildCircle(int edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildCircle(float edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -245,7 +245,13 @@ float Shape::disc_cos_n(float pos, float radius, float theta)
 	return (pos + radius * cos(theta)) / radius; // TODO should pos be in the brackets?
 }
 
-void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
+void Shape::buildDisc(float edges, float radius, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+
 	float 
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
@@ -253,15 +259,15 @@ void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
 		theta = 0.0;
 
 	for (int i = 0; i < edges; ++i) {
-		disc_verts.push_back(x);
-		disc_verts.push_back(y);
-		disc_verts.push_back(z);
-		disc_verts.push_back(disc_cos(x, radius, theta));
-		disc_verts.push_back(disc_sin(y, radius, theta));
-		disc_verts.push_back(z);
-		disc_verts.push_back(disc_cos(x, radius, theta + interval));
-		disc_verts.push_back(disc_sin(y, radius, theta + interval));
-		disc_verts.push_back(z);
+		disc_verts.push_back(0);
+		disc_verts.push_back(0);
+		disc_verts.push_back(0);
+		disc_verts.push_back(radius * cos(theta));
+		disc_verts.push_back(radius * sin(theta));
+		disc_verts.push_back(0);
+		disc_verts.push_back(radius * cos(theta + interval));
+		disc_verts.push_back(radius * sin(theta + interval));
+		disc_verts.push_back(0);
 
 		for (int i = 0; i < 3; ++i) {
 			disc_norms.push_back(0.0);
@@ -281,24 +287,30 @@ void Shape::buildDisc(int edges, float radius, float x, float y, float z) {
 }
 
 void Shape::renderDisc(GLuint * texture) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
 
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
-	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, disc_verts.size() / 3);
-	glBindTexture(GL_TEXTURE_2D, NULL);
+		//glColorPointer(3, GL_FLOAT, 0, colors);
+		glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
+		glNormalPointer(GL_FLOAT, 0, disc_norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glBindTexture(GL_TEXTURE_2D, *texture);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, disc_verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
 }
 
 void Shape::buildFlatDisc(int edges, float radius, float x, float z) {
@@ -752,7 +764,7 @@ void Shape::buildCone(float radius, float edges, float height, float x, float y,
 			cone_norms.push_back(-1);
 			cone_norms.push_back(0);
 		} // TODO normals
-		/*cone_norms.push_back((x) / radius);
+		cone_norms.push_back((x) / radius);
 		cone_norms.push_back((y) / radius);
 		cone_norms.push_back((z) / radius);
 		cone_norms.push_back((x + radius * cos(theta) / radius));
@@ -760,7 +772,7 @@ void Shape::buildCone(float radius, float edges, float height, float x, float y,
 		cone_norms.push_back((z + radius * sin(theta)) / radius);
 		cone_norms.push_back((x + radius * cos(theta + interval)) / radius);
 		cone_norms.push_back((y) / radius);
-		cone_norms.push_back((z + radius * sin(theta + interval)) / radius);*/
+		cone_norms.push_back((z + radius * sin(theta + interval)) / radius);
 		// tip
 		cone_norms.push_back((x) / radius);
 		cone_norms.push_back((y + height) / radius);
