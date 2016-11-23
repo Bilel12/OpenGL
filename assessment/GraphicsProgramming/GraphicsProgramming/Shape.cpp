@@ -20,16 +20,16 @@ extern GLfloat colors[] = {
 	0.5, 0.5, 0.5
 };
 
-Vector3 Shape::getTranslate() {
-	return translate;
+Vector3* Shape::getTranslate() {
+	return &translate;
 }
 
-Vector3 Shape::getRotation() {
-	return rotation;
+Vector3* Shape::getRotation() {
+	return &rotation;
 }
 
-Vector3 Shape::getScale() {
-	return scale;
+Vector3* Shape::getScale() {
+	return &scale;
 }
 
 float Shape::rotate(float arg) {
@@ -81,7 +81,7 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::buildFloor(float pos_x, float pos_y, float pos_z, float rot_x, float angle, float rot_y, float rot_z, float sca_x, float sca_y, float sca_z) {
+void Shape::buildFloor(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -195,17 +195,28 @@ void Shape::renderSkybox(GLuint *texture) {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::buildCircle(int edges, float x, float y, float z) {
-	for (int i = 0; i < edges; ++i) {
+void Shape::buildCircle(int edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+
+	for (int i = 0; i <= edges; ++i) {
 		//glNormal3f(0.0, 1.0, 0.0);
 		//glTexCoord2f(x + (cos((2 * M_PI * i) / edges)), y + (sin((2 * M_PI * i) / edges)));
-		circle_verts.push_back(x + (cos((2 * M_PI * i) / edges)));
-		circle_verts.push_back(y + (sin((2 * M_PI * i) / edges)));
-		circle_verts.push_back(z + 0.0);
+		circle_verts.push_back(cos((2 * M_PI * i) / edges));
+		circle_verts.push_back(sin((2 * M_PI * i) / edges));
+		circle_verts.push_back(0.0);
 	}
 }
 
 void Shape::renderCircle() {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
 	
@@ -216,6 +227,7 @@ void Shape::renderCircle() {
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
+	} glPopMatrix();
 }
 
 float Shape::disc_sin(float pos, float radius, float theta) {

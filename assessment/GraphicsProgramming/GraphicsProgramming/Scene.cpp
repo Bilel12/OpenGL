@@ -276,9 +276,10 @@ void Scene::buildShapes() {
 	sphere.buildSphere(2.0, 15.0, 15.0);
 	disc_1.buildDisc(10.0, 2.0, -3.0, 3.0, -10.0);
 	disc_2.buildDisc(200.0, 2.0, 3.0, 3.0, -10.0);
+	circle.buildCircle(10, 1, 1, 1, -5, 0, 0, 0, 1, 1, 1);
 	//shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
 	cone.buildCone(2.0, 100.0, 10.0, 5.0, 5.0, -10.);
-	floor.buildFloor(0, 0, 0, 0, 0, 0, 0, 1, 1, 1);
+	floor.buildFloor(1, 1, 1, 0, 0, 0, 0, 0, 0, 0);
 	//shape.buildCircle(60.0, 1., 1., 1.);
 	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
 }
@@ -289,6 +290,7 @@ void Scene::renderShapes() {
 	sphere.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
 	disc_2.renderDisc(barrel_lid_2_tex);
+	circle.renderCircle();
 	//shape.renderFlatDisc(disk_tex);
 	cone.renderCone(disk_tex);
 	cylinder.renderCylinder(barrel_tex);

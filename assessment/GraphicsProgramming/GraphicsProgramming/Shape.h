@@ -20,10 +20,10 @@ public:
 	void renderSkybox(GLuint *texture);
 	//static void drawTorus(int numc, int numt);
 	// Floor variables
-	void buildFloor(float pos_x, float pos_y, float pos_z, float rot_angle, float rot_x, float rot_y, float rot_z, float sca_x, float sca_y, float sca_z);
+	void buildFloor(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
 	void renderFloor(float R, float G, float B, float A);
 	// Circle functions
-	void buildCircle(int edges, float x, float y, float z);
+	void buildCircle(int edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
 	void renderCircle();
 	// Cone functions
 	void buildCone(float radius, float edges, float height, float x, float y, float z);
@@ -76,9 +76,9 @@ public:
 	float sphere_n_y3(float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
 
-	Vector3 getTranslate();
-	Vector3	getRotation();
-	Vector3 getScale();
+	Vector3* getTranslate();
+	Vector3* getRotation();
+	Vector3* getScale();
 	float rotate(float arg);
 	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();

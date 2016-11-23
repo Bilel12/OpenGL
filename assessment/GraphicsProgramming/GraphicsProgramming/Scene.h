@@ -86,6 +86,7 @@ protected:
 	Shape blend_cube;
 	Shape floor;
 	Shape cylinder;
+	Shape circle;
 	// Drawn shapes
 	Draw draw;
 	// Objects for lists creating
