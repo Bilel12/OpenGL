@@ -708,7 +708,7 @@ void Shape::buildCone(	float radius, float edges, float height,
 		theta = 0.0;
 
 	for (int i = 0; i < edges; ++i) {
-		// bottom disk
+		// side
 		verts.push_back(radius * cos(theta));
 		verts.push_back(0.0);
 		verts.push_back(radius * sin(theta));
@@ -719,7 +719,7 @@ void Shape::buildCone(	float radius, float edges, float height,
 		verts.push_back(0.0);
 		verts.push_back(height);
 		verts.push_back(0.0);
-		// disc
+		// bottom disc
 		verts.push_back(0.0);
 		verts.push_back(0.0);
 		verts.push_back(0.0);
@@ -730,25 +730,38 @@ void Shape::buildCone(	float radius, float edges, float height,
 		verts.push_back(0.0);
 		verts.push_back(radius * sin(theta + interval));
 		
-		// bottom disk
-		for (int i = 0; i < 3; ++i) {
-			norms.push_back(0);
-			norms.push_back(-1);
-			norms.push_back(0);
-		} // TODO normals
-		norms.push_back((0.0) / radius);
-		norms.push_back((0.0) / radius);
-		norms.push_back((0.0) / radius);
-		norms.push_back((radius * cos(theta) / radius));
-		norms.push_back((0.0) / radius);
-		norms.push_back((radius * sin(theta)) / radius);
-		norms.push_back((radius * cos(theta + interval)) / radius);
-		norms.push_back((0.0) / radius);
-		norms.push_back((radius * sin(theta + interval)) / radius);
+		// side
+		norms.push_back(radius * cos(theta));
+		norms.push_back(0.0);
+		norms.push_back(radius * sin(theta));
+		norms.push_back(radius * cos(theta + interval));
+		norms.push_back(0.0);
+		norms.push_back(radius * sin(theta + interval));
 		// tip
-		norms.push_back((0.0) / radius);
-		norms.push_back((height) / radius);
-		norms.push_back((0.0) / radius);
+		norms.push_back(0.0);
+		norms.push_back(height);
+		norms.push_back(0.0);
+		// bottom disc
+		norms.push_back(0.0);
+		norms.push_back(0.0);
+		norms.push_back(0.0);
+		norms.push_back(radius * cos(theta));
+		norms.push_back(0.0);
+		norms.push_back(radius * sin(theta));
+		norms.push_back(radius * cos(theta + interval));
+		norms.push_back(0.0);
+		norms.push_back(radius * sin(theta + interval));
+
+		// side
+		// first edge
+		texcoords.push_back(cos(theta) / diameter + 0.5);
+		texcoords.push_back(sin(theta) / diameter + 0.5);
+		// second edge
+		texcoords.push_back(cos(theta) / diameter + 0.5);
+		texcoords.push_back(sin(theta) / diameter + 0.5);
+		// tip
+		texcoords.push_back(start + 0.5);
+		texcoords.push_back(start + 0.5);
 		// bottom disk
 		texcoords.push_back(start + 0.5);
 		texcoords.push_back(start + 0.5);
@@ -756,9 +769,6 @@ void Shape::buildCone(	float radius, float edges, float height,
 		texcoords.push_back(sin(theta) / diameter + 0.5);
 		texcoords.push_back(cos(theta) / diameter + 0.5);
 		texcoords.push_back(sin(theta) / diameter + 0.5);
-		// tip
-		texcoords.push_back(start + 0.5);
-		texcoords.push_back(start + 0.5);
 
 		theta += interval;
 	}
