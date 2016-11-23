@@ -79,7 +79,7 @@ protected:
 	Model spaceship;
 	Model drone;
 	// Shapes
-	Shape shape;
+	Shape skybox;
 	Shape sphere;
 	Shape cone;
 	Shape disc_1, disc_2, disc_flat;

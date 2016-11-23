@@ -84,23 +84,15 @@ public:
 	float sphere_n_y3(float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
 
-	Vector3* getTranslate();
-	Vector3* getRotation();
-	Vector3* getScale();
 	float rotate(float arg);
 	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();
 	//void normalize(float v[3]);
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 private:
-	std::vector<float> sphere_verts, sphere_norms, sphere_texcoords;							// sphere variables
-	std::vector<float> disc_verts, disc_norms, disc_texcoords;									// disc varaibles
+	std::vector<float> verts, norms, texcoords, colors;
 	std::vector<float> disc1_verts, disc1_norms, disc1_texcoords;									// disc varaibles
-	std::vector<float> circle_verts;															// circle variables
-	std::vector<float> cone_verts, cone_norms, cone_texcoords;									// cone variables
-	std::vector<float> floor_verts, floor_norms, floor_texcoords, floor_colors;					// floor variables
-	std::vector<float> cylinder_verts, cylinder_norms, cylinder_texcoords, cylinder_colors;		// cylinder variables
-	std::vector<float> verts, norms, texcoords;
+	std::vector<float> disc2_verts, disc2_norms, disc2_texcoords;									// disc varaibles
 	float rot_angle;
 };
 

@@ -193,12 +193,12 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	shape.renderDisc(disk_tex);
+	disc_1.renderDisc(disk_tex);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	shape.renderSphere(globe_tex);
+	sphere.renderSphere(globe_tex);
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -281,28 +281,23 @@ void Scene::buildShapes() {
 	disc_2.buildDisc(200, 2, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1);
 	disc_flat.buildDisc(10, 2, 1, 1, 1, -3, -3, -3, 90, 1, 0, 0);
 	circle.buildCircle(50, 1, 1, 1, -5, 0, 0, 0, 1, 1, 1);
-	//shape.buildFlatDisc(200.0, 2.0, -7.0, -5.0);
 	cone.buildCone(2.0, 10.0, 10.0, 5.0, 5.0, -10.);
 	floor.buildFloor(1, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	//shape.buildCircle(60.0, 1., 1., 1.);
 	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
 }
 
 void Scene::renderShapes() {
 	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
-	
 	sphere.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
 	disc_2.renderDisc(barrel_lid_2_tex);
 	disc_flat.renderDisc(disk_tex);
 	circle.renderCircle();
-	//shape.renderFlatDisc(disk_tex);
 	cone.renderCone(disk_tex);
 	cylinder.renderCylinder(barrel_tex);
-	//shape.renderCircle();
-	//shape.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
-	//shape.drawIcosahedron();
-	//shape.drawIcosahedron();
+	//draw.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
+	//draw.drawIcosahedron();
+	//draw.drawIcosahedron();
 }
 
 void Scene::updateVariables() {
@@ -430,7 +425,7 @@ void Scene::render() {
 		glPushMatrix(); {
 			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 			glDisable(GL_DEPTH_TEST); {
-				shape.renderSkybox(skybox_tex);
+				skybox.renderSkybox(skybox_tex);
 			}
 			glEnable(GL_DEPTH_TEST);
 		} glPopMatrix();
