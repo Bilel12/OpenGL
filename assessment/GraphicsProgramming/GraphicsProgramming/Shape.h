@@ -79,7 +79,7 @@ public:
 	Vector3 getTranslate();
 	Vector3	getRotation();
 	Vector3 getScale();
-	float setRotAngle(float arg);
+	float rotate(float arg);
 	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();
 	//void normalize(float v[3]);

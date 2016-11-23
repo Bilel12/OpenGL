@@ -32,7 +32,7 @@ Vector3 Shape::getScale() {
 	return scale;
 }
 
-float Shape::setRotAngle(float arg) {
+float Shape::rotate(float arg) {
 	return rot_angle = arg;
 }
 
@@ -82,29 +82,18 @@ void Shape::render3() {
 }
 
 void Shape::buildFloor(float pos_x, float pos_y, float pos_z, float rot_x, float angle, float rot_y, float rot_z, float sca_x, float sca_y, float sca_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
 
-	floor_verts = { (-1),
-					(-1),
-					(-1),
-					(1),
-					(-1),
-					(-1),
-					(1),
-					(-1),
-					(1),
-					(1),
-					(-1),
-					(1),
-					(-1),
-					(-1),
-					(1),
-					(-1),
-					(-1),
-					(-1) };
+	floor_verts = { (-1), (-1), (-1),
+					( 1), (-1), (-1),
+					( 1), (-1), ( 1),
+					( 1), (-1), ( 1),
+					(-1), (-1), ( 1),
+					(-1), (-1), (-1) };
 
 	for (int i = 0; i < 6; ++i) {
 		floor_norms.push_back(0.0f);
@@ -112,7 +101,12 @@ void Shape::buildFloor(float pos_x, float pos_y, float pos_z, float rot_x, float
 		floor_norms.push_back(0.0f);
 	}
 
-	floor_texcoords = { 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1 };
+	floor_texcoords = { 0, 1, 
+						1, 1, 
+						1, 0, 
+						1, 0, 
+						0, 0, 
+						0, 1 };
 
 	floor_colors = { 0.5, 0.5, 0.5, 0.5 };
 }
@@ -168,17 +162,18 @@ void Shape::renderCube(GLuint * texture) {
 }
 
 void Shape::renderBlendCube(GLuint * texture) {
-	glPushMatrix();
-	glScalef(1.5, 1.5, 1.5);
-	glTranslatef(-10, 0, 0);
-	glRotatef(45, 0, 0, 1);
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
 		glPolygonMode(GL_FRONT, GL_LINE);
 		renderCube(texture);
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_LINE);
 		renderCube(texture);
 		glPolygonMode(GL_BACK, GL_FILL);
-	glPopMatrix();
+	} glPopMatrix();
 }
 
 void Shape::renderSkybox(GLuint *texture) {

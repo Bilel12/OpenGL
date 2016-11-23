@@ -42,6 +42,7 @@ protected:
 	void displayText(float x, float y, float r, float g, float b, char* string);
 	// A function to collate all text output in a single location
 	void renderTextOutput();
+	// Functions
 	void loadTextures();
 	void assignTextures();
 	void loadLists();
@@ -69,15 +70,15 @@ protected:
 
 	// For access to user input.
 	Input* input;
-	// For diffrent cameras access
+	// Cameras
 	Camera *camera;
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
-	// For loading and rendering models from a file
+	// Models
 	Model spaceship;
 	Model drone;
-	// For building and rendering shapes
+	// Shapes
 	Shape shape;
 	Shape sphere;
 	Shape cone;
@@ -85,17 +86,18 @@ protected:
 	Shape blend_cube;
 	Shape floor;
 	Shape cylinder;
-	// For drawing shapes
+	// Drawn shapes
 	Draw draw;
-	// Objects to create lists
+	// Objects for lists creating
 	GLuint Torus;
 	GLuint Disc;
 	GLuint Sphere;
 	GLuint LowPoliCylinder;
 	GLuint HighPoliCylinder;
-	// For loading textures
+	// Variables for loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
+	// Textures' pointers
 	GLuint *crate_tex;
 	GLuint *tileBrown_tex;
 	GLuint *triangle_tex;
@@ -120,7 +122,7 @@ protected:
 	float yrot;			// Rotate On The Y Axis
 	float zrot;			// Rotate On The Z Axis
 	float angle;		// Rotate by angle
-						// Booleans
+	// Toggle variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode
 	bool development;	// toggle development mode i.e. display text

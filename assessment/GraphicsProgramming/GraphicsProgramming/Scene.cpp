@@ -303,11 +303,15 @@ void Scene::updateVariables() {
 	//yrot += 0.7;	// Rotate On The Y Axis
 	//zrot += 0.7;	// Rotate On The Z Axis
 	angle += 0.7;
-	/*floor.setRotAngle(angle);
+	/*floor.rotate(angle);
 	floor.rotation.setZ(1);
 	floor.rotation.setX(1);
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
+	blend_cube.translate.set(-3, 0, 1);
+	blend_cube.scale.set(1, 1, 1);
+	blend_cube.rotation.set(1, 1, 1);
+	blend_cube.rotate(angle);
 }
 
 void Scene::update(float dt) {
