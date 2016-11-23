@@ -223,21 +223,6 @@ void Shape::renderCircle() {
 	} glPopMatrix();
 }
 
-float Shape::disc_sin(float pos, float radius, float theta) {
-	return pos + radius * cos(theta);
-}
-float Shape::disc_cos(float pos, float radius, float theta) {
-	return pos + radius * sin(theta);
-}
-float Shape::disc_sin_n(float pos, float radius, float theta)
-{
-	return (pos + radius * sin(theta)) / radius;
-}
-float Shape::disc_cos_n(float pos, float radius, float theta)
-{
-	return (pos + radius * cos(theta)) / radius; // TODO should pos be in the brackets?
-}
-
 void Shape::buildDisc(	float edges, float radius, 
 						float sca_x, float sca_y, float sca_z, 
 						float pos_x, float pos_y, float pos_z, 

@@ -39,10 +39,6 @@ public:
 				   float pos_x, float pos_y, float pos_z, 
 				   float angle, float rot_x, float rot_y, float rot_z);
 	void renderDisc(GLuint *texture);
-	float disc_sin(float pos, float radius, float theta);
-	float disc_cos(float pos, float radius, float theta);
-	float disc_sin_n(float pos, float radius, float theta);
-	float disc_cos_n(float pos, float radius, float theta);
 	// Cylinder functions and variables
 	void buildCylinder(	float radius, float edges, float height, 
 						float sca_x, float sca_y, float sca_z,
