@@ -81,7 +81,9 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::buildFloor(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildFloor(float sca_x, float sca_y, float sca_z, 
+					   float pos_x, float pos_y, float pos_z, 
+					   float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -195,7 +197,10 @@ void Shape::renderSkybox(GLuint *texture) {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::buildCircle(float edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildCircle(float edges, 
+						float sca_x, float sca_y, float sca_z, 
+						float pos_x, float pos_y, float pos_z, 
+						float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -245,7 +250,10 @@ float Shape::disc_cos_n(float pos, float radius, float theta)
 	return (pos + radius * cos(theta)) / radius; // TODO should pos be in the brackets?
 }
 
-void Shape::buildDisc(float edges, float radius, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildDisc(float edges, float radius, 
+					  float sca_x, float sca_y, float sca_z, 
+					  float pos_x, float pos_y, float pos_z, 
+					  float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -396,8 +404,17 @@ float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_int
 	return sin(theta + theta_interval) * sin(delta) / radius;
 }
 
-void Shape::buildSphere(double radius, double latitude, double longitude) {
-	double
+void Shape::buildSphere(float radius, float latitude, float longitude,
+						float sca_x, float sca_y, float sca_z, 
+						float pos_x, float pos_y, float pos_z, 
+						float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+
+	float
 		delta = 0.0, // angle of latitude
 		theta = 0.0, // angle of longitude
 		theta_interval = (2.0 * M_PI) / latitude, // angle of latitude
@@ -488,24 +505,29 @@ void Shape::buildSphere(double radius, double latitude, double longitude) {
 }
 
 void Shape::renderSphere(GLuint *texture) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, sphere_verts.data());
-	glNormalPointer(GL_FLOAT, 0, sphere_norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, sphere_texcoords.data());
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLES, 0, sphere_verts.size() / 3);
-	glBindTexture(GL_TEXTURE_2D, NULL);
+		//glColorPointer(3, GL_FLOAT, 0, colors);
+		glVertexPointer(3, GL_FLOAT, 0, sphere_verts.data());
+		glNormalPointer(GL_FLOAT, 0, sphere_norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, sphere_texcoords.data());
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glBindTexture(GL_TEXTURE_2D, *texture);
+		glDrawArrays(GL_TRIANGLES, 0, sphere_verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
 }
 
 void Shape::buildCylinder(float radius, float edges, float height, float x, float y, float z) {

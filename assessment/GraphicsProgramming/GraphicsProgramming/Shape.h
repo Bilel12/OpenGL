@@ -20,16 +20,24 @@ public:
 	void renderSkybox(GLuint *texture);
 	//static void drawTorus(int numc, int numt);
 	// Floor variables
-	void buildFloor(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
+	void buildFloor(float sca_x, float sca_y, float sca_z, 
+					float pos_x, float pos_y, float pos_z, 
+					float angle, float rot_x, float rot_y, float rot_z);
 	void renderFloor(float R, float G, float B, float A);
 	// Circle functions
-	void buildCircle(float edges, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
+	void buildCircle(float edges, 
+					 float sca_x, float sca_y, float sca_z, 
+					 float pos_x, float pos_y, float pos_z, 
+					 float angle, float rot_x, float rot_y, float rot_z);
 	void renderCircle();
 	// Cone functions
 	void buildCone(float radius, float edges, float height, float x, float y, float z);
 	void renderCone(GLuint *texture);
 	// Disc functions
-	void buildDisc(float edges, float radius, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z);
+	void buildDisc(float edges, float radius, 
+				   float sca_x, float sca_y, float sca_z, 
+				   float pos_x, float pos_y, float pos_z, 
+				   float angle, float rot_x, float rot_y, float rot_z);
 	void renderDisc(GLuint *texture);
 	float disc_sin(float pos, float radius, float theta);
 	float disc_cos(float pos, float radius, float theta);
@@ -39,7 +47,10 @@ public:
 	void buildCylinder(float radius, float height, float edges, float x, float y, float z);
 	void renderCylinder(GLuint *disk_texture);
 	// Sphere functions
-	void buildSphere(double radius, double latitude, double longitude);
+	void buildSphere(float radius, float latitude, float longitude,
+					 float sca_x, float sca_y, float sca_z, 
+					 float pos_x, float pos_y, float pos_z, 
+					 float angle, float rot_x, float rot_y, float rot_z);
 	void renderSphere(GLuint *texture);
 	float sphere_x0(float radius, float theta, float delta);
 	float sphere_y0(float radius, float theta, float delta);

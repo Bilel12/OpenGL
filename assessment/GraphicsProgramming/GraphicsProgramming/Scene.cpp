@@ -273,7 +273,10 @@ void Scene::renderStencilBuffer(Model model) {
 }
 
 void Scene::buildShapes() {
-	sphere.buildSphere(2.0, 15.0, 15.0);
+	sphere.buildSphere( 2.0, 15.0, 15.0,
+						1, 1, 1,
+						0, 0, -5,
+						angle, 0, 1, 0 );
 	disc_1.buildDisc(10, 2, 1, 1, 1, -3, 3, 3, 1, 1, 1, 1);
 	disc_2.buildDisc(200, 2, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1);
 	disc_flat.buildDisc(10, 2, 1, 1, 1, -3, -3, -3, 90, 1, 0, 0);
@@ -316,6 +319,7 @@ void Scene::updateVariables() {
 	blend_cube.scale.set(1, 1, 1);
 	blend_cube.rotation.set(1, 1, 1);
 	blend_cube.rotate(angle);
+	sphere.rotate(angle);
 }
 
 void Scene::update(float dt) {
