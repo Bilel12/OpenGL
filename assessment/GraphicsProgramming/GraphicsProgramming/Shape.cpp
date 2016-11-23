@@ -709,9 +709,6 @@ void Shape::buildCone(	float radius, float edges, float height,
 
 	for (int i = 0; i < edges; ++i) {
 		// bottom disk
-		verts.push_back(0.0);
-		verts.push_back(0.0);
-		verts.push_back(0.0);
 		verts.push_back(radius * cos(theta));
 		verts.push_back(0.0);
 		verts.push_back(radius * sin(theta));
@@ -722,6 +719,17 @@ void Shape::buildCone(	float radius, float edges, float height,
 		verts.push_back(0.0);
 		verts.push_back(height);
 		verts.push_back(0.0);
+		// disc
+		verts.push_back(0.0);
+		verts.push_back(0.0);
+		verts.push_back(0.0);
+		verts.push_back(radius * cos(theta));
+		verts.push_back(0.0);
+		verts.push_back(radius * sin(theta));
+		verts.push_back(radius * cos(theta + interval));
+		verts.push_back(0.0);
+		verts.push_back(radius * sin(theta + interval));
+		
 		// bottom disk
 		for (int i = 0; i < 3; ++i) {
 			norms.push_back(0);
@@ -773,7 +781,7 @@ void Shape::renderCone(GLuint * texture) {
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
 		glBindTexture(GL_TEXTURE_2D, *texture);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
+		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
 		glDisableClientState(GL_VERTEX_ARRAY);
