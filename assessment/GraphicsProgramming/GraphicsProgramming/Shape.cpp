@@ -313,62 +313,6 @@ void Shape::renderDisc(GLuint * texture) {
 	} glPopMatrix();
 }
 
-void Shape::buildFlatDisc(int edges, float radius, float x, float z) {
-	float
-		interval = 2.0 * M_PI / edges,
-		diameter = 2 * radius,
-		start = 0.0,
-		theta = 0.0;
-
-	for (int i = 0; i < edges; ++i) {
-		disc_verts.push_back(x);
-		disc_verts.push_back(start);
-		disc_verts.push_back(z);
-		disc_verts.push_back(x + radius * cos(theta));
-		disc_verts.push_back(start);
-		disc_verts.push_back(z + radius * sin(theta));
-		disc_verts.push_back(x + radius * cos(theta + interval));
-		disc_verts.push_back(start);
-		disc_verts.push_back(z + radius * sin(theta + interval));
-
-		for (int i = 0; i < 3; ++i) {
-			disc_norms.push_back(0.0);
-			disc_norms.push_back(1.0);
-			disc_norms.push_back(0.0);
-		}
-
-		disc_texcoords.push_back(0.5);
-		disc_texcoords.push_back(0.5);
-		disc_texcoords.push_back(cos(theta) / diameter + 0.5);
-		disc_texcoords.push_back(sin(theta) / diameter + 0.5);
-		disc_texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		disc_texcoords.push_back(sin(theta + interval) / diameter + 0.5);
-
-		theta += interval;
-	}
-}
-
-void Shape::renderFlatDisc(GLuint * texture) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, disc_verts.data());
-	glNormalPointer(GL_FLOAT, 0, disc_norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, disc_texcoords.data());
-
-	glBindTexture(GL_TEXTURE_2D, *texture);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, disc_verts.size() / 3);
-	glBindTexture(GL_TEXTURE_2D, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-
 //no need to use inline since a function defined entirely inside a class/struct/union definition, 
 //whether it's a member function or a non-member friend function, 
 //is implicitly an inline function.

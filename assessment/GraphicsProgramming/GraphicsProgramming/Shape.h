@@ -35,9 +35,6 @@ public:
 	float disc_cos(float pos, float radius, float theta);
 	float disc_sin_n(float pos, float radius, float theta);
 	float disc_cos_n(float pos, float radius, float theta);
-	// Flat Disc functions
-	void buildFlatDisc(int edges, float radius, float x, float z);
-	void renderFlatDisc(GLuint *texture);
 	// Cylinder functions and variables
 	void buildCylinder(float radius, float height, float edges, float x, float y, float z);
 	void renderCylinder(GLuint *disk_texture);
