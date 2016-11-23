@@ -273,24 +273,48 @@ void Scene::renderStencilBuffer(Model model) {
 }
 
 void Scene::buildShapes() {
-	sphere.buildSphere( 2.0, 15.0, 15.0,
-						1, 1, 1,
-						0, 0, -5,
-						angle, 0, 1, 0 );
-	disc_1.buildDisc(10, 2, 1, 1, 1, -3, 3, 3, 1, 1, 1, 1);
-	disc_2.buildDisc(200, 2, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1);
-	disc_flat.buildDisc(10, 2, 1, 1, 1, -3, -3, -3, 90, 1, 0, 0);
-	circle.buildCircle(50, 1, 1, 1, -5, 0, 0, 0, 1, 1, 1);
+	sphere.buildSphere(	2.0, 15.0, 15.0,	// radius, latitude, longitude
+						1, 1, 1,			// scale x, scale y, scale z
+						0, 0, -5,			// translate x, translate y, translate z
+						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
+
+	disc_1.buildDisc(	10, 2,				// edges, radius
+						1, 1, 1, 			// scale x, scale y, scale z
+						-3, 3, 3, 			// translate x, translate y, translate z
+						1, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
+
+	disc_2.buildDisc(	200, 2,				// edges, radius
+						1, 1, 1,			// scale x, scale y, scale z, 
+						3, 3, 3,			// translate x, translate y, translate z, 
+						1, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
+
+	disc_flat.buildDisc(10, 2,				// edges, radius
+						1, 1, 1, 			// scale x, scale y, scale z, 
+						-3, -3, -3, 		// translate x, translate y, translate z, 
+						90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+
+	circle.buildCircle(	50,					// edges, radius
+						1, 1, 1, 			// scale x, scale y, scale z, 
+						-5, 0, 0, 			// translate x, translate y, translate z, 
+						0, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
+
+	floor.buildFloor(	1, 1, 1,			// scale x, scale y, scale z, 
+						0, 0, 0,			// translate x, translate y, translate z, 
+						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+
 	cone.buildCone(2.0, 10.0, 10.0, 5.0, 5.0, -10.);
-	floor.buildFloor(1, 1, 1, 0, 0, 0, 0, 0, 0, 0);
-	cylinder.buildCylinder(2., 20., 7., 3., 3., 3.);
+
+	cylinder.buildCylinder(	2, 20, 10,		// radius, edges, height
+							1, 1, 1,		// scale x, scale y, scale z, 
+							3, 3, 3,		// translate x, translate y, translate z, 
+							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
 }
 
 void Scene::renderShapes() {
 	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
 	sphere.renderSphere(globe_tex);
 	disc_1.renderDisc(disk_tex);
-	disc_2.renderDisc(barrel_lid_2_tex);
+	disc_2.renderDisc(disk_tex);
 	disc_flat.renderDisc(disk_tex);
 	circle.renderCircle();
 	cone.renderCone(disk_tex);
@@ -432,12 +456,13 @@ void Scene::render() {
 
 	// Render geometry here -------------------------------------
 	renderStencilBuffer(spaceship);
+	//
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
+	//
 	setRenderMode(blend, wireframe);
 	renderShapes();
 	drawShapes();
-
 	setRenderMode(blend, wireframe);
 	//renderLists();
 	// Geometry rendering ends here -----------------------------

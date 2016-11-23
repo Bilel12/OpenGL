@@ -377,7 +377,7 @@ void Draw::drawCylinder(float radius, float edges, float height, float x, float 
 	float diameter = 2 * radius;
 	float start = 0.0;
 	float theta = 0.0;
-	glPolygonMode(GL_FRONT, GL_LINE);
+	
 	glBindTexture(GL_TEXTURE_2D, *texture); {
 		for (int i = 0; i < edges; ++i) {
 			glBegin(GL_TRIANGLE_STRIP); {
@@ -423,7 +423,6 @@ void Draw::drawCylinder(float radius, float edges, float height, float x, float 
 			theta += interval;
 		}
 	} glBindTexture(GL_TEXTURE_2D, NULL);
-	glPolygonMode(GL_FRONT, GL_FILL);
 }
 
 float Draw::disc_sin(float pos, float radius, float theta) {
