@@ -494,7 +494,13 @@ void Shape::renderSphere(GLuint *texture) {
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
 		glBindTexture(GL_TEXTURE_2D, *texture);
+		//glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec); //TODO
+		//glMaterialfv(GL_FRONT, GL_SHININESS, shininess); //TODO
+
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
+
+		//glMaterialfv(GL_FRONT, GL_SPECULAR, 0); //TODO
+		//glMaterialfv(GL_FRONT, GL_SHININESS, 0); //TODO
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
 		glDisableClientState(GL_VERTEX_ARRAY);

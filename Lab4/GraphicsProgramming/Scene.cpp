@@ -6,13 +6,13 @@ Scene::Scene(Input *in)
 	input = in;
 		
 	//OpenGL settings
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 	glClearColor(0.39f, 0.58f, 93.0f, 1.0f);			// Cornflour Blue Background
+	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glEnable(GL_LIGHTING);								// Enable Lighting
+	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	//glEnable(GL_COLOR_MATERIAL);						// Without it all glColor3f() changes are ignored when lighting is enabled
 
 	// Other OpenGL / render setting should be applied here.
@@ -24,7 +24,7 @@ Scene::Scene(Input *in)
 	setSpotDirection(0, -1, 0, 0, spot_Direction);
 
 	// Initialise variables
-	light0 = false; light1 = false;
+	light0 = true; light1 = false;
 	specular = 0.1f;
 	rotation = 1;
 	rotation2 = 1;
@@ -32,6 +32,9 @@ Scene::Scene(Input *in)
 	position_y = -1;
 	position_z = 0;
 	speed = 5;
+
+	// Light 0
+	
 }
 
 void Scene::update(float dt)
@@ -109,23 +112,26 @@ void Scene::render() {
 	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	glRotatef(20, 1, 0, 0); // Rotate by x-axis
 
-	glPushMatrix();
+	
 	//glRotatef(rotation, 0.0f, 1.0f, 0.0f);
-		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
-		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
-		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
-		// enable light1
-		if (light0)
-			glEnable(GL_LIGHT0);
-		else
-			glDisable(GL_LIGHT0);
-	glPopMatrix();
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+	
+	glEnable(GL_LIGHT0);
+	
+	// enable light1
+	/*if (light0)
+		glEnable(GL_LIGHT0);
+	else
+		glDisable(GL_LIGHT0);*/
+	
 
 	glPushMatrix();
-		glBegin(GL_POINT);
+		/*glBegin(GL_POINT);
 			glVertex3f(0.0f, 0.0f, 0.0f);
-		glEnd();
+		glEnd();*/
 		//glRotatef(rotation, 0.0f, 1.0f, 0.0f);
 		glTranslatef(2, 0, 0);
 		glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient1);
@@ -167,7 +173,7 @@ void Scene::render() {
 	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
 	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
 	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
-	glEnable(GL_LIGHT2);
+	//glEnable(GL_LIGHT2);
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);

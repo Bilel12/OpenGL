@@ -126,7 +126,7 @@ protected:
 	bool wireframe;		// toggle wireframe mode
 	bool development;	// toggle development mode i.e. display text
 	// Lighting
-	GLfloat highSpec[4];
+	GLfloat high_spec[4];
 	GLfloat no_mat[4];
 	GLfloat mat_ambient[4];
 	GLfloat mat_ambient_colour[4];
@@ -153,7 +153,7 @@ protected:
 	GLfloat* setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
 	// Set light Specular
 	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
-	GLfloat* setHighSpec(float x, float y, float z, float w, GLfloat* highSpec);
+	GLfloat* set_high_spec(float x, float y, float z, float w, GLfloat* high_spec);
 	GLfloat* set_no_mat(float x, float y, float z, float w, GLfloat* no_mat);
 	GLfloat* set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient);
 	GLfloat* set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour);

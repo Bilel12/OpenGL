@@ -374,7 +374,7 @@ void Scene::renderLight() {
 	//setLightPosition(position_x, position_y, position_z, 1, Light_Position);
 
 	set_shininess(100.0, shininess);
-	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);
+	set_high_spec(1.0, 1.0, 1.0, 1.0, high_spec);
 
 	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse);
@@ -385,21 +385,18 @@ void Scene::renderLight() {
 	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
 	glEnable(GL_LIGHT2);
 
-	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
-	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+	/*glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);*/
 
 	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
 	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
 	set_mat_ambient_colour(0.8, 0.8, 0.2, 1.0, mat_ambient_colour);
 	set_mat_diffuse(0.1, 0.5, 0.8, 1.0, mat_diffuse);
 	set_mat_specular(3.0, 3.0, 3.0, 3.0, mat_specular);
-	set_no_shininess(300.0, no_shininess);
+	set_no_shininess(0, no_shininess);
 	set_low_shininess(50, low_shininess);
 	set_high_shininess(100, high_shininess);
 	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
-
-	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
-	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 }
 
 void Scene::update(float dt) {
@@ -718,13 +715,13 @@ GLfloat* Scene::set_mat_emission(float x, float y, float z, float w, GLfloat* ma
 }
 
 
-GLfloat* Scene::setHighSpec(float x, float y, float z, float w, GLfloat* highSpec) {
-	highSpec[0] = x;
-	highSpec[1] = y;
-	highSpec[2] = z;
-	highSpec[3] = w;
+GLfloat* Scene::set_high_spec(float x, float y, float z, float w, GLfloat* high_spec) {
+	high_spec[0] = x;
+	high_spec[1] = y;
+	high_spec[2] = z;
+	high_spec[3] = w;
 
-	return highSpec;
+	return high_spec;
 }
 
 GLfloat* Scene::set_shininess(float s, GLfloat* shininess) {
