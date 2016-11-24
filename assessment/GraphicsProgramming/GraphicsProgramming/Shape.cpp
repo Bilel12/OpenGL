@@ -4,7 +4,7 @@
 #include "Shape.h"
 
 Shape::Shape() {
-	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
+	set_no_mat(0.2, 0.2, 0.2, 0.2);
 	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
 	set_mat_ambient_colour(0.8, 0.8, 0.2, 1.0, mat_ambient_colour);
 	set_mat_diffuse(0.1, 0.5, 0.8, 1.0, mat_diffuse);
@@ -520,7 +520,8 @@ void Shape::renderSphere(GLuint *texture) {
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
-		set_no_mat(1.0, 1.0, 1.0,1.0, no_mat);
+		set_no_mat(1.0, 1.0, 1.0,1.0);
+		//ambient = { (GLfloat)(0.2), (GLfloat)0.2, (GLfloat)0.2, (GLfloat)1.0 };
 		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
 		/*glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -531,7 +532,7 @@ void Shape::renderSphere(GLuint *texture) {
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
-		set_no_mat(0.2, 0.2, 0.2, 1.0, no_mat);
+		set_no_mat(0.2, 0.2, 0.2, 1.0);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
 		/*glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_def);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat_def);
@@ -842,7 +843,7 @@ void Shape::renderCone(GLuint * texture) {
 	} glPopMatrix();
 }
 // Set material arrays (Function definitions)
-GLfloat* Shape::set_no_mat(float x, float y, float z, float w, GLfloat* no_mat) {
+GLfloat* Shape::set_no_mat(float x, float y, float z, float w) {
 	no_mat[0] = x;
 	no_mat[1] = y;
 	no_mat[2] = z;

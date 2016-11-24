@@ -120,7 +120,8 @@ public:
 	GLfloat high_shininess_def[1];
 	// Material functions
 	// Set material arrays
-	GLfloat* set_no_mat(float x, float y, float z, float w, GLfloat* no_mat);
+	// TODO delete all array passing
+	GLfloat* set_no_mat(float x, float y, float z, float w);
 	GLfloat* set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient);
 	GLfloat* set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour);
 	GLfloat* set_mat_diffuse(float x, float y, float z, float w, GLfloat* mat_diffuse);
@@ -134,6 +135,7 @@ public:
 	GLfloat* set_high_shininess(float s, GLfloat* high_shininess);
 private:
 	std::vector<float> verts, norms, texcoords, colors;
+	std::vector<GLfloat> ambient;
 	float rot_angle;
 };
 
