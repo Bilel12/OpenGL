@@ -3,7 +3,20 @@
 #include "Icosahedron.h"
 #include "Shape.h"
 
-Shape::Shape() {}
+Shape::Shape() {
+	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
+	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
+	set_mat_ambient_colour(0.8, 0.8, 0.2, 1.0, mat_ambient_colour);
+	set_mat_diffuse(0.1, 0.5, 0.8, 1.0, mat_diffuse);
+	set_mat_specular(3.0, 3.0, 3.0, 3.0, mat_specular);
+	set_no_shininess(0, no_shininess);
+	set_low_shininess(50, low_shininess);
+	set_high_shininess(100, high_shininess);
+	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
+	set_shininess(100.0, shininess);
+	set_high_spec(1.0, 1.0, 1.0, 1.0, high_spec);
+}
+
 Shape::~Shape() {}
 
 extern GLubyte indices[] = {
@@ -493,15 +506,26 @@ void Shape::renderSphere(GLuint *texture) {
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
+		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+
+
 		glBindTexture(GL_TEXTURE_2D, *texture);
-		//glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec); //TODO
-		//glMaterialfv(GL_FRONT, GL_SHININESS, shininess); //TODO
-
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
-
-		//glMaterialfv(GL_FRONT, GL_SPECULAR, 0); //TODO
-		//glMaterialfv(GL_FRONT, GL_SHININESS, 0); //TODO
 		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
+		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
@@ -805,4 +829,91 @@ void Shape::renderCone(GLuint * texture) {
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	} glPopMatrix();
+}
+// Set material arrays (Function definitions)
+GLfloat* Shape::set_no_mat(float x, float y, float z, float w, GLfloat* no_mat) {
+	no_mat[0] = x;
+	no_mat[1] = y;
+	no_mat[2] = z;
+	no_mat[3] = w;
+
+	return no_mat;
+}
+
+GLfloat* Shape::set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient) {
+	mat_ambient[0] = x;
+	mat_ambient[1] = y;
+	mat_ambient[2] = z;
+	mat_ambient[3] = w;
+
+	return mat_ambient;
+}
+
+GLfloat* Shape::set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour) {
+	mat_ambient_colour[0] = x;
+	mat_ambient_colour[1] = y;
+	mat_ambient_colour[2] = z;
+	mat_ambient_colour[3] = w;
+
+	return mat_ambient_colour;
+}
+
+GLfloat* Shape::set_mat_diffuse(float x, float y, float z, float w, GLfloat* mat_diffuse) {
+	mat_diffuse[0] = x;
+	mat_diffuse[1] = y;
+	mat_diffuse[2] = z;
+	mat_diffuse[3] = w;
+
+	return mat_diffuse;
+}
+
+GLfloat* Shape::set_mat_specular(float x, float y, float z, float w, GLfloat* mat_specular) {
+	mat_specular[0] = x;
+	mat_specular[1] = y;
+	mat_specular[2] = z;
+	mat_specular[3] = w;
+
+	return mat_specular;
+}
+
+GLfloat* Shape::set_mat_emission(float x, float y, float z, float w, GLfloat* mat_emission) {
+	mat_emission[0] = x;
+	mat_emission[1] = y;
+	mat_emission[2] = z;
+	mat_emission[3] = w;
+
+	return mat_emission;
+}
+
+GLfloat* Shape::set_high_spec(float x, float y, float z, float w, GLfloat* high_spec) {
+	high_spec[0] = x;
+	high_spec[1] = y;
+	high_spec[2] = z;
+	high_spec[3] = w;
+
+	return high_spec;
+}
+// Set material variables (Function definitions)
+GLfloat* Shape::set_shininess(float s, GLfloat* shininess) {
+	shininess[0] = s;
+
+	return shininess;
+}
+
+GLfloat* Shape::set_no_shininess(float s, GLfloat* no_shininess) {
+	no_shininess[0] = s;
+
+	return no_shininess;
+}
+
+GLfloat* Shape::set_low_shininess(float s, GLfloat* low_shininess) {
+	low_shininess[0] = s;
+
+	return low_shininess;
+}
+
+GLfloat* Shape::set_high_shininess(float s, GLfloat* high_shininess) {
+	high_shininess[0] = s;
+
+	return high_shininess;
 }
