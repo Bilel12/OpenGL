@@ -141,15 +141,6 @@ void Scene::render() {
 		else
 			glDisable(GL_LIGHT1);
 	glPopMatrix();
-	// Render geometry here -------------------------------------
-	
-	//// Clear Color and Depth Buffers
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Reset transformations
-	glLoadIdentity(); // load Identity Matrix 
-					  // Set the camera
-	gluLookAt(0.0f, 0.0f, 6.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
 	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
@@ -158,6 +149,16 @@ void Scene::render() {
 
 	set_shininess(100.0, shininess);
 	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);
+
+	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
+	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
+	set_mat_ambient_colour(0.8, 0.8, 0.2, 1.0, mat_ambient_colour);
+	set_mat_diffuse(0.1, 0.5, 0.8, 1.0, mat_diffuse);
+	set_mat_specular(3.0, 3.0, 3.0, 3.0, mat_specular);
+	set_no_shininess(300.0, no_shininess);
+	set_low_shininess(50, low_shininess);
+	set_high_shininess(100, high_shininess);
+	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
 
 	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse);
@@ -170,17 +171,6 @@ void Scene::render() {
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-
-	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
-	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
-	set_mat_ambient_colour(0.8, 0.8, 0.2, 1.0, mat_ambient_colour);
-	set_mat_diffuse(0.1, 0.5, 0.8, 1.0, mat_diffuse);
-	set_mat_specular(3.0, 3.0, 3.0, 3.0, mat_specular);
-	set_no_shininess(300.0, no_shininess);
-	set_low_shininess(50, low_shininess);
-	set_high_shininess(100, high_shininess);
-	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
-
 	// Render geometry here -----------------------------------
 
 	glPushMatrix();

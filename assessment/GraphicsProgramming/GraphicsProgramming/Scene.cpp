@@ -7,7 +7,7 @@ Scene::Scene(Input *in) {
 	camera = &freeCamera;
 	//OpenGL settings
 	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
-	glShadeModel(GL_FLAT);
+	//glShadeModel(GL_FLAT);						// 
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);		// Cornflour Blue Background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);			// Black Background
 	glClearDepth(1.0f);								// Depth Buffer Setup
@@ -18,20 +18,25 @@ Scene::Scene(Input *in) {
 
 	// Other OpenGL / render setting should be applied here.			
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);				// Really Nice Perspective Calculations
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);	//For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
-	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);	// For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
+	glEnable(GL_TEXTURE_2D);										// Enable texturing
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				// Set The Blending Function For Translucency
-
-	loadTextures();// loading textures into vector
-	assignTextures();// assign textures to pointers
-	loadModels();// load 3D models from files
-	//loadLists();// load lists
-	buildShapes();
+	glEnable(GL_LIGHTING);											// Enable Lighting
+	//glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	// Build functions
+	loadTextures();		// loading textures into vector
+	assignTextures();	// assign textures to pointers
+	loadModels();		// load 3D models from files
+	//loadLists();		// load lists
+	buildShapes();		// Generate vertices, normals and texture coordinates vectors
+	buildLight();		// 
 	// Initialise variables
 	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false;			// Blending on or off
 	wireframe = false;		// Wireframe on or off
-	development = true;		// Turn on or off text rendering		
+	development = true;		// Turn on or off text rendering	
+	// Shadowing
+	shadowMatrix.reserve(15);
 }
 
 void Scene::loadTextures() {
@@ -335,6 +340,65 @@ void Scene::updateVariables() {
 	sphere.rotate(angle);
 }
 
+void Scene::buildLight() {
+	// Lighting
+	setLightAmbient(0, 0, 1, 1, Light_Ambient);
+	setLightAmbient(0, 1, 1, 0, Light_Ambient1);
+	setLightPosition(0, -1, 0, 1, Light_Position);
+	setLightDiffuse(0, 1, 1, 1, Light_Diffuse);
+	setLightPosition(0, 0, 1, 1, Light_Position1);
+	setSpotDirection(0, -1, 0, 0, spot_Direction);
+}
+
+void Scene::renderLight() {
+	// Light 0
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+	glEnable(GL_LIGHT0);
+
+	// Light 1
+	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient1);
+	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular);
+	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
+	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
+	glEnable(GL_LIGHT1);
+
+	// Light 2
+	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
+	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
+	//setLightSpecular(specular, specular, specular, specular, Light_Specular);
+	//setLightPosition(position_x, position_y, position_z, 1, Light_Position);
+
+	set_shininess(100.0, shininess);
+	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);
+
+	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse);
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
+	glEnable(GL_LIGHT2);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+
+	set_no_mat(0.2, 0.2, 0.2, 0.2, no_mat);
+	set_mat_ambient(0.7, 0.7, 0.7, 1.0, mat_ambient);
+	set_mat_ambient_colour(0.8, 0.8, 0.2, 1.0, mat_ambient_colour);
+	set_mat_diffuse(0.1, 0.5, 0.8, 1.0, mat_diffuse);
+	set_mat_specular(3.0, 3.0, 3.0, 3.0, mat_specular);
+	set_no_shininess(300.0, no_shininess);
+	set_low_shininess(50, low_shininess);
+	set_high_shininess(100, high_shininess);
+	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
+}
+
 void Scene::update(float dt) {
 	// Handle user input
 	// Press 1 to switch to Free Camera
@@ -447,9 +511,10 @@ void Scene::render() {
 			}
 			glEnable(GL_DEPTH_TEST);
 		} glPopMatrix();
-
+	// Lighting
+	renderLight();
 	// Render geometry here -------------------------------------
-	renderStencilBuffer(spaceship);
+	//renderStencilBuffer(spaceship);
 	//
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
@@ -549,78 +614,306 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	glMatrixMode(GL_MODELVIEW);
 }
 
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
-//glBegin(GL_QUADS);	//Begin drawing state
-////glColor3f(0.8, 0, 0);
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(0.0f, 0.0f);
-//glVertex3f(-1.0f, 1.0f, 0.0f);
+GLfloat* Scene::setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient) {
+	lightAmbient[0] = x;
+	lightAmbient[1] = y;
+	lightAmbient[2] = z;
+	lightAmbient[3] = w;
 
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(0.0f, 3.0f);
-//glVertex3f(-1.0f, -1.0f, 0.0f);
+	return lightAmbient;
+}
 
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(3.0f, 3.0f);
-//glVertex3f(1.0f, -1.0f, 0.0f);
+GLfloat* Scene::setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse) {
+	lightDiffuse[0] = x;
+	lightDiffuse[1] = y;
+	lightDiffuse[2] = z;
+	lightDiffuse[3] = w;
 
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(3.0f, 0.0f);
-//glVertex3f(1.0f, 1.0f, 0.0f);
-//glEnd();		//end drawing
+	return lightDiffuse;
+}
 
-//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//glBegin(GL_QUADS);	//Begin drawing state
-//	//glColor3f(0.8, 0, 0);
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0.0f, 0.0f);
-//	glVertex3f(-1.0f, 1.0f, 0.0f);
+GLfloat* Scene::setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition) {
+	lightPosition[0] = x;
+	lightPosition[1] = y;
+	lightPosition[2] = z;
+	lightPosition[3] = w;
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0.0f, 1.0f);
-//	glVertex3f(-1.0f, -1.0f, 0.0f);
+	return lightPosition;
+}
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1.0f, 1.0f);
-//	glVertex3f(1.0f, -1.0f, 0.0f);
+GLfloat* Scene::setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection) {
+	spotDirection[0] = x;
+	spotDirection[1] = y;
+	spotDirection[2] = z;
+	spotDirection[3] = w;
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1.0f, 0.0f);
-//	glVertex3f(1.0f, 1.0f, 0.0f);
-//glEnd();		//end drawing
+	return spotDirection;
+}
 
-//glPushMatrix(); {
-//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
-//	glBegin(GL_TRIANGLES); // front face
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(-1, -1, 1.5);
+GLfloat* Scene::setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
+	lightSpecular[0] = x;
+	lightSpecular[1] = y;
+	lightSpecular[2] = z;
+	lightSpecular[3] = w;
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1, 1);
-//	glVertex3f(1, -1, 1.5);
+	return lightSpecular;
+}
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(1, 1, 1.5);
-//	glEnd();
+GLfloat* Scene::set_no_mat(float x, float y, float z, float w, GLfloat* no_mat) {
+	no_mat[0] = x;
+	no_mat[1] = y;
+	no_mat[2] = z;
+	no_mat[3] = w;
 
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(1, 1, 1.5);
+	return no_mat;
+}
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0, 0);
-//	glVertex3f(-1, 1, 1.5);
+GLfloat* Scene::set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient) {
+	mat_ambient[0] = x;
+	mat_ambient[1] = y;
+	mat_ambient[2] = z;
+	mat_ambient[3] = w;
 
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(-1, -1, 1.5);
-//	glEnd();
-//} glPopMatrix();
+	return mat_ambient;
+}
+
+GLfloat* Scene::set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour) {
+	mat_ambient_colour[0] = x;
+	mat_ambient_colour[1] = y;
+	mat_ambient_colour[2] = z;
+	mat_ambient_colour[3] = w;
+
+	return mat_ambient_colour;
+}
+
+GLfloat* Scene::set_mat_diffuse(float x, float y, float z, float w, GLfloat* mat_diffuse) {
+	mat_diffuse[0] = x;
+	mat_diffuse[1] = y;
+	mat_diffuse[2] = z;
+	mat_diffuse[3] = w;
+
+	return mat_diffuse;
+}
+
+GLfloat* Scene::set_mat_specular(float x, float y, float z, float w, GLfloat* mat_specular) {
+	mat_specular[0] = x;
+	mat_specular[1] = y;
+	mat_specular[2] = z;
+	mat_specular[3] = w;
+
+	return mat_specular;
+}
+
+GLfloat* Scene::set_mat_emission(float x, float y, float z, float w, GLfloat* mat_emission) {
+	mat_emission[0] = x;
+	mat_emission[1] = y;
+	mat_emission[2] = z;
+	mat_emission[3] = w;
+
+	return mat_emission;
+}
+
+
+GLfloat* Scene::setHighSpec(float x, float y, float z, float w, GLfloat* highSpec) {
+	highSpec[0] = x;
+	highSpec[1] = y;
+	highSpec[2] = z;
+	highSpec[3] = w;
+
+	return highSpec;
+}
+
+GLfloat* Scene::set_shininess(float s, GLfloat* shininess) {
+	shininess[0] = s;
+
+	return shininess;
+}
+GLfloat* Scene::set_no_shininess(float s, GLfloat* no_shininess) {
+	no_shininess[0] = s;
+
+	return no_shininess;
+}
+
+GLfloat* Scene::set_low_shininess(float s, GLfloat* low_shininess) {
+	low_shininess[0] = s;
+
+	return low_shininess;
+}
+
+GLfloat* Scene::set_high_shininess(float s, GLfloat* high_shininess) {
+	high_shininess[0] = s;
+
+	return high_shininess;
+}
+
+// Shadowing
+// Generates a shadow matrix.
+// The shadow matrix will transform an object into a 2D shadow of itself, based on the provide light position and floor plane.
+// shadowMatrix[16]; must be declared
+// Inputs: light_pos is the light position. floor is a vertex array with 4 vertices that draw a quad (defining the floor plane that the shadow will be drawn on)
+void Scene::generateShadowMatrix(float light_pos[4], GLfloat floor[12]) {
+
+	//Defining vertices of plane are PQR with edges PQ and PR
+	Vector3 P(floor[0], floor[1], floor[2]);	//top left
+	Vector3 Q(floor[3], floor[4], floor[5]);	// bottom left
+	Vector3 R(floor[9], floor[10], floor[11]);	// top right
+
+	Vector3 PQ = (Q - P).normalised();
+	Vector3 PR = (R - P).normalised();
+	Vector3 normal = PR.cross(PQ);
+
+	//Equation of plane is ax + by + cz = d
+	//a, b and c are the coefficients of the normal to the plane (i.e. normal = ai + bj + ck)
+	//If (x0, y0, z0) is any point on the plane, d = a*x0 + b*y0 + c*z0
+	//i.e. d is the dot product of any point on the plane (using P here) and the normal to the plane
+	float a, b, c, d;
+	a = normal.getX();
+	b = normal.getY();
+	c = normal.getZ();
+	d = normal.dot(P);
+
+	//Origin of projection is at x, y, z. Projection here originating from the light source's position
+	float x, y, z;
+	x = light_pos[0];
+	y = light_pos[1];
+	z = light_pos[2];
+
+	//This is the general perspective transformation matrix from a point (x, y, z) onto the plane ax + by + cz = d
+	shadowMatrix[0] = d - (b * y + c * z);
+	shadowMatrix[1] = a * y;
+	shadowMatrix[2] = a * z;
+	shadowMatrix[3] = a;
+
+	shadowMatrix[4] = b * x;
+	shadowMatrix[5] = d - (a * x + c * z);
+	shadowMatrix[6] = b * z;
+	shadowMatrix[7] = b;
+
+	shadowMatrix[8] = c * x;
+	shadowMatrix[9] = c * y;
+	shadowMatrix[10] = d - (a * x + b * y);
+	shadowMatrix[11] = c;
+
+	shadowMatrix[12] = -d * x;
+	shadowMatrix[13] = -d * y;
+	shadowMatrix[14] = -d * z;
+	shadowMatrix[15] = -(a * x + b * y + c * z);
+}
+
+// An example of the shadow caster object I used.
+// Just a 4 by 4 quad stored in a vertex array.
+// Can be used when creating the shadow volume and be rendered to the scene.
+// for shadow volume build shadow caster
+void Scene::populateExample() {
+	casterVerts.reserve(11);
+
+	casterVerts[0] = -2.0f;
+	casterVerts[1] = 3.0f;
+	casterVerts[2] = -2.0f;
+
+	casterVerts[3] = -2.f;
+	casterVerts[4] = 3.f;
+	casterVerts[5] = 2.f;
+
+	casterVerts[6] = 2.f;
+	casterVerts[7] = 3.f;
+	casterVerts[8] = 2.f;
+
+	casterVerts[9] = 2.f;
+	casterVerts[10] = 3.f;
+	casterVerts[11] = -2.f;
+
+	casterNorms.reserve(11);
+	// normals
+	casterNorms[0] = 0.f;
+	casterNorms[1] = 1.f;
+	casterNorms[2] = 0.f;
+	casterNorms[3] = 0.f;
+	casterNorms[4] = 1.f;
+	casterNorms[5] = 0.f;
+	casterNorms[6] = 0.f;
+	casterNorms[7] = 1.f;
+	casterNorms[8] = 0.f;
+	casterNorms[9] = 0.f;
+	casterNorms[10] = 1.f;
+	casterNorms[11] = 0.f;
+}
+
+// Builds the shadow volume and stores it in a vector (for rendering via vertex array techniques)
+// Vector declared as std::Vector<float> shadowVolume;
+// Vertices of the shadow caster are extended to create the volume.
+void Scene::buildShadowVolume(float lightPosit[4])
+{
+	float extrusion = 5.f;
+
+	// Clear previous shadow volume
+	shadowVolume.clear();
+
+	//Build new shadow volume
+
+	// Temporary variable for storing newly calculated vertcies
+	float vExtended[3];
+
+
+	// For each vertex of the shadow casting object, find the edge 
+	// that it helps define and extrude a quad out from that edge.
+	for (int i = 0; i < (sizeof(casterVerts) / sizeof(casterVerts[0])); i += 3)
+	{
+		// Define the edge we're currently working on extruding...
+		int e0 = i;
+		int e1 = i + 3;
+
+		// If the edge's second vertex is out of array range, 
+		// place it back at 0
+		if (e1 >= (sizeof(casterVerts) / sizeof(casterVerts[0])))
+		{
+			e1 = 0;
+		}
+		// v0 of our extruded quad will simply use the edge's first 
+		// vertex or e0.
+		shadowVolume.push_back(casterVerts[e0]);
+		shadowVolume.push_back(casterVerts[e0 + 1]);
+		shadowVolume.push_back(casterVerts[e0 + 2]);
+
+		// v1 of our quad is created by taking the edge's first 
+		// vertex and extending it out by some amount.
+		extendVertex(vExtended, lightPosit, casterVerts[e0], casterVerts[e0 + 1], casterVerts[e0 + 2], extrusion);
+		shadowVolume.push_back(vExtended[0]);
+		shadowVolume.push_back(vExtended[1]);
+		shadowVolume.push_back(vExtended[2]);
+
+		// v2 of our quad is created by taking the edge's second 
+		// vertex and extending it out by some amount.
+		extendVertex(vExtended, lightPosit, casterVerts[e1], casterVerts[e1 + 1], casterVerts[e1 + 2], extrusion);
+		shadowVolume.push_back(vExtended[0]);
+		shadowVolume.push_back(vExtended[1]);
+		shadowVolume.push_back(vExtended[2]);
+
+		// v3 of our extruded quad will simply use the edge's second 
+		//// vertex or e1.
+		shadowVolume.push_back(casterVerts[e1]);
+		shadowVolume.push_back(casterVerts[e1 + 1]);
+		shadowVolume.push_back(casterVerts[e1 + 2]);
+	}
+
+}
+
+// Calculates new vertex positions based on a light position and provide vertex position.
+// Puts new vertex positions in newVert for access by buildShadowVolume() function.
+// Builds a vector between light and vertex, then extends along that vector by set extrusion amount.
+void Scene::extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext)
+{
+	float lightDir[3];
+
+	// Create a vector that points from the light's position to the original vertex.
+	lightDir[0] = x - lightPosit[0];
+	lightDir[1] = y - lightPosit[1];
+	lightDir[2] = z - lightPosit[2];
+
+	// Then use that vector to extend the original vertex out to a new position.
+	// The distance to extend or extrude the new vector is specified by t.
+	newVert[0] = lightPosit[0] + lightDir[0] * ext;
+	newVert[1] = lightPosit[1] + lightDir[1] * ext;
+	newVert[2] = lightPosit[2] + lightDir[2] * ext;
+}
 

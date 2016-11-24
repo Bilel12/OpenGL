@@ -740,3 +740,80 @@ void Draw::drawCone(float radius, float edges, float height, float x, float y, f
 //	}
 //	glEnd();*/
 //}
+
+// OLD DRAWING FUNCTIONS
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
+//glBegin(GL_QUADS);	//Begin drawing state
+////glColor3f(0.8, 0, 0);
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(0.0f, 0.0f);
+//glVertex3f(-1.0f, 1.0f, 0.0f);
+
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(0.0f, 3.0f);
+//glVertex3f(-1.0f, -1.0f, 0.0f);
+
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(3.0f, 3.0f);
+//glVertex3f(1.0f, -1.0f, 0.0f);
+
+//glNormal3f(0.0f, 0.0f, 1.0f);
+//glTexCoord2f(3.0f, 0.0f);
+//glVertex3f(1.0f, 1.0f, 0.0f);
+//glEnd();		//end drawing
+
+//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//glBegin(GL_QUADS);	//Begin drawing state
+//	//glColor3f(0.8, 0, 0);
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0.0f, 0.0f);
+//	glVertex3f(-1.0f, 1.0f, 0.0f);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0.0f, 1.0f);
+//	glVertex3f(-1.0f, -1.0f, 0.0f);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1.0f, 1.0f);
+//	glVertex3f(1.0f, -1.0f, 0.0f);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1.0f, 0.0f);
+//	glVertex3f(1.0f, 1.0f, 0.0f);
+//glEnd();		//end drawing
+
+//glPushMatrix(); {
+//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
+//	glBegin(GL_TRIANGLES); // front face
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0, 1);
+//	glVertex3f(-1, -1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1, 1);
+//	glVertex3f(1, -1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1, 0);
+//	glVertex3f(1, 1, 1.5);
+//	glEnd();
+
+//	glBegin(GL_TRIANGLES);
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(1, 0);
+//	glVertex3f(1, 1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0, 0);
+//	glVertex3f(-1, 1, 1.5);
+
+//	glNormal3f(0.0f, 0.0f, 1.0f);
+//	glTexCoord2f(0, 1);
+//	glVertex3f(-1, -1, 1.5);
+//	glEnd();
+//} glPopMatrix();
+

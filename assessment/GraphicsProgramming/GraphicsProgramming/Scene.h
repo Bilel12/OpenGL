@@ -54,6 +54,8 @@ protected:
 	void buildShapes();
 	void renderShapes();
 	void updateVariables();
+	void buildLight();
+	void renderLight();
 	// For Window and frustum calculation.
 	int width, height;
 	// For FPS counter and mouse coordinate output.
@@ -119,10 +121,60 @@ protected:
 	// Rotation variables
 	float scale_x, scale_y, scale_z;
 	float angle;		// Rotate by angle
-	// Toggle variables
+						// Toggle variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode
 	bool development;	// toggle development mode i.e. display text
+	// Lighting
+	GLfloat highSpec[4];
+	GLfloat no_mat[4];
+	GLfloat mat_ambient[4];
+	GLfloat mat_ambient_colour[4];
+	GLfloat mat_diffuse[4];
+	GLfloat mat_specular[4];
+	GLfloat mat_emission[4];
+
+	GLfloat shininess[1];
+	GLfloat no_shininess[1];
+	GLfloat low_shininess[1];
+	GLfloat high_shininess[1];
+
+	GLfloat Light_Ambient[4];
+	GLfloat Light_Ambient1[4];
+	GLfloat Light_Diffuse[4];
+	GLfloat Light_Position[4];
+	GLfloat Light_Position1[4];
+	GLfloat spot_Direction[4];
+	GLfloat Light_Specular[4];
+	// Set light
+	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
+	GLfloat* setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
+	GLfloat* setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
+	GLfloat* setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
+	// Set light Specular
+	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
+	GLfloat* setHighSpec(float x, float y, float z, float w, GLfloat* highSpec);
+	GLfloat* set_no_mat(float x, float y, float z, float w, GLfloat* no_mat);
+	GLfloat* set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient);
+	GLfloat* set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour);
+	GLfloat* set_mat_diffuse(float x, float y, float z, float w, GLfloat* mat_diffuse);
+	GLfloat* set_mat_specular(float x, float y, float z, float w, GLfloat* mat_specular);
+	GLfloat* set_mat_emission(float x, float y, float z, float w, GLfloat* mat_emission);
+	// Set variables
+	GLfloat* set_shininess(float s, GLfloat* shininess);
+	GLfloat* set_no_shininess(float s, GLfloat* no_shininess);
+	GLfloat* set_low_shininess(float s, GLfloat* low_shininess);
+	GLfloat* set_high_shininess(float s, GLfloat* high_shininess);
+	// Shadowing
+	std::vector<float> shadowMatrix;
+	std::vector<float> shadowVolume;
+	std::vector<float> casterVerts;
+	std::vector<float> casterNorms;
+
+	void buildShadowVolume(float lightPosit[4]);
+	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
+	void extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext);
+	void populateExample();
 };
 
 #endif
