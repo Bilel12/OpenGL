@@ -15,6 +15,20 @@ Shape::Shape() {
 	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
 	set_shininess(100.0, shininess);
 	set_high_spec(1.0, 1.0, 1.0, 1.0, high_spec);
+	set_low_shininess(10.0, low_shininess);
+	set_high_shininess(300.0, high_shininess);
+	// Default values
+	no_mat_def[4] = {0};
+	mat_ambient_def[4] = {0};
+	mat_ambient_colour_def[4] = {0};
+	mat_diffuse_def[4] = {0};
+	mat_specular_def[4] = {0};
+	mat_emission_def[4] = {0};
+	high_spec_def[4] = {0};
+	shininess_def[1] = {0};
+	no_shininess_def[1] = {0};
+	low_shininess_def[1] = {0};
+	high_shininess_def[1] = {0};
 }
 
 Shape::~Shape() {}
@@ -506,26 +520,23 @@ void Shape::renderSphere(GLuint *texture) {
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
+		set_no_mat(1.0, 1.0, 1.0,1.0, no_mat);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		/*glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
 		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-		glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec);
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);*/
 
 		glBindTexture(GL_TEXTURE_2D, *texture);
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
+		set_no_mat(0.2, 0.2, 0.2, 1.0, no_mat);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess);
-		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-		glMaterialfv(GL_FRONT, GL_SPECULAR, high_spec);
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		/*glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_def);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat_def);
+		glMaterialfv(GL_FRONT, GL_SHININESS, no_shininess_def);
+		glMaterialfv(GL_FRONT, GL_EMISSION, no_mat_def);*/
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);

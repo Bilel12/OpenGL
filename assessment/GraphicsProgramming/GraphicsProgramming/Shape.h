@@ -105,6 +105,19 @@ public:
 	GLfloat no_shininess[1];
 	GLfloat low_shininess[1];
 	GLfloat high_shininess[1];
+	// Default values
+	GLfloat no_mat_def[4];
+	GLfloat mat_ambient_def[4];
+	GLfloat mat_ambient_colour_def[4];
+	GLfloat mat_diffuse_def[4];
+	GLfloat mat_specular_def[4];
+	GLfloat mat_emission_def[4];
+	GLfloat high_spec_def[4];
+
+	GLfloat shininess_def[1];
+	GLfloat no_shininess_def[1];
+	GLfloat low_shininess_def[1];
+	GLfloat high_shininess_def[1];
 	// Material functions
 	// Set material arrays
 	GLfloat* set_no_mat(float x, float y, float z, float w, GLfloat* no_mat);
