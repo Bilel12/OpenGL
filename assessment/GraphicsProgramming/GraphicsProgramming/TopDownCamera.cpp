@@ -183,7 +183,7 @@ void TopDownCamera::updatePitch(int height, int mouseY, int speed) {
 
 void TopDownCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera forward
-	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+	if (input->isKeyDown('w') || input->isKeyDown('W')) {
 		moveUp(dt);
 	}
 	// move camera backwards

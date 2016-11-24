@@ -176,7 +176,7 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 
 void SecurityCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera forward
-	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+	if (input->isKeyDown('w') || input->isKeyDown('W')) {
 		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); 
 		}
 	}

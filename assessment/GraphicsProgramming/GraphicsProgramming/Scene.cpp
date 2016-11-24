@@ -23,13 +23,13 @@ Scene::Scene(Input *in) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				// Set The Blending Function For Translucency
 	glEnable(GL_LIGHTING);											// Enable Lighting
 	//glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-	// Build functions
+	// Construct functions
 	loadTextures();		// loading textures into vector
 	assignTextures();	// assign textures to pointers
 	loadModels();		// load 3D models from files
 	//loadLists();		// load lists
 	buildShapes();		// Generate vertices, normals and texture coordinates vectors
-	buildLight();		// 
+	buildLight();		// Set up all lighting arrays
 	// Initialise variables
 	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false;			// Blending on or off
@@ -265,7 +265,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
 	floor.renderFloor(0.5, 0.5, 0.5, 0.5);					// Draw floor object
-	//glEnable(GL_LIGHTING);								// Enable lighting (rest of scene is lit correctly)
+	glEnable(GL_LIGHTING);								// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
 	glPushMatrix(); {
@@ -397,6 +397,9 @@ void Scene::renderLight() {
 	set_low_shininess(50, low_shininess);
 	set_high_shininess(100, high_shininess);
 	set_mat_emission(0.3, 0.2, 0.2, 0.0, mat_emission);
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, highSpec);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 }
 
 void Scene::update(float dt) {
@@ -514,7 +517,7 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Render geometry here -------------------------------------
-	//renderStencilBuffer(spaceship);
+	renderStencilBuffer(spaceship);
 	//
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
@@ -596,6 +599,7 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	// Orthographic lookAt (along the z-axis).
 	gluLookAt(0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
+	glDisable(GL_LIGHTING);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	// Set text colour and position.
 	glColor3f(r, g, b);
@@ -606,7 +610,7 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	}
 	// Reset colour to white.
 	glColor3f(1.f, 1.f, 1.f);
-
+	glEnable(GL_LIGHTING);
 	// Swap back to 3D rendering.
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
