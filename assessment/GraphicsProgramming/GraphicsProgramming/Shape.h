@@ -35,25 +35,25 @@ public:
 					float sca_x, float sca_y, float sca_z,
 					float pos_x, float pos_y, float pos_z,
 					float angle, float rot_x, float rot_y, float rot_z);
-	void renderCone(GLuint *texture);
+	//void renderCone(GLuint *texture);
 	// Disc functions
 	void buildDisc(float edges, float radius, 
 				   float sca_x, float sca_y, float sca_z, 
 				   float pos_x, float pos_y, float pos_z, 
 				   float angle, float rot_x, float rot_y, float rot_z);
-	void renderDisc(GLuint *texture);
+	//void renderDisc(GLuint *texture);
 	// Cylinder functions and variables
 	void buildCylinder(	float radius, float edges, float height, 
 						float sca_x, float sca_y, float sca_z,
 						float pos_x, float pos_y, float pos_z,
 						float angle, float rot_x, float rot_y, float rot_z);
-	void renderCylinder(GLuint *disk_texture);
+	//void renderCylinder(GLuint *disk_texture);
 	// Sphere functions
 	void buildSphere(float radius, float latitude, float longitude,
 					 float sca_x, float sca_y, float sca_z, 
 					 float pos_x, float pos_y, float pos_z, 
 					 float angle, float rot_x, float rot_y, float rot_z);
-	void renderSphere(GLuint *texture);
+	//void renderSphere(GLuint *texture);
 	float sphere_x0(float radius, float theta, float delta);
 	float sphere_y0(float radius, float theta, float delta);
 	float sphere_z0(float radius, float theta, float delta);

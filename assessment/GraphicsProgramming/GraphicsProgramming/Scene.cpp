@@ -192,12 +192,12 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	disc_1.renderDisc(disk_tex);
+	disc_1.render(disk_tex);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	sphere.renderSphere(globe_tex);
+	sphere.render(globe_tex);
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -295,7 +295,7 @@ void Scene::buildShapes() {
 	disc_flat.buildDisc(10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						0, 0, 0, 			// translate x, translate y, translate z
-						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+						90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
