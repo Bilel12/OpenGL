@@ -280,7 +280,8 @@ void Scene::buildShapes() {
 						1, 1, 1,			// scale x, scale y, scale z
 						0, 0, -5,			// translate x, translate y, translate z
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
-	sphere.set_ambient(1, 1, 1, 1);
+	//sphere.set_ambient(1, 1, 1, 1);
+	sphere.set_diffuse(1, 1, 1, 1);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -295,7 +296,7 @@ void Scene::buildShapes() {
 	disc_flat.buildDisc(10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						0, 0, 0, 			// translate x, translate y, translate z
-						90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -344,9 +345,9 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(1, 1, 1, 1, Light_Ambient_0);
-	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);
-	setLightPosition(0, -1, 0, 1, Light_Position_0);
+	setLightAmbient(0.5, 0.5, 0.5, 1, Light_Ambient_0);
+	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);			// Light colour
+	setLightPosition(0, 1, 0, 1, Light_Position_0);
 	setSpotDirection(0, 1, 0, 1, Light_Spot_Direction_0);
 	// Light 1
 	setLightPosition(0, -1, 0, 1, Light_Position_1);
@@ -365,6 +366,10 @@ void Scene::renderLight() {
 		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 		glEnable(GL_LIGHT0);
+		glPushMatrix();
+		glTranslatef(0, 1, 0);
+		gluSphere(gluNewQuadric(), 0.2, 40, 40);
+		glPopMatrix();
 	} glPopMatrix();
 
 	// Light 1
