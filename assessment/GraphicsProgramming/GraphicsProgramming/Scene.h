@@ -134,16 +134,16 @@ protected:
 	GLfloat spot_Direction[4];
 	GLfloat Light_Specular[4];
 	// Material arrays
-	//GLfloat no_mat[4] = { 0.0, 0.0, 0.0, 0.0 };
+	GLfloat no_mat[4] = { 0.0, 0.0, 0.0, 0.0 };
 	GLfloat mat_ambient[4] = { static_cast<GLfloat>(0.7), static_cast<GLfloat>(0.7), static_cast<GLfloat>(0.7), static_cast<GLfloat>(1.0) };
 
-	/*GLfloat mat_ambient_colour[4] = { 0.8, 0.8, 0.2, 1.0 };
-	GLfloat mat_diffuse[4] = { 0.1, 0.5, 0.8, 1.0 };
-	GLfloat mat_specular[4] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_ambient_colour[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
+	GLfloat mat_diffuse[4] = { static_cast<GLfloat>(0.1), static_cast<GLfloat>(0.5), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
+	GLfloat mat_specular[4] = { static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0) };
+	GLfloat mat_emission[4] = { static_cast<GLfloat>(0.3), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.0) };
 	GLfloat no_shininess[1] = { 0.0 };
 	GLfloat low_shininess[1] = { 50 };
 	GLfloat high_shininess[1] = { 100 };
-	GLfloat mat_emission[4] = { 0.3, 0.2, 0.2, 0.0 };*/
 
 	// Set light
 	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
