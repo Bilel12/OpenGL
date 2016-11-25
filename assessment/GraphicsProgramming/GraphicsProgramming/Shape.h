@@ -93,18 +93,18 @@ public:
 	//void normalize(float v[3]);
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 	// Material functions
-	GLfloat* set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
-	GLfloat* set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
-	GLfloat* set_specular(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
-	GLfloat* set_emission(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	void set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	void set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	void set_specular(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	void set_emission(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
 
-	GLfloat* set_ambient(GLfloat *ambient);
-	GLfloat* set_diffuse(GLfloat *diffuse);
-	GLfloat* set_specular(GLfloat *specular);
-	GLfloat* set_emission(GLfloat *emission);
+	void set_ambient(GLfloat *ambient);
+	void set_diffuse(GLfloat *diffuse);
+	void set_specular(GLfloat *specular);
+	void set_emission(GLfloat *emission);
 
-	GLfloat* set_shininess(GLfloat *arg);
-	GLfloat* set_shininess(GLfloat arg);
+	void set_shininess(GLfloat *arg);
+	void set_shininess(GLfloat arg);
 
 private:
 	std::vector<float> verts, norms, texcoords, colors;

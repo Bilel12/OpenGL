@@ -47,30 +47,20 @@ void Shape::render(GLuint * texture) {
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
-		//set_ambient(1, 1, 1, 1.0);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
-		//set_diffuse(0.8, 0.8, 0.8, 1); // default diffuse values
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-		//set_specular(1, 1, 1, 1);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-		//set_emission(0, 0, 0, 1);
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission);
-		//set_shininess(50); // range 0 - 128
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 
 		glBindTexture(GL_TEXTURE_2D, *texture);
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
-		//set_ambient(0.2, 0.2, 0.2, 1.0);					// default ambient values
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-		////set_diffuse(0.8, 0.8, 0.8, 1.0);					// default diffuse values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-		////set_specular(0, 0, 0, 1);							// default specular values
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to default values
-		////set_emission(0, 0, 0, 1);							// default emission values
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to default values
-		////set_shininess(0.);									// default shininess value
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
@@ -883,86 +873,66 @@ void Shape::renderCone(GLuint * texture) {
 	} glPopMatrix();
 }
 // Set material arrays (Function definitions)
-GLfloat* Shape::set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
+void Shape::set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	ambient[0] = R;
 	ambient[1] = G;
 	ambient[2] = B;
 	ambient[3] = A;
-
-	return ambient;
 }
 
-GLfloat* Shape::set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
+void Shape::set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	diffuse[0] = R;
 	diffuse[1] = G;
 	diffuse[2] = B;
 	diffuse[3] = A;
-
-	return diffuse;
 }
 
-GLfloat* Shape::set_specular(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
+void Shape::set_specular(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	specular[0] = R;
 	specular[1] = G;
 	specular[2] = B;
 	specular[3] = A;
-
-	return specular;
 }
 
-GLfloat* Shape::set_emission(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
+void Shape::set_emission(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	emission[0] = R;
 	emission[1] = G;
 	emission[2] = B;
 	emission[3] = A;
-
-	return emission;
 }
 
-GLfloat* Shape::set_ambient(GLfloat *array) {
+void Shape::set_ambient(GLfloat *array) {
 	ambient[0] = array[0];
 	ambient[1] = array[1];
 	ambient[2] = array[2];
 	ambient[3] = array[3];
-
-	return ambient;
 }
 
-GLfloat* Shape::set_diffuse(GLfloat *array) {
+void Shape::set_diffuse(GLfloat *array) {
 	diffuse[0] = array[0];
 	diffuse[1] = array[1];
 	diffuse[2] = array[2];
 	diffuse[3] = array[3];
-
-	return diffuse;
 }
 
-GLfloat* Shape::set_specular(GLfloat *array) {
+void Shape::set_specular(GLfloat *array) {
 	specular[0] = array[0];
 	specular[1] = array[1];
 	specular[2] = array[2];
 	specular[3] = array[3];
-
-	return specular;
 }
 
-GLfloat* Shape::set_emission(GLfloat *array) {
+void Shape::set_emission(GLfloat *array) {
 	emission[0] = array[0];
 	emission[1] = array[1];
 	emission[2] = array[2];
 	emission[3] = array[3];
-
-	return emission;
 }
 
-GLfloat* Shape::set_shininess(GLfloat *arg) {
+void Shape::set_shininess(GLfloat *arg) {
 	shininess[0] = arg[0];
-
-	return shininess;
 }
 
-GLfloat* Shape::set_shininess(GLfloat arg) {
+void Shape::set_shininess(GLfloat arg) {
 	shininess[0] = arg;
-
-	return shininess;
 }
