@@ -87,58 +87,41 @@ public:
 	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
 
 	float rotate(float arg);
+	void render(GLuint *texture);
 	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();
 	//void normalize(float v[3]);
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
-
-	// Material varaibles
-	GLfloat no_mat[4];
-	GLfloat mat_ambient[4];
-	GLfloat mat_ambient_colour[4];
-	GLfloat mat_diffuse[4];
-	GLfloat mat_specular[4];
-	GLfloat mat_emission[4];
-	GLfloat high_spec[4];
-
-	GLfloat shininess[1];
-	GLfloat no_shininess[1];
-	GLfloat low_shininess[1];
-	GLfloat high_shininess[1];
-	// Default values
-	GLfloat no_mat_def[4];
-	GLfloat mat_ambient_def[4];
-	GLfloat mat_ambient_colour_def[4];
-	GLfloat mat_diffuse_def[4];
-	GLfloat mat_specular_def[4];
-	GLfloat mat_emission_def[4];
-	GLfloat high_spec_def[4];
-
-	GLfloat shininess_def[1];
-	GLfloat no_shininess_def[1];
-	GLfloat low_shininess_def[1];
-	GLfloat high_shininess_def[1];
 	// Material functions
-	// Set material arrays
-	// TODO delete all array passing
-	GLfloat* set_no_mat(float x, float y, float z, float w);
-	GLfloat* set_mat_ambient(float x, float y, float z, float w, GLfloat* mat_ambient);
-	GLfloat* set_mat_ambient_colour(float x, float y, float z, float w, GLfloat* mat_ambient_colour);
-	GLfloat* set_mat_diffuse(float x, float y, float z, float w, GLfloat* mat_diffuse);
-	GLfloat* set_mat_specular(float x, float y, float z, float w, GLfloat* mat_specular);
-	GLfloat* set_mat_emission(float x, float y, float z, float w, GLfloat* mat_emission);
-	GLfloat* set_high_spec(float x, float y, float z, float w, GLfloat* high_spec);
-	// Set material variables
-	GLfloat* set_shininess(float s, GLfloat* shininess);
-	GLfloat* set_no_shininess(float s, GLfloat* no_shininess);
-	GLfloat* set_low_shininess(float s, GLfloat* low_shininess);
-	GLfloat* set_high_shininess(float s, GLfloat* high_shininess);
+	GLfloat* set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	GLfloat* set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	GLfloat* set_specular(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+	GLfloat* set_emission(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
+
+	GLfloat* set_ambient(GLfloat *ambient);
+	GLfloat* set_diffuse(GLfloat *diffuse);
+	GLfloat* set_specular(GLfloat *specular);
+	GLfloat* set_emission(GLfloat *emission);
+
+	GLfloat* set_shininess(GLfloat *arg);
+	GLfloat* set_shininess(GLfloat arg);
+
 private:
 	std::vector<float> verts, norms, texcoords, colors;
-	std::vector<GLfloat> ambient;
-	float rot_angle;
-};
+	GLfloat ambient[4];
+	GLfloat diffuse[4];
+	GLfloat specular[4];
+	GLfloat emission[4];
+	GLfloat shininess[1];
 
+	GLfloat ambient_def[4];
+	GLfloat diffuse_def[4];
+	GLfloat specular_def[4];
+	GLfloat emission_def[4];
+	GLfloat shininess_def[1];
+
+	float rot_angle;
+};								 
 //void drawtriangle(float *v1, float *v2, float *v3)
 //{
 //	glBegin(GL_TRIANGLES);

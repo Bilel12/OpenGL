@@ -300,44 +300,26 @@ void Draw::drawSphere(double radius, double latitude, double longitude, GLuint *
 					glTexCoord2f(u0, v0); // 0
 					glNormal3f(n_x0, n_y0, n_z0);
 					glVertex3f(x0, y0, z0);
-					/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta),
-					radius * sin(theta) * sin(delta)) / 2 * M_PI),
-					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
 
 					glTexCoord2f(u1, v1); // 1
 					glNormal3f(n_x1, n_y1, n_z1);
 					glVertex3f(x1, y1, z1);
-					/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta_interval),
-					radius * sin(theta) * sin(delta_interval)) / 2 * M_PI),
-					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
 
 					glTexCoord2f(u2, v2); // 2
 					glNormal3f(n_x2, n_y2, n_z2);
 					glVertex3f(x2, y2, z2);
-					/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta_interval),
-					radius * sin(theta_interval) * sin(delta_interval)) / 2 * M_PI),
-					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
 
 					glTexCoord2f(u2, v2); // 2
 					glNormal3f(n_x2, n_y2, n_z2);
 					glVertex3f(x2, y2, z2);
-					/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta_interval),
-					radius * sin(theta_interval) * sin(delta_interval)) / 2 * M_PI),
-					(0.5 - (asin(radius * cos(delta_interval)) / M_PI)));*/
-
+					
 					glTexCoord2f(u3, v3); // 3
 					glNormal3f(n_x0, n_y0, n_z0);
 					glVertex3f(x3, y3, z3);
-					/*glTexCoord2f(0.5 + (atan2(radius * cos(theta_interval) * sin(delta),
-					radius * sin(theta_interval) * sin(delta)) / 2 * M_PI),
-					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
-
+					
 					glTexCoord2f(u0, v0); // 0
 					glNormal3f(n_x0, n_y0, n_z0);
 					glVertex3f(x0, y0, z0);
-					/*glTexCoord2f(0.5 + (atan2(radius * cos(theta) * sin(delta),
-					radius * sin(theta) * sin(delta)) / 2 * M_PI),
-					(0.5 - (asin(radius * cos(delta)) / M_PI)));*/
 				} glEnd();
 			} glBindTexture(GL_TEXTURE_2D, NULL);
 			theta += theta_interval;
@@ -384,41 +366,31 @@ void Draw::drawCylinder(float radius, float edges, float height, float x, float 
 				// bottom
 				// Middle of bottom disc
 				glNormal3f((x + start) / radius, (y + start) / radius, (z + start) / radius);
-				//glTexCoord2f(	start + 0.5,									start + 0.5																				);
 				glTexCoord2f(start + 0.25, start + 0.25);
 				glVertex3f(x + start, y + start, z + start);
 
 				// Triangle's first edge
 				glNormal3f((x + radius * cos(theta) / radius), (y + start) / radius, (z + radius * sin(theta)) / radius);
-				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
 				glTexCoord2f(cos(theta) / diameter + 0.25, sin(theta) / diameter + 0.25);
 				glVertex3f(x + radius * cos(theta), y + start, z + radius * sin(theta));
 				// Triangle's second edge
 
 				glNormal3f((x + radius * cos(theta + interval)) / radius, (y + start) / radius, (z + radius * sin(theta + interval)) / radius);
-				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
 				glTexCoord2f(cos(theta) / diameter + 0.25, sin(theta) / diameter + 0.25);
 				glVertex3f(x + radius * cos(theta + interval), y + start, z + radius * sin(theta + interval));
-				// top. Adding height to Y coordinates
+				// Top - adding height to Y coordinates
 				// Middle of top disc
-
 				glNormal3f((x + radius * cos(theta)) / radius, (y + start + height) / radius, (z + radius * sin(theta)) / radius);
-				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
 				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
 				glVertex3f(x + radius * cos(theta), y + start + height, z + radius * sin(theta));
 				// Triangle's second edge
-
 				glNormal3f((x + radius * cos(theta + interval)) / radius, (y + start + height) / radius, (z + radius * sin(theta + interval)) / radius);
-				//glTexCoord2f(	cos(theta) / diameter + 0.5,					sin(theta) / diameter + 0.5																);
 				glTexCoord2f(cos(theta) / diameter + 0.5, sin(theta) / diameter + 0.5);
 				glVertex3f(x + radius * cos(theta + interval), y + start + height, z + radius * sin(theta + interval));
 				// Triangle's second edge
-
 				glNormal3f((x + start) / radius, (y + start + height) / radius, (z + start) / radius);
-				//glTexCoord2f(	start + 0.5,									start + 0.5																				);
 				glTexCoord2f(start + 0.5, start + 0.5);
 				glVertex3f(x + start, y + start + height, z + start);
-
 			} glEnd();
 			theta += interval;
 		}

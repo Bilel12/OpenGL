@@ -276,10 +276,11 @@ void Scene::renderStencilBuffer(Model model) {
 }
 
 void Scene::buildShapes() {
-	sphere.buildSphere(	2.0, 15.0, 15.0,	// radius, latitude, longitude
+	sphere.buildSphere(	2.0, 150.0, 150.0,	// radius, latitude, longitude
 						1, 1, 1,			// scale x, scale y, scale z
 						0, 0, -5,			// translate x, translate y, translate z
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
+	sphere.set_ambient(0, 0, 0, 0);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -314,16 +315,17 @@ void Scene::buildShapes() {
 							1, 1, 1,		// scale x, scale y, scale z
 							3, 3, 3,		// translate x, translate y, translate z
 							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
+	cylinder.set_ambient(1, 1, 1, 1);
 }
 
 void Scene::renderShapes() {
-	sphere.renderSphere(globe_tex);
-	disc_1.renderDisc(disk_tex);
-	disc_2.renderDisc(disk_tex);
-	disc_flat.renderDisc(disk_tex);
+	sphere.render(globe_tex);
+	disc_1.render(disk_tex);
+	disc_2.render(disk_tex);
+	disc_flat.render(disk_tex);
 	circle.renderCircle();
-	cone.renderCone(disk_tex);
-	cylinder.renderCylinder(barrel_tex);
+	cone.render(disk_tex);
+	cylinder.render(barrel_tex);
 }
 
 void Scene::updateVariables() {
