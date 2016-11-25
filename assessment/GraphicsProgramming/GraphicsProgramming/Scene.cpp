@@ -343,43 +343,44 @@ void Scene::updateVariables() {
 }
 
 void Scene::buildLight() {
-	// Lighting
-	setLightAmbient(1, 1, 1, 1, Light_Ambient);
-	setLightAmbient(0, 1, 1, 0, Light_Ambient1);
-	setLightPosition(0, -1, 0, 1, Light_Position);
-	setLightDiffuse(1, 1, 1, 1, Light_Diffuse);
-	setLightPosition(0, -1, 0, 1, Light_Position1);
-	setSpotDirection(0, 1, 0, 1, spot_Direction);
+	// Light 0
+	setLightAmbient(1, 1, 1, 1, Light_Ambient_0);
+	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);
+	setLightPosition(0, -1, 0, 1, Light_Position_0);
+	setSpotDirection(0, 1, 0, 1, Light_Spot_Direction_0);
+	// Light 1
+	setLightAmbient(0, 1, 1, 0, Light_Ambient_1);
+	setLightPosition(0, -1, 0, 1, Light_Position_1);
 }
 
 void Scene::renderLight() {
 	// Light 0
-	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
-	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
-	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 	glEnable(GL_LIGHT0);
 
 	// Light 1
-	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient1);
-	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position1);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
+	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
 	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
 	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
 	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
 	//glEnable(GL_LIGHT1);
 
 	// Light 2
-	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
-	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
+	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient_1);
+	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse_1);
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular);
 	//setLightPosition(position_x, position_y, position_z, 1, Light_Position);
 
-	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient);
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse);
-	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position);
-	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular);
+	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_0);
 	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
 	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
 	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);

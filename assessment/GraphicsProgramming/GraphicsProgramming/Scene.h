@@ -126,17 +126,21 @@ protected:
 	bool wireframe;		// toggle wireframe mode
 	bool development;	// toggle development mode i.e. display text
 	// Lighting
-	GLfloat Light_Ambient[4];
-	GLfloat Light_Ambient1[4];
-	GLfloat Light_Diffuse[4];
-	GLfloat Light_Position[4];
-	GLfloat Light_Position1[4];
-	GLfloat spot_Direction[4];
-	GLfloat Light_Specular[4];
+	// Light 0
+	GLfloat Light_Ambient_0[4];
+	GLfloat Light_Diffuse_0[4];
+	GLfloat Light_Position_0[4];
+	GLfloat Light_Spot_Direction_0[4];
+	GLfloat Light_Specular_0[4];
+	// Light 1
+	GLfloat Light_Ambient_1[4];
+	GLfloat Light_Diffuse_1[4];
+	GLfloat Light_Position_1[4];
+	GLfloat Light_Spot_Direction_1[4];
+	GLfloat Light_Specular_1[4];
 	// Material arrays
 	GLfloat no_mat[4] = { 0.0, 0.0, 0.0, 0.0 };
 	GLfloat mat_ambient[4] = { static_cast<GLfloat>(0.7), static_cast<GLfloat>(0.7), static_cast<GLfloat>(0.7), static_cast<GLfloat>(1.0) };
-
 	GLfloat mat_ambient_colour[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
 	GLfloat mat_diffuse[4] = { static_cast<GLfloat>(0.1), static_cast<GLfloat>(0.5), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
 	GLfloat mat_specular[4] = { static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0) };
