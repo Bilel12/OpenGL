@@ -144,6 +144,7 @@ protected:
 	GLfloat no_shininess[1] = { 0.0 };
 	GLfloat low_shininess[1] = { 50 };
 	GLfloat high_shininess[1] = { 100 };
+	GLfloat spot_cutoff[1] = { 180 };
 
 	// Set light
 	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);

@@ -280,22 +280,22 @@ void Scene::buildShapes() {
 						1, 1, 1,			// scale x, scale y, scale z
 						0, 0, -5,			// translate x, translate y, translate z
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
-	sphere.set_ambient(0, 0, 0, 0);
+	sphere.set_ambient(1, 1, 1, 1);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						-3, 3, 3, 			// translate x, translate y, translate z
-						1, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
+						180, 0, 1, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	disc_2.buildDisc(	200, 2,				// edges, radius
 						1, 1, 1,			// scale x, scale y, scale z,
 						3, 3, 3,			// translate x, translate y, translate z,
-						1, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
+						180, 0, 1, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	disc_flat.buildDisc(10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
-						-3, -3, -3, 		// translate x, translate y, translate z
-						90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+						0, 0, 0, 			// translate x, translate y, translate z
+						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -344,12 +344,12 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Lighting
-	setLightAmbient(0, 0, 0, 1, Light_Ambient);
+	setLightAmbient(1, 1, 1, 1, Light_Ambient);
 	setLightAmbient(0, 1, 1, 0, Light_Ambient1);
 	setLightPosition(0, -1, 0, 1, Light_Position);
 	setLightDiffuse(1, 1, 1, 1, Light_Diffuse);
-	setLightPosition(0, 1, 0, 1, Light_Position1);
-	setSpotDirection(0, 1, 0, 0, spot_Direction);
+	setLightPosition(0, -1, 0, 1, Light_Position1);
+	setSpotDirection(0, 1, 0, 1, spot_Direction);
 }
 
 void Scene::renderLight() {
@@ -357,7 +357,8 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse);
 	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position1);
-	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_Direction);
+	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 	glEnable(GL_LIGHT0);
 
 	// Light 1
@@ -499,7 +500,7 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Render geometry here -------------------------------------
-	renderStencilBuffer(spaceship);
+	//renderStencilBuffer(spaceship);
 	//
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
