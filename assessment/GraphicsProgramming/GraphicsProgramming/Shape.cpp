@@ -3,13 +3,7 @@
 #include "Icosahedron.h"
 #include "Shape.h"
 
-Shape::Shape() {
-	//GLfloat ambient_def[] = { 0.2, 0.2, 0.2, 1.0 };
-	/*GLfloat diffuse_def[] = {};
-	GLfloat specular_def[] = {};
-	GLfloat emission_def[] = {};
-	GLfloat shininess_def[] = {};*/
-}
+Shape::Shape() {}
 
 Shape::~Shape() {}
 
@@ -59,9 +53,9 @@ void Shape::render(GLuint * texture) {
 
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to default values
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to default values
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
@@ -115,7 +109,7 @@ void Shape::render3() {
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::buildFloor(	float sca_x, float sca_y, float sca_z, 
+void Shape::buildQuad(	float sca_x, float sca_y, float sca_z, 
 						float pos_x, float pos_y, float pos_z, 
 						float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -147,7 +141,7 @@ void Shape::buildFloor(	float sca_x, float sca_y, float sca_z,
 	colors = { 0.5, 0.5, 0.5, 0.5 };
 }
 
-void Shape::renderFloor(float R, float G, float B, float A) {
+void Shape::renderMirror(float R, float G, float B, float A) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -199,9 +193,9 @@ void Shape::renderCube(GLuint * texture) {
 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
-	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to default values
-	glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to default values
-	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to default value
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
@@ -233,6 +227,12 @@ void Shape::renderSkybox(GLuint *texture) {
 	glVertexPointer(3, GL_FLOAT, 0, skybox_verts);
 	glNormalPointer(GL_FLOAT, 0, skybox_norms);
 	glTexCoordPointer(2, GL_FLOAT, 0, skybox_texcoords);
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
 
 	glBindTexture(GL_TEXTURE_2D, *texture); {
 	glDrawArrays(GL_TRIANGLES, 0, 36);
