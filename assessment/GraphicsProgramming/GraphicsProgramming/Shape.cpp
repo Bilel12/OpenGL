@@ -4,7 +4,7 @@
 #include "Shape.h"
 
 Shape::Shape() {
-	GLfloat ambient_def[] = { 0.2, 0.2, 0.2, 1.0 };
+	//GLfloat ambient_def[] = { 0.2, 0.2, 0.2, 1.0 };
 	/*GLfloat diffuse_def[] = {};
 	GLfloat specular_def[] = {};
 	GLfloat emission_def[] = {};
@@ -50,13 +50,13 @@ void Shape::render(GLuint * texture) {
 		//set_ambient(1, 1, 1, 1.0);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 		//set_diffuse(0.8, 0.8, 0.8, 1); // default diffuse values
-		//glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 		//set_specular(1, 1, 1, 1);
-		//glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
 		//set_emission(0, 0, 0, 1);
-		//glMaterialfv(GL_FRONT, GL_EMISSION, emission);
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);
 		//set_shininess(50); // range 0 - 128
-		//glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 
 		glBindTexture(GL_TEXTURE_2D, *texture);
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
@@ -65,13 +65,13 @@ void Shape::render(GLuint * texture) {
 		//set_ambient(0.2, 0.2, 0.2, 1.0);					// default ambient values
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
 		////set_diffuse(0.8, 0.8, 0.8, 1.0);					// default diffuse values
-		//glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
 		////set_specular(0, 0, 0, 1);							// default specular values
-		//glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to default values
 		////set_emission(0, 0, 0, 1);							// default emission values
-		//glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to default values
 		////set_shininess(0.);									// default shininess value
-		//glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);

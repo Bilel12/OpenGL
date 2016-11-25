@@ -108,17 +108,19 @@ public:
 
 private:
 	std::vector<float> verts, norms, texcoords, colors;
-	GLfloat ambient[4];
-	GLfloat diffuse[4];
-	GLfloat specular[4];
-	GLfloat emission[4];
-	GLfloat shininess[1];
+	//GLfloat ambient[4];
+	GLfloat ambient[4] = { static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
+	GLfloat diffuse[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
+	GLfloat specular[4] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat emission[4] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat shininess[1] = { 0.0 };
 
-	GLfloat ambient_def[4];
-	GLfloat diffuse_def[4];
-	GLfloat specular_def[4];
-	GLfloat emission_def[4];
-	GLfloat shininess_def[1];
+	//GLfloat ambient_def[4];
+	GLfloat ambient_def[4] = { static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
+	GLfloat diffuse_def[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
+	GLfloat specular_def[4] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat emission_def[4] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat shininess_def[1] = { 0.0 };
 
 	float rot_angle;
 };								 
