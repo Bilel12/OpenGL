@@ -23,7 +23,7 @@ public:
 	void buildQuad(float sca_x, float sca_y, float sca_z, 
 					float pos_x, float pos_y, float pos_z, 
 					float angle, float rot_x, float rot_y, float rot_z);
-	void renderMirror(float R, float G, float B, float A);
+	void render(float R, float G, float B, float A);
 	// Circle functions
 	void buildCircle(float edges, 
 					 float sca_x, float sca_y, float sca_z, 

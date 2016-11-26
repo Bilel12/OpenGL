@@ -12,14 +12,14 @@ extern GLubyte indices[] = {
 	0,   2,   3,
 };
 
-extern GLfloat colors[] = {
-	1.0, 0.2, 0.2,
-	0.2, 0.2, 1.0,
-	0.8, 1.0, 0.2,
-	0.75, 0.75, 0.75,
-	0.35, 0.35, 0.35,
-	0.5, 0.5, 0.5
-};
+//extern GLfloat colors[] = {
+//	1.0, 0.2, 0.2,
+//	0.2, 0.2, 1.0,
+//	0.8, 1.0, 0.2,
+//	0.75, 0.75, 0.75,
+//	0.35, 0.35, 0.35,
+//	0.5, 0.5, 0.5
+//};
 
 float Shape::rotate(float arg) {
 	return rot_angle = arg;
@@ -71,11 +71,11 @@ void Shape::render() {
 		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
-		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		//glColorPointer(3, GL_FLOAT, 0, colors);
+		glColorPointer(3, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
@@ -83,11 +83,39 @@ void Shape::render() {
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
+void Shape::render(float R, float G, float B, float A) {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(3, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+		glNormalPointer(GL_FLOAT, 0, norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+		glColor4f(R, G, B, A);
+		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	} glPopMatrix();
 }
+
 
 void Shape::render1() {
 	// add code to render the cube (above) using method 1
@@ -156,41 +184,14 @@ void Shape::buildQuad(	float sca_x, float sca_y, float sca_z,
 		norms.push_back(0.0f);
 	}
 
-	texcoords = { 0, 1, 
-						1, 1, 
-						1, 0, 
-						1, 0, 
-						0, 0, 
-						0, 1 };
+	texcoords = {	0, 1, 
+					1, 1, 
+					1, 0, 
+					1, 0, 
+					0, 0, 
+					0, 1 };
 
-	colors = { 0.5, 0.5, 0.5, 0.5 };
-}
-
-void Shape::renderMirror(float R, float G, float B, float A) {
-	glPushMatrix(); {
-		glScalef(scale.x, scale.y, scale.z);
-		glTranslatef(translate.x, translate.y, translate.z);
-		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-
-		glEnableClientState(GL_VERTEX_ARRAY);
-		//glEnableClientState(GL_COLOR_ARRAY);
-		glEnableClientState(GL_NORMAL_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-		//glColorPointer(3, GL_FLOAT, 0, floor_colors.data());
-		glVertexPointer(3, GL_FLOAT, 0, verts.data());
-		glNormalPointer(GL_FLOAT, 0, norms.data());
-		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-
-		glColor4f(R, G, B, A);
-		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-		glDisableClientState(GL_VERTEX_ARRAY);
-		//glDisableClientState(GL_COLOR_ARRAY);
-		glDisableClientState(GL_NORMAL_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	} glPopMatrix();
+	//colors = { 0.5, 0.5, 0.5, 0.5 };
 }
 
 void Shape::renderCube(GLuint * texture) {

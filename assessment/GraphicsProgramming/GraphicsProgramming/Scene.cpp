@@ -246,7 +246,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
 	// Draw mirror
-	floor.renderMirror(0.5, 0.5, 0.5, 0.5);					
+	floor.render(0.5, 0.5, 0.5, 0.5);					
 	// Draw floor object()
 	glEnable(GL_DEPTH_TEST);								// Enable depth test
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);		// Turn on rendering to the frame buffer
@@ -264,7 +264,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	floor.renderMirror(0.5, 0.5, 0.5, 0.5);					// Draw floor object
+	floor.render(0.5, 0.5, 0.5, 0.5);						// Draw floor object
 	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
@@ -510,7 +510,7 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Render geometry here -------------------------------------
-	//renderStencilBuffer(spaceship);
+	renderStencilBuffer(spaceship);
 	//
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
