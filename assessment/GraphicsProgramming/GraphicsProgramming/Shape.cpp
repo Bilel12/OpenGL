@@ -80,7 +80,19 @@ void Shape::render() {
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 	
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
+
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
@@ -105,9 +117,21 @@ void Shape::render(float R, float G, float B, float A) {
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
+
 		glColor4f(R, G, B, A);
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);

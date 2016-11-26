@@ -122,10 +122,10 @@ void Scene::render() {
 	glEnable(GL_LIGHT0);
 	
 	// enable light1
-	/*if (light0)
-		glEnable(GL_LIGHT0);
-	else
-		glDisable(GL_LIGHT0);*/
+	//if (light0)
+		//glEnable(GL_LIGHT0);
+//	else
+		//glDisable(GL_LIGHT0);
 	
 
 	glPushMatrix();
@@ -142,10 +142,10 @@ void Scene::render() {
 		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
 		gluSphere(gluNewQuadric(), 0.20, 20, 20);
 		// enable light1
-		if (light1)
+	//	if (light1)
 			glEnable(GL_LIGHT1);
-		else
-			glDisable(GL_LIGHT1);
+	//	else
+		//	glDisable(GL_LIGHT1);
 	glPopMatrix();
 
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);

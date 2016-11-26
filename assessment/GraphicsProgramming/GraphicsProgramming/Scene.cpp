@@ -281,7 +281,8 @@ void Scene::buildShapes() {
 						0, 0, -5,			// translate x, translate y, translate z
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
 	//sphere.set_ambient(1, 1, 1, 1);
-	sphere.set_diffuse(1, 1, 1, 1);
+	//sphere.set_diffuse(1, 1, 1, 1);
+	sphere.set_shininess(high_shininess);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -345,9 +346,9 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(0.1, 0.1, 0.1, 0.1, Light_Ambient_0);
+	setLightAmbient(0.5, 0.5, 0.5, 0.5, Light_Ambient_0);
 	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);			// Light colour
-	setLightPosition(0, -1, 0, 0, Light_Position_0);
+	setLightPosition(0, 0, 0, 1, Light_Position_0);
 	setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1
 	setLightPosition(0, -1, 0, 1, Light_Position_1);
@@ -364,6 +365,7 @@ void Scene::renderLight() {
 		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
 		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, high_shininess);
 		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 		glEnable(GL_LIGHT0);
