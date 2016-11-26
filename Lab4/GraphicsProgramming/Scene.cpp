@@ -13,7 +13,7 @@ Scene::Scene(Input *in)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glEnable(GL_LIGHTING);								// Enable Lighting
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-	glEnable(GL_COLOR_MATERIAL);						// Without it all glColor3f() changes are ignored when lighting is enabled
+	//glEnable(GL_COLOR_MATERIAL);						// Without it all glColor3f() changes are ignored when lighting is enabled
 
 	// Other OpenGL / render setting should be applied here.
 	setLightAmbient(0, 0, 1, 1, Light_Ambient);

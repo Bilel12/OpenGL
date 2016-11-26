@@ -88,6 +88,7 @@ public:
 
 	float rotate(float arg);
 	void render(GLuint *texture);
+	void render();
 	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();
 	//void normalize(float v[3]);

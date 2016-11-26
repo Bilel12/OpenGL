@@ -320,7 +320,7 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	sphere.render(globe_tex);
+	sphere.render();
 	disc_1.render(disk_tex);
 	disc_2.render(disk_tex);
 	disc_flat.render(disk_tex);
@@ -340,7 +340,7 @@ void Scene::updateVariables() {
 	blend_cube.scale.set(1, 1, 1);
 	blend_cube.rotation.set(1, 1, 1);
 	blend_cube.rotate(angle);
-	sphere.rotate(angle);
+	//sphere.rotate(angle);
 }
 
 void Scene::buildLight() {
