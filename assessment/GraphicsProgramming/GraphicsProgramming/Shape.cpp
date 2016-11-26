@@ -71,11 +71,11 @@ void Shape::render() {
 		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_COLOR_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		glColorPointer(3, GL_FLOAT, 0, colors.data());
+		//glColorPointer(1, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
@@ -83,7 +83,7 @@ void Shape::render() {
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 
 		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_COLOR_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	} glPopMatrix();

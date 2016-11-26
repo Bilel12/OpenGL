@@ -22,7 +22,7 @@ Scene::Scene(Input *in) {
 	glEnable(GL_TEXTURE_2D);										// Enable texturing
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				// Set The Blending Function For Translucency
 	glEnable(GL_LIGHTING);											// Enable Lighting
-	//glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	// Construct functions
 	loadTextures();		// loading textures into vector
 	assignTextures();	// assign textures to pointers
@@ -320,7 +320,7 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	sphere.render();
+	sphere.render(0.7, 0.2, 0.2, 0.5);
 	disc_1.render(disk_tex);
 	disc_2.render(disk_tex);
 	disc_flat.render(disk_tex);
@@ -345,7 +345,7 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(0.5, 0.5, 0.5, 1, Light_Ambient_0);
+	setLightAmbient(0.5, 0.5, 0.5, 0.1, Light_Ambient_0);
 	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);			// Light colour
 	setLightPosition(0, 1, 0, 1, Light_Position_0);
 	setSpotDirection(0, 1, 0, 1, Light_Spot_Direction_0);
