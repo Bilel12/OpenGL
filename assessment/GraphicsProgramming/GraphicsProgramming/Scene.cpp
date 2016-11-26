@@ -345,10 +345,10 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(0.5, 0.5, 0.5, 0.1, Light_Ambient_0);
+	setLightAmbient(0.1, 0.1, 0.1, 0.1, Light_Ambient_0);
 	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);			// Light colour
-	setLightPosition(0, 1, 0, 1, Light_Position_0);
-	setSpotDirection(0, 1, 0, 1, Light_Spot_Direction_0);
+	setLightPosition(0, -1, 0, 0, Light_Position_0);
+	setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1
 	setLightPosition(0, -1, 0, 1, Light_Position_1);
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient_1);
@@ -360,16 +360,15 @@ void Scene::buildLight() {
 void Scene::renderLight() {
 	// Light 0
 	glPushMatrix(); {
+		glTranslatef(0.0, 3.0, 0.0);
 		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
 		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 		glEnable(GL_LIGHT0);
-		glPushMatrix();
-		glTranslatef(0, 1, 0);
+		
 		gluSphere(gluNewQuadric(), 0.2, 40, 40);
-		glPopMatrix();
 	} glPopMatrix();
 
 	// Light 1
@@ -430,11 +429,9 @@ void Scene::update(float dt) {
 		input->SetKeyUp('i'); input->SetKeyUp('I');
 	}
 	// Press D, E and W at the same tiem to toggle development mode
-	if (input->isKeyDown('d') && input->isKeyDown('e') && input->isKeyDown('v') ||
-		input->isKeyDown('D') && input->isKeyDown('E') && input->isKeyDown('V')) {
+	if (input->isKeyDown('v') || input->isKeyDown('V')) {
 		development = !development;
-		input->SetKeyUp('d'); input->SetKeyUp('e'); input->SetKeyUp('v');
-		input->SetKeyUp('D'); input->SetKeyUp('E');  input->SetKeyUp('V');
+		input->SetKeyUp('v'); input->SetKeyUp('V');
 	}
 	// Put X scale up
 	if (input->isKeyDown('x') || input->isKeyDown('X')) {
@@ -638,11 +635,11 @@ GLfloat* Scene::setLightPosition(float x, float y, float z, float w, GLfloat* li
 	return lightPosition;
 }
 
-GLfloat* Scene::setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection) {
+GLfloat* Scene::setSpotDirection(float x, float y, float z, GLfloat* spotDirection) {
 	spotDirection[0] = x;
 	spotDirection[1] = y;
 	spotDirection[2] = z;
-	spotDirection[3] = w;
+	//spotDirection[3] = w;
 
 	return spotDirection;
 }

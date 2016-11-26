@@ -130,7 +130,7 @@ protected:
 	GLfloat Light_Ambient_0[4];
 	GLfloat Light_Diffuse_0[4];
 	GLfloat Light_Position_0[4];
-	GLfloat Light_Spot_Direction_0[4];
+	GLfloat Light_Spot_Direction_0[3];
 	GLfloat Light_Specular_0[4];
 	// Light 1
 	GLfloat Light_Ambient_1[4];
@@ -154,7 +154,7 @@ protected:
 	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
 	GLfloat* setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
 	GLfloat* setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
-	GLfloat* setSpotDirection(float x, float y, float z, float w, GLfloat* spotDirection);
+	GLfloat* setSpotDirection(float x, float y, float z, GLfloat* spotDirection);
 	// Set light Specular
 	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
 	// Shadowing
