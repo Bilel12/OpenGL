@@ -89,7 +89,7 @@ protected:
 	Shape floor;
 	Shape cylinder;
 	Shape circle;
-	Shape quad;
+	Shape quad_shadow;
 	// Drawn shapes
 	Draw draw;
 	// Objects for lists creating
@@ -158,7 +158,7 @@ protected:
 	// Set light Specular
 	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
 	// Shadowing
-	std::vector<float> shadowMatrix;
+	float  shadowMatrix[16];
 	std::vector<float> shadowVolume;
 	std::vector<float> casterVerts;
 	std::vector<float> casterNorms;

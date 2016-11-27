@@ -15,15 +15,18 @@ public:
 	~Shape();
 	void render1();
 	void render3();
+	
 	void renderCube(GLuint * texture);
 	void renderBlendCube(GLuint *texture);
 	void renderSkybox(GLuint *texture);
 	//static void drawTorus(int numc, int numt);
 	// Floor variables
-	void buildQuad(float sca_x, float sca_y, float sca_z, 
+	void buildQuad(	float sca_x, float sca_y, float sca_z, 
 					float pos_x, float pos_y, float pos_z, 
 					float angle, float rot_x, float rot_y, float rot_z);
-	void render(float R, float G, float B, float A);
+	void buildQuadShadow(	float sca_x, float sca_y, float sca_z,
+							float pos_x, float pos_y, float pos_z,
+							float angle, float rot_x, float rot_y, float rot_z);
 	// Circle functions
 	void buildCircle(float edges, 
 					 float sca_x, float sca_y, float sca_z, 
@@ -86,9 +89,11 @@ public:
 	float sphere_n_y3(float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
 
-	float rotate(float arg);
-	void render(GLuint *texture);
 	void render();
+	void render_with_quads();
+	void render(GLuint *texture);
+	void render(float R, float G, float B, float A);
+	float rotate(float arg);
 	Vector3 translate, rotation, scale;
 	//void drawIcosahedron();
 	//void normalize(float v[3]);

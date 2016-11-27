@@ -101,6 +101,43 @@ void Shape::render() {
 	} glPopMatrix();
 }
 
+void Shape::render_with_quads() {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+		glNormalPointer(GL_FLOAT, 0, norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);			// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);			// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);			// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);			// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);		// set shininess to what is defined in scene
+
+		glDrawArrays(GL_QUADS, 0, verts.size() / 3);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
 void Shape::render(float R, float G, float B, float A) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
@@ -214,6 +251,37 @@ void Shape::buildQuad(	float sca_x, float sca_y, float sca_z,
 					1, 0, 
 					0, 0, 
 					0, 1 };
+
+	//colors = { 0.5, 0.5, 0.5, 0.5 };
+}
+
+void Shape::buildQuadShadow(float sca_x, float sca_y, float sca_z,
+							float pos_x, float pos_y, float pos_z,
+							float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+
+	verts = {	-1.f, -1.f, -1.f,	//top left
+				-1.f, -1.f,  1.f,	// bottom left
+				 1.f, -1.f,  1.f,	//bottom right
+				 1.f, -1.f, -1.f };	// top right
+		
+
+	for (int i = 0; i < 6; ++i) {
+		norms.push_back(0.0f);
+		norms.push_back(1.0f);
+		norms.push_back(0.0f);
+	}
+
+	texcoords = { 0, 1,
+		1, 1,
+		1, 0,
+		1, 0,
+		0, 0,
+		0, 1 };
 
 	//colors = { 0.5, 0.5, 0.5, 0.5 };
 }

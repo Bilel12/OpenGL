@@ -36,7 +36,6 @@ Scene::Scene(Input *in) {
 	wireframe = false;		// Wireframe on or off
 	development = true;		// Turn on or off text rendering	
 	// Shadowing
-	shadowMatrix.reserve(15);
 }
 
 void Scene::loadTextures() {
@@ -299,14 +298,14 @@ void Scene::buildShapes() {
 						0, 0, 0, 			// translate x, translate y, translate z
 						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
-	quad.buildQuad(		1, 1, 1,			// scale x, scale y, scale z
-						0, 1, 0,			// translate x, translate y, translate z
-						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	quad.set_ambient(	0.4, 0.4, 0.4, 1.0);
-	quad.set_diffuse(	0.2, 0.6, 0.9, 1.0);
-	quad.set_specular(	0.0, 0.0, 0.0, 1.0);
-	quad.set_shininess(	0.0);
-	quad.scale.set(1.5, 1.5, 1.5);
+	quad_shadow.buildQuadShadow(	1, 1, 1,			// scale x, scale y, scale z
+									0, 1, 0,			// translate x, translate y, translate z
+									0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+	quad_shadow.set_ambient(	0.4, 0.4, 0.4, 1.0);
+	quad_shadow.set_diffuse(	0.2, 0.6, 0.9, 1.0);
+	quad_shadow.set_specular(	0.0, 0.0, 0.0, 1.0);
+	quad_shadow.set_shininess(	0.0);
+	quad_shadow.scale.set(1.5, 1.5, 1.5);
 
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -337,7 +336,7 @@ void Scene::renderShapes() {
 	circle.renderCircle();
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
-	quad.render();
+	quad_shadow.render_with_quads();
 }
 
 void Scene::updateVariables() {
@@ -528,7 +527,7 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	renderShapes();
 	// Generate shadow matrix
-	//generateShadowMatrix(Light_Position_0, quad.);
+	generateShadowMatrix(Light_Position_0, quad_shadow.get_verts()->data());
 	setRenderMode(blend, wireframe);
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
