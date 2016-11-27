@@ -76,6 +76,12 @@ void Vector3::set(float x, float y, float z) {
 	this->z = z;
 }
 
+void Vector3::set(float translate[3]) {
+	this->x = translate[0];
+	this->y = translate[1];
+	this->z = translate[2];
+}
+
 void Vector3::setX(float x) {
 	this->x = x;
 }

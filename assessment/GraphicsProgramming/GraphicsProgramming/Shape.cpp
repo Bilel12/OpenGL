@@ -25,6 +25,44 @@ float Shape::rotate(float arg) {
 	return rot_angle = arg;
 }
 
+
+void Shape::render() {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+		glNormalPointer(GL_FLOAT, 0, norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+	
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
+
+		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
 void Shape::render(GLuint *texture) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
@@ -64,7 +102,7 @@ void Shape::render(GLuint *texture) {
 	} glPopMatrix();
 }
 
-void Shape::render() {
+void Shape::render(float R, float G, float B, float A) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -75,18 +113,20 @@ void Shape::render() {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		//glColorPointer(3, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-	
+
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
 
+		glColor4f(R, G, B, A);
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
@@ -138,7 +178,7 @@ void Shape::render_with_quads() {
 	} glPopMatrix();
 }
 
-void Shape::render(float R, float G, float B, float A) {
+void Shape::render_with_quads(GLuint *texture) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -149,23 +189,23 @@ void Shape::render(float R, float G, float B, float A) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		//glColorPointer(3, GL_FLOAT, 0, colors.data());
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);			// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);			// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);			// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);			// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);		// set shininess to what is defined in scene
 
-		glColor4f(R, G, B, A);
-		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		glBindTexture(GL_TEXTURE_2D, *texture);
+		glDrawArrays(GL_QUADS, 0, verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, NULL);
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
@@ -177,6 +217,44 @@ void Shape::render(float R, float G, float B, float A) {
 	} glPopMatrix();
 }
 
+void Shape::render_with_quads(float R, float G, float B, float A) {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+		glNormalPointer(GL_FLOAT, 0, norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);			// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);			// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);			// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission);			// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);		// set shininess to what is defined in scene
+
+		glColor4f(R, G, B, A);
+		glDrawArrays(GL_QUADS, 0, verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
 
 void Shape::render1() {
 	// add code to render the cube (above) using method 1
@@ -270,18 +348,16 @@ void Shape::buildQuadShadow(float sca_x, float sca_y, float sca_z,
 				 1.f, -1.f, -1.f };	// top right
 		
 
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		norms.push_back(0.0f);
 		norms.push_back(1.0f);
 		norms.push_back(0.0f);
 	}
 
-	texcoords = { 0, 1,
-		1, 1,
-		1, 0,
-		1, 0,
-		0, 0,
-		0, 1 };
+	texcoords = {	0, 0,
+					1, 0,
+					1, 1,
+					0, 1, };
 
 	//colors = { 0.5, 0.5, 0.5, 0.5 };
 }
@@ -938,8 +1014,8 @@ void Shape::set_shininess(GLfloat arg) {
 	shininess[0] = arg;
 }
 
-std::vector<float>* Shape::get_verts() {
-	return &verts;
+std::vector<float> Shape::get_verts() {
+	return verts;
 }
 
 //void Shape::renderDisc(GLuint * texture) {

@@ -90,6 +90,7 @@ protected:
 	Shape cylinder;
 	Shape circle;
 	Shape quad_shadow;
+	Shape sun;
 	// Drawn shapes
 	Draw draw;
 	// Objects for lists creating
@@ -166,7 +167,7 @@ protected:
 	void buildShadowVolume(float lightPosit[4]);
 	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
 	void extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext);
-	void populateExample();
+	void buildExample();
 };
 
 #endif

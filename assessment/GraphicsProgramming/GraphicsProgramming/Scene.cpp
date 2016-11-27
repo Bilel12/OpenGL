@@ -13,7 +13,6 @@ Scene::Scene(Input *in) {
 	glClearDepth(1.0f);								// Depth Buffer Setup
 	glClearStencil(0);								// Clear Stencil Buffer
 	glEnable(GL_DEPTH_TEST);						// Enables Depth Testing
-	//glDisable(GL_DEPTH_TEST);						// Disable Depth Testing
 	glDepthFunc(GL_LEQUAL);							// The Type Of Depth Testing To Do
 
 	// Other OpenGL / render setting should be applied here.			
@@ -23,6 +22,10 @@ Scene::Scene(Input *in) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				// Set The Blending Function For Translucency
 	glEnable(GL_LIGHTING);											// Enable Lighting
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+
+	//glCullFace(GL_BACK);								// Set Culling Face To Back Face
+	//glEnable(GL_CULL_FACE);								// Enable Culling
+	//glClearColor(0.1f, 1.0f, 0.5f, 1.0f);				// Set Clear Color (Greenish Color)
 	// Construct functions
 	loadTextures();		// loading textures into vector
 	assignTextures();	// assign textures to pointers
@@ -36,6 +39,7 @@ Scene::Scene(Input *in) {
 	wireframe = false;		// Wireframe on or off
 	development = true;		// Turn on or off text rendering	
 	// Shadowing
+	//populateExample();
 }
 
 void Scene::loadTextures() {
@@ -283,6 +287,14 @@ void Scene::buildShapes() {
 	//sphere.set_diffuse(1, 1, 1, 1);
 	sphere.set_shininess(high_shininess);
 
+	sun.buildSphere(0.5, 15.0, 15.0,	// radius, latitude, longitude
+					1, 1, 1,			// scale x, scale y, scale z
+					0, 0, 0,			// translate x, translate y, translate z
+					0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+	//sphere.set_ambient(1, 1, 1, 1);
+	//sphere.set_diffuse(1, 1, 1, 1);
+	//sphere.set_shininess(high_shininess);
+
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						-3, 3, 3, 			// translate x, translate y, translate z
@@ -301,10 +313,10 @@ void Scene::buildShapes() {
 	quad_shadow.buildQuadShadow(	1, 1, 1,			// scale x, scale y, scale z
 									0, 1, 0,			// translate x, translate y, translate z
 									0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	quad_shadow.set_ambient(	0.4, 0.4, 0.4, 1.0);
-	quad_shadow.set_diffuse(	0.2, 0.6, 0.9, 1.0);
-	quad_shadow.set_specular(	0.0, 0.0, 0.0, 1.0);
-	quad_shadow.set_shininess(	0.0);
+	quad_shadow.set_ambient(	.1, .1, .1, 1.0);
+	quad_shadow.set_diffuse(.1, .1, .1, 1.0);
+	quad_shadow.set_specular(.1, .1, .1, 1.0);
+	quad_shadow.set_shininess(	0. );
 	quad_shadow.scale.set(1.5, 1.5, 1.5);
 
 	circle.buildCircle(	50,					// edges, radius
@@ -336,7 +348,8 @@ void Scene::renderShapes() {
 	circle.renderCircle();
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
-	quad_shadow.render_with_quads();
+	quad_shadow.render_with_quads(crate_tex);
+	sun.render();
 }
 
 void Scene::updateVariables() {
@@ -350,6 +363,7 @@ void Scene::updateVariables() {
 	blend_cube.scale.set(1, 1, 1);
 	blend_cube.rotation.set(1, 1, 1);
 	blend_cube.rotate(angle);
+	sun.translate.set(Light_Position_0);
 	//sphere.rotate(angle);
 }
 
@@ -370,40 +384,31 @@ void Scene::buildLight() {
 
 void Scene::renderLight() {
 	// Light 0
-		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
-		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
-		glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
-		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
-		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
-		glEnable(GL_LIGHT0);
-	glPushMatrix(); {
-		glTranslatef(0.0, 3.0, 0.0);	
-		gluSphere(gluNewQuadric(), 0.2, 40, 40);
-	} glPopMatrix();
-
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
+	glEnable(GL_LIGHT0);
 	// Light 1
-	glPushMatrix(); {
-		glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
-		glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
-		glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
-		glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
-		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
-		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
-		//glEnable(GL_LIGHT1);
-	} glPopMatrix();
+	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
+	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
+	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
+	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
+	//glEnable(GL_LIGHT1);
 
 	// Light 2
-	glPushMatrix(); {
-		glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
-		glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
-		glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
-		glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_0);
-		glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
-		glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
-		glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
-		//glEnable(GL_LIGHT2);
-	} glPopMatrix();
+	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_0);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
+	//glEnable(GL_LIGHT2);
 }
 
 void Scene::update(float dt) {
@@ -508,29 +513,60 @@ void Scene::render() {
 	// Point sampling
 	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);*/
-		glPushMatrix(); {
-			glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
-			glDisable(GL_DEPTH_TEST); {
-				skybox.renderSkybox(skybox_tex);
-			}
-			glEnable(GL_DEPTH_TEST);
-		} glPopMatrix();
+	glPushMatrix(); {
+		glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
+		glDisable(GL_DEPTH_TEST); {
+			skybox.renderSkybox(skybox_tex);
+		}
+		glEnable(GL_DEPTH_TEST);
+	} glPopMatrix();
 	// Lighting
 	renderLight();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
-	renderStencilBuffer(spaceship);
+	//renderStencilBuffer(spaceship);
 	// Blend cube
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
-	// Render shapes
 	setRenderMode(blend, wireframe);
-	renderShapes();
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_0, quad_shadow.get_verts()->data());
-	setRenderMode(blend, wireframe);
+	generateShadowMatrix(Light_Position_0, quad_shadow.verts.data()); // TODO change getting vertices method if not working
+	// Render shapes
+	renderShapes();
+
+	// Render shadow
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+
+	glColor3f(0.1f, 0.1f, 0.1f); // Shadow's colour
+	glPushMatrix(); {
+		glMultMatrixf((GLfloat *)shadowMatrix);
+		//translate to floor and draw shadow, remember to match any transforms on the object
+		glTranslatef(0.f, 1.f, 0.f);
+		glRotatef(angle, 0.f, 1.f, 0.f);
+		glScalef(1.f, 1.f, 1.f);
+		spaceship.render();
+	} glPopMatrix();
+
+	glColor3f(1.0f, 1.0f, 1.0f); // S
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_2D);
+	// Render object
+	glPushMatrix();
+	glTranslatef(0.f, 1.f, 0.f);
+	glRotatef(angle, 0.f, 1.f, 0.f);
+	glScalef(1.f, 1.f, 1.f);
+	spaceship.render();
+	glPopMatrix();
+
+	// SHADOW II
+	//populateExample();
+	//buildShadowVolume(Light_Position_0);
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
+	setRenderMode(blend, wireframe);
 	glDisable(GL_BLEND); // Turn blending off
 	if (development) { renderTextOutput(); }
 
@@ -723,7 +759,7 @@ void Scene::generateShadowMatrix(float light_pos[4], GLfloat floor[12]) {
 // Just a 4 by 4 quad stored in a vertex array.
 // Can be used when creating the shadow volume and be rendered to the scene.
 // for shadow volume build shadow caster
-void Scene::populateExample() {
+void Scene::buildExample() {
 	casterVerts.reserve(11);
 
 	casterVerts[0] = -2.0f;

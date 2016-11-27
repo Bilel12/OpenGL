@@ -11,6 +11,7 @@ public:
 
 
 	void set(float x, float y, float z);
+	void set(float translate[3]);
 	void setX(float x);
 	void setY(float y);
 	void setZ(float z);
