@@ -89,6 +89,7 @@ protected:
 	Shape floor;
 	Shape cylinder;
 	Shape circle;
+	Shape quad;
 	// Drawn shapes
 	Draw draw;
 	// Objects for lists creating
@@ -149,7 +150,6 @@ protected:
 	GLfloat low_shininess[1] = { 50 };
 	GLfloat high_shininess[1] = { 100 };
 	GLfloat spot_cutoff[1] = { 180 };
-
 	// Set light
 	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
 	GLfloat* setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);

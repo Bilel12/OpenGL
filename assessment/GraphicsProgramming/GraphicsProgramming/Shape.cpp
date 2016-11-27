@@ -195,7 +195,7 @@ void Shape::buildQuad(	float sca_x, float sca_y, float sca_z,
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
 
-	verts = { (-1), (-1), (-1),
+	verts = {		(-1), (-1), (-1),
 					( 1), (-1), (-1),
 					( 1), (-1), ( 1),
 					( 1), (-1), ( 1),
@@ -868,6 +868,10 @@ void Shape::set_shininess(GLfloat *arg) {
 
 void Shape::set_shininess(GLfloat arg) {
 	shininess[0] = arg;
+}
+
+std::vector<float>* Shape::get_verts() {
+	return &verts;
 }
 
 //void Shape::renderDisc(GLuint * texture) {

@@ -269,7 +269,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
 	glPushMatrix(); {
-		glTranslatef(0, 0.1, 0);							// Translate(this is where the model will render, distance should match)
+		glTranslatef(0, 0.5, 0);							// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
 		model.render();										// Render the real object
 	} glPopMatrix();
@@ -299,6 +299,15 @@ void Scene::buildShapes() {
 						0, 0, 0, 			// translate x, translate y, translate z
 						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
+	quad.buildQuad(		1, 1, 1,			// scale x, scale y, scale z
+						0, 1, 0,			// translate x, translate y, translate z
+						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+	quad.set_ambient(	0.4, 0.4, 0.4, 1.0);
+	quad.set_diffuse(	0.2, 0.6, 0.9, 1.0);
+	quad.set_specular(	0.0, 0.0, 0.0, 1.0);
+	quad.set_shininess(	0.0);
+	quad.scale.set(1.5, 1.5, 1.5);
+
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						-5, 0, 0, 			// translate x, translate y, translate z
@@ -324,10 +333,11 @@ void Scene::renderShapes() {
 	sphere.render(0.7, 0.2, 0.2, 0.5);
 	disc_1.render(disk_tex);
 	disc_2.render(disk_tex);
-	disc_flat.render(disk_tex);
+	//disc_flat.render(disk_tex);
 	circle.renderCircle();
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
+	quad.render();
 }
 
 void Scene::updateVariables() {
@@ -346,10 +356,11 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(0.5, 0.5, 0.5, 0.5, Light_Ambient_0);
-	setLightDiffuse(1, 1, 1, 1, Light_Diffuse_0);			// Light colour
-	setLightPosition(0, 0, 0, 1, Light_Position_0);
-	setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
+	setLightAmbient(0.2, 0.2, 0.2, 1, Light_Ambient_0);
+	setLightDiffuse(0.6, 0.6, 0.6, 1, Light_Diffuse_0);			// Light colour
+	setLightPosition(0, 3, 0, 1, Light_Position_0);
+	setLightSpecular(-0.2, -0.2, -0.2, 1.0, Light_Specular_0);
+	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1
 	setLightPosition(0, -1, 0, 1, Light_Position_1);
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient_1);
@@ -360,16 +371,15 @@ void Scene::buildLight() {
 
 void Scene::renderLight() {
 	// Light 0
-	glPushMatrix(); {
-		glTranslatef(0.0, 3.0, 0.0);
 		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
 		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
-		glLightfv(GL_LIGHT0, GL_SPECULAR, high_shininess);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 		glEnable(GL_LIGHT0);
-		
+	glPushMatrix(); {
+		glTranslatef(0.0, 3.0, 0.0);	
 		gluSphere(gluNewQuadric(), 0.2, 40, 40);
 	} glPopMatrix();
 
@@ -509,16 +519,17 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Render geometry here -------------------------------------
+	// Stencil buffer
 	renderStencilBuffer(spaceship);
-	//
+	// Blend cube
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlendCube(crate_trans_tex);
-	//
+	// Render shapes
 	setRenderMode(blend, wireframe);
 	renderShapes();
-	drawShapes();
+	// Generate shadow matrix
+	//generateShadowMatrix(Light_Position_0, quad.);
 	setRenderMode(blend, wireframe);
-	//renderLists();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	glDisable(GL_BLEND); // Turn blending off
