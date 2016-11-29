@@ -1025,8 +1025,8 @@ void Shape::set_shininess(GLfloat arg) {
 	shininess[0] = arg;
 }
 
-std::vector<float> Shape::get_verts() {
-	return verts;
+std::vector<float>* Shape::get_verts() {
+	return &verts;
 }
 
 //void Shape::renderDisc(GLuint * texture) {

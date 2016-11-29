@@ -114,9 +114,9 @@ public:
 	void set_shininess(GLfloat *arg);
 	void set_shininess(GLfloat arg);
 
-	std::vector<float> get_verts();
-	std::vector<float> verts, norms, texcoords;
+	std::vector<float>* get_verts();
 private:
+	std::vector<float> verts, norms, texcoords;
 	std::vector<double> colors;
 	//GLfloat ambient[4];
 	GLfloat ambient[4] = { static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };

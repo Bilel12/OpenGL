@@ -524,7 +524,7 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_1, quad_shadow.verts.data());
+	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
 	// Floor for shadowing
 	quad_shadow.render_with_quads();
 	// Render shadow
