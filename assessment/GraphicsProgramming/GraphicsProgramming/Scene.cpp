@@ -354,7 +354,7 @@ void Scene::renderShapes() {
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
 	sun.render();
-	torus.render_with_quads();
+	torus.render();
 }
 
 void Scene::updateVariables() {

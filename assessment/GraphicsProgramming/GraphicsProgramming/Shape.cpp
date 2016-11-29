@@ -659,43 +659,43 @@ float Shape::sphere_z3(float radius, float theta, float theta_interval, float de
 }
 
 float Shape::sphere_n_x0(float radius, float theta, float delta) {
-	return cos(theta) * sin(delta) / radius;
+	return (cos(theta) * sin(delta)) / radius;
 }
 float Shape::sphere_n_y0(float radius, float theta, float delta) {
-	return cos(delta) / radius;
+	return (cos(delta)) / radius;
 }
 float Shape::sphere_n_z0(float radius, float theta, float delta) {
-	return sin(theta) * sin(delta) / radius;
+	return (sin(theta) * sin(delta)) / radius;
 }
 
 float Shape::sphere_n_x1(float radius, float theta, float delta, float delta_interval) {
-	return cos(theta) * sin(delta + delta_interval) / radius;
+	return (cos(theta) * sin(delta + delta_interval)) / radius;
 }
 float Shape::sphere_n_y1(float radius, float theta, float delta, float delta_interval) {
-	return cos(delta + delta_interval) / radius;
+	return (cos(delta + delta_interval)) / radius;
 }
 float Shape::sphere_n_z1(float radius, float theta, float delta, float delta_interval) {
-	return sin(theta) * sin(delta + delta_interval) / radius;
+	return (sin(theta) * sin(delta + delta_interval)) / radius;
 }
 
 float Shape::sphere_n_x2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
-	return cos(theta + theta_interval) * sin(delta + delta_interval) / radius;
+	return (cos(theta + theta_interval) * sin(delta + delta_interval)) / radius;
 }
 float Shape::sphere_n_y2(float radius, float theta, float delta, float delta_interval) {
-	return cos(delta + delta_interval) / radius;
+	return (cos(delta + delta_interval)) / radius;
 }
 float Shape::sphere_n_z2(float radius, float theta, float delta, float delta_interval, float theta_interval) {
-	return sin(theta + theta_interval) * sin(delta + delta_interval) / radius;
+	return (sin(theta + theta_interval) * sin(delta + delta_interval)) / radius;
 }
 
 float Shape::sphere_n_x3(float radius, float theta, float delta, float theta_interval) {
-	return cos(theta + theta_interval) * sin(delta) / radius;
+	return (cos(theta + theta_interval) * sin(delta)) / radius;
 }
 float Shape::sphere_n_y3(float radius, float theta, float delta, float theta_interval) {
-	return cos(delta) / radius;
+	return (cos(delta)) / radius;
 }
 float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_interval) {
-	return sin(theta + theta_interval) * sin(delta) / radius;
+	return (sin(theta + theta_interval) * sin(delta)) / radius;
 }
 
 void Shape::buildSphere(float radius, float latitude, float longitude,
@@ -1056,10 +1056,10 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 	rot_angle = angle;
 	//float tube_edges, float torus_edges
 	float
-		delta = 0.0,								// angle of latitude
-		theta = 0.0,								// angle of longitude
-		theta_interval = (2.0 * M_PI) / tube_edges,		// angle of latitude
-		delta_interval = (2.0 * M_PI) / torus_edges,		// angle of longitude
+		delta = 0.0,									// torus angle
+		theta = 0.0,									// tube angle
+		theta_interval = (2.0 * M_PI) / tube_edges,		// torus angle
+		delta_interval = (2.0 * M_PI) / torus_edges,	// tube angle
 		u_lats = 0.0,
 		v_longs = 0.0,
 		u_lats_interval = 1.0 / tube_edges,
@@ -1071,45 +1071,55 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 
 	for (int i = 0; i < torus_edges; ++i) {
 		for (int j = 0; j < tube_edges; ++j) {
+			// Verts 0
 			verts.push_back( (R + r * cos(theta)) * cos(delta) ) ;
 			verts.push_back( r * sin(theta));
 			verts.push_back( (R + r * cos(theta)) * sin(delta) );
-			
+			// Verts 1
 			verts.push_back((R + r * cos(theta)) * cos(delta + delta_interval));
 			verts.push_back(r * sin(theta));
 			verts.push_back((R + r * cos(theta)) * sin(delta + delta_interval));
-
+			// Verts 2
 			verts.push_back((R + r * cos(theta + theta_interval)) * cos(delta + delta_interval));
 			verts.push_back(r * sin(theta + theta_interval));
 			verts.push_back((R + r * cos(theta + theta_interval)) * sin(delta + delta_interval));
-
+			// Verts 2
+			verts.push_back((R + r * cos(theta + theta_interval)) * cos(delta + delta_interval));
+			verts.push_back(r * sin(theta + theta_interval));
+			verts.push_back((R + r * cos(theta + theta_interval)) * sin(delta + delta_interval));
+			// Verts 3
 			verts.push_back((R + r * cos(theta + theta_interval)) * cos(delta));
 			verts.push_back(r * sin(theta + theta_interval));
 			verts.push_back((R + r * cos(theta + theta_interval)) * sin(delta));
+			// Verts 0
+			verts.push_back((R + r * cos(theta)) * cos(delta));
+			verts.push_back(r * sin(theta));
+			verts.push_back((R + r * cos(theta)) * sin(delta));
 
-			norms.push_back(sphere_n_x0(r, theta, delta));
-			norms.push_back(sphere_n_y0(r, theta, delta));
-			norms.push_back(sphere_n_z0(r, theta, delta));
-
-			norms.push_back(sphere_n_x1(r, theta, delta, delta_interval));
-			norms.push_back(sphere_n_y1(r, theta, delta, delta_interval));
-			norms.push_back(sphere_n_z1(r, theta, delta, delta_interval));
-
-			norms.push_back(sphere_n_x2(r, theta, delta, delta_interval, theta_interval));
-			norms.push_back(sphere_n_y2(r, theta, delta, delta_interval));
-			norms.push_back(sphere_n_z2(r, theta, delta, delta_interval, theta_interval));
-
-			norms.push_back(sphere_n_x2(r, theta, delta, delta_interval, theta_interval));
-			norms.push_back(sphere_n_y2(r, theta, delta, delta_interval));
-			norms.push_back(sphere_n_z2(r, theta, delta, delta_interval, theta_interval));
-
-			norms.push_back(sphere_n_x3(r, theta, delta, theta_interval));
-			norms.push_back(sphere_n_y3(r, theta, delta, theta_interval));
-			norms.push_back(sphere_n_z3(r, theta, delta, theta_interval));
-
-			norms.push_back(sphere_n_x0(r, theta, delta));
-			norms.push_back(sphere_n_y0(r, theta, delta));
-			norms.push_back(sphere_n_z0(r, theta, delta));
+			// norms 0
+			norms.push_back( ((R + r * cos(theta)) * cos(delta)) / (R + r) );
+			norms.push_back( (r * sin(theta)) / r);
+			norms.push_back( ((R + r * cos(theta)) * sin(delta)) / (R + r));
+			// norms 1
+			norms.push_back( ((R + r * cos(theta)) * cos(delta + delta_interval)) / (R + r));
+			norms.push_back( (r * sin(theta)) / r);
+			norms.push_back( ((R + r * cos(theta)) * sin(delta + delta_interval)) / (R + r));
+			// norms 2
+			norms.push_back( ((R + r * cos(theta + theta_interval)) * cos(delta + delta_interval)) / (R + r));
+			norms.push_back( (r * sin(theta + theta_interval)) / r);
+			norms.push_back( ((R + r * cos(theta + theta_interval)) * sin(delta + delta_interval)) / (R + r));
+			// norms 2
+			norms.push_back( ((R + r * cos(theta + theta_interval)) * cos(delta + delta_interval)) / (R + r));
+			norms.push_back( (r * sin(theta + theta_interval)) / r);
+			norms.push_back( ((R + r * cos(theta + theta_interval)) * sin(delta + delta_interval)) / (R + r));
+			// norms 3
+			norms.push_back( ((R + r * cos(theta + theta_interval)) * cos(delta)) / (R + r));
+			norms.push_back( (r * sin(theta + theta_interval)) / r);
+			norms.push_back( ((R + r * cos(theta + theta_interval)) * sin(delta)) / (R + r));
+			// norms 0
+			norms.push_back( ((R + r * cos(theta)) * cos(delta)) / (R + r));
+			norms.push_back( (r * sin(theta)) / r);
+			norms.push_back( ((R + r * cos(theta)) * sin(delta)) / (R + r));
 
 
 			texcoords.push_back(v_longs);
