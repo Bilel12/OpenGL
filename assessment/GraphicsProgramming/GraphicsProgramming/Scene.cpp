@@ -287,12 +287,12 @@ void Scene::buildShapes() {
 	//sphere.set_diffuse(1, 1, 1, 1);
 	sphere.set_shininess(high_shininess);
 
-	sun.buildSphere(0.5, 15.0, 15.0,	// radius, latitude, longitude
-					1, 1, 1,			// scale x, scale y, scale z
-					0, 0, 0,			// translate x, translate y, translate z
-					0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	sphere.set_ambient(.1, .1, .1, .1);
-	sphere.set_diffuse(.1, .1, .1, .1);
+	sun.buildSphere(	0.5, 15.0, 15.0,	// radius, latitude, longitude
+						1, 1, 1,			// scale x, scale y, scale z
+						0, 0, 0,			// translate x, translate y, translate z
+						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+	sphere.set_ambient(	.1, .1, .1, .1);
+	sphere.set_diffuse(	.1, .1, .1, .1);
 	sphere.set_shininess(0.);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
@@ -311,7 +311,7 @@ void Scene::buildShapes() {
 						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	quad_shadow.buildQuadShadow(	1, 1, 1,			// scale x, scale y, scale z
-									0, 1., 0,			// translate x, translate y, translate z
+									0, 0.35, 0,			// translate x, translate y, translate z
 									0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 	quad_shadow.set_ambient(		.1, .1, .1, .1);
 	quad_shadow.set_diffuse(		.1, .1, .1, .1);
@@ -376,7 +376,7 @@ void Scene::buildLight() {
 	// Light 1
 	setLightAmbient(1, 1, 1, 1, Light_Ambient_1);
 	setLightDiffuse(0.6, 0.6, 0.6, 1, Light_Diffuse_1);			// Light colour
-	setLightPosition(0, 3, 0, 1, Light_Position_1);
+	setLightPosition(0, 4, 0, 1, Light_Position_1);
 	setLightSpecular(0.5, 0.5, 0.5, 1.0, Light_Specular_1);
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 	//setLightPosition(position_x, position_y, position_z, 1, Light_Position_1);
@@ -384,37 +384,32 @@ void Scene::buildLight() {
 
 void Scene::renderLight() {
 	// Light 0
-	//glPushMatrix(); {
-		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
-		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
-		glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
-		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
-		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
-		//glEnable(GL_LIGHT0);
-	//} glPopMatrix();
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
+	//glEnable(GL_LIGHT0);
+	
 	// Light 1
-	//glPushMatrix(); {
-		glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
-		glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
-		glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
-		glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
-		/*glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
-		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
-		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);*/
-		glEnable(GL_LIGHT1);
-	//} glPopMatrix();
+	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
+	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
+	/*glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
+	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);*/
+	glEnable(GL_LIGHT1);
 	// Light 2
-	//glPushMatrix(); {
-		glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
-		glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
-		glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
-		glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_0);
-		glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
-		glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
-		glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
-		//glEnable(GL_LIGHT2);
-	//} glPopMatrix();
+	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_0);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
+	//glEnable(GL_LIGHT2);
 }
 
 void Scene::update(float dt) {
@@ -551,13 +546,13 @@ void Scene::render() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
-	// Render object
-	glPushMatrix();
-	glTranslatef(0.f, 1.f, 0.f);
-	glRotatef(angle, 0.f, 1.f, 0.f);
-	glScalef(1.f, 1.f, 1.f);
-	spaceship.render();
-	glPopMatrix();
+	// Render object with corresponding	translate, rotate and scale
+	glPushMatrix(); {
+		glTranslatef(0.f, 1.f, 0.f);
+		glRotatef(angle, 0.f, 1.f, 0.f);
+		glScalef(1.f, 1.f, 1.f);
+		spaceship.render();
+	} glPopMatrix();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
 	//renderStencilBuffer(spaceship);

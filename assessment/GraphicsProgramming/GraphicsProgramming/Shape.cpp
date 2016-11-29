@@ -859,11 +859,11 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 			norms.push_back(0.0);
 		}
 
-		texcoords.push_back(0.738);
+		texcoords.push_back(0.742);
 		texcoords.push_back(0.223);
-		texcoords.push_back(cos(theta) / diameter + 0.738);
+		texcoords.push_back(cos(theta) / diameter + 0.742);
 		texcoords.push_back(sin(theta) / diameter + 0.223);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.738);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.742);
 		texcoords.push_back(sin(theta + interval) / diameter + 0.223);
 
 		theta += interval;
