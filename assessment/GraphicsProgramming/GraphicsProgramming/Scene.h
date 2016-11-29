@@ -159,7 +159,7 @@ protected:
 	// Set light Specular
 	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
 	// Shadowing
-	float  shadowMatrix[16];
+	GLfloat  shadowMatrix[16];
 	std::vector<float> shadowVolume;
 	std::vector<float> casterVerts;
 	std::vector<float> casterNorms;

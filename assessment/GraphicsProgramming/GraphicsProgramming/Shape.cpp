@@ -581,7 +581,7 @@ void Shape::buildDisc(	float edges, float radius,
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
 
-	float 
+	float
 		interval = 2.0 * M_PI / edges,
 		diameter = 2 * radius,
 		start = 0.0,
@@ -718,9 +718,9 @@ void Shape::buildSphere(float radius, float latitude, float longitude,
 		u_lats_interval = 1.0 / latitude,
 		v_longs_interval = 1.0 / longitude;
 
-	verts.reserve(18 * latitude * longitude);
-	norms.reserve(18 * latitude * longitude);
-	texcoords.reserve(12 * latitude * longitude);
+	verts.reserve(18.0 * latitude * longitude);
+	norms.reserve(18.0 * latitude * longitude);
+	texcoords.reserve(12.0 * latitude * longitude);
 
 	for (int i = 0; i < longitude; ++i) {
 		for (int j = 0; j < latitude; ++j) {
@@ -1110,15 +1110,15 @@ void Shape::set_shininess(GLfloat arg) {
 	shininess[0] = arg;
 }
 
-std::vector<float>* Shape::get_verts() {
+std::vector<GLfloat>* Shape::get_verts() {
 	return &verts;
 }
 
-std::vector<float>* Shape::get_norms() {
+std::vector<GLfloat>* Shape::get_norms() {
 	return &norms;
 }
 
-std::vector<float>* Shape::get_texcoords() {
+std::vector<GLfloat>* Shape::get_texcoords() {
 	return &texcoords;
 }
 

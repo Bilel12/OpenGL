@@ -24,13 +24,13 @@ public:
 	void render(float R, float G, float B, float A, GLuint *texture);				// render shape and apply texture and colour
 	// Rendering functions using GL_QUADS
 	void render_with_quads();														// just render shape
-	void render_with_quads(GLuint *texture);										// render shape and apply texture
-	void render_with_quads(float R, float G, float B, float A);						// render shape and apply colour
-	void render_with_quads(float R, float G, float B, float A, GLuint *texture);	// render shape and apply texture and colour
+	void render_with_quads(	GLuint *texture);										// render shape and apply texture
+	void render_with_quads(	float R, float G, float B, float A);					// render shape and apply colour
+	void render_with_quads(	float R, float G, float B, float A, GLuint *texture);	// render shape and apply texture and colour
 
-	void renderCube(float R, float G, float B, float A,	GLuint * texture);			// render cube and apply texture
-	void renderBlendCube(float R, float G, float B, float A, GLuint *texture);		// render cube and apply blending texture
-	void renderSkybox(float R, float G, float B, GLuint *texture);			// render skybox and apply texture
+	void renderCube(		float R, float G, float B, float A,	GLuint * texture);	// render cube and apply texture
+	void renderBlendCube(	float R, float G, float B, float A, GLuint *texture);	// render cube and apply blending texture
+	void renderSkybox(		float R, float G, float B, GLuint *texture);			// render skybox and apply texture
 	//static void drawTorus(int numc, int numt);
 	// Quads building functions
 	void buildQuad(			float sca_x, float sca_y, float sca_z, 
@@ -115,11 +115,11 @@ public:
 	void set_shininess(GLfloat *arg);
 	void set_shininess(GLfloat arg);
 	// Getting verts, norms and texcoords vectors functions
-	std::vector<float>* get_verts();
-	std::vector<float>* get_norms();
-	std::vector<float>* get_texcoords();
+	std::vector<GLfloat>* get_verts();
+	std::vector<GLfloat>* get_norms();
+	std::vector<GLfloat>* get_texcoords();
 private:
-	std::vector<float> verts, norms, texcoords;
+	std::vector<GLfloat> verts, norms, texcoords;
 	std::vector<double> colors;
 	float rot_angle;
 
