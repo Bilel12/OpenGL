@@ -115,6 +115,8 @@ public:
 	void set_shininess(GLfloat arg);
 
 	std::vector<float>* get_verts();
+	std::vector<float>* get_norms();
+	std::vector<float>* get_texcoords();
 private:
 	std::vector<float> verts, norms, texcoords;
 	std::vector<double> colors;

@@ -1029,6 +1029,14 @@ std::vector<float>* Shape::get_verts() {
 	return &verts;
 }
 
+std::vector<float>* Shape::get_norms() {
+	return &norms;
+}
+
+std::vector<float>* Shape::get_texcoords() {
+	return &texcoords;
+}
+
 //void Shape::renderDisc(GLuint * texture) {
 //	glPushMatrix(); {
 //		glScalef(scale.x, scale.y, scale.z);
