@@ -60,6 +60,11 @@ public:
 							float sca_x, float sca_y, float sca_z,
 							float pos_x, float pos_y, float pos_z,
 							float angle, float rot_x, float rot_y, float rot_z);
+	// Torus building funtion
+	void buildTorus(		float R, float r, float stacks,
+							float sca_x, float sca_y, float sca_z,
+							float pos_x, float pos_y, float pos_z,
+							float angle, float rot_x, float rot_y, float rot_z);
 	// Sphere build functions
 	void buildSphere(		float radius, float latitude, float longitude,
 							float sca_x, float sca_y, float sca_z, 

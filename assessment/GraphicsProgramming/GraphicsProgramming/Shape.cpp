@@ -1045,6 +1045,101 @@ void Shape::buildCone(	float radius, float edges, float height,
 	}
 }
 
+void Shape::buildTorus(	float R, float r, float stacks,
+						float sca_x, float sca_y, float sca_z,
+						float pos_x, float pos_y, float pos_z,
+						float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+
+	float
+		delta = 0.0, // angle of latitude
+		theta = 0.0, // angle of longitude
+		theta_interval = (2.0 * M_PI) / stacks, // angle of latitude
+		delta_interval = (2.0 * M_PI) / stacks, // angle of longitude
+		u_lats = 0.0,
+		v_longs = 0.0,
+		u_lats_interval = 1.0 / stacks,
+		v_longs_interval = 1.0 / stacks;
+
+	/*verts.reserve(18.0 * stacks * stacks);
+	norms.reserve(18.0 * stacks * stacks);
+	texcoords.reserve(12.0 * stacks * stacks);*/
+
+	for (int i = 0; i < stacks; ++i) {
+		for (int j = 0; j < stacks; ++j) {
+			verts.push_back( (R + r * cos(theta)) * cos(delta) ) ;
+			verts.push_back( r * sin(theta));
+			verts.push_back( (R + r * cos(theta)) * sin(delta) );
+			
+			verts.push_back((R + r * cos(theta)) * cos(delta + delta_interval));
+			verts.push_back(r * sin(theta));
+			verts.push_back((R + r * cos(theta)) * sin(delta + delta_interval));
+
+			verts.push_back((R + r * cos(theta + theta_interval)) * cos(delta + delta_interval));
+			verts.push_back(r * sin(theta + theta_interval));
+			verts.push_back((R + r * cos(theta + theta_interval)) * sin(delta + delta_interval));
+
+			verts.push_back((R + r * cos(theta + theta_interval)) * cos(delta));
+			verts.push_back(r * sin(theta + theta_interval));
+			verts.push_back((R + r * cos(theta + theta_interval)) * sin(delta));
+
+			norms.push_back(sphere_n_x0(r, theta, delta));
+			norms.push_back(sphere_n_y0(r, theta, delta));
+			norms.push_back(sphere_n_z0(r, theta, delta));
+
+			norms.push_back(sphere_n_x1(r, theta, delta, delta_interval));
+			norms.push_back(sphere_n_y1(r, theta, delta, delta_interval));
+			norms.push_back(sphere_n_z1(r, theta, delta, delta_interval));
+
+			norms.push_back(sphere_n_x2(r, theta, delta, delta_interval, theta_interval));
+			norms.push_back(sphere_n_y2(r, theta, delta, delta_interval));
+			norms.push_back(sphere_n_z2(r, theta, delta, delta_interval, theta_interval));
+
+			norms.push_back(sphere_n_x2(r, theta, delta, delta_interval, theta_interval));
+			norms.push_back(sphere_n_y2(r, theta, delta, delta_interval));
+			norms.push_back(sphere_n_z2(r, theta, delta, delta_interval, theta_interval));
+
+			norms.push_back(sphere_n_x3(r, theta, delta, theta_interval));
+			norms.push_back(sphere_n_y3(r, theta, delta, theta_interval));
+			norms.push_back(sphere_n_z3(r, theta, delta, theta_interval));
+
+			norms.push_back(sphere_n_x0(r, theta, delta));
+			norms.push_back(sphere_n_y0(r, theta, delta));
+			norms.push_back(sphere_n_z0(r, theta, delta));
+
+
+			texcoords.push_back(v_longs);
+			texcoords.push_back(u_lats);
+
+			texcoords.push_back(v_longs);
+			texcoords.push_back(u_lats + u_lats_interval);
+
+			texcoords.push_back(v_longs + v_longs_interval);
+			texcoords.push_back(u_lats + u_lats_interval);
+
+			texcoords.push_back(v_longs + v_longs_interval);
+			texcoords.push_back(u_lats + u_lats_interval);
+
+			texcoords.push_back(v_longs + v_longs_interval);
+			texcoords.push_back(u_lats);
+
+			texcoords.push_back(v_longs);
+			texcoords.push_back(u_lats);
+
+
+			theta += theta_interval;
+			v_longs += v_longs_interval;
+		}
+		u_lats += u_lats_interval;
+		theta = 0.0; v_longs = 0.0;
+		delta += delta_interval;
+	}
+}
+
 // Set material arrays (Function definitions)
 void Shape::set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	ambient[0] = R;

@@ -91,6 +91,7 @@ protected:
 	Shape circle;
 	Shape quad_shadow;
 	Shape sun;
+	Shape torus;
 	// Drawn shapes
 	Draw draw;
 	// Objects for lists creating

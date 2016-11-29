@@ -333,11 +333,16 @@ void Scene::buildShapes() {
 						5, 5, -10,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
-	cylinder.buildCylinder(	2.3, 20, 10,		// radius, edges, height
+	cylinder.buildCylinder(	2.3, 20, 10,	// radius, edges, height
 							1, 1, 1,		// scale x, scale y, scale z
 							3, 3, 3,		// translate x, translate y, translate z
 							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
-	cylinder.set_ambient(1, 1, 1, 1);
+	cylinder.set_ambient(	1, 1, 1, 1);
+
+	torus.buildTorus(	3.0, 2.0, 10.0,		// Radius, radius, stacks
+						1, 1, 1,			// scale x, scale y, scale z
+						3., 3., 3.,			// translate x, translate y, translate z
+						0., 0., 0., 0);		// rotation angle, rotation x, rotation y, rotation z
 }
 
 void Scene::renderShapes() {
@@ -349,6 +354,7 @@ void Scene::renderShapes() {
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
 	sun.render();
+	torus.render_with_quads();
 }
 
 void Scene::updateVariables() {
