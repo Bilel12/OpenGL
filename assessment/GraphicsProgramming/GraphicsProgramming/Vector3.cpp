@@ -50,7 +50,7 @@ void Vector3::normalise() {
 
 Vector3 Vector3::normalised()
 {
-	Vector3 norm(x, y, x);
+	Vector3 norm(x, y, z);
 	norm.normalise();
 	return norm;
 }

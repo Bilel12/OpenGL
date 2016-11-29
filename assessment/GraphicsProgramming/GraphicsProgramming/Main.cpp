@@ -168,7 +168,7 @@ int main(int argc, char **argv)
 	glutWarpPointer(windowWidth / 2, windowHeight / 2);
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
-
+	// warp
 	// Initialise input and scene objects.
 	input = new Input();
 	scene = new Scene(input);

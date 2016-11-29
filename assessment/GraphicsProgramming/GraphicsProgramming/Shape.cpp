@@ -404,9 +404,14 @@ void Shape::renderBlendCube(GLuint * texture) {
 		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
 
 		glPolygonMode(GL_FRONT, GL_LINE);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
 		renderCube(texture);
 		glPolygonMode(GL_FRONT, GL_FILL);
+
 		glPolygonMode(GL_BACK, GL_LINE);
+		glCullFace(GL_FRONT);
+		glDisable(GL_CULL_FACE);
 		renderCube(texture);
 		glPolygonMode(GL_BACK, GL_FILL);
 	} glPopMatrix();

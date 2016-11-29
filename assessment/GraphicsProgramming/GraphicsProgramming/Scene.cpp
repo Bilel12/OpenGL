@@ -348,7 +348,7 @@ void Scene::renderShapes() {
 	circle.renderCircle();
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
-	quad_shadow.render_with_quads(crate_tex);
+	quad_shadow.render_with_quads();
 	sun.render();
 }
 
@@ -537,7 +537,7 @@ void Scene::render() {
 	blend_cube.renderBlendCube(crate_trans_tex);
 	setRenderMode(blend, wireframe);
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_0, quad_shadow.verts.data()); // TODO change getting vertices method if not working
+	generateShadowMatrix(Light_Position_1, quad_shadow.verts.data()); // TODO change getting vertices method if not working
 	// Render shapes
 	renderShapes();
 
