@@ -1062,8 +1062,8 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 		delta_interval = (2.0 * M_PI) / torus_edges,	// tube angle
 		u_lats = 0.0,
 		v_longs = 0.0,
-		u_lats_interval = 1.0 / tube_edges,
-		v_longs_interval = 1.0 / torus_edges;
+		u_lats_interval = 1.0 / torus_edges,
+		v_longs_interval = 1.0 / tube_edges;
 
 	/*verts.reserve(18.0 * stacks * stacks);
 	norms.reserve(18.0 * stacks * stacks);
