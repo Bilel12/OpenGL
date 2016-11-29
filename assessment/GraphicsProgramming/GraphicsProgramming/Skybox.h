@@ -9,14 +9,14 @@ extern float skybox_verts[] = {
 								1, 1, 1,	// Right top
 								-1, 1, 1,	// Left top
 								-1, -1, 1,	// Left bottom
-											// right side face
+								// right side face
 								1, -1, 1,	// Right bottom
 								1, -1, -1,	// Left bottom
 								1, 1, 1,	// Right top
 								1, 1, 1,	// Right top
 								1, 1, -1,	// Left top
 								1, -1, -1,	// Left bottom
-											// left side face
+								// left side face
 								-1, -1, -1,	// Left bottom
 								-1, 1, -1,	// Left top
 								-1, 1, 1,	// Right top
@@ -29,14 +29,14 @@ extern float skybox_verts[] = {
 								1, -1, 1,	// Right top
 								1, -1, -1,	// Right bottom
 								-1, -1, -1,	// Left bottom
-											// back face
+								// back face
 								-1, -1, -1,	// Left bottom
 								1, -1, -1,	// Right bottom
 								1, 1, -1,	// Right top
 								1, 1, -1,	// Right top
 								-1, 1, -1,	// Left top
 								-1, -1, -1,	// Left bottom
-											// top face
+								// top face
 								1, 1, 1,	// Right top
 								1, 1, -1,	// Right bottom
 								-1, 1, -1,	// Left bottom

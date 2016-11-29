@@ -427,15 +427,21 @@ void Shape::renderSkybox(GLuint *texture) {
 	glNormalPointer(GL_FLOAT, 0, skybox_norms);
 	glTexCoordPointer(2, GL_FLOAT, 0, skybox_texcoords);
 
-	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to what is defined in scene
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to what is defined in scene
-	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to what is defined in scene
-	glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to what is defined in scene
-	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);			// set ambient to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);			// set diffuse to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);			// set specular to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_EMISSION, emission);			// set emission to what is defined in scene
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);		// set shininess to what is defined in scene
 
 	glBindTexture(GL_TEXTURE_2D, *texture); {
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	} glBindTexture(GL_TEXTURE_2D, NULL);
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
+	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
