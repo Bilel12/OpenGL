@@ -61,7 +61,7 @@ public:
 							float pos_x, float pos_y, float pos_z,
 							float angle, float rot_x, float rot_y, float rot_z);
 	// Torus building funtion
-	void buildTorus(		float R, float r, float stacks,
+	void buildTorus(		float r, float R, float tube_edges, float torus_edges,
 							float sca_x, float sca_y, float sca_z,
 							float pos_x, float pos_y, float pos_z,
 							float angle, float rot_x, float rot_y, float rot_z);

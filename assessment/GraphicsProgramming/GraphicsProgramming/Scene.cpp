@@ -339,10 +339,10 @@ void Scene::buildShapes() {
 							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
 	cylinder.set_ambient(	1, 1, 1, 1);
 
-	torus.buildTorus(	3.0, 2.0, 10.0,		// Radius, radius, stacks
-						1, 1, 1,			// scale x, scale y, scale z
-						3., 3., 3.,			// translate x, translate y, translate z
-						0., 0., 0., 0);		// rotation angle, rotation x, rotation y, rotation z
+	torus.buildTorus(	2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+						1, 1, 1,				// scale x, scale y, scale z
+						3., 3., 3.,				// translate x, translate y, translate z
+						0., 0., 0., 0);			// rotation angle, rotation x, rotation y, rotation z
 }
 
 void Scene::renderShapes() {

@@ -1045,7 +1045,7 @@ void Shape::buildCone(	float radius, float edges, float height,
 	}
 }
 
-void Shape::buildTorus(	float R, float r, float stacks,
+void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 						float sca_x, float sca_y, float sca_z,
 						float pos_x, float pos_y, float pos_z,
 						float angle, float rot_x, float rot_y, float rot_z) {
@@ -1054,23 +1054,23 @@ void Shape::buildTorus(	float R, float r, float stacks,
 	rotation.set(rot_x, rot_y, rot_z);
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
-
+	//float tube_edges, float torus_edges
 	float
-		delta = 0.0, // angle of latitude
-		theta = 0.0, // angle of longitude
-		theta_interval = (2.0 * M_PI) / stacks, // angle of latitude
-		delta_interval = (2.0 * M_PI) / stacks, // angle of longitude
+		delta = 0.0,								// angle of latitude
+		theta = 0.0,								// angle of longitude
+		theta_interval = (2.0 * M_PI) / tube_edges,		// angle of latitude
+		delta_interval = (2.0 * M_PI) / torus_edges,		// angle of longitude
 		u_lats = 0.0,
 		v_longs = 0.0,
-		u_lats_interval = 1.0 / stacks,
-		v_longs_interval = 1.0 / stacks;
+		u_lats_interval = 1.0 / tube_edges,
+		v_longs_interval = 1.0 / torus_edges;
 
 	/*verts.reserve(18.0 * stacks * stacks);
 	norms.reserve(18.0 * stacks * stacks);
 	texcoords.reserve(12.0 * stacks * stacks);*/
 
-	for (int i = 0; i < stacks; ++i) {
-		for (int j = 0; j < stacks; ++j) {
+	for (int i = 0; i < torus_edges; ++i) {
+		for (int j = 0; j < tube_edges; ++j) {
 			verts.push_back( (R + r * cos(theta)) * cos(delta) ) ;
 			verts.push_back( r * sin(theta));
 			verts.push_back( (R + r * cos(theta)) * sin(delta) );
