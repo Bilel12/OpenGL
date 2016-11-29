@@ -311,13 +311,13 @@ void Scene::buildShapes() {
 						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
 	quad_shadow.buildQuadShadow(	1, 1, 1,			// scale x, scale y, scale z
-									0, 1, 0,			// translate x, translate y, translate z
+									0, 1., 0,			// translate x, translate y, translate z
 									0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	quad_shadow.set_ambient(	.1, .1, .1, .1);
-	quad_shadow.set_diffuse(.1, .1, .1, .1);
-	quad_shadow.set_specular(.1, .1, .1, .1);
-	quad_shadow.set_shininess(	0. );
-	quad_shadow.scale.set(1.5, 1.5, 1.5);
+	quad_shadow.set_ambient(		.1, .1, .1, .1);
+	quad_shadow.set_diffuse(		.1, .1, .1, .1);
+	quad_shadow.set_specular(		.1, .1, .1, .1);
+	quad_shadow.set_shininess(		0. );
+	quad_shadow.scale.set(			1.5, 1.5, 1.5);
 
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -333,7 +333,7 @@ void Scene::buildShapes() {
 						5, 5, -10,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
-	cylinder.buildCylinder(	2, 20, 10,		// radius, edges, height
+	cylinder.buildCylinder(	2.3, 20, 10,		// radius, edges, height
 							1, 1, 1,		// scale x, scale y, scale z
 							3, 3, 3,		// translate x, translate y, translate z
 							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
@@ -348,7 +348,6 @@ void Scene::renderShapes() {
 	circle.renderCircle();
 	cone.render(disk_tex);
 	cylinder.render(barrel_tex);
-	quad_shadow.render_with_quads();
 	sun.render();
 }
 
@@ -385,7 +384,7 @@ void Scene::buildLight() {
 
 void Scene::renderLight() {
 	// Light 0
-	glPushMatrix(); {
+	//glPushMatrix(); {
 		glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
 		glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
@@ -393,9 +392,9 @@ void Scene::renderLight() {
 		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 		//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 		//glEnable(GL_LIGHT0);
-	} glPopMatrix();
+	//} glPopMatrix();
 	// Light 1
-	glPushMatrix(); {
+	//glPushMatrix(); {
 		glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
 		glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
 		glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
@@ -404,9 +403,9 @@ void Scene::renderLight() {
 		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
 		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);*/
 		glEnable(GL_LIGHT1);
-	} glPopMatrix();
+	//} glPopMatrix();
 	// Light 2
-	glPushMatrix(); {
+	//glPushMatrix(); {
 		glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
 		glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
 		glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
@@ -415,7 +414,7 @@ void Scene::renderLight() {
 		glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
 		glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
 		//glEnable(GL_LIGHT2);
-	} glPopMatrix();
+	//} glPopMatrix();
 }
 
 void Scene::update(float dt) {
@@ -529,18 +528,10 @@ void Scene::render() {
 	} glPopMatrix();
 	// Lighting
 	renderLight();
-	// Render geometry here -------------------------------------
-	// Stencil buffer
-	//renderStencilBuffer(spaceship);
-	// Blend cube
-	setRenderMode(blend, wireframe);
-	blend_cube.renderBlendCube(crate_trans_tex);
-	setRenderMode(blend, wireframe);
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_1, quad_shadow.verts.data()); // TODO change getting vertices method if not working
-	// Render shapes
-	renderShapes();
-
+	generateShadowMatrix(Light_Position_1, quad_shadow.verts.data());
+	// Floor for shadowing
+	quad_shadow.render_with_quads();
 	// Render shadow
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
@@ -567,6 +558,15 @@ void Scene::render() {
 	glScalef(1.f, 1.f, 1.f);
 	spaceship.render();
 	glPopMatrix();
+	// Render geometry here -------------------------------------
+	// Stencil buffer
+	//renderStencilBuffer(spaceship);
+	// Blend cube
+	setRenderMode(blend, wireframe);
+	blend_cube.renderBlendCube(crate_trans_tex);
+	setRenderMode(blend, wireframe);
+	// Render shapes
+	renderShapes();
 
 	// SHADOW II
 	//populateExample();

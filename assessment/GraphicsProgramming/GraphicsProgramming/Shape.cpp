@@ -749,12 +749,12 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 			norms.push_back(0.0);
 		}
 
-		texcoords.push_back(0.215);
-		texcoords.push_back(0.215);
-		texcoords.push_back(cos(theta) / diameter + 0.215);
-		texcoords.push_back(sin(theta) / diameter + 0.215);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.215);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.215);
+		texcoords.push_back(0.238);
+		texcoords.push_back(0.223);
+		texcoords.push_back(cos(theta) / diameter + 0.238);
+		texcoords.push_back(sin(theta) / diameter + 0.223);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.238);
+		texcoords.push_back(sin(theta + interval) / diameter + 0.223);
 
 		theta += interval;
 	}
@@ -859,12 +859,12 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 			norms.push_back(0.0);
 		}
 
-		texcoords.push_back(0.75);
-		texcoords.push_back(0.25);
-		texcoords.push_back(cos(theta) / diameter + 0.75);
-		texcoords.push_back(sin(theta) / diameter + 0.25);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.75);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.25);
+		texcoords.push_back(0.738);
+		texcoords.push_back(0.223);
+		texcoords.push_back(cos(theta) / diameter + 0.738);
+		texcoords.push_back(sin(theta) / diameter + 0.223);
+		texcoords.push_back(cos(theta + interval) / diameter + 0.738);
+		texcoords.push_back(sin(theta + interval) / diameter + 0.223);
 
 		theta += interval;
 	}
