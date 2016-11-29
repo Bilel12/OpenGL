@@ -517,7 +517,7 @@ void Scene::render() {
 	glPushMatrix(); {
 		glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 		glDisable(GL_DEPTH_TEST); {
-			skybox.renderSkybox(skybox_tex);
+			skybox.renderSkybox(1.0, 1.0, 0., skybox_tex);
 		}
 		glEnable(GL_DEPTH_TEST);
 	} glPopMatrix();
@@ -558,7 +558,7 @@ void Scene::render() {
 	//renderStencilBuffer(spaceship);
 	// Blend cube
 	setRenderMode(blend, wireframe);
-	blend_cube.renderBlendCube(crate_trans_tex);
+	blend_cube.renderBlendCube(0.0, 0.0, 0.5, 1.0, crate_trans_tex);
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();

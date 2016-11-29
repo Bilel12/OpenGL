@@ -18,18 +18,19 @@ public:
 	void render1();
 	void render3();
 	// Rendering functions using GL_TRIANGLES
-	void render();										// just render shape
-	void render(GLuint *texture);						// render shape and apply texture
-	void render(float R, float G, float B, float A);	// render shape and apply colour
-	void render(float R, float G, float B, float A, GLuint *texture);
+	void render();																	// just render shape
+	void render(GLuint *texture);													// render shape and apply texture
+	void render(float R, float G, float B, float A);								// render shape and apply colour
+	void render(float R, float G, float B, float A, GLuint *texture);				// render shape and apply texture and colour
 	// Rendering functions using GL_QUADS
-	void render_with_quads();
-	void render_with_quads(GLuint *texture);
-	void render_with_quads(float R, float G, float B, float A);
+	void render_with_quads();														// just render shape
+	void render_with_quads(GLuint *texture);										// render shape and apply texture
+	void render_with_quads(float R, float G, float B, float A);						// render shape and apply colour
+	void render_with_quads(float R, float G, float B, float A, GLuint *texture);	// render shape and apply texture and colour
 
-	void renderCube(		GLuint * texture);
-	void renderBlendCube(	GLuint *texture);
-	void renderSkybox(		GLuint *texture);
+	void renderCube(float R, float G, float B, float A,	GLuint * texture);			// render cube and apply texture
+	void renderBlendCube(float R, float G, float B, float A, GLuint *texture);		// render cube and apply blending texture
+	void renderSkybox(float R, float G, float B, GLuint *texture);			// render skybox and apply texture
 	//static void drawTorus(int numc, int numt);
 	// Quads building functions
 	void buildQuad(			float sca_x, float sca_y, float sca_z, 
