@@ -342,7 +342,7 @@ void Scene::buildShapes() {
 
 void Scene::renderShapes() {
 	sphere.render(0.7, 0.2, 0.2, 0.5);
-	disc_1.render(disk_tex);
+	disc_1.render(0.5, 0.0, 0.0, 0.5, disk_tex);
 	disc_2.render(disk_tex);
 	//disc_flat.render(disk_tex);
 	circle.renderCircle();
