@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324%28v=vs.85%29.aspx -->
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" charset="UTF-8" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/meBoot.min.js.download"></script><link rel="canonical" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(v=vs.85).aspx">
+    <title>Common Techniques to Improve Shadow Depth Maps (Windows)</title>
+
+
+
+
+
+
+
+<meta name="DCS.dcsuri" content="/en-us/library/windows/desktop/ee416324(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="NormalizedUrl" content="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="ms.normalizedurl" content="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="AmbientContext" content="{&quot;layout.limit_max_width&quot;:false,&quot;AmbientContextId&quot;:&quot;D858C871-B1D9-407A-A152-9BC394347755&quot;,&quot;display.use_large_font&quot;:false,&quot;insight.perf_timing&quot;:true,&quot;AmbientContextDownstream&quot;:{&quot;LogTrace&quot;:false},&quot;display.high_contrast&quot;:false,&quot;insight.use_wedcs_vnext&quot;:true}">
+
+<meta name="VotingContextUrl" content="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(d=default,l=en-us,v=vs.85).aspx">
+
+<meta name="MN" content="FB361391-8:45:03 AM">
+
+<meta name="Search.ShortId" content="ee416324">
+
+<meta name="ms.shortidmsdn" content="ee416324">
+
+<meta name="ms.locale" content="en-us">
+
+<meta name="ms.prodver" content="VS.85">
+
+<meta name="ms.contentlang" content="EN">
+
+<meta name="ms.lang" content="EN">
+
+<meta name="ms.loc" content="US">
+
+<meta name="ms.sitever" content="2016.11.14.1">
+
+<meta name="ms.assetid" content="bf994838-a261-0379-9301-eb9b250d216c">
+
+<meta name="ms.auth" content="0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+        
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/ai.0.js.download" async=""></script><script type="text/javascript" data-do-not-move="true">
+        //<![CDATA[
+        var AmbientContext = null;
+
+        (function(){
+            var root = (function(){return this;}).call(null);
+
+            var GetCookie = function(name){
+                var cookies = root.document.cookie ? root.document.cookie.split('; ') : [];
+                for (var i = 0; i < cookies.length; i++) {
+                    var pos = cookies[i].indexOf('=');
+                    if (name === root.decodeURIComponent(cookies[i].slice(0, pos)))
+                    {
+                        var cookie = cookies[i].slice(pos + 1).replace(/\+/g, ' ');
+                        cookie = root.decodeURIComponent(cookie);
+                        return cookie;
+                    }
+                }
+            };
+
+            var JsonDeserialize = function(content) {
+                return root.JSON && root.JSON.parse ? root.JSON.parse(content) : (new Function('return (' + content + ')'))();
+            };
+
+            try {
+                AmbientContext = GetCookie('AmbientContext');
+                AmbientContext = AmbientContext && JsonDeserialize(AmbientContext);
+            } catch(ex) {
+            } finally {
+                AmbientContext = AmbientContext || null;
+            }
+        })();
+        //]]>
+    </script>
+
+    <script type="text/javascript" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/jquery-1.9.1.min.js.download" data-do-not-move="true" data-provides="jQuery"></script>
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo_favicon.ico">
+
+
+<link rel="stylesheet" type="text/css" href="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/shell.min.css"><link rel="stylesheet" type="text/css" href="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/Combined.css"><script class="mtps-injected">try {
+/**/
+(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { 
+	"image": "https://i-msdn.sec.s-msft.com", 
+	"js": "https://i2-msdn.sec.s-msft.com", 
+	"css": "https://i-msdn.sec.s-msft.com", 
+	"ttf": "https://i-msdn.sec.s-msft.com"
+});
+/**/
+} finally { MTPS._injectNextScript_0 && MTPS._injectNextScript_0(); }</script><script class="mtps-injected" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/shellservice.v3.min.js.download"></script><script class="mtps-injected">try {
+var isAuthenticated = (false);
+        var aadEnabled= (false);
+
+        var ssoProperties = {
+          signedIn: isAuthenticated,
+          aadEnabled: aadEnabled,
+          signInOutUrl: $("#UhfSignInOutLink").val(),
+        };
+
+        if (isAuthenticated) {
+          ssoProperties.userHasProfile = (false);
+          ssoProperties.profileText = ":ProfileText:";
+          ssoProperties.createViewProfileText = ":CreateViewMSDNProfileText:";
+          ssoProperties.createViewProfileLink = ":ProfileLink:";
+          ssoProperties.MsaMemberName = ":MsaMemberName:";
+          ssoProperties.MsaFirstName = ":MsaFirstName:";
+          ssoProperties.MsaLastName = ":MsaLastName:";
+          ssoProperties.MsaCID = ":MsaCID:";
+          ssoProperties.AadDisplayName = ":AadDisplayName:";
+          ssoProperties.AadMemberName = ":AadMemberName:";
+        }
+} finally { MTPS._injectNextScript_2 && MTPS._injectNextScript_2(); }</script><script class="mtps-injected">try {
+//
+
+        window.appInsightsId = '5eb1b2eb-c47a-497a-a7ac-a1c230b2882f';
+        //
+} finally { MTPS._injectNextScript_3 && MTPS._injectNextScript_3(); }</script><script class="mtps-injected" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/Combined.js.download"></script><link href="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/PrintView.css" rel="stylesheet" type="text/css" media="print"><meta name="ms.layout_limit_max_width" content="false"><meta name="ms.AmbientContextId" content="D858C871-B1D9-407A-A152-9BC394347755"><meta name="ms.display_use_large_font" content="false"><meta name="ms.insight_perf_timing" content="true"><meta name="ms.AmbientContextDownstream" content="%7B%7D"><meta name="ms.display_high_contrast" content="false"><meta name="ms.insight_use_wedcs_vnext" content="true"><meta name="ms.perf.timing" content=",,0,0,0,2,2,5,6,530,530,595,,,"><script type="text/javascript" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/ms.js.download"></script><script type="text/javascript" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/jsll-3.2.0.js.download"></script><script src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/broker.js.download"></script><script class="mtps-injected">try {
+$(document).ready(function() {
+        try {
+            var token = $("#globalRequestVerification input[name='__RequestVerificationToken']").clone();
+            $("#siteFeedbackForm").append(token);
+        } catch(err) {
+            
+        }
+    });
+} finally { MTPS._injectNextScript_5 && MTPS._injectNextScript_5(); }</script><style type="text/css">.msame_TxtTrunc{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;word-break:break-all}.msame_Header{display:inline-block;cursor:pointer;font-size:14px;border-width:1px;border-style:solid;border-bottom-style:none;border-color:transparent;width:100%}.msame_Header_name{padding-left:12px;max-width:160px;display:inline-block;line-height:64px;vertical-align:top;font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,sans-serif;font-size:86%;color:#505050}.msame_unauth .msame_Header_name{padding-right:12px}.msame_unauth .msame_Header_name:hover{color:#0078d7}.msame_Drop_AI_pic,.msame_Drop_active_pic,.msame_Header_pic{display:inline-block}.msame_Header_piccont{padding-top:14px;padding-bottom:14px;padding-right:12px;padding-left:8px}.msame_Mobile .msame_Header_piccont{padding-top:10px;padding-bottom:10px}.msame_Short .msame_Header_piccont{padding-left:12px}.msame_Header_picframe{width:36px;height:36px;border-radius:50%;overflow:hidden}.msame_Mobile .msame_Header_picframe{width:48px;height:48px}.msame_open .msame_Header_picframe{z-index:3000001;position:relative}.msame_Header_chev{display:none}.msame_Mobile .msame_Header_piccont{padding-right:8px;padding-left:10px}.msame_Mobile .msame_Header_name{line-height:3;font-size:114%;padding-left:10px;padding-right:10px;display:inline-block;vertical-align:top;padding-top:14px}.msame_Mobile.msame_3row .msame_Header_name{padding-top:6px}.msame_Mobile .msame_Header_chev{display:inline-block;line-height:64px;vertical-align:top;padding-right:16px;padding-left:8px;float:right}.msame_open .msame_Header_chev img{-moz-transform:scaleY(-1);-o-transform:scaleY(-1);-webkit-transform:scaleY(-1);transform:scaleY(-1);filter:FlipV;-ms-filter:"FlipV"}.msame_Drop_root .msame_Drop_AI:focus,.msame_Drop_root .msame_Drop_AI_remove:focus,.msame_Drop_root a:focus,.msame_Header:focus{outline-style:dotted;outline-color:#000;outline-width:1px}.msame_Header_piccont img{width:36px;height:36px;line-height:normal;vertical-align:baseline}.msame_Mobile .msame_Header_piccont img{width:48px;height:48px}.msame_Mobile .msame_Header_fullName{font-size:100%;color:#000;line-height:1.333}.msame_Drop_AI_email,.msame_Drop_AI_status,.msame_Mobile .msame_Header_email,.msame_Mobile .msame_Header_nickName{font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,sans-serif;font-size:86%;color:rgba(0,0,0,.54);line-height:1.333333}.msaie8 .msame_Drop_AI_pic,.msaie8 .msame_Drop_AI_right,.msaie8 .msame_Drop_active_pic,.msaie8 .msame_Drop_active_right,.msaie8 .msame_Header,.msaie8 .msame_Header_name,.msaie8 .msame_Header_pic{zoom:1;*display:inline}
+</style></head>
+<body class="library Chrome">
+    <div id="page">
+
+        
+
+        
+
+    
+
+        <link rel="stylesheet" type="text/css" href="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/UhfHeaderResponsive.css" data-do-not-move="true">
+    <div id="uhf-header-wrapper">
+         
+
+
+
+
+ 
+
+
+
+
+        <script data-requires="jQuery" data-provides="uhfHeader" async="true" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/meversion"></script>
+
+
+
+ 
+
+
+
+
+
+
+<div id="shell-header" class="shell-header shell-responsive " ms.pgarea="header" role="banner">
+    
+    <div class="shell-header-wrapper">
+        <div class="shell-header-top" data-bi-area="HeaderL0" data-bi-view="L0V1">
+                <div class="shell-header-brand" ms.cmpgrp="logo">
+                            <a id="srv_shellHeaderMicrosoftLogo" href="https://www.microsoft.com/" ms.cmpnm="MicrosoftBrandLogo" ms.title="Microsoft" title="Microsoft" data-bi-name="BrandLogo" tabindex="10">
+            <img src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/microsoft-gray.png" alt="Microsoft">
+        </a>
+
+                </div>
+            <div class="shell-header-nav-wrapper" ms.cmpgrp="nav" role="navigation">
+                <ul class="shell-header-nav" role="menubar" id="srv_shellHeaderNav" data-bi-area="L1" data-bi-view="Hovermenus">
+                        <li class="shell-header-user-mobile-container">
+                        </li>
+                                    <li class="shell-header-dropdown" data-navcontainer="developer_resources_NavContainer">
+                                        <div id="developer_resources" class="shell-header-dropdown-label">
+                                            <a id="Developer resources-navigation" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Developer resources" data-bi-name="DeveloperResources" data-bi-slot="1" tabindex="20">
+                                                Developer resources
+                                            </a>
+                                        </div>
+
+
+
+
+
+<div class="shell-header-dropdown-content " aria-hidden="true" role="menu" style="height: auto;">
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Microsoft developer">
+
+                            <dt id="dev_tech_ms_developer" class="shell-header-dropdown-tab-label shell-header-L2menu-direct-link">
+                                <a href="https://developer.microsoft.com/en-us" ms.title="Microsoft developer" tabindex="20" data-bi-name="DeveloperTech_MSDeveloper">Microsoft developer</a>                         
+                            </dt>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Windows">
+
+                            <dt id="developer_tech_windows" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Windows" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Windows
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_windows_WindowDevCenter">
+                        <a href="https://developer.microsoft.com/en-us/windows" class="shell-l3-list-item" ms.title="Windows Dev Center" tabindex="20" data-bi-name="DeveloperTech_Windows_WindowDevCenter">
+                            Windows Dev Center
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_windows_apps">
+                        <a href="https://developer.microsoft.com/en-us/windows/apps" class="shell-l3-list-item" ms.title="Windows apps" tabindex="20" data-bi-name="DeveloperTech_Windows_WindowsApps">
+                            Windows apps
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_classic_desktop">
+                        <a href="https://developer.microsoft.com/en-us/windows/desktop" class="shell-l3-list-item" ms.title="Desktop" tabindex="20" data-bi-name="DeveloperTech_Windows_ClassicDesktop">
+                            Desktop
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_IoT">
+                        <a href="https://developer.microsoft.com/en-us/windows/iot" class="shell-l3-list-item" ms.title="Internet of Things" tabindex="20" data-bi-name="DeveloperTech_Windows_IoT">
+                            Internet of Things
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_games">
+                        <a href="https://developer.microsoft.com/en-us/windows/games" class="shell-l3-list-item" ms.title="Games" tabindex="20" data-bi-name="DeveloperTech_Games">
+                            Games
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_holographic">
+                        <a href="https://developer.microsoft.com/en-us/windows/holographic" class="shell-l3-list-item" ms.title="Holographic" tabindex="20" data-bi-name="DeveloperTech_Windows_Holographic">
+                            Holographic
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_edge">
+                        <a href="https://developer.microsoft.com/en-us/microsoft-edge" class="shell-l3-list-item" ms.title="Microsoft Edge" tabindex="20" data-bi-name="DeveloperTech_Windows_Edge">
+                            Microsoft Edge
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_hardware">
+                        <a href="https://developer.microsoft.com/windows/hardware" class="shell-l3-list-item" ms.title="Hardware" tabindex="20" data-bi-name="DeveloperTech_Hardware">
+                            Hardware
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Azure">
+
+                            <dt id="dev_tech_azure" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Azure" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Azure
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_windows_Azure">
+                        <a href="https://azure.microsoft.com/" class="shell-l3-list-item" ms.title="Azure" tabindex="20" data-bi-name="DeveloperTech_Windows_Azure">
+                            Azure
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_web_apps">
+                        <a href="https://azure.microsoft.com/documentation/scenarios/web-app/" class="shell-l3-list-item" ms.title="Web apps" tabindex="20" data-bi-name="DeveloperTech_Windows_WebApps">
+                            Web apps
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_mobile_apps">
+                        <a href="https://azure.microsoft.com/documentation/scenarios/mobile-app/" class="shell-l3-list-item" ms.title="Mobile apps" tabindex="20" data-bi-name="DeveloperTech_Windows_MobileApps">
+                            Mobile apps
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_api_apps">
+                        <a href="https://azure.microsoft.com/services/app-service/api/" class="shell-l3-list-item" ms.title="API apps" tabindex="20" data-bi-name="DeveloperTech_Windows_APIapps">
+                            API apps
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_service_fabric">
+                        <a href="https://azure.microsoft.com/services/service-fabric/" class="shell-l3-list-item" ms.title="Service fabric" tabindex="20" data-bi-name="DeveloperTech_Windows_ServiceFabric">
+                            Service fabric
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Visual Studio">
+
+                            <dt id="developer_tech_visual_studio" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Visual Studio" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Visual Studio
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_windows_visual_studio">
+                        <a href="https://www.visualstudio.com/" class="shell-l3-list-item" ms.title="Visual Studio " tabindex="20" data-bi-name="DeveloperTech_Windows_VisualStudio">
+                            Visual Studio 
+                        </a>
+                    </li>
+                    <li id="developer_tech_vs_visual_studio_2015_products">
+                        <a href="https://visualstudio.com/products/vs-2015-product-editions" class="shell-l3-list-item" ms.title="Visual Studio 2015 products" tabindex="20" data-bi-name="DeveloperTech_VS_VisualStudio2015Products">
+                            Visual Studio 2015 products
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_visual_studio_team_services">
+                        <a href="https://visualstudio.com/products/visual-studio-team-services-vs" class="shell-l3-list-item" ms.title="Visual Studio Team Services" tabindex="20" data-bi-name="DeveloperTech_Windows_VisualStudioTeamServices">
+                            Visual Studio Team Services
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_visual_studio_code">
+                        <a href="https://www.visualstudio.com/products/code-vs.aspx" class="shell-l3-list-item" ms.title="Visual Studio Code" tabindex="20" data-bi-name="DeveloperTech_Windows_VisualStudioCode">
+                            Visual Studio Code
+                        </a>
+                    </li>
+                    <li id="developer_tech_vs_visual_studio_dev_essentials">
+                        <a href="https://visualstudio.com/visual-studio-dev-essentials-vs" class="shell-l3-list-item" ms.title="Visual Studio Dev Essentials" tabindex="20" data-bi-name="DeveloperTech_VS_VisualStudioDevEssentials">
+                            Visual Studio Dev Essentials
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Office">
+
+                            <dt id="developer_tech_office" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Office" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Office
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_windows_Office">
+                        <a href="https://dev.office.com/" class="shell-l3-list-item" ms.title="Office" tabindex="20" data-bi-name="DeveloperTech_Windows_Office">
+                            Office
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_word_excel_powerpoint">
+                        <a href="https://dev.office.com/getting-started/addins" class="shell-l3-list-item" ms.title="Word/Excel/PowerPoint" tabindex="20" data-bi-name="DeveloperTech_Windows_WordExcelPowerPoint">
+                            Word/Excel/PowerPoint
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_microsoft_graph">
+                        <a href="http://graph.microsoft.io/" class="shell-l3-list-item" ms.title="Microsoft Graph" tabindex="20" data-bi-name="DeveloperTech_Windows_MicrosoftGraph">
+                            Microsoft Graph
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_outlook">
+                        <a href="https://dev.outlook.com/" class="shell-l3-list-item" ms.title="Outlook" tabindex="20" data-bi-name="DeveloperTech_Windows_Outlook">
+                            Outlook
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_one_drive_sharepoint">
+                        <a href="https://dev.onedrive.com/" class="shell-l3-list-item" ms.title="OneDrive/Sharepoint" tabindex="20" data-bi-name="DeveloperTech_Windows_OneDriveSharepoint">
+                            OneDrive/Sharepoint
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_skype">
+                        <a href="https://www.skype.com/developer/" class="shell-l3-list-item" ms.title="Skype" tabindex="20" data-bi-name="DeveloperTech_Windows_Skype">
+                            Skype
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Services">
+
+                            <dt id="developer_tech_services" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Services" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Services
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_windows_store">
+                        <a href="https://developer.microsoft.com/en-us/store" class="shell-l3-list-item" ms.title="Store" tabindex="20" data-bi-name="DeveloperTech_Windows_Store">
+                            Store
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_cortana">
+                        <a href="https://developer.microsoft.com/en-us/windows-apps/cortana" class="shell-l3-list-item" ms.title="Cortana" tabindex="20" data-bi-name="DeveloperTech_Windows_Cortana">
+                            Cortana
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_bing">
+                        <a href="https://www.bing.com/dev" class="shell-l3-list-item" ms.title="Bing" tabindex="20" data-bi-name="DeveloperTech_Windows_Bing">
+                            Bing
+                        </a>
+                    </li>
+                    <li id="developer_tech_windows_app_insights">
+                        <a href="https://azure.microsoft.com/services/application-insights/" class="shell-l3-list-item" ms.title="Application Insights" tabindex="20" data-bi-name="DeveloperTech_Windows_AppInsights">
+                            Application Insights
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Languages &amp; platforms">
+
+                            <dt id="dev_tech_lang_platforms" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Languages &amp; platforms" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Languages &amp; platforms
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_lang_platform_service_fabric">
+                        <a href="https://developer.xamarin.com/" class="shell-l3-list-item" ms.title="Xamarin" tabindex="20" data-bi-name="DeveloperTech_LangPlatform_ServiceFabric">
+                            Xamarin
+                        </a>
+                    </li>
+                    <li id="developer_tech_lang_platform_asp_net">
+                        <a href="https://www.asp.net/" class="shell-l3-list-item" ms.title="ASP.NET" tabindex="20" data-bi-name="DeveloperTech_LangPlatform_ASP.NET">
+                            ASP.NET
+                        </a>
+                    </li>
+                    <li id="developer_tech_lang_platform_c++">
+                        <a href="https://msdn.microsoft.com/library/60k1461a.aspx" class="shell-l3-list-item" ms.title="C++" tabindex="20" data-bi-name="DeveloperTech_LangPlatform_C++">
+                            C++
+                        </a>
+                    </li>
+                    <li id="developer_tech_lang_platform_type_script">
+                        <a href="https://www.typescriptlang.org/" class="shell-l3-list-item" ms.title="TypeScript" tabindex="20" data-bi-name="DeveloperTech_LangPlatform_TypeScript">
+                            TypeScript
+                        </a>
+                    </li>
+                    <li id="developer_tech_lang_platform_net_vb_c#_f#">
+                        <a href="https://msdn.microsoft.com/vstudio/aa496123" class="shell-l3-list-item" ms.title=".NET - VB, C#, F#" tabindex="20" data-bi-name="DeveloperTech_LangPlatform_NET_VB_C#F#">
+                            .NET - VB, C#, F#
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Server">
+
+                            <dt id="dev_tech_server" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Server" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Server
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_server_windows_server">
+                        <a href="https://msdn.microsoft.com/windowsserver" class="shell-l3-list-item" ms.title="Windows Server" tabindex="20" data-bi-name="DeveloperTech_Server_WindowsServer">
+                            Windows Server
+                        </a>
+                    </li>
+                    <li id="developer_tech_server_sql_server">
+                        <a href="https://msdn.microsoft.com/library/mt590198" class="shell-l3-list-item" ms.title="SQL Server" tabindex="20" data-bi-name="DeveloperTech_Server_SQLServer">
+                            SQL Server
+                        </a>
+                    </li>
+                    <li id="developer_tech_server_biz_talk_server">
+                        <a href="https://msdn.microsoft.com/biztalk/aa937640.aspx" class="shell-l3-list-item" ms.title="BizTalk Server" tabindex="20" data-bi-name="DeveloperTech_Server_BizTalkServer">
+                            BizTalk Server
+                        </a>
+                    </li>
+                    <li id="developer_tech_server_sharepoint">
+                        <a href="https://msdn.microsoft.com/library/mt674607" class="shell-l3-list-item" ms.title="SharePoint" tabindex="20" data-bi-name="DeveloperTech_Server_SharePoint">
+                            SharePoint
+                        </a>
+                    </li>
+                    <li id="developer_tech_server_dynamics">
+                        <a href="https://msdn.microsoft.com/dynamics" class="shell-l3-list-item" ms.title="Dynamics" tabindex="20" data-bi-name="DeveloperTech_Server_Dynamics">
+                            Dynamics
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+                <dl class="shell-header-dropdown-tab" ms.cmpnm="Developer resources; Programs &amp; communities">
+
+                            <dt id="dev_tech_programs_community" class="shell-header-dropdown-tab-label">
+                                <a href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" ms.title="Programs &amp; communities" ms.interactiontype="14" tabindex="20" data-bi-dnt="">
+                                    Programs &amp; communities
+                                    <i class="shell-icon-dropdown facing-right"></i>
+                                </a>
+                            </dt>
+                            <dd class="shell-header-dropdown-tab-content" data-col="0">
+
+
+
+    <ul class="shell-header-dropdown-tab-list">
+                    <li id="developer_tech_server_programs_community_students">
+                        <a href="https://msdn.microsoft.com/imagine/imagine-home" class="shell-l3-list-item" ms.title="Students" tabindex="20" data-bi-name="DeveloperTech_ProgramsCommunity_Students">
+                            Students
+                        </a>
+                    </li>
+                    <li id="developer_tech_programs_community_startups">
+                        <a href="https://microsoft.com/bizspark" class="shell-l3-list-item" ms.title="Startups" tabindex="20" data-bi-name="DeveloperTech_ProgramsCommunity_Startups">
+                            Startups
+                        </a>
+                    </li>
+                    <li id="developer_tech_programs_community_forums">
+                        <a href="https://social.msdn.microsoft.com/forums/" class="shell-l3-list-item" ms.title="Forums" tabindex="20" data-bi-name="DeveloperTech_ProgramsCommunity_Forums">
+                            Forums
+                        </a>
+                    </li>
+                    <li id="developer_tech_programs_community _msdn">
+                        <a href="https://msdn.microsoft.com/" class="shell-l3-list-item" ms.title="MSDN" tabindex="20" data-bi-name="DeveloperTech_ProgramsCommunity _MSDN">
+                            MSDN
+                        </a>
+                    </li>
+                    <li id="developer_tech_programs_community _subscriber_downloads">
+                        <a href="https://msdn.microsoft.com/subscriptions/" class="shell-l3-list-item" ms.title="Subscriber downloads" tabindex="20" data-bi-name="DeveloperTech_ProgramsCommunity _SubscriberDownloads">
+                            Subscriber downloads
+                        </a>
+                    </li>
+                    <li id="developer_tech_server_programs_community_dev_center_benefits">
+                        <a href="https://developer.microsoft.com/en-us/windows/benefits" class="shell-l3-list-item" ms.title="Dev Center Benefits" tabindex="20" data-bi-name="DeveloperTech_ProgramsCommunity_Dev_Center_Benefits">
+                            Dev Center Benefits
+                        </a>
+                    </li>
+
+    </ul>
+
+
+
+                            </dd>
+
+                </dl>
+
+</div>
+                                    </li>
+
+                </ul>
+            </div>
+                <div class="shell-header-user-container">
+                    <dl class="shell-header-user">
+                        <dt>
+                            <span id="meControl"><div class="msame_Header msame_unauth" tabindex="60" style="height: 48px;"><div class="msame_Header_name msame_TxtTrunc" style="line-height: 48px;">Sign in</div><div class="msame_Header_chev"></div></div></span>
+                        </dt>
+                    </dl>
+                </div>
+            
+            <div class="shell-header-nav-toggle " ms.cmpgrp="nav">
+                <button class="shell-header-toggle-menu" ms.cmpnm="mobile global nav toggle button" ms.title="Toggle menu" title="Toggle Menu" type="button" data-bi-name="Toggle Menu" tabindex="55">
+                    <i class="shell-icon-menu"></i>
+                </button>
+            </div>
+
+            <ul class="shell-header-toggle" ms.cmpgrp="header actions">
+                    <li>
+                        <button class="shell-header-toggle-search" type="button" data-bi-name="Toggle Search Icon" ms.title="search toggle" title="Toggle Search" tabindex="45">
+                            <i class="shell-icon-search"></i>
+                        </button>
+                    </li>
+                            </ul>
+
+            <div class="shell-header-actions" ms.cmpgrp="header actions">
+                    <form id="srv_shellHeaderSearchForm" class="shell-search" role="search" action="https://social.msdn.microsoft.com/search/windows" method="GET" autocomplete="off" onsubmit=" return window.msCommonShell.onSearch(this) " ms.cmpnm="search">
+                        <div class="shell-search-wrapper">
+                            <label for="cli_shellHeaderSearchInput" class="sr-only">Search Microsoft</label>
+                            <input id="cli_shellHeaderSearchInput" type="search" title="Search Dev Center" name="query" data-bi-dnt="" placeholder="Search Dev Center" maxlength="200" tabindex="30">
+
+                                <input type="hidden" name="Refinement" data-bi-dnt="" value="183">
+
+                            <button type="submit" title="Search" data-bi-dnt="" tabindex="40">
+                                <i class="shell-icon-search"></i>
+                                <span class="sr-only">Search</span>
+                            </button>
+                            <div id="cli_searchSuggestionsContainer" class="shell-search-dropdown-container">
+                                <div class="search-dropdown">
+                                    <div class="dropdown-item">
+                                        <ul id="cli_searchSuggestionsResults" data-bi-name="Search Suggestions" data-bi-source="UnifiedSearch" ms.cmpgrp="search suggestions"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="fixed-global-nav-buffer" style="height: 48px;"></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="shell-category-header cat-theme-blue" ms.pgarea="categoryheader">
+    
+    <div role="navigation" aria-label="Category level navigation" class="shell-category-nav" ms.cmpgrp="cat nav" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="C0">
+        <div class="c-nav-pagination c-nav-pagination-prev" style="display: none;">
+            <i class="shell-icon-dropdown facing-left"></i>
+        </div>
+        <ul class="shell-category-top-level shell-category-brand">
+            <li class="c-logo-item">
+                                <a id="shell-cat-header-logo" class="c-logo c-top-nav-link" href="https://developer.microsoft.com/en-us/windows" title="" ms.title="Windows Dev Center" data-bi-name="Category logo" tabindex="70">
+                    <span class="logo-text-label">Windows Dev Center</span>
+                </a>
+                <a id="shell-cat-header-logo-mobile" aria-expanded="false" role="button" aria-haspopup="true" class="c-logo-mobile c-top-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Windows Dev Center" ms.interactiontype="14" data-bi-name="Mobile category logo" tabindex="70">
+                    <span class="logo-text-label">Windows Dev Center</span>
+                    <i class="shell-icon-dropdown"></i>
+                </a>
+            <ul class="c-nav-dropdown-menu" role="menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="C1">
+
+
+
+            <li class="c-top-nav-item" id="explore-mobilelist">
+                <a id="explore-mobile" tabindex="70" aria-haspopup="true" aria-expanded="false" class="c-top-nav-link c-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Explore" role="button" ms.interactiontype="14" data-bi-name="Explore" data-bi-slot="1" data-show-cta="True">
+                    <span>Explore<i class="shell-icon-dropdown"></i></span>
+                </a>
+                <ul aria-hidden="true" class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Explore-C2" ms.cmpnm="Explore" role="menu">
+
+
+
+
+        <li class="c-nav-item ">
+            <a id="explore_why_windows-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/why-build-for-uwp" ms.title="Why Windows" data-bi-name="Explore_WhyWindows" data-bi-slot="1" tabindex="70">
+                <span>
+                    Why Windows
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_whatsnewwin10-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/windows-10-for-developers" ms.title="What’s new for Windows 10" data-bi-name="Explore_WhatsNewWin10" data-bi-slot="2" tabindex="70">
+                <span>
+                    What’s new for Windows 10
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_guideuwpapps-mobile" class="c-nav-dropdown-item c-nav-link " href="https://msdn.microsoft.com/library/windows/apps/xaml/dn894631.aspx" ms.title="Intro to Universal Windows Platform" data-bi-name="Explore_GuideUwpApps" data-bi-slot="3" tabindex="70">
+                <span>
+                    Intro to Universal Windows Platform
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_dev_center_benefits-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/benefits" ms.title="Dev Center Benefits" data-bi-name="Explore_DevCenterBenefits" data-bi-slot="4" tabindex="70">
+                <span>
+                    Dev Center Benefits
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_Develop-for-accessibility-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/accessible-apps" ms.title="Develop for accessibility" data-bi-name="Explore_Develop-for-accessibility" data-bi-slot="5" tabindex="70">
+                <span>
+                    Develop for accessibility
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_Build-for-enterprise-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/enterprise" ms.title="Build for enterprise" data-bi-name="Explore_Build-for-enterprise" data-bi-slot="6" tabindex="70">
+                <span>
+                    Build for enterprise
+                </span>
+            </a>
+
+
+        </li>
+
+
+                </ul>
+            </li>
+            <li class="c-top-nav-item" id="Docs-mobilelist">
+                <a id="Docs-mobile" tabindex="70" aria-haspopup="true" aria-expanded="false" class="c-top-nav-link c-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Docs" role="button" ms.interactiontype="14" data-bi-name="Docs" data-bi-slot="2" data-show-cta="True">
+                    <span>Docs<i class="shell-icon-dropdown"></i></span>
+                </a>
+                <ul aria-hidden="true" class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs-C2" ms.cmpnm="Docs" role="menu">
+
+
+
+
+        <li class="c-nav-item c-nav-link-with-dropdown">
+            <a id="docs_windowsapps-mobile" class="c-nav-dropdown-item c-nav-link c-top-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Windows apps" role="button" data-bi-name="Docs_WindowsApps" data-bi-slot="1" tabindex="70" aria-haspopup="true" aria-expanded="false">
+                <span>
+                    Windows apps
+                        <i class="shell-icon-dropdown"></i>
+                </span>
+            </a>
+
+
+                    <ul class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs_WindowsApps-C3" ms.cmpnm="Windows apps" role="menu">
+
+
+
+            <li>
+                <a id="docs_windows-apps_getstarted-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/apps/getstarted" ms.title="Get started" data-bi-name="DocsWindowsAppsGetstarted" data-bi-slot="1" tabindex="70">
+                    <span>Get started</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_designUI-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/apps/design" ms.title="Design and UI" data-bi-name="DocsWindowsAppsDesignUI" data-bi-slot="2" tabindex="70">
+                    <span>Design and UI</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_develop-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/apps/develop" ms.title="Develop" data-bi-name="DocsWindowsAppsDevelop" data-bi-slot="3" tabindex="70">
+                    <span>Develop</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_api-reference-mobile" class="c-nav-dropdown-item c-nav-link" href="https://msdn.microsoft.com/library/windows/apps/bg124285.aspx" ms.title="API reference" data-bi-name="DocsWindowsAppsAPIreference" data-bi-slot="4" tabindex="70">
+                    <span>API reference</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_publish-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/store/publish-apps" ms.title="Publish" data-bi-name="DocsWindowsAppsPublish" data-bi-slot="5" tabindex="70">
+                    <span>Publish</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_monetize-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/store/monetize" ms.title="Monetize" data-bi-name="DocsWindowsAppsMonetize" data-bi-slot="6" tabindex="70">
+                    <span>Monetize</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_promote-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/store/promote-your-apps" ms.title="Promote" data-bi-name="DocsWindowsAppsPromote" data-bi-slot="7" tabindex="70">
+                    <span>Promote</span>
+                </a>
+            </li>
+
+
+ 
+
+
+                    </ul>
+        </li>
+        <li class="c-nav-item c-nav-link-with-dropdown">
+            <a id="docs_Games-mobile" class="c-nav-dropdown-item c-nav-link c-top-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Games" role="button" data-bi-name="Docs_Games" data-bi-slot="2" tabindex="70" aria-haspopup="true" aria-expanded="false">
+                <span>
+                    Games
+                        <i class="shell-icon-dropdown"></i>
+                </span>
+            </a>
+
+
+                    <ul class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs_Games-C3" ms.cmpnm="Games" role="menu">
+
+
+
+            <li>
+                <a id="docs_games_getstarted-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/getstarted" ms.title="Get started" data-bi-name="DocsGamesGetstarted" data-bi-slot="1" tabindex="70">
+                    <span>Get started</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_games_uidesign-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/design" ms.title="UI design" data-bi-name="DocsGamesUIdesign" data-bi-slot="2" tabindex="70">
+                    <span>UI design</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_games_develop-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/develop" ms.title="Develop" data-bi-name="DocsGamesDevelop" data-bi-slot="3" tabindex="70">
+                    <span>Develop</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_games_publish-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/publish" ms.title="Publish" data-bi-name="DocsGamesPublish" data-bi-slot="4" tabindex="70">
+                    <span>Publish</span>
+                </a>
+            </li>
+
+
+ 
+
+
+                    </ul>
+        </li>
+        <li class="c-nav-item c-nav-link-with-dropdown">
+            <a id="docs_desktop-apps-mobile" class="c-nav-dropdown-item c-nav-link c-top-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Desktop" role="button" data-bi-name="Docs_DesktopApps" data-bi-slot="3" tabindex="70" aria-haspopup="true" aria-expanded="false">
+                <span>
+                    Desktop
+                        <i class="shell-icon-dropdown"></i>
+                </span>
+            </a>
+
+
+                    <ul class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs_DesktopApps-C3" ms.cmpnm="Desktop" role="menu">
+
+
+
+            <li>
+                <a id="docs_desktop_getstarted-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/getstarted" ms.title="Get started" data-bi-name="DocsDesktopGetstarted" data-bi-slot="1" tabindex="70">
+                    <span>Get started</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_design-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/design" ms.title="Design" data-bi-name="DocsDesktopDesign" data-bi-slot="2" tabindex="70">
+                    <span>Design</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_develop-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/develop" ms.title="Develop" data-bi-name="DocsDesktopDevelop" data-bi-slot="3" tabindex="70">
+                    <span>Develop</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_apief-mobile" class="c-nav-dropdown-item c-nav-link" href="https://msdn.microsoft.com/library/windows/desktop/hh920508.aspx" ms.title="API reference " data-bi-name="DocsDesktopAPIref" data-bi-slot="4" tabindex="70">
+                    <span>API reference </span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_TestDeploy-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/test-deploy" ms.title="Test and deploy" data-bi-name="DocsDesktopTestDeploy" data-bi-slot="5" tabindex="70">
+                    <span>Test and deploy</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_Compatibility-mobile" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/app-compatibility" ms.title="Compatibility" data-bi-name="DocsDesktopCompatibility" data-bi-slot="6" tabindex="70">
+                    <span>Compatibility</span>
+                </a>
+            </li>
+
+
+ 
+
+
+                    </ul>
+        </li>
+        <li class="c-nav-item ">
+            <a id="docs_win-iot-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/iot" ms.title="Windows IoT" data-bi-name="Docs_WinIoT" data-bi-slot="4" tabindex="70">
+                <span>
+                    Windows IoT
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="docs_edge-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/microsoft-edge" ms.title="Microsoft Edge" data-bi-name="Docs_Edge" data-bi-slot="5" tabindex="70">
+                <span>
+                    Microsoft Edge
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="docs_holographic-mobile" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/holographic" ms.title="Windows Holographic" data-bi-name="Docs_Holographic" data-bi-slot="6" tabindex="70">
+                <span>
+                    Windows Holographic
+                </span>
+            </a>
+
+
+        </li>
+
+
+                </ul>
+            </li>
+                <li class="c-top-nav-item" id="downloads-mobilelist">
+                    <a id="downloads-mobile" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/windows/downloads" ms.title="Downloads" data-bi-name="Downloads" data-bi-slot="3" data-show-cta="True">
+                        <span>Downloads</span>
+                    </a>
+                </li>
+                <li class="c-top-nav-item" id="samples-mobilelist">
+                    <a id="samples-mobile" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/windows/samples" ms.title="Samples" data-bi-name="Samples" data-bi-slot="4" data-show-cta="True">
+                        <span>Samples</span>
+                    </a>
+                </li>
+                <li class="c-top-nav-item" id="support-mobilelist">
+                    <a id="support-mobile" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/windows/support" ms.title="Support" data-bi-name="Support" data-bi-slot="5" data-show-cta="True">
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li class="c-top-nav-item" id="dashboard-mobilelist">
+                    <a id="dashboard-mobile" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/dashboard/apps/overview" ms.title="Dashboard" data-bi-name="Dashboard" data-bi-slot="6" data-show-cta="True">
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+            </ul>
+
+            </li>
+
+        </ul>
+
+        
+        <ul class="c-menu-container shell-category-top-level shell-category-nav-wrapper" role="menu" data-bi-area="CategoryMenuItems-Windows Dev Center" data-bi-view="C1">
+
+
+
+            <li class="c-top-nav-item" id="explorelist" style="margin-left: -5px;">
+                <a id="explore" tabindex="70" aria-haspopup="true" aria-expanded="false" class="c-top-nav-link c-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Explore" role="button" ms.interactiontype="14" data-bi-name="Explore" data-bi-slot="1" data-show-cta="True">
+                    <span>Explore<i class="shell-icon-dropdown"></i></span>
+                </a>
+                <ul aria-hidden="true" class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Explore-C2" ms.cmpnm="Explore" role="menu">
+
+
+
+
+        <li class="c-nav-item ">
+            <a id="explore_why_windows" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/why-build-for-uwp" ms.title="Why Windows" data-bi-name="Explore_WhyWindows" data-bi-slot="1" tabindex="70">
+                <span>
+                    Why Windows
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_whatsnewwin10" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/windows-10-for-developers" ms.title="What’s new for Windows 10" data-bi-name="Explore_WhatsNewWin10" data-bi-slot="2" tabindex="70">
+                <span>
+                    What’s new for Windows 10
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_guideuwpapps" class="c-nav-dropdown-item c-nav-link " href="https://msdn.microsoft.com/library/windows/apps/xaml/dn894631.aspx" ms.title="Intro to Universal Windows Platform" data-bi-name="Explore_GuideUwpApps" data-bi-slot="3" tabindex="70">
+                <span>
+                    Intro to Universal Windows Platform
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_dev_center_benefits" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/benefits" ms.title="Dev Center Benefits" data-bi-name="Explore_DevCenterBenefits" data-bi-slot="4" tabindex="70">
+                <span>
+                    Dev Center Benefits
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_Develop-for-accessibility" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/accessible-apps" ms.title="Develop for accessibility" data-bi-name="Explore_Develop-for-accessibility" data-bi-slot="5" tabindex="70">
+                <span>
+                    Develop for accessibility
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="explore_Build-for-enterprise" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/enterprise" ms.title="Build for enterprise" data-bi-name="Explore_Build-for-enterprise" data-bi-slot="6" tabindex="70">
+                <span>
+                    Build for enterprise
+                </span>
+            </a>
+
+
+        </li>
+
+
+                </ul>
+            </li>
+            <li class="c-top-nav-item" id="Docslist">
+                <a id="Docs" tabindex="70" aria-haspopup="true" aria-expanded="false" class="c-top-nav-link c-nav-link c-nav-dropdown" href="javascript:void(0);" ms.title="Docs" role="button" ms.interactiontype="14" data-bi-name="Docs" data-bi-slot="2" data-show-cta="True">
+                    <span>Docs<i class="shell-icon-dropdown"></i></span>
+                </a>
+                <ul aria-hidden="true" class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs-C2" ms.cmpnm="Docs" role="menu">
+
+
+
+
+        <li class="c-nav-item-with-dropdown c-nav-link-with-dropdown">
+            <a id="docs_windowsapps" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/apps" ms.title="Windows apps" role="button" data-bi-name="Docs_WindowsApps" data-bi-slot="1" tabindex="70" aria-haspopup="true" aria-expanded="false">
+                <span>
+                    Windows apps
+                </span>
+            </a>
+
+                <i class="shell-icon-dropdown"></i>
+
+                    <div class="c-nav-dropdown-tab-content" data-col="1">
+                        <ul class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs_WindowsApps-C3" ms.cmpnm="Windows apps" role="menu">
+
+
+
+            <li>
+                <a id="docs_windows-apps_getstarted" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/apps/getstarted" ms.title="Get started" data-bi-name="DocsWindowsAppsGetstarted" data-bi-slot="1" tabindex="70">
+                    <span>Get started</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_designUI" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/apps/design" ms.title="Design and UI" data-bi-name="DocsWindowsAppsDesignUI" data-bi-slot="2" tabindex="70">
+                    <span>Design and UI</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_develop" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/apps/develop" ms.title="Develop" data-bi-name="DocsWindowsAppsDevelop" data-bi-slot="3" tabindex="70">
+                    <span>Develop</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_api-reference" class="c-nav-dropdown-item c-nav-link" href="https://msdn.microsoft.com/library/windows/apps/bg124285.aspx" ms.title="API reference" data-bi-name="DocsWindowsAppsAPIreference" data-bi-slot="4" tabindex="70">
+                    <span>API reference</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_publish" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/store/publish-apps" ms.title="Publish" data-bi-name="DocsWindowsAppsPublish" data-bi-slot="5" tabindex="70">
+                    <span>Publish</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_monetize" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/store/monetize" ms.title="Monetize" data-bi-name="DocsWindowsAppsMonetize" data-bi-slot="6" tabindex="70">
+                    <span>Monetize</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_windows-apps_promote" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/store/promote-your-apps" ms.title="Promote" data-bi-name="DocsWindowsAppsPromote" data-bi-slot="7" tabindex="70">
+                    <span>Promote</span>
+                </a>
+            </li>
+
+
+ 
+
+
+                        </ul>
+                    </div>
+        </li>
+        <li class="c-nav-item-with-dropdown c-nav-link-with-dropdown">
+            <a id="docs_Games" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/games" ms.title="Games" role="button" data-bi-name="Docs_Games" data-bi-slot="2" tabindex="70" aria-haspopup="true" aria-expanded="false">
+                <span>
+                    Games
+                </span>
+            </a>
+
+                <i class="shell-icon-dropdown"></i>
+
+                    <div class="c-nav-dropdown-tab-content" data-col="1">
+                        <ul class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs_Games-C3" ms.cmpnm="Games" role="menu">
+
+
+
+            <li>
+                <a id="docs_games_getstarted" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/getstarted" ms.title="Get started" data-bi-name="DocsGamesGetstarted" data-bi-slot="1" tabindex="70">
+                    <span>Get started</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_games_uidesign" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/design" ms.title="UI design" data-bi-name="DocsGamesUIdesign" data-bi-slot="2" tabindex="70">
+                    <span>UI design</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_games_develop" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/develop" ms.title="Develop" data-bi-name="DocsGamesDevelop" data-bi-slot="3" tabindex="70">
+                    <span>Develop</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_games_publish" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/games/publish" ms.title="Publish" data-bi-name="DocsGamesPublish" data-bi-slot="4" tabindex="70">
+                    <span>Publish</span>
+                </a>
+            </li>
+
+
+ 
+
+
+                        </ul>
+                    </div>
+        </li>
+        <li class="c-nav-item-with-dropdown c-nav-link-with-dropdown">
+            <a id="docs_desktop-apps" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/desktop" ms.title="Desktop" role="button" data-bi-name="Docs_DesktopApps" data-bi-slot="3" tabindex="70" aria-haspopup="true" aria-expanded="false">
+                <span>
+                    Desktop
+                </span>
+            </a>
+
+                <i class="shell-icon-dropdown"></i>
+
+                    <div class="c-nav-dropdown-tab-content" data-col="1">
+                        <ul class="c-nav-dropdown-menu" data-bi-area="CategoryHeader-Windows Dev Center" data-bi-view="Docs_DesktopApps-C3" ms.cmpnm="Desktop" role="menu">
+
+
+
+            <li>
+                <a id="docs_desktop_getstarted" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/getstarted" ms.title="Get started" data-bi-name="DocsDesktopGetstarted" data-bi-slot="1" tabindex="70">
+                    <span>Get started</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_design" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/design" ms.title="Design" data-bi-name="DocsDesktopDesign" data-bi-slot="2" tabindex="70">
+                    <span>Design</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_develop" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/develop" ms.title="Develop" data-bi-name="DocsDesktopDevelop" data-bi-slot="3" tabindex="70">
+                    <span>Develop</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_apief" class="c-nav-dropdown-item c-nav-link" href="https://msdn.microsoft.com/library/windows/desktop/hh920508.aspx" ms.title="API reference " data-bi-name="DocsDesktopAPIref" data-bi-slot="4" tabindex="70">
+                    <span>API reference </span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_TestDeploy" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/test-deploy" ms.title="Test and deploy" data-bi-name="DocsDesktopTestDeploy" data-bi-slot="5" tabindex="70">
+                    <span>Test and deploy</span>
+                </a>
+            </li>
+            <li>
+                <a id="docs_desktop_Compatibility" class="c-nav-dropdown-item c-nav-link" href="https://developer.microsoft.com/en-us/windows/desktop/app-compatibility" ms.title="Compatibility" data-bi-name="DocsDesktopCompatibility" data-bi-slot="6" tabindex="70">
+                    <span>Compatibility</span>
+                </a>
+            </li>
+
+
+ 
+
+
+                        </ul>
+                    </div>
+        </li>
+        <li class="c-nav-item ">
+            <a id="docs_win-iot" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/iot" ms.title="Windows IoT" data-bi-name="Docs_WinIoT" data-bi-slot="4" tabindex="70">
+                <span>
+                    Windows IoT
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="docs_edge" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/microsoft-edge" ms.title="Microsoft Edge" data-bi-name="Docs_Edge" data-bi-slot="5" tabindex="70">
+                <span>
+                    Microsoft Edge
+                </span>
+            </a>
+
+
+        </li>
+        <li class="c-nav-item ">
+            <a id="docs_holographic" class="c-nav-dropdown-item c-nav-link " href="https://developer.microsoft.com/en-us/windows/holographic" ms.title="Windows Holographic" data-bi-name="Docs_Holographic" data-bi-slot="6" tabindex="70">
+                <span>
+                    Windows Holographic
+                </span>
+            </a>
+
+
+        </li>
+
+
+                </ul>
+            </li>
+                <li class="c-top-nav-item" id="downloadslist">
+                    <a id="downloads" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/windows/downloads" ms.title="Downloads" data-bi-name="Downloads" data-bi-slot="3" data-show-cta="True">
+                        <span>Downloads</span>
+                    </a>
+                </li>
+                <li class="c-top-nav-item" id="sampleslist">
+                    <a id="samples" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/windows/samples" ms.title="Samples" data-bi-name="Samples" data-bi-slot="4" data-show-cta="True">
+                        <span>Samples</span>
+                    </a>
+                </li>
+                <li class="c-top-nav-item" id="supportlist">
+                    <a id="support" tabindex="70" class="c-top-nav-link c-nav-link" href="https://developer.microsoft.com/en-us/windows/support" ms.title="Support" data-bi-name="Support" data-bi-slot="5" data-show-cta="True">
+                        <span>Support</span>
+                    </a>
+                </li>
+
+        </ul>
+                <div class="shell-category-nav-featured"><div class="c-nav-pagination c-nav-pagination-next" style="display: none;">
+            <i class="shell-icon-dropdown facing-right"></i>
+        </div>
+                    <a id="dashboard" class="c-nav-link c-top-nav-link" ms.title="Dashboard" href="https://developer.microsoft.com/en-us/dashboard/apps/overview" role="menuitem" data-bi-name="Dashboard" data-bi-slot="6">
+                        <span tabindex="70">Dashboard</span>
+                    </a>
+                </div>
+
+        
+    </div>
+
+</div>
+<div class="fixed-category-nav-buffer"></div>
+
+
+
+
+
+
+
+<script data-do-not-move="true" type="text/javascript">
+
+    var shellInitOptions = {
+        lcaDisclaimerEnabled: false,
+        suggestedProductTitle : 'Suggested products'
+    };
+
+    
+    var meControlInitOptions = {
+        containerId: 'meControl',
+            enabled: true,
+        headerHeight: 48,
+        custom: { chevHtml: '<i class="msame_chev_uhf shell-icon-dropdown"></i>' },
+        
+            
+            market: 'en-US',
+            
+
+        mobileBreakpoints: {
+            shortHeader: 1084
+        },
+
+        rpData:
+        {
+            msaInfo:
+            {
+                    
+                        signInUrl: '/en-us/store/signin',
+                        signOutUrl: '/en-us/store/signout',
+                        accountSettingsUrl: 'https://account.microsoft.com/',
+                        switchUrl: '',
+                        meUrl: 'https://login.live.com/me.srf?wa=wsignin1.0',
+                        isSupported: true
+                    
+            },
+            aadInfo:
+            {
+            },
+            preferredIdp: 'msa',
+        },
+        signInStr: 'Sign in',
+        signOutStr: 'Sign out'
+    };
+</script>
+ 
+    </div>
+    <input type="hidden" id="UhfSignInOutLink" value="https://login.live.com/login.srf?wa=wsignin1.0&amp;rpsnv=13&amp;ct=1480437903&amp;rver=6.7.6640.0&amp;wp=MCMBI&amp;wlcxt=MSDN%24MSDN%24MSDN&amp;wreply=https%3a%2f%2fmsdn.microsoft.com%2fen-us%2flibrary%2fwindows%2fdesktop%2fee416324%2528v%3dvs.85%2529.aspx&amp;lc=1033&amp;id=254354&amp;mkt=en-US">
+    
+    
+    
+
+
+
+
+
+
+
+
+    <div id="breadcrumbs">
+        <div id="breadcrumbDesktop" class="breadCrumb">
+                        <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee663279(v=vs.85).aspx" title="Graphics and Gaming"></a></span>
+                        <span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee663274(v=vs.85).aspx" title="DirectX Graphics and Gaming"><span>DirectX Graphics and Gaming</span></a></span>
+                        <span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh309465(v=vs.85).aspx" title="Classic DirectX Graphics"><span>Classic DirectX Graphics</span></a></span>
+                        <span class="breadcrumbDropSmall">
+                            <a id="breadcrumbDropDownButton" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324%28v=vs.85%29.aspx#" targethref="https://msdn.microsoft.com/en-us/library/windows/desktop/hh309465(v=vs.85).aspx" title="Technical Articles" role="button" aria-expanded="false"><span>Technical Articles</span></a>
+                        </span>
+        </div>
+        <div id="breadcrumbDropDownMenu" style="display: none;"></div>
+
+        <div id="breadcrumbTablet" class="breadCrumb">
+                        <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh309465(v=vs.85).aspx" title="Classic DirectX Graphics"></a></span>
+                    <span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416994(v=vs.85).aspx" title="Technical Articles"><span>Technical Articles</span></a></span>
+                <span class="breadcrumbDropSmall"><a id="tocDropDownButton" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324%28v=vs.85%29.aspx#" title="Common Techniques to Improve Shadow Depth Maps" role="button" aria-expanded="false"><span>Common Techniques to Improve Shadow Depth Maps</span></a></span>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(d=printer,v=vs.85).aspx" rel="nofollow"><ins class="print"></ins>Print </a>
+            <a id="isd_printABook" href="https://msdn.microsoft.com/en-us/library/export/help/?returnurl=%2fen-us%2flibrary%2fwindows%2fdesktop%2fee416324(v%3dvs.85).aspx">
+                <ins class="export"></ins>Export (<span class="count">0</span>)
+            </a>
+        </div></div>
+        <div id="tocDropDownMenu" style="display: none;"></div>
+        <div id="breadcrumbMobile" class="breadCrumb">
+                <span class="breadcrumbEllipsis"><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416994(v=vs.85).aspx" title="Technical Articles"></a></span>
+            <span class="breadcrumbDropSmall"><a id="tocPopupButton" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324%28v=vs.85%29.aspx#" title="Common Techniques to Improve Shadow Depth Maps" role="button" aria-expanded="false"><span>Common Techniques to Improve Shadow Depth Maps</span></a></span>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(d=printer,v=vs.85).aspx" rel="nofollow"><ins class="print"></ins>Print </a>
+            <a id="isd_printABook" href="https://msdn.microsoft.com/en-us/library/export/help/?returnurl=%2fen-us%2flibrary%2fwindows%2fdesktop%2fee416324(v%3dvs.85).aspx">
+                <ins class="export"></ins>Export (<span class="count">0</span>)
+            </a>
+        </div></div>
+    </div>
+    <div id="tocPopupMenu" style="display: none;">
+        <div id="tocPopMenuClose" class="tocCloseLarge" role="button" aria-label="Close Popup Menu" tabindex="0"></div>
+        <div id="tocTitle">Common Techniques to Improve Shadow Depth Maps</div>
+    </div>
+
+
+        <div id="body" ms.pgarea="body" class="">
+            <span id="tabletView_large"></span>
+            <span id="tabletView_small"></span>
+            <span id="mobileView"></span>
+            
+
+
+
+
+
+
+
+    <div id="leftNav" ms.cmpgrp="left toc" role="navigation" aria-label="left toc" style="height: auto;">
+
+    
+
+
+<div id="tocnav" class="ArchiveV2">
+    <div class="tocunselected">
+        <div id="tocExpandArea" style="display: block;">
+            <span class="toc_empty"></span>
+            <span id="tocExpandButton"><a href="javascript:void(0)" aria-label="expand sibling toc" role="button"></a></span>
+        </div>
+        <div id="tocExpand"><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418798(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="64-bit programming for Game Developers">64-bit programming for Game Developers</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416211(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Authenticode Signing for Game Developers">Authenticode Signing for Game Developers</a>                </div></div>
+    <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416233(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Best Security Practices in Game Development">Best Security Practices in Game Development</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416307(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Cascaded Shadow Maps">Cascaded Shadow Maps</a>                </div><div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416321(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Coding For Multiple Cores on Xbox 360 and Microsoft Windows">Coding For Multiple Cores on Xbox 360 and Microsoft Windows</a>                </div></div>
+    <div class="tocselected"><div class="toclevel current" data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Common Techniques to Improve Shadow Depth Maps">Common Techniques to Improve Shadow Depth Maps</a>                </div><div class="tocPadding"></div></div>
+    <div class="tocunselected">
+                
+                
+                
+                
+                
+                
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416349(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Crash Dump Analysis">Crash Dump Analysis</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416588(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Debugging with Symbols">Debugging with Symbols</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416643(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Direct3D 10 Frequently Asked Questions">Direct3D 10 Frequently Asked Questions</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416788(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="DirectX Frequently Asked Questions">DirectX Frequently Asked Questions</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416805(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="DirectX Installation for Game Developers">DirectX Installation for Game Developers</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416808(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Disabling Shortcut Keys in Games">Disabling Shortcut Keys in Games</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee417693(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Game Timing and Multicore Processors">Game Timing and Multicore Processors</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee417691(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Games for Windows Technical Requirements">Games for Windows Technical Requirements</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee417692(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Games for Windows Test Cases">Games for Windows Test Cases</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee417694(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Gaming with Least-Privileged User Accounts">Gaming with Least-Privileged User Accounts</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418268(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Install-on-Demand for Games">Install-on-Demand for Games</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418265(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Installation and Maintenance of Games">Installation and Maintenance of Games</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418650(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Lockless Programming Considerations for Xbox 360 and Microsoft Windows">Lockless Programming Considerations for Xbox 360 and Microsoft Windows</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418665(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Installation Best Practices for Massively Multiplayer Online Games">Installation Best Practices for Massively Multiplayer Online Games</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418266(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Installing and Using Input Method Editors">Installing and Using Input Method Editors</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418274(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Introduction to the 10-Foot Experience for Windows Game Developers">Introduction to the 10-Foot Experience for Windows Game Developers</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee415219(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Making Video Games Accessible: Business Justifications and Design Considerations">Making Video Games Accessible: Business Justifications and Design Considerations</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418705(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Optimizing DVD performance for Windows Games">Optimizing DVD performance for Windows Games</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418715(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Patching Game Software in Windows XP, Windows Vista, and Windows 7">Patching Game Software in Windows XP, Windows Vista, and Windows 7</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418784(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Resource Management Best Practices">Resource Management Best Practices</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418797(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Simplifying Game Installation">Simplifying Game Installation</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418864(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Taking Advantage of High-Definition Mouse Movement">Taking Advantage of High-Definition Mouse Movement</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418867(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="The Direct3D Transformation Pipeline">The Direct3D Transformation Pipeline</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418872(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Top Issues for Windows Titles">Top Issues for Windows Titles</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee418873(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Top Tools and Techniques for Making More Robust Windows Games">Top Tools and Techniques for Making More Robust Windows Games</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee419001(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="User Account Control for Game Developers">User Account Control for Game Developers</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee419002(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Using an Input Method Editor in a Game">Using an Input Method Editor in a Game</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee417690(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Windows Firewall for Game Developers">Windows Firewall for Game Developers</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee419047(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Windows Games Explorer for Game Developers">Windows Games Explorer for Game Developers</a>                </div>
+                <div class="toclevel " data-toclevel="1">
+<span class="toc_empty"></span><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee419048(v=vs.85).aspx" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Windows Installer for Game Developers">Windows Installer for Game Developers</a>                </div>
+    </div>
+    <a id="tocMenuToggler" href="javascript:void(0)" role="button">
+        <span id="tocMenuTogglerIcon" class="tocMenuCollapse" role="button" aria-expanded="true" aria-label="Table of contents menu"></span>
+        <div id="tocMenuTogglerLabel">TOC</div>
+    </a>
+</div>            <div style="display:none">
+                <div id="CollapseLocalizeString">Collapse the table of content</div>
+                <div id="ExpandLocalizeString">Expand the table of content</div>
+            </div>
+        <div>
+            <a id="isd_archiveControlResponsive" style="display:none;" href="javascript:void(0)" role="button" aria-label="Hide Archived Versions" data-include-archive="Show Archived Versions" data-exclude-archive="Hide Archived Versions">
+            </a>
+            <div id="isd_archiveInstrument" style="display:none">This documentation is archived and is not being maintained.</div>
+        </div>
+    </div>
+     <div id="content" class="content" ms.cmpgrp="content body" role="main">
+
+
+
+
+
+
+
+
+    <div id="archiveDisclaimerText" style="display:none">This documentation is archived and is not being maintained.</div>
+
+
+
+
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">Common Techniques to Improve Shadow Depth Maps</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Shadow maps, first introduced in 1978, are a common technique for adding shadows to games. Three decades later, despite advances in hardware and software, shadowing artifacts—namely shimmering edges, perspective aliasing, and other precision issues—persist.</p>
+<p>This technical article provides an overview of some common shadow depth map algorithms and common artifacts, and explains several techniques—ranging in difficulty from basic to intermediate—that can be used to increase the quality of standard shadow maps. Adding basic shadow maps to a title typically is straightforward, but understanding the nuances of shadow artifacts can be challenging. This technical article is written for the intermediate graphics developer who has implemented shadows, but does not fully understand why specific artifacts appear and is not sure how to work around them.
+
+</p>
+<p>Selecting the correct techniques to mitigate specific artifacts is nontrivial. When shadow map shortcomings are addressed, the difference in quality can be impressive (Figure 1). Correctly implementing these techniques drastically improves standard shadows. The techniques explained in this article are implemented in the sample CascadedShadowMaps11 in the DirectX SDK.
+
+</p>
+<p><strong>Figure 1.  Shadows with severe artifacts (left), and shadows after implementing the techniques described in this article (right)</strong></p><img id="shadows_before_and_after" alt="Shadows with severe artifacts (left), and shadows after implementing the techniques described in this article (right)" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340442.jpg" title="Shadows with severe artifacts (left), and shadows after implementing the techniques described in this article (right)" xmlns=""><h2><a id="Shadow_Depth_Maps_Review"></a><a id="shadow_depth_maps_review"></a><a id="SHADOW_DEPTH_MAPS_REVIEW"></a>Shadow Depth Maps Review</h2>
+<p>The shadow depth map algorithm is a two-pass algorithm. The first pass generates a depth map in light space. In the second pass, this map is used to compare each pixel's depth in light space against its corresponding depth in the light space depth map.
+
+</p>
+<p><strong>Figure 2.  Key parts of a shadow scene</strong></p><img id="key_parts_of_shadow_scene" alt="Key parts of a shadow scene" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340443.jpg" title="Key parts of a shadow scene" xmlns=""><h3><a id="Pass_1"></a><a id="pass_1"></a><a id="PASS_1"></a>Pass 1</h3>
+<p>The scene is shown in Figure 2. In the first pass (Figure 3), the geometry is rendered into a depth buffer from the point of view of the light. More specifically, the vertex shader transforms the geometry into light-view space.
+
+</p>
+<p>The end result of this first pass is a depth buffer containing the scene's depth information from the point of view of the light. This now can be used in pass 2 to determine which pixels are occluded from the light.
+
+</p>
+<p><strong>Figure 3.  First pass of basic shadow mapping</strong></p><img id="first_pass_of_basic_hadow_mapping" alt="First pass of basic shadow mapping" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC613295.png" title="First pass of basic shadow mapping" xmlns=""><h3><a id="Pass_2"></a><a id="pass_2"></a><a id="PASS_2"></a>Pass 2</h3>
+<p>In the second pass (Figure 4), the vertex shader transforms each vertex twice. Each vertex is transformed into the camera's view space and passed to the pixel shader as the position. Each vertex is also transformed by the light's view-projection-texture matrix and passed to the pixel shader as a texture coordinate. The view-projection-texture matrix is the same matrix used to render the scene in pass 1 with one additional transform. It's a transformation that scales and translates the points from view space (–1 to 1 in X and Y) to texture space (0 to 1 in X and 1 to 0 in Y).
+
+</p>
+<p>The pixel shader receives the interpolated position and the interpolated texture coordinates. Everything needed to perform the depth test is now in this texture coordinate. The depth test can now be performed by indexing the depth buffer from the first pass with the X and Y texture coordinates and comparing the resulting depth value against the Z-texture coordinate.
+
+</p>
+<p><strong>Figure 4.  Second pass of basic shadow mapping</strong></p><img id="second_pass_of_basic_shadow_mapping" alt="Second pass of basic shadow mapping" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC613296.png" title="Second pass of basic shadow mapping" xmlns=""><h2><a id="Shadow_Map_Artifacts"></a><a id="shadow_map_artifacts"></a><a id="SHADOW_MAP_ARTIFACTS"></a>Shadow Map Artifacts</h2>
+<p>The shadow depth map algorithm is the most widely used real-time shadowing algorithm, but still produces several artifacts requiring mitigation. The types of artifacts that can occur are summarized next.
+
+</p>
+<h3><a id="Perspective_Aliasing"></a><a id="perspective_aliasing"></a><a id="PERSPECTIVE_ALIASING"></a>Perspective Aliasing</h3>
+<p>Perspective aliasing, a common artifact, is shown in Figure 5. It occurs when the mapping of pixels in view space to texels in the shadow map is not a one-to-one ratio. This is because pixels close to the near plane are closer together and require a higher shadow map resolution.
+
+</p>
+<p>Figure 6 shows a shadow map and a view frustum. Near the eye, the pixels are closer together, and many pixels map to the same shadow texels. The pixels by the far plane are spread out, thereby reducing perspective aliasing.
+
+</p>
+<p><strong>Figure 5.  High-perspective aliasing (left) vs. low-perspective aliasing (right)</strong></p><img id="high_perspective_aliasing_vs_low_perspective_aliasing" alt="High-perspective aliasing (left) vs. low-perspective aliasing (right)" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340446.jpg" title="High-perspective aliasing (left) vs. low-perspective aliasing (right)" xmlns=""><p>For the image at left, perspective aliasing is higher; too many eye-space pixels map to the same shadow-map texels. In the image at right, perspective aliasing is low because there is a 1:1 mapping between the eye-space pixels and shadow-map texels.
+
+</p>
+<p><strong>Figure 6.  View frustum with shadow map</strong></p><img id="view_frustum_with_shadow_map" alt="View frustum with shadow map" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340447.jpg" title="View frustum with shadow map" xmlns=""><p>Light pixels in the far plane represent low-perspective aliasing, and dark pixels in the near plane represent high-perspective aliasing.
+
+</p>
+<p>Shadow map resolution can also be too high. Although a higher resolution is less noticeable, it nevertheless can result in small objects, such as telephone wires, not casting shadows. Also, having too high of a resolution can cause severe performance issues because of texture access patterns.
+
+</p>
+<p>Perspective shadow maps (PSMs) and light space perspective shadow maps (LSPSMs) attempt to address perspective aliasing by skewing the light's projection matrix in order to place more texels near the eye where they are needed. Unfortunately, neither technique is able to solve the perspective aliasing. The parameterization of the transform required to map eye-space pixels to texels in the shadow map cannot be bound by a linear skew. A logarithmic parameterization is required. PSMs put too much detail near the eye, causing distant shadows to be of low quality or to even disappear. LSPSMs do a better job of finding a middle ground between increasing resolution near the eye, and leaving enough detail for objects far away. Both techniques degenerate to orthographic shadows in some scene configurations. This degeneration can be counteracted by rendering a separate shadow map for each face of the view frustum, although this is expensive. Logarithmic perspective shadow maps (LogPSMs) also render a separate map per face of the view frustum. This technique uses nonlinear rasterization to place more texels near the eye. D3D10 and D3D11-class hardware do not support nonlinear rasterization. For more information about these techniques and algorithms, see the References section.
+
+</p>
+<p>Cascaded shadow maps (CSMs) are the most popular technique for dealing with perspective aliasing. Although CSMs can be combined with PSMs and LSPSMs, it's unnecessary. Using CSMs to fix perspective aliasing errors is addressed in the companion article, <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416307(v=vs.85).aspx">Cascaded Shadow Maps</a>.
+
+</p>
+<h3><a id="Projective_Aliasing"></a><a id="projective_aliasing"></a><a id="PROJECTIVE_ALIASING"></a>Projective Aliasing</h3>
+<p>Projective aliasing is harder to show than perspective aliasing. The distended shadows highlighted in Figure 7 demonstrate projective aliasing errors. Projective aliasing occurs when the mapping between texels in camera space to texels in light space is not a one-to-one ratio; this is because of the orientation of the geometry with respect to the light camera. Projective aliasing occurs as the tangent plane of the geometry becomes parallel to the light rays.
+
+</p>
+<p><strong>Figure 7.  High-projective aliasing vs. low-projective aliasing</strong></p><img id="high_projective_aliasing_vs_low projective_aliasing" alt="High-projective aliasing vs. low-projective aliasing" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC613297.jpg" title="High-projective aliasing vs. low-projective aliasing" xmlns=""><p>Techniques used to alleviate perspective aliasing errors also mitigate projective aliasing. Projective aliasing occurs when the surface normal is orthogonal to the light; these surfaces should be receiving less light based on diffuse lighting equations.
+
+</p>
+<h3><a id="Shadow_Acne_and_Erroneous_Self-Shadowing"></a><a id="shadow_acne_and_erroneous_self-shadowing"></a><a id="SHADOW_ACNE_AND_ERRONEOUS_SELF-SHADOWING"></a>Shadow Acne and Erroneous Self-Shadowing</h3>
+<p>Shadow acne (Figure 8), a term synonymous with erroneous self-shadowing, occurs when the shadow map quantizes the depth over an entire texel. When the shader compares an actual depth against this value, it is as likely to be self-shadowed as it is to be unshadowed.
+
+</p>
+<p>Another reason for shadow acne is that the texel in light space is so close to the depth of the corresponding texel in the depth map that precision errors cause the depth test to erroneously fail. One reason for this precision difference is that the depth map was calculated by the fixed-function rasterization hardware, while the depth being compared was computed by the shader. Projective aliasing can also cause shadow acne.
+
+</p>
+<p><strong>Figure 8.  Shadow acne artifact</strong></p><img id="shadow_acne_artifact" alt="Shadow acne artifact" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340448.jpg" title="Shadow acne artifact" xmlns=""><p>As shown in the left image, some of pixels failed the depth test and created speckled artifacts and moiré patterns. In order to reduce erroneous self-shadowing, the bounds on the near plane and the far plane for the light space view frustum should be calculated as tightly as possible. The slope scale-based depth bias and other types of bias are other solutions used to mitigate shadow acne. 
+
+</p>
+<h3><a id="Peter_Panning"></a><a id="peter_panning"></a><a id="PETER_PANNING"></a>Peter Panning</h3>
+<p>The term <em>Peter Panning</em> derives its name from a children's book character whose shadow became detached and who could fly. This artifact makes objects with missing shadows appear to be detached from and to float above the surface (Figure 9).
+
+</p>
+<p><strong>Figure 9.  Peter Panning artifact</strong></p><img id="Peter_Panning_artifact" alt="Peter Panning artifact" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340449.jpg" title="Peter Panning artifact" xmlns=""><p>In the image at left, the shadow is detached from the object, creating a floating effect.
+
+</p>
+<p>One technique for removing surface acne is to add some value to pixel position in light space; this is called adding a depth offset. Peter Panning results when the depth offset used is too large. In this case the depth offset causes the depth test to erroneously pass. Like shadow acne, Peter Panning is aggravated when there is insufficient precision in the depth buffer. Calculating tight near planes and far planes also helps avoid Peter Panning.
+
+</p>
+<h2><a id="Techniques_to_Improve_Shadow_Maps"></a><a id="techniques_to_improve_shadow_maps"></a><a id="TECHNIQUES_TO_IMPROVE_SHADOW_MAPS"></a>Techniques to Improve Shadow Maps</h2>
+<p>Adding shadows to a title is a process. The first step is to get basic shadow maps working. The second is to ensure all basic calculations are done optimally: frusta fit as tightly as possible, near/far planes fit tightly, slope-scaled bias is used, and so on. Once basic shadows are enabled, and look as good as possible, the developer has a better idea of what algorithms are needed to get the shadows to sufficient fidelity. Basic tips that may be needed to get basic shadow maps looking at their best are given in this section.
+
+</p>
+<h3><a id="Slope-Scale_Depth_Bias"></a><a id="slope-scale_depth_bias"></a><a id="SLOPE-SCALE_DEPTH_BIAS"></a>Slope-Scale Depth Bias</h3>
+<p>As previously mentioned, self-shadowing can lead to shadow acne. Adding too much bias can result in Peter Panning. Additionally, polygons with steep slopes (relative to the light) suffer more from projective aliasing than polygons with shallow slopes (relative to the light). Because of this, each depth map value may need a different offset depending on the polygon's slope relative to the light.
+
+</p>
+<p>Direct3D 10 hardware has the ability to bias a polygon based on its slope with respect to the view direction. This has the effect of applying a large bias to a polygon that is viewed edge-on to the light direction, but not applying any bias to a polygon facing the light directly. Figure 10 illustrates how two neighboring pixels can alternate between shadowed and unshadowed when testing against the same unbiased slope.
+
+</p>
+<p><strong>Figure 10.  Slope scaled depth-bias compared to unbiased depth</strong></p><img id="slope_scaled_depth_bias_compared_to_unbiased_depth" alt="Slope scaled depth-bias compared to unbiased depth" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC613298.png" title="Slope scaled depth-bias compared to unbiased depth" xmlns=""><h3><a id="Calculating_a_Tight_Projection"></a><a id="calculating_a_tight_projection"></a><a id="CALCULATING_A_TIGHT_PROJECTION"></a>Calculating a Tight Projection</h3>
+<p>Tightly fitting the light's projection to the view frustum increases the shadow map coverage. Figure 11 illustrates that using an arbitrary projection, or fitting the projection to the scene bounds, results in higher perspective aliasing.</p>
+<p><strong>Figure 11.  Arbitrary shadow frustum and shadow frustum fit to scene</strong></p><img id="arbitrary_shadow_frustum_and_shadow_frustum_fit_to_scene" alt="Arbitrary shadow frustum and shadow frustum fit to scene" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340451.jpg" title="Arbitrary shadow frustum and shadow frustum fit to scene" xmlns=""><p>The view is from the point of view of the light. The trapezoid represents the view camera's frustum. The grid drawn over the image represents the shadow map. The image on the right shows that the same resolution shadow map creates more texel coverage when it is fit more tightly to the scene.
+
+</p>
+<p>Figure 12 illustrates frustums that are correctly fit. To calculate the projection, the eight points that make up the view frustum are transformed into light space. Next, the minimum and maximum values in X and Y are found. These values make up the bounds for an orthographic projection.
+
+</p>
+<p><strong>Figure 12.  Shadow projection fit to view frustum</strong></p><img id="shadow_projection_fit_to_view_frustum" alt="Shadow projection fit to view frustum" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340452.jpg" title="Shadow projection fit to view frustum" xmlns=""><p>It is also possible to clip the frustum to the scene AABB to get a tighter bound. This is not advised in all cases because this can change the size of the light camera's projection from frame to frame. Many techniques, such as those described in the section Moving the Light Texel-Sized Increments, give better results when the size of the light's projection remains constant in every frame.
+
+</p>
+<h3><a id="Calculating_the_Near_Plane_and_Far_Plane"></a><a id="calculating_the_near_plane_and_far_plane"></a><a id="CALCULATING_THE_NEAR_PLANE_AND_FAR_PLANE"></a>Calculating the Near Plane and Far Plane</h3>
+<p>The near plane and far plane are the final pieces required to calculate the projection matrix. The more closely together the planes are, the more precise the values in the depth buffer.
+
+</p>
+<p>The depth buffer can be 16-bit, 24-bit, or 32-bit, with values between 0 and 1. Generally, depth buffers are fixed point, with the values close to the near plane grouped more closely together than the values close to the far plane. The degree of precision available to the depth buffer is determined by the ratio of the near plane to the far plane. Using the tightest possible near/far plane could allow use of a 16-bit depth buffer. A 16-bit depth buffer could reduce the use of memory while increasing processing speed.
+
+</p>
+<h3><a id="AABB-Based_Near_Plane_and_Far_Plane"></a><a id="aabb-based_near_plane_and_far_plane"></a><a id="AABB-BASED_NEAR_PLANE_AND_FAR_PLANE"></a>AABB-Based Near Plane and Far Plane</h3>
+<p>An easy and naive way to calculate the near plane and far plane is to transform the scene's bounding volume into light space. The smallest Z-coordinate value is the near plane and the largest Z-coordinate value is the far plane. For many configurations of the scene and light, this approach is sufficient. The worst case scenario, however, can result in a significant loss of precision in the depth buffer; Figure 13 shows such a scenario. Here the range of the near plane to the far plane is four times larger than necessary.
+
+</p>
+<p>The view frustum in Figure 13 was purposely chosen to be small. A small view frustum is shown in a very large scene consisting of pillars extending out from the view camera. Using the Scene AABB for the near and far planes is not optimal. The CSM algorithm described in the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416307(v=vs.85).aspx">Cascaded Shadow Maps</a> technical article must calculate near and far planes for very small frustums.
+
+</p>
+<p><strong>Figure 13.  Near and far planes based on Scene AABB</strong></p><img id="near_far_ planes_based_on_Scene_AABB" alt="Near and far planes based on Scene AABB" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC613299.jpg" title="Near and far planes based on Scene AABB" xmlns=""><h3><a id="Frustum-Based_Near_Plane_and_Far_Plane"></a><a id="frustum-based_near_plane_and_far_plane"></a><a id="FRUSTUM-BASED_NEAR_PLANE_AND_FAR_PLANE"></a>Frustum-Based Near Plane and Far Plane</h3>
+<p>Another technique for calculating the near and far planes is to transform the frustum into light space and use the minimal and maximal values in Z as the near and the far planes, respectively. Figure 14 illustrates the two issues with this approach. First, the calculation is too conservative, as shown when the frustum extends beyond the scene's geometry. Second, the near plane could be too tight, causing shadow casters to be cropped.
+
+</p>
+<p><strong>Figure 14.  Near and far planes based solely on view frustum</strong></p><img id="near_far_planes_based_solely_on_view_frustum" alt="Near and far planes based solely on view frustum" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340453.jpg" title="Near and far planes based solely on view frustum" xmlns=""><h3><a id="Light_Frustum_Intersected_with_Scene_to_Calculate_Near_and_Far_Planes"></a><a id="light_frustum_intersected_with_scene_to_calculate_near_and_far_planes"></a><a id="LIGHT_FRUSTUM_INTERSECTED_WITH_SCENE_TO_CALCULATE_NEAR_AND_FAR_PLANES"></a>Light Frustum Intersected with Scene to Calculate Near and Far Planes</h3>
+<p>The proper way to calculate the near and far planes is shown in Figure 15. Four of the planes of the orthographic light frustum were calculated using the minimum and maximum of the X and Y coordinates of the view frustum in light space. The last two planes of the orthogonal view frustum are the near and the far planes. To find these planes, the scene's bounds are clipped against the four known light frustum planes. The smallest and largest Z-values from the newly clipped boundary represent the near plane and far plane, respectively.
+
+</p>
+<p>The code that performs this operation is located in the CascadedShadowMaps11 sample. The eight points that make up the world's AABB are transformed into light space. Transforming the points into light space simplifies the clipping tests. The four known planes of the light frustum can now be represented as lines. The scenes bounding volume in light space can be represented as six quadrilaterals. These 6 quadrilaterals can then be turned into 12 triangles for triangle-based clipping. The triangles are clipped against the known planes of the view frustum (these are horizontal and vertical lines in X and Y in light space). When an intersection point is found in X and Y, the 3D triangle is clipped at that point. The minimum and maximum Z-values of all the clipped triangles are the near plane and far plane. The CascadedShadowMaps11 sample shows how to perform this clipping in the <strong>ComputeNearAndFar</strong> function.
+
+</p>
+<p>There are two more techniques that could be used to calculate the tightest possible near and far planes. These techniques are not shown in the CascadedShadowMaps sample.
+
+</p>
+<ul>
+<li>Even tighter near and far planes could be calculated by intersecting a hierarchy of a scene or individual objects in a scene against the light frustum. This would be computationally more complex. While not illustrated in the CascadedShadowMaps11 sample, this could be a valid technique for some tiles.
+
+</li>
+<li>
+<p>The far plane could be calculated by taking the minimum of:</p>
+<ul>
+<li>The largest depth of the view frustum in light space.</li>
+<li>The largest depth of the intersection of the view frustum and the scene AABB.</li>
+</ul>
+</li>
+</ul>
+<p>This approach can be problematic when used with cascaded shadow maps where it is possible to index outside of a view frustum. In this case, the shadow map might be missing geometry.
+
+</p>
+<p><strong>Figure 15.  Near and far planes based on the intersection of the four calculated planes of the light frustum and the scene's bounding geometry</strong></p><img id="near_far_plane_based_on_intersection_of_four" alt="Near and far planes based on the intersection of the four calculated planes of the light frustum and the scene&#39;s bounding geometry" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340454.jpg" title="Near and far planes based on the intersection of the four calculated planes of the light frustum and the scene&#39;s bounding geometry" xmlns=""><h3><a id="Moving_the_Light_in_Texel-Sized_Increments"></a><a id="moving_the_light_in_texel-sized_increments"></a><a id="MOVING_THE_LIGHT_IN_TEXEL-SIZED_INCREMENTS"></a>Moving the Light in Texel-Sized Increments</h3>
+<p>A common artifact in shadow maps is the shimmering edge effect. As the camera moves, the pixels along the shadows' edges brighten and darken. This cannot be seen in still images, but it is very noticeable and distracting in real time. Figure 16 highlights this problem and Figure 17 shows how the shadow edges should look.
+
+</p>
+<p>The shimmering edge error occurs because the light projection matrix is being recalculated every time the camera moves. This creates subtle differences in the generated shadow maps. All of the following factors can influence the matrix created to bound the scene.
+
+</p>
+<ul>
+<li>Size of the view frustum</li>
+<li>Orientation of the view frustum</li>
+<li>Location of the light</li>
+<li>Location of the camera</li>
+</ul>
+<p>Every time this matrix changes, the shadows edges could change.
+
+</p>
+<p><strong>Figure 16.  Shimmering shadow edges</strong></p><img id="shimmering_shadow_edges" alt="Shimmering shadow edges" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340455.jpg" title="Shimmering shadow edges" xmlns=""><p>The pixels along the border of the shadow come in and out of shadow as the camera moves from left to right.
+
+</p>
+<p><strong>Figure 17.  Shadows without shimmering edges</strong></p><img id="shadows_without_shimmering_edges" alt="Shadows without shimmering edges" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC340456.jpg" title="Shadows without shimmering edges" xmlns=""><p>The shadow edges stay constant as the camera moves from left to right.
+
+</p>
+<p>For directional lights, the solution to this problem is to round the minimum/maximum value in X and Y (that make up the orthographic projection bounds) to pixel size increments. This can be done with a divide operation, a floor operation, and a multiply.
+
+</p>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>C++</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode(&#39;CodeSnippetContainerCode_2fb133e1-1cbf-4941-ac78-df30eba5939c&#39;);" ms.cmptyp="CodeSnippet">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_2fb133e1-1cbf-4941-ac78-df30eba5939c" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+        vLightCameraOrthographicMin /= vWorldUnitsPerTexel;
+        vLightCameraOrthographicMin = XMVectorFloor( vLightCameraOrthographicMin );
+        vLightCameraOrthographicMin *= vWorldUnitsPerTexel;
+        vLightCameraOrthographicMax /= vWorldUnitsPerTexel;
+        vLightCameraOrthographicMax = XMVectorFloor( vLightCameraOrthographicMax );
+        vLightCameraOrthographicMax *= vWorldUnitsPerTexel;
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>The vWorldUnitsPerTexel value is calculated by taking a bound of the view frustum, and dividing by the buffer size.
+
+</p>
+
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>C++</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode(&#39;CodeSnippetContainerCode_b71507b2-054b-478d-a36e-601f2cad9e89&#39;);" ms.cmptyp="CodeSnippet">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_b71507b2-054b-478d-a36e-601f2cad9e89" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+        FLOAT fWorldUnitsPerTexel = fCascadeBound /
+        (<span style="color:Blue;">float</span>)m_CopyOfCascadeConfig.m_iBufferSize;
+        vWorldUnitsPerTexel = XMVectorSet( fWorldUnitsPerTexel, fWorldUnitsPerTexel, 						   	0.0f, 0.0f );
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>Bounding the maximum size of the view frustum results in a looser fit for the orthographic projection.
+
+</p>
+<p>It is important to note that the texture is 1 pixel larger in width and height when using this technique. This keeps shadow coordinates from indexing outside of the shadow map.
+
+</p>
+<h3><a id="Back_Face_and_Front_Face"></a><a id="back_face_and_front_face"></a><a id="BACK_FACE_AND_FRONT_FACE"></a>Back Face and Front Face</h3>
+<p>Shadow maps should be rendered with standard back-face culling, a process that skips rasterization of objects that the viewer cannot see, and speeds up rendering of the scene. Another common option is to render shadow maps with front-face culling enabled, which means that objects facing the viewer are eliminated. The argument for this is that it helps with self-shadowing as the geometry making up the back of objects is slightly offset. There are two problems with this idea.
+
+</p>
+<ul>
+<li>Any object with improper front-face or back-face geometry causes artifacts in the shadow map. However, having incorrect front-face or back-face geometry will cause other problems, so it may be safe to assume front-face and back-face geometry is done correctly. It may be impractical to create back faces for sprite-based geometry such as foliage.</li>
+<li>Peter Panning and shadow gaps near the base of objects such as walls are more likely to occur because the shadow depth disparity is too small.
+
+</li>
+</ul>
+<h3><a id="Shadow_Map_Friendly_Geometry"></a><a id="shadow_map_friendly_geometry"></a><a id="SHADOW_MAP_FRIENDLY_GEOMETRY"></a>Shadow Map–Friendly Geometry</h3>
+<p>Creating geometry that works well in shadow maps allows for more flexibility when combating artifacts like Peter Panning and shadow acne.
+
+</p>
+<p>Hard edges are problematic for self-shadowing. The depth disparity near the tip of the edge is very small. Even a small offset can cause objects to lose their shadows (Figure 18).
+
+</p>
+<p><strong>Figure 18.  Sharp edges cause artifacts stemming from low-depth disparity with offsets</strong></p><img id="sharp_edges_cause artifacts" alt="Sharp edges cause artifacts stemming from low-depth disparity with offsets" src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/IC613300.jpg" title="Sharp edges cause artifacts stemming from low-depth disparity with offsets" xmlns=""><p>Narrow objects such as walls should have backs even if they are never visible. This will increase the depth disparity.
+
+</p>
+<p>It's also important to make sure that the direction the geometry is facing is correct; that is, the outside of an object should be back facing and the inside of an object should be front facing. This is important for rendering with back-face culling enabled, as well as for combating the effects of depth bias.
+
+</p>
+<h2><a id="Summary"></a><a id="summary"></a><a id="SUMMARY"></a>Summary</h2>
+<p>The techniques described in this article can be used to increase the quality of standard shadow maps. The next step is to look at techniques that can work well with standard shadow maps. CSMs are recommended as a superior technique to combat perspective aliasing. Percentage closer filtering or variance shadow maps can be used to soften shadow edges. See the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416307(v=vs.85).aspx">Cascaded Shadow Maps</a> technical article for more information.
+
+</p>
+<p>Donnelly, W., and Lauritzen, A. <a href="http://portal.acm.org/citation.cfm?doid=1111411.1111440">Variance Shadow Maps</a>. Symposium on Interactive 3D Graphics, Proceedings of the 2006 Symposium on Interactive 3D Graphics and Games. 2006, pp. 161–165.
+
+</p>
+<p>Engel, Woflgang F. Section 4. Cascaded Shadow Maps. ShaderX5, <em>Advanced Rendering Techniques</em>, Wolfgang F. Engel, Ed. Charles River Media, Boston, Massachusetts. 2006. pp. 197–206. 
+
+</p>
+<p>Stamminger, Marc, and Drettakis, George. <a href="http://portal.acm.org/citation.cfm?id=566616">Perspective Shadow Maps</a>. International Conference on Computer Graphics and Interactive Techniques, <em>Proceedings of the 29th Annual Conference on Computer Graphics and Interactive Techniques</em>. 2002, pp 557–562.
+
+</p>
+<p>Wimmer, M., Scherzer, D., and Purgathofer, W. <a href="http://www.cg.tuwien.ac.at/research/vr/lispsm/shadows_egsr2004_revised.pdf">Light Space Perspective Shadow Maps</a>. Eurographics Symposium on Rendering. 2004. Revised June 10, 2005. <a href="http://www.cg.tuwien.ac.at/research/vr/lispsm/">Technische Universität Wien</a>.
+
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+</div>
+
+
+
+
+
+
+<div class="libraryMemberFilter">
+    <div class="filterContainer">
+        <span>Show:</span>
+        <label>
+            <input type="checkbox" class="libraryFilterInherited" checked="checked" value="Inherit">Inherited
+        </label>
+        <label>
+            <input type="checkbox" class="libraryFilterProtected" checked="checked" value="Protected">Protected
+        </label>
+    </div>
+</div>
+    
+<input type="hidden" id="libraryMemberFilterEmptyWarning" value="There are no members available with your current filter settings.">
+
+
+
+    </div>
+<div id="rightNavigationMenu" ms.cmpgrp="right nav" style="position: fixed; margin-left: 3px; top: 60px;">
+    <div id="mobileButtons">
+        
+    </div>
+    <div id="navMain">
+        <div id="closeNavigation">
+            <a class="tocCloseSmall" id="closeButton"></a>
+        </div>
+        <div id="navigationButtons">
+            <a id="isd_print" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324(d=printer,v=vs.85).aspx" rel="nofollow"><ins class="print"></ins>Print </a>
+            <a id="isd_printABook2" href="https://msdn.microsoft.com/en-us/library/export/help/?returnurl=%2fen-us%2flibrary%2fwindows%2fdesktop%2fee416324(v%3dvs.85).aspx">
+                <ins class="export"></ins>Export (<span class="count">0</span>)
+            </a>
+            <a id="isdShare" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee416324%28v=vs.85%29.aspx#" role="button" aria-expanded="false">
+                <ins class="share"></ins>Share
+            </a>
+            <div id="socials" style="display: none">
+                <a class="isdFacebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fee416324(v%3Dvs.85).aspx" aria-label="Share on Facebook">
+                    <ins class="facebook"></ins>
+                </a>
+                <a class="isdTwitter" href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fee416324(v%3Dvs.85).aspx&amp;text=Common%20Techniques%20to%20Improve%20Shadow%20Depth%20Maps%20(Windows)&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fee416324(v%3Dvs.85).aspx" aria-label="Share on Twitter">
+                    <ins class="twitter"></ins>
+                </a>
+                <a class="isdGooglePlus" href="https://plus.google.com/share?url=https%3A%2F%2Fmsdn.microsoft.com%2Fen-us%2Flibrary%2Fwindows%2Fdesktop%2Fee416324(v%3Dvs.85).aspx" aria-label="Share on Google+">
+                    <ins class="googlePlus"></ins>
+                </a>
+            </div>
+        </div>
+        <div id="indoc_toc" style="display: none" ms.cmpgrp="indoc toc">
+            <div id="indoc_title">IN THIS ARTICLE</div>
+            <ul id="indoc_toclist"></ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+        </div>
+        <div class="clear"></div>
+
+        
+
+<input name="__RequestVerificationToken" type="hidden" value="ycSddiiiduMFIl0avZx1Uk6HWuh2VtNkHyud27UOMbalWq715K_5sqM76jbQsL-aam4BfEJCnwHT6pePGZbQw9QXG501">
+<input id="ratingValueSubmitUrl" type="hidden" value="https://msdn.microsoft.com/en-us/library/feedback/rate/ee416324(v=vs.85).aspx">
+<input id="ratingAdditionalSubmitUrl" type="hidden" value="https://msdn.microsoft.com/en-us/library/feedback/additional/ee416324(v=vs.85).aspx">
+<input id="isTopicRated" type="hidden" value="false">
+
+
+
+    
+
+
+
+        <link rel="stylesheet" type="text/css" href="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/UhfFooterResponsive.css" data-do-not-move="true">
+    
+    <input type="hidden" id="CurrentUrlLocale" value="en-us">
+    <div id="ux-footer" class="ltr">
+        
+
+
+    <div id="standardRatingBefore" class="clear stdr-container-before"></div>
+    <div id="standardRating" class="stdr-container" ms.pgarea="body" style="width: 1903px; margin-left: 0px; display: block;">
+        <div class="stdr-close" style="display: none;"></div>
+        <div class="stdr-vote stdr-content">
+            <div class="stdr-content">
+                <span class="stdr-votetitle">Is this page helpful?</span>
+                <button class="stdr-yes" aria-label="Yes, this page was helpful">Yes</button>
+                <button class="stdr-no" aria-label="No, this page was not helpful">No</button>
+                <input id="s_ratingValue" type="hidden" value="">
+            </div>
+        </div>
+        <div class="stdr-feedback" style="display: none">
+            <div class="stdr-form">
+                <div class="stdr-fieldtitle">Additional feedback?</div>
+                <textarea class="stdr-detail" rows="6" maxlength="1500"></textarea>
+                <div>
+                    <span class="stdr-count"><span class="stdr-charcnt">1500</span> characters remaining</span>
+                    <div class="stdr-buttons">
+                        <button class="stdr-provide" aria-label="Submit my additional feedback">Submit</button>
+                        <button class="stdr-skip" aria-label="Skip additional feedback">Skip this</button>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="stdr-thanks" style="display: none">
+            <div class="stdr-content">
+                <span class="stdr-thankyou">Thank you!</span>
+                <span class="stdr-appreciate">We appreciate your feedback.</span>
+            </div>
+        </div>
+
+        
+        <div id="contentFeedbackQAContainer" style="display: none;"></div>
+    </div>
+    <div id="standardRatingPlaceholder" style="display: none"></div>
+    
+        <div id="footerContainer">
+            <div id="baseFooter">
+                 
+
+
+<div class="shell-footer" ms.pgarea="uhffooter" data-bi-area="Footer" data-bi-view="3xLinks">
+    <div class="shell-footer-wrapper">
+
+            <div class="shell-footer-menugroups" ms.cmpgrp="footer nav">
+                    <div class="sfm-group" ms.cmpnm="Footer_Tools">
+                        <div class="grp-title">
+                            Downloads and tools <i class="shell-icon-dropdown"></i>
+                        </div>
+                        <ul>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?linkid=280676" ms.title="Windows 10 dev tools" data-bi-name="footer_DownloadsAndTools_Win10DevTools" data-bi-slot="1" data-bi-source="Compass">
+                                            Windows 10 dev tools
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?LinkId=618475" ms.title="Visual Studio" data-bi-name="Footer_DownloadsAndTools_VS" data-bi-slot="2" data-bi-source="Compass">
+                                            Visual Studio
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?linkid=616887" ms.title="Windows SDK" data-bi-name="Footer_DownloadsAndTools_WinSDK" data-bi-slot="3" data-bi-source="Compass">
+                                            Windows SDK
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?LinkId=534236" ms.title="Windows Store badges" data-bi-name="Footer_DownloadsAndTools_Badges" data-bi-slot="4" data-bi-source="Compass">
+                                            Windows Store badges
+                                        </a>
+                                    </li>
+
+                        </ul>
+                    </div>
+                    <div class="sfm-group" ms.cmpnm="Footer_Essentials">
+                        <div class="grp-title">
+                            Essentials <i class="shell-icon-dropdown"></i>
+                        </div>
+                        <ul>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?LinkId=534192" ms.title="API reference (Windows apps)" data-bi-name="Footer_Essentials_WinAppsAPIRef" data-bi-slot="1" data-bi-source="Compass">
+                                            API reference (Windows apps)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?linkid=285627" ms.title="API reference (desktop apps)" data-bi-name="Footer_Essentials_DesktopAppsAPIRef" data-bi-slot="2" data-bi-source="Compass">
+                                            API reference (desktop apps)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/?LinkID=280677" ms.title="Code samples" data-bi-name="FooterEssentialsCodeSamples" data-bi-slot="3" data-bi-source="Compass">
+                                            Code samples
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://msdn.microsoft.com/library/windows/apps/xaml/mt244352.aspx" ms.title="How-to guides (Windows apps)" data-bi-name="Footer_Essentials_HowToWinApps" data-bi-slot="4" data-bi-source="Compass">
+                                            How-to guides (Windows apps)
+                                        </a>
+                                    </li>
+
+                        </ul>
+                    </div>
+                    <div class="sfm-group" ms.cmpnm="Footer_LearningResources">
+                        <div class="grp-title">
+                            Learning resources <i class="shell-icon-dropdown"></i>
+                        </div>
+                        <ul>
+                                    <li>
+                                        <a href="http://www.microsoftvirtualacademy.com/" ms.title="Microsoft Virtual Academy" data-bi-name="Footer_MS_Virtual_Academy" data-bi-slot="1" data-bi-source="Compass">
+                                            Microsoft Virtual Academy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://channel9.msdn.com/" ms.title="Channel 9" data-bi-name="Footer_Ch9" data-bi-slot="2" data-bi-source="Compass">
+                                            Channel 9
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://go.microsoft.com/fwlink/p/?LinkId=534190" ms.title="Video gallery" data-bi-name="Footer_VidGallery" data-bi-slot="3" data-bi-source="Compass">
+                                            Video gallery
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://blogs.windows.com/buildingapps/2015/08/05/build-better-apps-windows-10-by-10-development-series/" ms.title="Windows 10 by 10 blog series" data-bi-name="Footer_LearningResources_WIN10x10blog" data-bi-slot="4" data-bi-source="Compass">
+                                            Windows 10 by 10 blog series
+                                        </a>
+                                    </li>
+
+                        </ul>
+                    </div>
+                    <div class="sfm-group" ms.cmpnm="Footer_Programs">
+                        <div class="grp-title">
+                            Programs <i class="shell-icon-dropdown"></i>
+                        </div>
+                        <ul>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?LinkId=534191" ms.title="Get a dev account" data-bi-name="Footer_Programs_DevAcct" data-bi-slot="1" data-bi-source="Compass">
+                                            Get a dev account
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?LinkID=246847" ms.title="App Developer Agreement" data-bi-name="Footer_Programs_DevAgreement" data-bi-slot="2" data-bi-source="Compass">
+                                            App Developer Agreement
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://insider.windows.com/" ms.title="Windows Insider Program" data-bi-name="Footer_Programs_WinInsider" data-bi-slot="3" data-bi-source="Compass">
+                                            Windows Insider Program
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://go.microsoft.com/fwlink/p/?LinkId=529768" ms.title="Microsoft Affliate Program" data-bi-name="Footer_Programs_MsftAffliatePgrm" data-bi-slot="4" data-bi-source="Compass">
+                                            Microsoft Affliate Program
+                                        </a>
+                                    </li>
+
+                        </ul>
+                    </div>
+
+            </div>
+
+        <div class="shell-footer-lang" ms.cmpgrp="loc picker" ms.cmpnm="loc picker"><span id="selectLocaleFromPopUp">
+        <div class="locale-selector" style="position: relative">
+            <a class="current-locale" href="javascript:void(0)" aria-label="Change your language" aria-haspopup="true">
+                <span class="text">English</span>
+                <span class="gear"></span>
+            </a>
+            <div class="locale-selection-panel site-flag site-flag-lang" style="top: -245px; display: none;">
+                <div class="content" role="menu">
+                    <table class="all-locales" cellspacing="0" autogeneratecolumns="false" allowpaging="false" allowsorting="false" style="border-collapse: collapse;">
+                        <tbody>
+                            <tr>
+
+
+                                    <td><a title="Deutsch" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=de-de&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">Deutsch</a></td>
+                                    <td><a title="English" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=en-us&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link selected" role="menuitem">English</a></td>
+                                    <td><a title="Español" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=es-es&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">Español</a></td>
+                                    <td><a title="Français" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=fr-fr&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">Français</a></td>
+                                        </tr><tr>
+                                    <td><a title="Italiano" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=it-it&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">Italiano</a></td>
+                                    <td><a title="日本語" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=ja-jp&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">日本語</a></td>
+                                    <td><a title="한국어" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=ko-kr&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">한국어</a></td>
+                                    <td><a title="Português" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=pt-br&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">Português</a></td>
+                                        </tr><tr class="last">
+                                    <td><a title="Pусский" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=ru-ru&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">Pусский</a></td>
+                                    <td><a title="简体中文" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=zh-cn&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">简体中文</a></td>
+                                    <td><a title="繁體中文" href="https://msdn.microsoft.com/en-us/?action=selectlocale&amp;currentlocale=en-us&amp;newlocale=zh-tw&amp;frompage=/en-us/library/windows/desktop/ee416324(v=vs.85).aspx" class="locale-link" role="menuitem">繁體中文</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="arrow">
+                        &nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </span></div>
+        <div class="shell-footer-copyright" ms.cmpgrp="corp links" ms.cmpnm="corp" role="contentinfo">
+            <ul>
+                            <li>
+                                <a id="privacyandcookies" href="https://go.microsoft.com/fwlink/p/?linkid=521839" ms.title="Privacy and cookies" class="ctl_footerNavLink" data-bi-name="PrivacyAndCookies" data-bi-slot="1">
+                                    Privacy and cookies
+                                </a>
+                            </li>
+                            <li>
+                                <a id="termsofuse" href="https://go.microsoft.com/fwlink/p/?linkid=248155" ms.title="Terms of use" class="ctl_footerNavLink" data-bi-name="TermsOfUse" data-bi-slot="2">
+                                    Terms of use
+                                </a>
+                            </li>
+                            <li>
+                                <a id="trademarks" href="https://go.microsoft.com/fwlink/p/?linkid=248154" ms.title="Trademarks" class="ctl_footerNavLink" data-bi-name="Trademarks" data-bi-slot="3">
+                                    Trademarks
+                                </a>
+                            </li>
+
+                <li class="ctl_footerCopyright">
+                    © 2016 Microsoft
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        
+    
+    
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footerPrintView">
+            <div class="footerCopyrightPrintView">© 2016 Microsoft</div>
+        </div>
+
+        
+        
+        
+        
+
+
+
+        <input id="MtpsDevice" type="hidden" value="Default">
+
+
+<!--[CDATA[ Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx. ]]-->
+
+        
+        
+        
+            
+        
+
+<!--[CDATA[ WebTrends view model not available or IncludeLegacyWebTrendsScriptInGlobal feature flag is off]]-->
+
+
+
+
+<div id="globalRequestVerification">
+    <input name="__RequestVerificationToken" type="hidden" value="PSvHJ2NZrHxNZoL0UGa7BuI3D9FcPI2YcbMS0Wr4oz608mVTcFiclVWOrKVigke6y_LuX2c8JczaQl0lqhjBfGCfbb41">
+</div>
+
+
+    </div>
+
+    
+    
+
+    
+
+    
+<script type="text/javascript" class="mtps-injected">
+/*<![CDATA[*/
+(function(window,document){"use strict";function preload(scripts){for(var result=[],script,e,i=0;i<scripts.length;i++)script=scripts[i],script.hasOwnProperty("url")&&(e=document.createElement("script"),e.src=script.url,script.throwaway=e),result.push(script);return result}function inject(scripts,index){var script,elem;if(index>=scripts.length){delete mtps.injectScripts;return}script=scripts[index];elem=document.createElement("script");elem.className="mtps-injected";elem.async=!1;var isLoaded=!1,timeoutId=0,injectNextFnName="",injectNext=elem.onerror=function(){isLoaded||(isLoaded=!0,inject(scripts,index+1),window.clearTimeout(timeoutId),elem.onload=elem.onerror=elem.onreadystatechange=null,injectNextFnName&&delete mtps[injectNextFnName],elem.removeEventListener&&elem.removeEventListener("load",injectNext,!1))};elem.addEventListener?elem.addEventListener("load",injectNext,!1):elem.readyState==="uninitialized"?elem.onreadystatechange=function(){(this.readyState==="loaded"||this.readyState==="complete")&&injectNext()}:elem.onload=injectNext;script.hasOwnProperty("url")?(timeoutId=window.setTimeout(injectNext,12e4),elem.src=script.url):(injectNextFnName="_injectNextScript_"+index,mtps[injectNextFnName]=injectNext,timeoutId=window.setTimeout(injectNext,2e3),elem.text="try {\n"+script.txt+"\n} finally { MTPS."+injectNextFnName+" && MTPS."+injectNextFnName+"(); }");parent.appendChild(elem)}var mtps=window.MTPS||(window.MTPS={}),parent=document.getElementsByTagName("head")[0];mtps.injectScripts=function(scripts){inject(preload(scripts),0)}})(window,document);
+MTPS.injectScripts([
+	{ txt: "/**/\r\n(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { \r\n\t\"image\": \"https://i-msdn.sec.s-msft.com\", \r\n\t\"js\": \"https://i2-msdn.sec.s-msft.com\", \r\n\t\"css\": \"https://i-msdn.sec.s-msft.com\", \r\n\t\"ttf\": \"https://i-msdn.sec.s-msft.com\"\r\n});\r\n/**/" },
+	{ url: "https://assets.onestore.ms/cdnfiles/onestorerolling-1611-21000/shell/generated/shellservice.v3.min.js" },
+	{ txt: "var isAuthenticated = (false);\n        var aadEnabled= (false);\n\n        var ssoProperties = {\n          signedIn: isAuthenticated,\n          aadEnabled: aadEnabled,\n          signInOutUrl: $(\"#UhfSignInOutLink\").val(),\n        };\n\n        if (isAuthenticated) {\n          ssoProperties.userHasProfile = (false);\n          ssoProperties.profileText = \":ProfileText:\";\n          ssoProperties.createViewProfileText = \":CreateViewMSDNProfileText:\";\n          ssoProperties.createViewProfileLink = \":ProfileLink:\";\n          ssoProperties.MsaMemberName = \":MsaMemberName:\";\n          ssoProperties.MsaFirstName = \":MsaFirstName:\";\n          ssoProperties.MsaLastName = \":MsaLastName:\";\n          ssoProperties.MsaCID = \":MsaCID:\";\n          ssoProperties.AadDisplayName = \":AadDisplayName:\";\n          ssoProperties.AadMemberName = \":AadMemberName:\";\n        }" },
+	{ txt: "//\n\n        window.appInsightsId = \u00275eb1b2eb-c47a-497a-a7ac-a1c230b2882f\u0027;\n        //" },
+	{ url: "https://i2-msdn.sec.s-msft.com/Combined.js?resources=0:Utilities,0:Uhf,1:UhfHeader,2:Breadcrumbs,3:LibraryRightNavigationMenu,3:PrintExportButton,4:StandardRating,0:Topic,2:ResponsiveSupport,0:AppInsightsPerf,2:ResponsiveToc,0:ABTestControl,3:WEDCS,1:TocDropDown,2:LibraryMemberFilter,0:Toc_Fixed,1:UhfFooter,5:SelectLocaleFromPopUp,0:CodeSnippet,0:TopicNotInScope,0:VersionSelector,0:SurveyBroker;/Areas/Epx/Content/Scripts:0,/Areas/Epx/Themes/Windows/Content:1,/Areas/Library/Content:2,/Areas/Library/Themes/Base/Content:3,/Areas/Global/Content:4,/Areas/Epx/Themes/Base/Content:5\u0026amp;hashKey=6DA0E2006422C2A8C94A4260169C2E18\u0026amp;v=72A79754827192A308618B17B6A6C418" },
+	{ txt: "$(document).ready(function() {\n        try {\n            var token = $(\"#globalRequestVerification input[name=\u0027__RequestVerificationToken\u0027]\").clone();\n            $(\"#siteFeedbackForm\").append(token);\n        } catch(err) {\n            \n        }\n    });" }
+]);
+
+/*]]>*/
+</script>
+
+<script src="./Common Techniques to Improve Shadow Depth Maps (Windows)_files/broker-config.js.download"></script></body></html>
