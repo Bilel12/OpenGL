@@ -33,6 +33,7 @@ Scene::Scene(Input *in) {
 	//loadLists();		// load lists
 	buildShapes();		// Generate vertices, normals and texture coordinates vectors
 	buildLight();		// Set up all lighting arrays
+	buildShadowVolume(Light_Position_1);/////////////////////////////////////////////////////
 	// Initialise variables
 	scale_x = 0, scale_y = 0, scale_z = 0;
 	blend = false;			// Blending on or off
@@ -612,8 +613,13 @@ void Scene::render() {
 	} glPopMatrix();
 	// Lighting
 	renderLight();
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);	// Turn off writing to the frame buffer
 	// Shadowing
+
 	renderShadowing();
+
+	//renderShadowing();
+
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
@@ -624,12 +630,78 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
-	// SHADOW II
-	//populateExample();
-	//buildShadowVolume(Light_Position_0);
-	// Geometry rendering ends here -----------------------------
-	// Render text, should be last object rendered.
+	////////////////////////////////////////////////////////////
+	glCullFace(GL_BACK);
+	glEnable(GL_STENCIL_TEST);								// Enable the stencil test
+	glDepthMask(GL_FALSE);
+	glStencilFunc(GL_ALWAYS, 0, 0);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);					// Set the stencil operation to keep all values (we don’t want to change the stencil)
+	//glDepthMask(GL_FALSE);
+	// render shadow volume
+	glPushMatrix(); {
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		//glEnableClientState(GL_NORMAL_ARRAY);
+		//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, casterVerts.data());
+		//glNormalPointer(GL_FLOAT, 0, casterNorms.data());
+		//glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+		glDrawArrays(GL_TRIANGLES, 0, casterVerts.size() / 3);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		//glDisableClientState(GL_NORMAL_ARRAY);
+		//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+	glStencilOp(GL_KEEP, GL_KEEP, GL_DECR);					// Set the stencil operation to keep all values (we don’t want to change the stencil)
+	glCullFace(GL_FRONT);
+	// render shadow volume
+	glPushMatrix(); {
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		//glEnableClientState(GL_NORMAL_ARRAY);
+		//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, casterVerts.data());
+		//glNormalPointer(GL_FLOAT, 0, casterNorms.data());
+		//glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+		glDrawArrays(GL_TRIANGLES, 0, casterVerts.size() / 3);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		//glDisableClientState(GL_NORMAL_ARRAY);
+		//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+	glDepthMask(GL_TRUE);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);	// Turn off writing to the frame buffer
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+	glDisable(GL_CULL_FACE);
+	////////////////////
+	glStencilFunc(GL_EQUAL, 1, 1);
+	glDisable(GL_LIGHTING); // Turn off light
+	// Render Scene
+	// Blend cube
 	setRenderMode(blend, wireframe);
+	blend_cube.renderBlendCube(0.0, 0.0, 0.5, 1.0, crate_trans_tex);
+	setRenderMode(blend, wireframe);
+	// Render shapes
+	renderShapes();
+	/////////////////////
+	glStencilFunc(GL_EQUAL, 0, 1);
+	glDisable(GL_LIGHTING);
+	// Render Scene
+	// Blend cube
+	setRenderMode(blend, wireframe);
+	blend_cube.renderBlendCube(0.0, 0.0, 0.5, 1.0, crate_trans_tex);
+	setRenderMode(blend, wireframe);
+	//////////////////// Tidy up
+	glDisable(GL_STENCIL_TEST);								// Enable the stencil test
+
 	glDisable(GL_BLEND); // Turn blending off
 	if (development) { renderTextOutput(); }
 
