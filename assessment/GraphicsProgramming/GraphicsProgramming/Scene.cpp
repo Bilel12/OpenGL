@@ -613,8 +613,8 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Shadowing
-	//renderShadowing();
-	renderStencilShadowing();
+	renderShadowing();
+	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
 	//renderStencilBuffer(spaceship);
