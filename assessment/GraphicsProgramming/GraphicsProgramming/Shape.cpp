@@ -552,7 +552,7 @@ float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_int
 	return (sin(theta + theta_interval) * sin(delta)) / radius;
 }
 
-void Shape::buildSphere(float radius, float longitude, float latitude, 
+void Shape::buildSphere(float radius, float latitude, float longitude,
 						float sca_x, float sca_y, float sca_z, 
 						float pos_x, float pos_y, float pos_z, 
 						float angle, float rot_x, float rot_y, float rot_z) {
@@ -569,8 +569,8 @@ void Shape::buildSphere(float radius, float longitude, float latitude,
 		delta_interval = M_PI / longitude, // angle of longitude
 		u_lats = 0.0,
 		v_longs = 0.0,
-		u_lats_interval = 1.0 / longitude,
-		v_longs_interval = 1.0 / latitude;
+		u_lats_interval = 1.0 / latitude,
+		v_longs_interval = 1.0 / longitude;
 
 	verts.reserve(18.0 * latitude * longitude);
 	norms.reserve(18.0 * latitude * longitude);
@@ -630,29 +630,29 @@ void Shape::buildSphere(float radius, float longitude, float latitude,
 			norms.push_back(sphere_n_z0(radius, theta, delta));
 			// texture coordinates
 			// bottom 0
-			texcoords.push_back(v_longs);
 			texcoords.push_back(u_lats);
+			texcoords.push_back(v_longs);
 			// bottom 1
-			texcoords.push_back(v_longs);
-			texcoords.push_back(u_lats + u_lats_interval);
-			// top 2
+			texcoords.push_back(u_lats);
 			texcoords.push_back(v_longs + v_longs_interval);
-			texcoords.push_back(u_lats + u_lats_interval);
 			// top 2
-			texcoords.push_back(v_longs + v_longs_interval);
 			texcoords.push_back(u_lats + u_lats_interval);
+			texcoords.push_back(v_longs + v_longs_interval);
+			// top 2
+			texcoords.push_back(u_lats + u_lats_interval);
+			texcoords.push_back(v_longs + v_longs_interval);
 			// top 3
-			texcoords.push_back(v_longs + v_longs_interval);
-			texcoords.push_back(u_lats);
-			// bottom 0
+			texcoords.push_back(u_lats + u_lats_interval);
 			texcoords.push_back(v_longs);
+			// bottom 0
 			texcoords.push_back(u_lats);
+			texcoords.push_back(v_longs);
 			
 			theta += theta_interval;
-			v_longs += v_longs_interval;
+			u_lats += u_lats_interval;
 		}
-		u_lats += u_lats_interval;
-		theta = 0.0; v_longs = 0.0;
+		v_longs += v_longs_interval;
+		theta = 0.0; u_lats = 0.0;
 		delta += delta_interval;
 	}
 }

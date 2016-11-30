@@ -279,7 +279,7 @@ void Scene::renderStencilBuffer(Model model) {
 }
 
 void Scene::buildShapes() {
-	sphere.buildSphere(	2.0, 15.0, 150.0,	// radius, longitude, latitude
+	sphere.buildSphere(	2.0, 30.0, 5.0,		// radius, longitude, latitude
 						1, 1, 1,			// scale x, scale y, scale z
 						0, 0, -5,			// translate x, translate y, translate z
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
