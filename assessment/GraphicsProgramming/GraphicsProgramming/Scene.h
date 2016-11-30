@@ -51,6 +51,8 @@ protected:
 	void setRenderMode(bool blend, bool wireframe);
 	void loadModels();
 	void renderStencilBuffer(Model model);
+	void renderShadowing();
+	void renderStencilShadowing();
 	void buildShapes();
 	void renderShapes();
 	void updateVariables();

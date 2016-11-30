@@ -278,6 +278,91 @@ void Scene::renderStencilBuffer(Model model) {
 	} glPopMatrix();
 }
 
+void Scene::renderShadowing() {
+	// Generate shadow matrix
+	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
+	// Floor for shadowing
+	quad_shadow.render(GL_QUADS);
+	// Render shadow
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+	// Shadow's colour
+	glColor3f(0.1f, 0.1f, 0.1f); 
+	glPushMatrix(); {
+		glMultMatrixf((GLfloat *)shadowMatrix);
+		//translate to floor and draw shadow, remember to match any transforms on the object
+		glTranslatef(0.f, 1.f, 0.f);
+		glRotatef(angle, 0.f, 1.f, 0.f);
+		glScalef(1.f, 1.f, 1.f);
+		spaceship.render();
+	} glPopMatrix();
+
+	glColor3f(1.0f, 1.0f, 1.0f); // S
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_2D);
+	// Render object with corresponding	translate, rotate and scale
+	glPushMatrix(); {
+		glTranslatef(0.f, 1.f, 0.f);
+		glRotatef(angle, 0.f, 1.f, 0.f);
+		glScalef(1.f, 1.f, 1.f);
+		spaceship.render();
+	} glPopMatrix();
+}
+
+void Scene::renderStencilShadowing() {
+	// Stencil buffer settings
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);	// Turn off writing to the frame buffer
+	glEnable(GL_STENCIL_TEST);								// Enable the stencil test
+	glStencilFunc(GL_ALWAYS, 1, 1);							// Set the stencil function to always pass
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
+	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
+	// Generate shadow matrix
+	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
+	// Shadow surface
+	quad_shadow.render(GL_QUADS);
+	// Draw floor object()
+	// Render shadow
+	//glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);								// Enable depth test
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);		// Turn on rendering to the frame buffer
+	glStencilFunc(GL_EQUAL, 1, 1);							// Set stencil function to test if the value is 1
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);					// Set the stencil operation to keep all values (we don’t want to change the stencil)
+	// Shadow's colour
+	glColor3f(0.1f, 0.1f, 0.1f); 
+	glPushMatrix(); {
+		glMultMatrixf((GLfloat *)shadowMatrix);
+		//translate to floor and draw shadow, remember to match any transforms on the object
+		glTranslatef(0.f, 1.f, 0.f);
+		glRotatef(angle, 0.f, 1.f, 0.f);
+		glScalef(1.f, 1.f, 1.f);
+		spaceship.render();
+	} glPopMatrix();
+	// Draw mirror
+	glColor3f(1.0f, 1.0f, 1.0f); // S
+	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_2D);
+
+	glDisable(GL_STENCIL_TEST);								// Disable stencil test (no longer needed)
+	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
+	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
+	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
+	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);						// Draw floor object
+	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
+	glDisable(GL_BLEND);									// Disable blend (no longer blending)
+															// Draw object to reflect
+	glPushMatrix(); {
+		glTranslatef(0.f, 1.f, 0.f);
+		glRotatef(angle, 0.f, 1.f, 0.f);
+		glScalef(1.f, 1.f, 1.f);
+		spaceship.render();
+	} glPopMatrix();
+}
+
 void Scene::buildShapes() {
 	sphere.buildSphere(	2.0, 5.0, 35.0,		// radius, latitude, longitude
 						1, 1, 1,			// scale x, scale y, scale z
@@ -527,36 +612,9 @@ void Scene::render() {
 	} glPopMatrix();
 	// Lighting
 	renderLight();
-	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
-	// Floor for shadowing
-	quad_shadow.render(GL_QUADS);
-	// Render shadow
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_TEXTURE_2D);
-
-	glColor3f(0.1f, 0.1f, 0.1f); // Shadow's colour
-	glPushMatrix(); {
-		glMultMatrixf((GLfloat *)shadowMatrix);
-		//translate to floor and draw shadow, remember to match any transforms on the object
-		glTranslatef(0.f, 1.f, 0.f);
-		glRotatef(angle, 0.f, 1.f, 0.f);
-		glScalef(1.f, 1.f, 1.f);
-		spaceship.render();
-	} glPopMatrix();
-
-	glColor3f(1.0f, 1.0f, 1.0f); // S
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);
-	// Render object with corresponding	translate, rotate and scale
-	glPushMatrix(); {
-		glTranslatef(0.f, 1.f, 0.f);
-		glRotatef(angle, 0.f, 1.f, 0.f);
-		glScalef(1.f, 1.f, 1.f);
-		spaceship.render();
-	} glPopMatrix();
+	// Shadowing
+	//renderShadowing();
+	renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
 	//renderStencilBuffer(spaceship);
