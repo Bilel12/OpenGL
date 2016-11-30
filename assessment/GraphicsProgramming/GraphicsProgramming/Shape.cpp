@@ -552,7 +552,7 @@ float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_int
 	return (sin(theta + theta_interval) * sin(delta)) / radius;
 }
 
-void Shape::buildSphere(float radius, float latitude, float longitude,
+void Shape::buildSphere(float radius, float longitude, float latitude,
 						float sca_x, float sca_y, float sca_z, 
 						float pos_x, float pos_y, float pos_z, 
 						float angle, float rot_x, float rot_y, float rot_z) {
