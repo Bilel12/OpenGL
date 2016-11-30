@@ -195,12 +195,12 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	disc_1.render(disk_tex);
+	disc_1.render(GL_TRIANGLES, disk_tex);
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	sphere.render(globe_tex);
+	sphere.render(GL_TRIANGLES, globe_tex);
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -249,7 +249,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
 	// Draw mirror
-	floor.render(0.5, 0.5, 0.5, 0.5);					
+	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);
 	// Draw floor object()
 	glEnable(GL_DEPTH_TEST);								// Enable depth test
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);		// Turn on rendering to the frame buffer
@@ -267,7 +267,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	floor.render(0.5, 0.5, 0.5, 0.5);						// Draw floor object
+	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);						// Draw floor object
 	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
@@ -346,15 +346,15 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	sphere.render(0.7, 0.2, 0.2, 0.5);
-	disc_1.render(0.5, 0.0, 0.0, 0.5, disk_tex);
-	disc_2.render(disk_tex);
+	sphere.render(GL_TRIANGLES, 0.7, 0.2, 0.2, 0.5);
+	disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
+	disc_2.render(GL_TRIANGLE_FAN, disk_tex);
 	//disc_flat.render(disk_tex);
 	circle.renderCircle();
-	cone.render(disk_tex);
-	cylinder.render(barrel_tex);
-	sun.render();
-	torus.render(globe_tex);
+	cone.render(GL_TRIANGLES, disk_tex);
+	cylinder.render(GL_TRIANGLES, barrel_tex);
+	sun.render(GL_TRIANGLES);
+	torus.render(GL_TRIANGLES, disk_tex);
 }
 
 void Scene::updateVariables() {
@@ -532,7 +532,7 @@ void Scene::render() {
 	// Generate shadow matrix
 	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
 	// Floor for shadowing
-	quad_shadow.render_with_quads();
+	quad_shadow.render(GL_QUADS);
 	// Render shadow
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
