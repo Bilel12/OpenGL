@@ -285,15 +285,14 @@ void Scene::buildShapes() {
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
 	//sphere.set_ambient(1, 1, 1, 1);
 	//sphere.set_diffuse(1, 1, 1, 1);
-	sphere.set_shininess(high_shininess);
+	sphere.set_ambient(	1.0f, 1.0f, 1.0f, 1.0f);
+	sphere.set_diffuse(	1.0f, 1.0f, 1.0f, 1.0f);
+	sphere.set_shininess(120.0f);
 
 	sun.buildSphere(	0.5, 15.0, 15.0,	// radius, latitude, longitude
 						1, 1, 1,			// scale x, scale y, scale z
 						0, 0, 0,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	sphere.set_ambient(	1.0f, 1.0f, 1.0f, 1.0f);
-	sphere.set_diffuse(	1.0f, 1.0f, 1.0f, 1.0f);
-	sphere.set_shininess(120.0f);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -662,49 +661,39 @@ void Scene::displayText(float x, float y, float r, float g, float b, char* strin
 	glMatrixMode(GL_MODELVIEW);
 }
 
-GLfloat* Scene::setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient) {
+void Scene::setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient) {
 	lightAmbient[0] = x;
 	lightAmbient[1] = y;
 	lightAmbient[2] = z;
 	lightAmbient[3] = w;
-
-	return lightAmbient;
 }
 
-GLfloat* Scene::setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse) {
+void Scene::setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse) {
 	lightDiffuse[0] = x;
 	lightDiffuse[1] = y;
 	lightDiffuse[2] = z;
 	lightDiffuse[3] = w;
-
-	return lightDiffuse;
 }
 
-GLfloat* Scene::setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition) {
+void Scene::setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition) {
 	lightPosition[0] = x;
 	lightPosition[1] = y;
 	lightPosition[2] = z;
 	lightPosition[3] = w;
-
-	return lightPosition;
 }
 
-GLfloat* Scene::setSpotDirection(float x, float y, float z, GLfloat* spotDirection) {
+void Scene::setSpotDirection(float x, float y, float z, GLfloat* spotDirection) {
 	spotDirection[0] = x;
 	spotDirection[1] = y;
 	spotDirection[2] = z;
 	//spotDirection[3] = w;
-
-	return spotDirection;
 }
 
-GLfloat* Scene::setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
+void Scene::setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
 	lightSpecular[0] = x;
 	lightSpecular[1] = y;
 	lightSpecular[2] = z;
 	lightSpecular[3] = w;
-
-	return lightSpecular;
 }
 
 // Shadowing

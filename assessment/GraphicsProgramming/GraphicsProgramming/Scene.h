@@ -153,14 +153,14 @@ protected:
 	GLfloat high_shininess[1] = { 100 };
 	GLfloat spot_cutoff[1] = { 180 };
 	// Set light
-	GLfloat* setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
-	GLfloat* setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
-	GLfloat* setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
-	GLfloat* setSpotDirection(float x, float y, float z, GLfloat* spotDirection);
+	void setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
+	void setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
+	void setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
+	void setSpotDirection(float x, float y, float z, GLfloat* spotDirection);
 	// Set light Specular
-	GLfloat* setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
+	void setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
 	// Shadowing
-	GLfloat  shadowMatrix[16];
+	GLfloat shadowMatrix[16];
 	std::vector<float> shadowVolume;
 	std::vector<float> casterVerts;
 	std::vector<float> casterNorms;
