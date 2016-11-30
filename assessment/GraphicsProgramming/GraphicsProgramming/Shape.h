@@ -13,7 +13,6 @@ class Shape {
 public:
 	Shape();
 	~Shape();
-	float rotate(float arg);
 
 	void render1();
 	void render3();
@@ -119,23 +118,26 @@ public:
 	std::vector<GLfloat>* get_verts();
 	std::vector<GLfloat>* get_norms();
 	std::vector<GLfloat>* get_texcoords();
+	// Get rot_angle variable
+	float rotate(float arg);
 private:
 	std::vector<GLfloat> verts, norms, texcoords;
-	std::vector<double> colors;
+	//std::vector<double> colors;
 	float rot_angle;
 
-	GLfloat ambient[4] = { static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
-	GLfloat diffuse[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
-	GLfloat specular[4] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat emission[4] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat shininess[1] = { 0.0 };
+	std::vector<GLfloat> ambient;
+	std::vector<GLfloat> diffuse;
+	std::vector<GLfloat> specular;
+	std::vector<GLfloat> emission;
+	std::vector<GLfloat> shininess;
 
-	GLfloat ambient_def[4] = { static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
-	GLfloat diffuse_def[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
+	GLfloat ambient_def[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat diffuse_def[4] = { 0.8f, 0.8f, 0.8f, 1.0f };
 	GLfloat specular_def[4] = { 0.0, 0.0, 0.0, 1.0 };
 	GLfloat emission_def[4] = { 0.0, 0.0, 0.0, 1.0 };
 	GLfloat shininess_def[1] = { 0.0 };
 
+	std::vector<GLfloat> colors;
 };								 
 //void drawtriangle(float *v1, float *v2, float *v3)
 //{

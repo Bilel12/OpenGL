@@ -291,9 +291,9 @@ void Scene::buildShapes() {
 						1, 1, 1,			// scale x, scale y, scale z
 						0, 0, 0,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	sphere.set_ambient(	.1, .1, .1, .1);
-	sphere.set_diffuse(	.1, .1, .1, .1);
-	sphere.set_shininess(0.);
+	sphere.set_ambient(	1.0f, 1.0f, 1.0f, 1.0f);
+	sphere.set_diffuse(	1.0f, 1.0f, 1.0f, 1.0f);
+	sphere.set_shininess(120.0f);
 
 	disc_1.buildDisc(	10, 2,				// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -312,11 +312,11 @@ void Scene::buildShapes() {
 
 	quad_shadow.buildQuadShadow(	1, 1, 1,			// scale x, scale y, scale z
 									0, 0.35, 0,			// translate x, translate y, translate z
-									0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	quad_shadow.set_ambient(		.1, .1, .1, .1);
-	quad_shadow.set_diffuse(		.1, .1, .1, .1);
-	quad_shadow.set_specular(		.1, .1, .1, .1);
-	quad_shadow.set_shininess(		0. );
+									0., 0., 0., 0.);		// rotation angle, rotation x, rotation y, rotation z
+	quad_shadow.set_ambient(		1.f, 1.f, 1.f, 1.f);
+	quad_shadow.set_diffuse(		1.f, 1.f, 1.f, 1.f);
+	quad_shadow.set_specular(		1.f, 1.f, 1.f, 1.f);
+	quad_shadow.set_shininess(		120.0f );
 	quad_shadow.scale.set(			1.5, 1.5, 1.5);
 
 	circle.buildCircle(	50,					// edges, radius
@@ -341,12 +341,12 @@ void Scene::buildShapes() {
 
 	torus.buildTorus(	2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
 						1, 1, 1,				// scale x, scale y, scale z
-						3., 3., 3.,				// translate x, translate y, translate z
+						3., 7., 3.,				// translate x, translate y, translate z
 						0., 0., 0., 0);			// rotation angle, rotation x, rotation y, rotation z
 }
 
 void Scene::renderShapes() {
-	sphere.render(GL_TRIANGLES, 0.7, 0.2, 0.2, 0.5);
+	sphere.render(GL_TRIANGLES, globe_tex);
 	disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
 	disc_2.render(GL_TRIANGLE_FAN, disk_tex);
 	//disc_flat.render(disk_tex);
@@ -380,7 +380,7 @@ void Scene::buildLight() {
 	setLightSpecular(0.5, 0.5, 0.5, 1.0, Light_Specular_0);
 	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1
-	setLightAmbient(1, 1, 1, 1, Light_Ambient_1);
+	setLightAmbient(0.2, 0.2, 0.2, 0.2, Light_Ambient_1);
 	setLightDiffuse(0.6, 0.6, 0.6, 1, Light_Diffuse_1);			// Light colour
 	setLightPosition(0, 4, 0, 1, Light_Position_1);
 	setLightSpecular(0.5, 0.5, 0.5, 1.0, Light_Specular_1);
