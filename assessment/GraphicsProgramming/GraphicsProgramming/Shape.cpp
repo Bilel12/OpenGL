@@ -10,6 +10,12 @@ Shape::Shape() {
 	emission = {	0.0, 0.0, 0.0, 1.0 };
 	shininess = {	0.0 };
 
+	ambient_def = { 0.2f, 0.2f, 0.2f, 1.0f };
+	diffuse_def = { 0.8f, 0.8f, 0.8f, 1.0f };
+	specular_def = { 0.0, 0.0, 0.0, 1.0 };
+	emission_def = { 0.0, 0.0, 0.0, 1.0 };
+	shininess_def = { 0.0 };
+
 	colors = {		1.0f, 0.2f, 0.2f, 1.0f,
 					0.2f, 0.2f, 1.0f, 1.0f,
 					0.8f, 1.0f, 0.2f, 1.0f,
@@ -53,11 +59,11 @@ void Shape::render() {
 
 		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
@@ -90,11 +96,11 @@ void Shape::render(GLenum primitive) {
 
 		glDrawArrays(primitive, 0, verts.size() / 3);
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
@@ -129,11 +135,11 @@ void Shape::render(GLenum primitive, GLuint *texture) {
 		glDrawArrays(primitive, 0, verts.size() / 3);
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 		
 		//glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
@@ -168,11 +174,11 @@ void Shape::render(GLenum primitive, float R, float G, float B, float A) {
 		glDrawArrays(primitive, 0, verts.size() / 3);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
@@ -209,62 +215,17 @@ void Shape::render(GLenum primitive, float R, float G, float B, float A, GLuint 
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		//glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	} glPopMatrix();
-}
-
-void Shape::render1() {
-	// add code to render the cube (above) using method 1
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glColorPointer(3, GL_FLOAT, 0, colors.data());
-	glVertexPointer(3, GL_FLOAT, 0, verts.data());
-	glNormalPointer(GL_FLOAT, 0, norms.data());
-	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-
-	glBegin(GL_TRIANGLE_STRIP);
-	for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); ++i) {
-		glArrayElement(indices[i]);
-	}
-	glEnd();
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-
-void Shape::render3() {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_INDEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
-	glNormalPointer(GL_FLOAT, 0, cube_norms);
-	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
-
-	glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, indices);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_INDEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void Shape::buildQuad(	float sca_x, float sca_y, float sca_z, 
@@ -353,11 +314,11 @@ void Shape::renderCube(float R, float G, float B, float A, GLuint * texture) {
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);	// set ambient to default values
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);	// set diffuse to default values
-	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());	// set ambient to default values
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());	// set diffuse to default values
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//glDisableClientState(GL_COLOR_ARRAY);
@@ -407,11 +368,11 @@ void Shape::renderSkybox(float R, float G, float B, GLuint *texture) {
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 	glColor3f(1.0f, 1.0f, 1.0f);
 
-	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def);		// set ambient to default values
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def);		// set diffuse to default values
-	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def);		// set specular to default values
-	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def);		// set emission to default values
-	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def);	// set shininess to default value
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
+	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -1112,6 +1073,50 @@ std::vector<GLfloat>* Shape::get_texcoords() {
 	return &texcoords;
 }
 
+//void Shape::render1() {
+//	// add code to render the cube (above) using method 1
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_COLOR_ARRAY);
+//	glEnableClientState(GL_NORMAL_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//
+//	glColorPointer(3, GL_FLOAT, 0, colors.data());
+//	glVertexPointer(3, GL_FLOAT, 0, verts.data());
+//	glNormalPointer(GL_FLOAT, 0, norms.data());
+//	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+//
+//	glBegin(GL_TRIANGLE_STRIP);
+//	for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); ++i) {
+//		glArrayElement(indices[i]);
+//	}
+//	glEnd();
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_COLOR_ARRAY);
+//	glDisableClientState(GL_NORMAL_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//}
+//
+//void Shape::render3() {
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	//glEnableClientState(GL_COLOR_ARRAY);
+//	glEnableClientState(GL_INDEX_ARRAY);
+//	glEnableClientState(GL_NORMAL_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//
+//	//glColorPointer(3, GL_FLOAT, 0, colors);
+//	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
+//	glNormalPointer(GL_FLOAT, 0, cube_norms);
+//	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
+//
+//	glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, indices);
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	//glDisableClientState(GL_COLOR_ARRAY);
+//	glDisableClientState(GL_INDEX_ARRAY);
+//	glDisableClientState(GL_NORMAL_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//}
 //void Shape::renderDisc(GLuint * texture) {
 //	glPushMatrix(); {
 //		glScalef(scale.x, scale.y, scale.z);

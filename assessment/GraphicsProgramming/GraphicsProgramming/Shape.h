@@ -13,9 +13,6 @@ class Shape {
 public:
 	Shape();
 	~Shape();
-
-	void render1();
-	void render3();
 	// Rendering functions using GL_TRIANGLES
 	void render();																			// render shape with triangles
 	void render(GLenum primitive);															// render shape with passed primitve
@@ -131,11 +128,11 @@ private:
 	std::vector<GLfloat> emission;
 	std::vector<GLfloat> shininess;
 
-	GLfloat ambient_def[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	GLfloat diffuse_def[4] = { 0.8f, 0.8f, 0.8f, 1.0f };
-	GLfloat specular_def[4] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat emission_def[4] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat shininess_def[1] = { 0.0 };
+	std::vector<GLfloat> ambient_def;
+	std::vector<GLfloat> diffuse_def;
+	std::vector<GLfloat> specular_def;
+	std::vector<GLfloat> emission_def;
+	std::vector<GLfloat> shininess_def;
 
 	std::vector<GLfloat> colors;
 };								 

@@ -512,10 +512,9 @@ void Scene::render() {
 	glLoadIdentity();
 
 	// Set the camera
-	gluLookAt(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ(),
-	          camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ(),
-			  camera->getUpX(), camera->getUpY(), camera->getUpZ()
-	         );
+	gluLookAt(	camera->getPositionX(), camera->getPositionY(), camera->getPositionZ(),
+				camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ(),
+				camera->getUpX(), camera->getUpY(), camera->getUpZ() );
 	// Render skybox
 	// Point sampling
 	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -568,7 +567,6 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
-
 	// SHADOW II
 	//populateExample();
 	//buildShadowVolume(Light_Position_0);

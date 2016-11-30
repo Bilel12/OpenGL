@@ -62,7 +62,7 @@ extern float cube_norms[] = {
 								1.0f, 0.0f, 0.0f,
 								1.0f, 0.0f, 0.0f
 								// left side face
-								- 1.0f, 0.0f, 0.0f,
+								-1.0f, 0.0f, 0.0f,
 								-1.0f, 0.0f, 0.0f,
 								-1.0f, 0.0f, 0.0f,
 								-1.0f, 0.0f, 0.0f,
