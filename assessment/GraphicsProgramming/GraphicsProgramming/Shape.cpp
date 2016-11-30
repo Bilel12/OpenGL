@@ -667,40 +667,14 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 		v = 0.45,
 		u_inter = 1.0 / edges,
 		v_inter = 0.55 / height;
-
-	// bottom disk
-	for (int i = 0; i < edges; ++i) {
-		verts.push_back(0.0);
-		verts.push_back(0.0);
-		verts.push_back(0.0);
-		verts.push_back(radius * cos(theta));
-		verts.push_back(0.0);
-		verts.push_back(radius * sin(theta));
-		verts.push_back(radius * cos(theta + interval));
-		verts.push_back(0.0);
-		verts.push_back(radius * sin(theta + interval));
-
-		for (int i = 0; i < 3; ++i) {
-			norms.push_back(0.0);
-			norms.push_back(-1.0);
-			norms.push_back(0.0);
-		}
-
-		texcoords.push_back(0.238);
-		texcoords.push_back(0.223);
-		texcoords.push_back(cos(theta) / diameter + 0.238);
-		texcoords.push_back(sin(theta) / diameter + 0.223);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.238);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.223);
-
-		theta += interval;
-	}
-	// side
+	
 	for (int i = 1; i <= height; ++i) {
 		for (int j = 0; j < edges; ++j) {
-			float  y0 = y_value * (i - 1);
+			// side
+			// Y value for building cylinder up
+			float y0 = y_value * (i - 1);
 			float y1 = y_value * i;
-
+			// side vertices
 			// 0 bottom
 			verts.push_back(radius * cos(theta));
 			verts.push_back(y0);
@@ -725,26 +699,7 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 			verts.push_back(radius * cos(theta));
 			verts.push_back(y0);
 			verts.push_back(radius * sin(theta));
-
-			// 0 bottom
-			texcoords.push_back(u);
-			texcoords.push_back(v);
-			// 1 bottom
-			texcoords.push_back(u + u_inter);
-			texcoords.push_back(v);
-			// 2 top
-			texcoords.push_back(u + u_inter);
-			texcoords.push_back(v + v_inter);
-			// 2 top
-			texcoords.push_back(u + u_inter);
-			texcoords.push_back(v + v_inter);
-			// 3 top
-			texcoords.push_back(u);
-			texcoords.push_back(v + v_inter);
-			// 0 bottom
-			texcoords.push_back(u);
-			texcoords.push_back(v);
-
+			// side normals
 			// 0 bottom
 			norms.push_back((radius * cos(theta)) / radius);
 			norms.push_back(y0 / radius);
@@ -769,6 +724,73 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 			norms.push_back((radius * cos(theta)) / radius);
 			norms.push_back(y0 / radius);
 			norms.push_back((radius * sin(theta)) / radius);
+			// side texture coordinates
+			// 0 bottom
+			texcoords.push_back(u);
+			texcoords.push_back(v);
+			// 1 bottom
+			texcoords.push_back(u + u_inter);
+			texcoords.push_back(v);
+			// 2 top
+			texcoords.push_back(u + u_inter);
+			texcoords.push_back(v + v_inter);
+			// 2 top
+			texcoords.push_back(u + u_inter);
+			texcoords.push_back(v + v_inter);
+			// 3 top
+			texcoords.push_back(u);
+			texcoords.push_back(v + v_inter);
+			// 0 bottom
+			texcoords.push_back(u);
+			texcoords.push_back(v);
+			// bottom disk
+			// bottom vertices
+			verts.push_back(0.0);
+			verts.push_back(0.0);
+			verts.push_back(0.0);
+			verts.push_back(radius * cos(theta));
+			verts.push_back(0.0);
+			verts.push_back(radius * sin(theta));
+			verts.push_back(radius * cos(theta + interval));
+			verts.push_back(0.0);
+			verts.push_back(radius * sin(theta + interval));
+			// bottom normals
+			for (int i = 0; i < 3; ++i) {
+				norms.push_back(0.0);
+				norms.push_back(-1.0);
+				norms.push_back(0.0);
+			}
+			// bottom texture coordinates
+			texcoords.push_back(0.238);
+			texcoords.push_back(0.223);
+			texcoords.push_back(cos(theta) / diameter + 0.238);
+			texcoords.push_back(sin(theta) / diameter + 0.223);
+			texcoords.push_back(cos(theta + interval) / diameter + 0.238);
+			texcoords.push_back(sin(theta + interval) / diameter + 0.223);
+			// top disk
+			// top vertices
+			verts.push_back(0.0);
+			verts.push_back(y_value * height);
+			verts.push_back(0.0);
+			verts.push_back(radius * cos(theta));
+			verts.push_back(y_value * height);
+			verts.push_back(radius * sin(theta));
+			verts.push_back(radius * cos(theta + interval));
+			verts.push_back(y_value * height);
+			verts.push_back(radius * sin(theta + interval));
+			// top normals
+			for (int i = 0; i < 3; ++i) {
+				norms.push_back(0.0);
+				norms.push_back(1.0);
+				norms.push_back(0.0);
+			}
+			// top texture coordinates
+			texcoords.push_back(0.742);
+			texcoords.push_back(0.223);
+			texcoords.push_back(cos(theta) / diameter + 0.742);
+			texcoords.push_back(sin(theta) / diameter + 0.223);
+			texcoords.push_back(cos(theta + interval) / diameter + 0.742);
+			texcoords.push_back(sin(theta + interval) / diameter + 0.223);
 
 			theta += interval;
 			u += u_inter;
@@ -777,35 +799,6 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 		u = 0;
 		theta = 0.0;
 	}
-	// top disk
-	theta = 0.0;
-	for (int i = 0; i < edges; ++i) {
-		verts.push_back(0.0);
-		verts.push_back(y_value * height);
-		verts.push_back(0.0);
-		verts.push_back(radius * cos(theta));
-		verts.push_back(y_value * height);
-		verts.push_back(radius * sin(theta));
-		verts.push_back(radius * cos(theta + interval));
-		verts.push_back(y_value * height);
-		verts.push_back(radius * sin(theta + interval));
-
-		for (int i = 0; i < 3; ++i) {
-			norms.push_back(0.0);
-			norms.push_back(1.0);
-			norms.push_back(0.0);
-		}
-
-		texcoords.push_back(0.742);
-		texcoords.push_back(0.223);
-		texcoords.push_back(cos(theta) / diameter + 0.742);
-		texcoords.push_back(sin(theta) / diameter + 0.223);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.742);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.223);
-
-		theta += interval;
-	}
-	theta = 0.0;
 }
 
 void Shape::buildCone(	float radius, float edges, float height,
