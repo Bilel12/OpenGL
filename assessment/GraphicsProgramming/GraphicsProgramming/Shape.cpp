@@ -552,7 +552,7 @@ float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_int
 	return (sin(theta + theta_interval) * sin(delta)) / radius;
 }
 
-void Shape::buildSphere(float radius, float latitude, float longitude,
+void Shape::buildSphere(float radius, float longitude, float latitude, 
 						float sca_x, float sca_y, float sca_z, 
 						float pos_x, float pos_y, float pos_z, 
 						float angle, float rot_x, float rot_y, float rot_z) {
@@ -569,84 +569,85 @@ void Shape::buildSphere(float radius, float latitude, float longitude,
 		delta_interval = M_PI / longitude, // angle of longitude
 		u_lats = 0.0,
 		v_longs = 0.0,
-		u_lats_interval = 1.0 / latitude,
-		v_longs_interval = 1.0 / longitude;
+		u_lats_interval = 1.0 / longitude,
+		v_longs_interval = 1.0 / latitude;
 
 	verts.reserve(18.0 * latitude * longitude);
 	norms.reserve(18.0 * latitude * longitude);
 	texcoords.reserve(12.0 * latitude * longitude);
 
-	for (int i = 0; i < longitude; ++i) {
-		for (int j = 0; j < latitude; ++j) {
+	for (int i = 0; i < longitude; ++i) {		// build 
+		for (int j = 0; j < latitude; ++j) {	// build wedge
+			// vertices
+			// bottom 0
 			verts.push_back(sphere_x0(radius, theta, delta));
 			verts.push_back(sphere_y0(radius, theta, delta));
 			verts.push_back(sphere_z0(radius, theta, delta));
-
+			// bottom 1
 			verts.push_back(sphere_x1(radius, theta, delta, delta_interval));
 			verts.push_back(sphere_y1(radius, theta, delta, delta_interval));
 			verts.push_back(sphere_z1(radius, theta, delta, delta_interval));
-
+			// top 2
 			verts.push_back(sphere_x2(radius, theta, theta_interval, delta, delta_interval));
 			verts.push_back(sphere_y2(radius, theta, delta, delta_interval));
 			verts.push_back(sphere_z2(radius, theta, theta_interval, delta, delta_interval));
-
+			// top 2
 			verts.push_back(sphere_x2(radius, theta, theta_interval, delta, delta_interval));
 			verts.push_back(sphere_y2(radius, theta, delta, delta_interval));
 			verts.push_back(sphere_z2(radius, theta, theta_interval, delta, delta_interval));
-
+			// top 3
 			verts.push_back(sphere_x3(radius, theta, theta_interval, delta));
 			verts.push_back(sphere_y3(radius, theta, theta_interval, delta));
 			verts.push_back(sphere_z3(radius, theta, theta_interval, delta));
-
+			// top 0
 			verts.push_back(sphere_x0(radius, theta, delta));
 			verts.push_back(sphere_y0(radius, theta, delta));
 			verts.push_back(sphere_z0(radius, theta, delta));
-
-
+			// normals
+			// bottom 0
 			norms.push_back(sphere_n_x0(radius, theta, delta));
 			norms.push_back(sphere_n_y0(radius, theta, delta));
 			norms.push_back(sphere_n_z0(radius, theta, delta));
-
+			// bottom 1
 			norms.push_back(sphere_n_x1(radius, theta, delta, delta_interval));
 			norms.push_back(sphere_n_y1(radius, theta, delta, delta_interval));
 			norms.push_back(sphere_n_z1(radius, theta, delta, delta_interval));
-
+			// top 2
 			norms.push_back(sphere_n_x2(radius, theta, delta, delta_interval, theta_interval));
 			norms.push_back(sphere_n_y2(radius, theta, delta, delta_interval));
 			norms.push_back(sphere_n_z2(radius, theta, delta, delta_interval, theta_interval));
-
+			// top 2
 			norms.push_back(sphere_n_x2(radius, theta, delta, delta_interval, theta_interval));
 			norms.push_back(sphere_n_y2(radius, theta, delta, delta_interval));
 			norms.push_back(sphere_n_z2(radius, theta, delta, delta_interval, theta_interval));
-
+			// top 3
 			norms.push_back(sphere_n_x3(radius, theta, delta, theta_interval));
 			norms.push_back(sphere_n_y3(radius, theta, delta, theta_interval));
 			norms.push_back(sphere_n_z3(radius, theta, delta, theta_interval));
-
+			// top 0
 			norms.push_back(sphere_n_x0(radius, theta, delta));
 			norms.push_back(sphere_n_y0(radius, theta, delta));
 			norms.push_back(sphere_n_z0(radius, theta, delta));
-
-
+			// texture coordinates
+			// bottom 0
 			texcoords.push_back(v_longs);
 			texcoords.push_back(u_lats);
-
+			// bottom 1
 			texcoords.push_back(v_longs);
 			texcoords.push_back(u_lats + u_lats_interval);
-
+			// top 2
 			texcoords.push_back(v_longs + v_longs_interval);
 			texcoords.push_back(u_lats + u_lats_interval);
-
+			// top 2
 			texcoords.push_back(v_longs + v_longs_interval);
 			texcoords.push_back(u_lats + u_lats_interval);
-
+			// top 3
 			texcoords.push_back(v_longs + v_longs_interval);
 			texcoords.push_back(u_lats);
-
+			// bottom 0
 			texcoords.push_back(v_longs);
 			texcoords.push_back(u_lats);
-
-
+			
 			theta += theta_interval;
 			v_longs += v_longs_interval;
 		}
