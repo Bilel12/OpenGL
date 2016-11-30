@@ -143,11 +143,11 @@ protected:
 	GLfloat Light_Specular_1[4];
 	// Material arrays
 	GLfloat no_mat[4] = { 0.0, 0.0, 0.0, 0.0 };
-	GLfloat mat_ambient[4] = { static_cast<GLfloat>(0.7), static_cast<GLfloat>(0.7), static_cast<GLfloat>(0.7), static_cast<GLfloat>(1.0) };
-	GLfloat mat_ambient_colour[4] = { static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.8), static_cast<GLfloat>(0.2), static_cast<GLfloat>(1.0) };
-	GLfloat mat_diffuse[4] = { static_cast<GLfloat>(0.1), static_cast<GLfloat>(0.5), static_cast<GLfloat>(0.8), static_cast<GLfloat>(1.0) };
-	GLfloat mat_specular[4] = { static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0), static_cast<GLfloat>(1.0) };
-	GLfloat mat_emission[4] = { static_cast<GLfloat>(0.3), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.2), static_cast<GLfloat>(0.0) };
+	GLfloat mat_ambient[4] = { 0.7f, 0.7f, 0.7f, 1.0f };
+	GLfloat mat_ambient_colour[4] = { 0.8f, 0.8f, 0.2f, 1.0f };
+	GLfloat mat_diffuse[4] = { 0.1f, 0.5f, 0.8f, 1.0f };
+	GLfloat mat_specular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat mat_emission[4] = { 0.3f, 0.2f, 0.2f, 0.0f };
 	GLfloat no_shininess[1] = { 0.0 };
 	GLfloat low_shininess[1] = { 50 };
 	GLfloat high_shininess[1] = { 100 };
