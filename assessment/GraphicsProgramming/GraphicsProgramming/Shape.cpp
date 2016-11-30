@@ -306,7 +306,7 @@ void Shape::renderCube(float R, float G, float B, float A, GLuint * texture) {
 	glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());			// set emission to what is defined in scene
 	glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
-	int size = (int)(sizeof(cube_verts)) / (int)(sizeof(cube_verts[0])) / 3;
+	int size = (unsigned)(sizeof(cube_verts)) / (unsigned)(sizeof(cube_verts[0])) / 3;
 
 	glColor4f(R, G, B, A);
 	glBindTexture(GL_TEXTURE_2D, *texture);
@@ -389,6 +389,10 @@ void Shape::buildCircle(float edges,
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
 
+	verts.reserve(edges);
+	norms.reserve(edges);
+	texcoords.reserve(edges);
+
 	for (int i = 0; i <= edges; ++i) {
 		//glNormal3f(0.0, 1.0, 0.0);
 		//glTexCoord2f(x + (cos((2 * M_PI * i) / edges)), y + (sin((2 * M_PI * i) / edges)));
@@ -432,6 +436,10 @@ void Shape::buildDisc(	float edges, float radius,
 		diameter = 2 * radius,
 		start = 0.0,
 		theta = 0.0;
+
+	verts.reserve(9.0 * edges);
+	norms.reserve(9.0 * edges);
+	texcoords.reserve(6.0 * edges);
 
 	for (int i = 0; i < edges; ++i) {
 		verts.push_back(0);
@@ -668,6 +676,10 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 		u_inter = 1.0 / edges,
 		v_inter = 0.55 / height;
 	
+	verts.reserve(18.0 * height * edges);
+	norms.reserve(18.0 * height * edges);
+	texcoords.reserve(12.0 * height * edges);
+
 	for (int i = 1; i <= height; ++i) {
 		for (int j = 0; j < edges; ++j) {
 			// side
@@ -817,6 +829,10 @@ void Shape::buildCone(	float radius, float edges, float height,
 		start = 0.0,
 		theta = 0.0;
 
+	verts.reserve(18.0 * edges);
+	norms.reserve(18.0 * edges);
+	texcoords.reserve(12.0 * edges);
+
 	for (int i = 0; i < edges; ++i) {
 		// side
 		verts.push_back(radius * cos(theta));
@@ -904,9 +920,9 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 		u_lats_interval = 1.0 / torus_edges,
 		v_longs_interval = 1.0 / tube_edges;
 
-	/*verts.reserve(18.0 * stacks * stacks);
-	norms.reserve(18.0 * stacks * stacks);
-	texcoords.reserve(12.0 * stacks * stacks);*/
+	verts.reserve(18.0 * tube_edges * torus_edges);
+	norms.reserve(18.0 * tube_edges * torus_edges);
+	texcoords.reserve(12.0 * tube_edges * torus_edges);
 
 	for (int i = 0; i < torus_edges; ++i) {
 		for (int j = 0; j < tube_edges; ++j) {
