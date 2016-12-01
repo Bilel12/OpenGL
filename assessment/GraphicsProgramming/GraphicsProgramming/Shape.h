@@ -15,7 +15,7 @@ public:
 	~Shape();
 
 	void render();										// Rendering shapes using GL_TRIANGLES
-	
+
 	void render(GLenum primitive);						// render shape with passed: primitve
 
 	void render(GLenum primitive,						// render shape with passed: primitve
@@ -41,6 +41,12 @@ public:
 					 std::vector<float> norms, 			// normals
 					 std::vector<float> texcoords, 		// texture coordinates
 					 GLuint* texture);					// texture
+
+	void renderColor(GLenum primitive);					// render shape using colour array with passed: primitve
+
+	void renderColor(GLenum primitive,					// render shape using colour array with passed: primitve
+					 GLuint* texture);					// texture
+
 	// Quads building functions
 	void buildQuad(		 float sca_x, float sca_y, float sca_z, 
 						 float pos_x, float pos_y, float pos_z, 
@@ -115,9 +121,6 @@ public:
 	Vector3 translate;	//tranlating
 	Vector3 rotation;	//rotating
 	Vector3 scale;		//scaling
-	//void drawIcosahedron();
-	//void normalize(float v[3]);
-	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 	// Material setting functions
 	void set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
 	void set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
@@ -135,14 +138,13 @@ public:
 	std::vector<GLfloat>* get_verts();
 	std::vector<GLfloat>* get_norms();
 	std::vector<GLfloat>* get_texcoords();
-	// Get rot_angle variable
+	// Get rot_angle variable function
 	float rotate(float arg);
 private:
 	std::vector<GLfloat> verts;		// vector to store verticies when building shapes
 	std::vector<GLfloat> norms;		// vector to store normals when building shapes
 	std::vector<GLfloat> texcoords;	// vector to store texture coordinates when building shapes
 	std::vector<GLfloat> colors;
-	//std::vector<double> colors;
 	float rot_angle;
 
 	std::vector<GLfloat> ambient;
@@ -157,33 +159,5 @@ private:
 	std::vector<GLfloat> emission_def;
 	std::vector<GLfloat> shininess_def;
 };
-
-//void drawtriangle(float *v1, float *v2, float *v3)
-//{
-//	glBegin(GL_TRIANGLES);
-//	glNormal3fv(v1); glVertex3fv(v1);
-//	glNormal3fv(v2); glVertex3fv(v2);
-//	glNormal3fv(v3); glVertex3fv(v3);
-//	glEnd();
-//}
-//
-//void subdivide(float *v1, float *v2, float *v3)
-//{
-//	GLfloat v12[3], v23[3], v31[3];
-//	GLint i;
-//
-//	for (i = 0; i < 3; i++) {
-//		v12[i] = v1[i] + v2[i];
-//		v23[i] = v2[i] + v3[i];
-//		v31[i] = v3[i] + v1[i];
-//	}
-//	normalize(v12);
-//	normalize(v23);
-//	normalize(v31);
-//	drawtriangle(v1, v12, v31);
-//	drawtriangle(v2, v23, v12);
-//	drawtriangle(v3, v31, v23);
-//	drawtriangle(v12, v23, v31);
-//}
 
 #endif

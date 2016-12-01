@@ -192,7 +192,10 @@ void Scene::loadModels() {
 void Scene::loadLists() {
 	Torus = glGenLists(1);
 	glNewList(Torus, GL_COMPILE);
-	draw.drawSphereTorus(100, 3.0, 0.0, 0.0, 0.1);
+	torus.buildTorus(	2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+						1, 1, 1,				// scale x, scale y, scale z
+						3., 7., 3.,				// translate x, translate y, translate z
+						0., 0., 0., 0);			// rotation angle, rotation x, rotation y, rotation z
 	glEndList();
 
 	Disc = glGenLists(2);
@@ -207,32 +210,28 @@ void Scene::loadLists() {
 
 	LowPoliCylinder = glGenLists(3);
 	glNewList(LowPoliCylinder, GL_COMPILE);
-	draw.drawCylinderTwoTex(3., 6., 3., -5., 0., -1., disk_tex, globe_tex);
+	cylinder.buildCylinder(	2.3f, 20.0f, 10.0f,	// radius, edges, height
+							1.0f, 1.0f, 1.0f,		// scale x, scale y, scale z
+							3.0f, 3.0f, 3.0f,		// translate x, translate y, translate z
+							180.0f, 0.0f, 0.0f, 1.0f);	// rotation angle, rotation x, rotation y, rotation z
 	glEndList();
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	draw.drawCylinderOneTex(3., 100., 3., 5., 0., -1., disk_tex);
+	cylinder.buildCylinder(	2.3, 20, 10,	// radius, edges, height
+							1, 1, 1,		// scale x, scale y, scale z
+							3, 3, 3,		// translate x, translate y, translate z
+							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
 	glEndList();
 }
 
 void Scene::renderLists() {
-	//glCallList(Torus);
-	glCallList(Sphere);
+	glCallList(Torus);
+	/*glCallList(Sphere);
 	glCallList(Disc);
-	//glCallList(LowPoliCylinder);
-	//glCallList(HighPoliCylinder);
+	glCallList(LowPoliCylinder);
+	glCallList(HighPoliCylinder);*/
 	glFlush();
-}
-
-void Scene::drawShapes() {
-	//draw.drawCylinder(2.0, 200.0, 3.0, 0.0, 5.0, -5.0, barrel_tex);
-	//draw.drawCylinder(2., 50., 10., 3., 3., 3., disk_tex);
-	//draw.drawCylinderTwoTex(2., 10., 20., 3., 3., 3., barrel_lid_1_tex, barrel_side_tex);
-	//draw.drawCylinderOneTex(2., 10., 20., 3., 3., 3., barrel_tex);
-	//draw.drawSphereTorus(100, scale_x, scale_y, scale_z, 0.23); // frame rate starts droping at rot_interval < 0.13 on MAC < 0.23 on Uni PCs
-	//draw.drawIcosahedron();
-	//draw.drawIcosahedron();
 }
 
 void Scene::setRenderMode(bool blend, bool wireframe) {
@@ -284,7 +283,7 @@ void Scene::renderShadowing() {
 	// Generate shadow matrix
 	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
 	// Floor for shadowing
-	quad_shadow.render(GL_QUADS);
+	quad_shadow.renderColor(GL_QUADS);
 	// Render shadow
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
@@ -625,9 +624,6 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
-	// SHADOW II
-	//populateExample();
-	//buildShadowVolume(Light_Position_0);
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);
@@ -806,121 +802,5 @@ void Scene::generateShadowMatrix(float light_pos[4], GLfloat floor[12]) {
 	shadowMatrix[13] = -d * y;
 	shadowMatrix[14] = -d * z;
 	shadowMatrix[15] = -(a * x + b * y + c * z);
-}
-
-// An example of the shadow caster object I used.
-// Just a 4 by 4 quad stored in a vertex array.
-// Can be used when creating the shadow volume and be rendered to the scene.
-// for shadow volume build shadow caster
-void Scene::buildExample() {
-	casterVerts.reserve(11);
-
-	casterVerts[0] = -2.0f;
-	casterVerts[1] = 3.0f;
-	casterVerts[2] = -2.0f;
-
-	casterVerts[3] = -2.f;
-	casterVerts[4] = 3.f;
-	casterVerts[5] = 2.f;
-
-	casterVerts[6] = 2.f;
-	casterVerts[7] = 3.f;
-	casterVerts[8] = 2.f;
-
-	casterVerts[9] = 2.f;
-	casterVerts[10] = 3.f;
-	casterVerts[11] = -2.f;
-
-	casterNorms.reserve(11);
-	// normals
-	casterNorms[0] = 0.f;
-	casterNorms[1] = 1.f;
-	casterNorms[2] = 0.f;
-	casterNorms[3] = 0.f;
-	casterNorms[4] = 1.f;
-	casterNorms[5] = 0.f;
-	casterNorms[6] = 0.f;
-	casterNorms[7] = 1.f;
-	casterNorms[8] = 0.f;
-	casterNorms[9] = 0.f;
-	casterNorms[10] = 1.f;
-	casterNorms[11] = 0.f;
-}
-
-// Builds the shadow volume and stores it in a vector (for rendering via vertex array techniques)
-// Vector declared as std::Vector<float> shadowVolume;
-// Vertices of the shadow caster are extended to create the volume.
-void Scene::buildShadowVolume(float lightPosit[4])
-{
-	float extrusion = 5.f;
-
-	// Clear previous shadow volume
-	shadowVolume.clear();
-
-	//Build new shadow volume
-
-	// Temporary variable for storing newly calculated vertcies
-	float vExtended[3];
-	
-	// For each vertex of the shadow casting object, find the edge 
-	// that it helps define and extrude a quad out from that edge.
-	for (int i = 0; i < (sizeof(casterVerts) / sizeof(casterVerts[0])); i += 3)
-	{
-		// Define the edge we're currently working on extruding...
-		int e0 = i;
-		int e1 = i + 3;
-
-		// If the edge's second vertex is out of array range, 
-		// place it back at 0
-		if (e1 >= (sizeof(casterVerts) / sizeof(casterVerts[0])))
-		{
-			e1 = 0;
-		}
-		// v0 of our extruded quad will simply use the edge's first 
-		// vertex or e0.
-		shadowVolume.push_back(casterVerts[e0]);
-		shadowVolume.push_back(casterVerts[e0 + 1]);
-		shadowVolume.push_back(casterVerts[e0 + 2]);
-
-		// v1 of our quad is created by taking the edge's first 
-		// vertex and extending it out by some amount.
-		extendVertex(vExtended, lightPosit, casterVerts[e0], casterVerts[e0 + 1], casterVerts[e0 + 2], extrusion);
-		shadowVolume.push_back(vExtended[0]);
-		shadowVolume.push_back(vExtended[1]);
-		shadowVolume.push_back(vExtended[2]);
-
-		// v2 of our quad is created by taking the edge's second 
-		// vertex and extending it out by some amount.
-		extendVertex(vExtended, lightPosit, casterVerts[e1], casterVerts[e1 + 1], casterVerts[e1 + 2], extrusion);
-		shadowVolume.push_back(vExtended[0]);
-		shadowVolume.push_back(vExtended[1]);
-		shadowVolume.push_back(vExtended[2]);
-
-		// v3 of our extruded quad will simply use the edge's second 
-		//// vertex or e1.
-		shadowVolume.push_back(casterVerts[e1]);
-		shadowVolume.push_back(casterVerts[e1 + 1]);
-		shadowVolume.push_back(casterVerts[e1 + 2]);
-	}
-
-}
-
-// Calculates new vertex positions based on a light position and provide vertex position.
-// Puts new vertex positions in newVert for access by buildShadowVolume() function.
-// Builds a vector between light and vertex, then extends along that vector by set extrusion amount.
-void Scene::extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext)
-{
-	float lightDir[3];
-
-	// Create a vector that points from the light's position to the original vertex.
-	lightDir[0] = x - lightPosit[0];
-	lightDir[1] = y - lightPosit[1];
-	lightDir[2] = z - lightPosit[2];
-
-	// Then use that vector to extend the original vertex out to a new position.
-	// The distance to extend or extrude the new vector is specified by t.
-	newVert[0] = lightPosit[0] + lightDir[0] * ext;
-	newVert[1] = lightPosit[1] + lightDir[1] * ext;
-	newVert[2] = lightPosit[2] + lightDir[2] * ext;
 }
 

@@ -46,7 +46,6 @@ protected:
 	void assignTextures();
 	void loadLists();
 	void renderLists();
-	void drawShapes();
 	void setRenderMode(bool blend, bool wireframe);
 	void loadModels();
 	void renderStencilBuffer(Model model);
@@ -70,7 +69,7 @@ protected:
 	char cameraSideText[60];
 	char cameraRotationText[60];
 	float fov, nearPlane, farPlane;
-	
+
 	// For access to user input.
 	Input* input;
 	// Cameras
@@ -78,29 +77,6 @@ protected:
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
-	// Models
-	Model spaceship;
-	Model drone;
-	// Shapes
-	Shape skybox;
-	Shape sphere;
-	Shape cone;
-	Shape disc_1, disc_2, disc_flat;
-	Shape blend_cube;
-	Shape floor;
-	Shape cylinder;
-	Shape circle;
-	Shape quad_shadow;
-	Shape sun;
-	Shape torus;
-	// Drawn shapes
-	Draw draw;
-	// Objects for lists creating
-	GLuint Torus;
-	GLuint Disc;
-	GLuint Sphere;
-	GLuint LowPoliCylinder;
-	GLuint HighPoliCylinder;
 	// Variables for loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
@@ -122,10 +98,33 @@ protected:
 	GLuint *globe_tex;
 	GLuint *spaceship_tex;
 	GLuint *barrel_tex;
+	// Shapes
+	Shape skybox;
+	Shape sphere;
+	Shape cone;
+	Shape disc_1, disc_2, disc_flat;
+	Shape blend_cube;
+	Shape floor;
+	Shape cylinder;
+	Shape circle;
+	Shape quad_shadow;
+	Shape sun;
+	Shape torus;
+	// Models
+	Model spaceship;
+	Model drone;
+	// Objects for lists creating
+	GLuint Torus;
+	GLuint Disc;
+	GLuint Sphere;
+	GLuint LowPoliCylinder;
+	GLuint HighPoliCylinder;
 	// Rotation variables
-	float scale_x, scale_y, scale_z;
+	float scale_x;
+	float scale_y;
+	float scale_z;
 	float angle;		// Rotate by angle
-						// Toggle variables
+	// Toggling variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode
 	bool development;	// toggle development mode i.e. display text
@@ -154,34 +153,16 @@ protected:
 	GLfloat high_shininess[1] = { 100 };
 	GLfloat spot_cutoff[1] = { 180 };
 	// Set light
-	void setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);
-	void setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);
-	void setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);
-	void setSpotDirection(float x, float y, float z, GLfloat* spotDirection);
-	// Set light Specular
-	void setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);
+	void setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);	// Set light's ambient
+	void setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);	// Set light's diffuse
+	void setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);	// Set light's position
+	void setSpotDirection(float x, float y, float z, GLfloat* spotDirection);			// Set light's direction
+	void setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);	// Set light's specular
 	// Shadowing
 	GLfloat shadowMatrix[16];
 	std::vector<float> shadowVolume;
-	std::vector<float> casterVerts;
-	std::vector<float> casterNorms;
-	
-	void buildShadowVolume(float lightPosit[4]);
-	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
-	void extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext);
-	void buildExample();
 
+	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
 };
+
 #endif
-// TODO
-//GLfloat no_mat[4];
-//GLfloat mat_ambient[4];
-//GLfloat mat_ambient_colour[4];
-//GLfloat mat_diffuse[4];
-//GLfloat mat_specular[4];
-//GLfloat mat_emission[4];
-//GLfloat high_spec[4];
-//
-//GLfloat no_shininess[1];
-//GLfloat low_shininess[1];
-//GLfloat high_shininess[1];

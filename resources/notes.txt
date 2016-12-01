@@ -1,7 +1,56 @@
-////TODO
-//glutGet(GLUT_WINDOW_WIDTH)
-//glutGet(GLUT_WINDOW_HEIGHT)
-//#define GLUT_WINDOW_WIDTH 800
-//#define GLUT_WIDNOW_HEIGHT 600
-//#define GLUT_INIT_WINDOW_X	100
-//#define GLUT_INIT_WINDOW_Y	100
+glutGet(GLUT_WINDOW_WIDTH)
+glutGet(GLUT_WINDOW_HEIGHT)
+#define GLUT_WINDOW_WIDTH 800
+#define GLUT_WIDNOW_HEIGHT 600
+#define GLUT_INIT_WINDOW_X	100
+#define GLUT_INIT_WINDOW_Y	100
+
+// Rendering methods
+extern GLubyte indices[] = {
+	0,   1,   2,	//front
+	0,   2,   3,
+};
+void Shape::render1() {
+	// add code to render the cube (above) using method 1
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glColorPointer(3, GL_FLOAT, 0, colors.data());
+	glVertexPointer(3, GL_FLOAT, 0, verts.data());
+	glNormalPointer(GL_FLOAT, 0, norms.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+	glBegin(GL_TRIANGLE_STRIP);
+	for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); ++i) {
+		glArrayElement(indices[i]);
+	}
+	glEnd();
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void Shape::render3() {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_INDEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	//glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
+	glNormalPointer(GL_FLOAT, 0, cube_norms);
+	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
+
+	glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_BYTE, indices);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_INDEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
