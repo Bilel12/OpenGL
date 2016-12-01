@@ -594,7 +594,6 @@ void Scene::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	// Reset transformations
 	glLoadIdentity();
-
 	// Set the camera
 	gluLookAt(	camera->getPositionX(), camera->getPositionY(), camera->getPositionZ(),
 				camera->getLookAtX(), camera->getLookAtY(), camera->getLookAtZ(),
@@ -861,8 +860,7 @@ void Scene::buildShadowVolume(float lightPosit[4])
 
 	// Temporary variable for storing newly calculated vertcies
 	float vExtended[3];
-
-
+	
 	// For each vertex of the shadow casting object, find the edge 
 	// that it helps define and extrude a quad out from that edge.
 	for (int i = 0; i < (sizeof(casterVerts) / sizeof(casterVerts[0])); i += 3)

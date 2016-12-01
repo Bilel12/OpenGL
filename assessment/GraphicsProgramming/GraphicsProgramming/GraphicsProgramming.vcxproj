@@ -83,7 +83,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="Input.cpp" />

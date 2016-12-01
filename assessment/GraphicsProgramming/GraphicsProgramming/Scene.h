@@ -166,7 +166,7 @@ protected:
 	std::vector<float> shadowVolume;
 	std::vector<float> casterVerts;
 	std::vector<float> casterNorms;
-
+	
 	void buildShadowVolume(float lightPosit[4]);
 	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
 	void extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext);

@@ -37,7 +37,7 @@ void FreeCamera::update() {
 	// Look direction,  position and the up vector 
 
 	// This function could also calculate the right vector
-
+	
 	forward.x = sinY * cosP;
 	forward.y = sinP;
 	forward.z = cosP * -cosY;
