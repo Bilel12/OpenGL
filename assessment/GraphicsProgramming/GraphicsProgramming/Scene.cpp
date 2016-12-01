@@ -454,7 +454,8 @@ void Scene::updateVariables() {
 	blend_cube.scale.set(1, 1, 1);
 	blend_cube.rotation.set(1, 1, 1);
 	blend_cube.rotate(angle);
-	sun.translate.set(Light_Position_1);
+	//sun.translate.set(Light_Position_1);
+	sun.translate = Light_Position_1;
 	//sphere.rotate(angle);
 }
 
@@ -468,7 +469,7 @@ void Scene::buildLight() {
 	// Light 1
 	setLightAmbient(1.0f, 1.0f, 1.0f, 1.0f, Light_Ambient_1);
 	setLightDiffuse(0.6f, 0.6f, 0.6f, 1.0f, Light_Diffuse_1);			// Light colour
-	setLightPosition(0.0f, 2.0f, 0.0f, 1.0f, Light_Position_1);
+	setLightPosition(0.0f, 3.0f, 0.0f, 1.0f, Light_Position_1);
 	setLightSpecular(0.5f, 0.5f, 0.5f, 1.0f, Light_Specular_1);
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 	//setLightPosition(position_x, position_y, position_z, 1, Light_Position_1);

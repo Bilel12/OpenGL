@@ -141,11 +141,12 @@ public:
 	// Get rot_angle variable function
 	float rotate(float arg);
 private:
+	float rot_angle;
+
 	std::vector<GLfloat> verts;		// vector to store verticies when building shapes
 	std::vector<GLfloat> norms;		// vector to store normals when building shapes
 	std::vector<GLfloat> texcoords;	// vector to store texture coordinates when building shapes
 	std::vector<GLfloat> colors;
-	float rot_angle;
 
 	std::vector<GLfloat> ambient;
 	std::vector<GLfloat> diffuse;
