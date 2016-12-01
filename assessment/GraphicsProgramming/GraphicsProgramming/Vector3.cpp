@@ -20,14 +20,13 @@ bool Vector3::equals(const Vector3& v2, float epsilon) {
 		(fabsf(this->z - v2.z) < epsilon));
 }
 
-bool Vector3::equals(const Vector3& v2)
-{
+bool Vector3::equals(const Vector3& v2) {
 	return equals(v2, 0.00001f);
 }
 
 
 float Vector3::length() {
-	return sqrt(this->lengthSquared());
+	return static_cast<float>(sqrt(this->lengthSquared()));
 }
 
 float Vector3::lengthSquared() {
@@ -48,8 +47,7 @@ void Vector3::normalise() {
 	}
 }
 
-Vector3 Vector3::normalised()
-{
+Vector3 Vector3::normalised() {
 	Vector3 norm(x, y, z);
 	norm.normalise();
 	return norm;
@@ -108,9 +106,9 @@ float Vector3::getZ() {
 
 float Vector3::dot(const Vector3& v2) {
 	return (this->x*v2.x +
-		this->y*v2.y +
-		this->z*v2.z
-		);
+			this->y*v2.y +
+			this->z*v2.z
+			);
 }
 
 void Vector3::scale(float scale) {

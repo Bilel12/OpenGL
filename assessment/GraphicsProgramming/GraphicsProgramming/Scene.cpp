@@ -454,7 +454,6 @@ void Scene::updateVariables() {
 	blend_cube.scale.set(1, 1, 1);
 	blend_cube.rotation.set(1, 1, 1);
 	blend_cube.rotate(angle);
-	//sun.translate.set(Light_Position_1);
 	sun.translate = Light_Position_1;
 	//sphere.rotate(angle);
 }

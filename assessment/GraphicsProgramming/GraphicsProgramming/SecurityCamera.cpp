@@ -21,7 +21,7 @@ void SecurityCamera::update() {
 	float cosR, cosP, cosY;	//temp values for sin/cos from 
 	float sinR, sinP, sinY;
 	// Roll, Pitch and Yall are variables stored by the FreeCamera
-
+	// handle rotation
 	// Only want to calculate these values once, when rotation changes, not every frame. 
 	cosY = cosf(Yaw*3.1415 / 180);
 	cosP = cosf(Pitch*3.1415 / 180);
@@ -29,31 +29,20 @@ void SecurityCamera::update() {
 	sinY = sinf(Yaw*3.1415 / 180);
 	sinP = sinf(Pitch*3.1415 / 180);
 	sinR = sinf(Roll*3.1415 / 180);
-
-	//This using the parametric equation of a sphere
-
-	// Calculate the three vectors to put into  glu Lookat
-
-	// Look direction,  position and the up vector 
-
-	// This function could also calculate the right vector
-
+	// Calculate forward vector
 	forward.x = sinY * cosP;
 	forward.y = sinP;
 	forward.z = cosP * -cosY;
-
-	// Look At Point
+	// Calculate lookAt vector
 	lookAt.x = position.x + forward.x;
 	lookAt.y = position.y + forward.y;
 	lookAt.z = position.z + forward.z;
-
-	// Up Vector
+	// Calculate up Vector
 	up.x = -cosY * sinR - sinY * sinP * cosR;
 	up.y = cosP * cosR;
 	up.z = -sinY * sinR - sinP * cosR * -cosY;
-
-	// Side Vector (right)
-	side = forward.cross(up); // this is a cross product between the forward and up vector. 
+	// Calculate side Vector (right)
+	side = forward.cross(up); // this is a cross product between the forward and up vector
 }
 
 float SecurityCamera::getPositionX() {
