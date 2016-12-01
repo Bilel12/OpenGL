@@ -16,8 +16,8 @@ Vector3 Vector3::copy() {
 
 bool Vector3::equals(const Vector3& v2, float epsilon) {
 	return ((fabsf(this->x - v2.x) < epsilon) &&
-		(fabsf(this->y - v2.y) < epsilon) &&
-		(fabsf(this->z - v2.z) < epsilon));
+			(fabsf(this->y - v2.y) < epsilon) &&
+			(fabsf(this->z - v2.z) < epsilon));
 }
 
 bool Vector3::equals(const Vector3& v2) {

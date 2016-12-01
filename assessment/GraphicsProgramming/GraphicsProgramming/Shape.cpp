@@ -88,7 +88,7 @@ void Shape::render(GLenum primitive) {
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());	// set specular to default values
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());	// set emission to default values
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
-
+		//
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -417,15 +417,15 @@ void Shape::buildCircle(float edges,
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
 
-	verts.reserve(edges);
-	norms.reserve(edges);
-	texcoords.reserve(edges);
+	verts.reserve((unsigned)(edges));
+	norms.reserve((unsigned)(edges));
+	texcoords.reserve((unsigned)(edges));
 
 	for (int i = 0; i <= edges; ++i) {
 		//glNormal3f(0.0, 1.0, 0.0);
 		//glTexCoord2f(x + (cos((2 * M_PI * i) / edges)), y + (sin((2 * M_PI * i) / edges)));
-		verts.push_back(cos((2 * M_PI * i) / edges));
-		verts.push_back(sin((2 * M_PI * i) / edges));
+		verts.push_back((float)cos((2 * M_PI * i) / edges));
+		verts.push_back((float)sin((2 * M_PI * i) / edges));
 		verts.push_back(0.0);
 	}
 }
@@ -460,14 +460,14 @@ void Shape::buildDisc(	float edges, float radius,
 	rot_angle = angle;
 
 	float
-		interval = 2.0 * M_PI / edges,
-		diameter = 2 * radius,
+		interval = (float)(2.0 * M_PI / edges),
+		diameter = (float)(2 * radius),
 		start = 0.0,
 		theta = 0.0;
 
-	verts.reserve(9.0 * edges);
-	norms.reserve(9.0 * edges);
-	texcoords.reserve(6.0 * edges);
+	verts.reserve((unsigned)(9.0 * edges));
+	norms.reserve((unsigned)(9.0 * edges));
+	texcoords.reserve((unsigned)(6.0 * edges));
 
 	for (int i = 0; i < edges; ++i) {
 		verts.push_back(0);
@@ -488,10 +488,10 @@ void Shape::buildDisc(	float edges, float radius,
 
 		texcoords.push_back(0.5);
 		texcoords.push_back(0.5);
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
-		texcoords.push_back(cos(theta + interval) / diameter + 0.5);
-		texcoords.push_back(sin(theta + interval) / diameter + 0.5);
+		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
+		texcoords.push_back((float)(cos(theta + interval) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta + interval) / diameter + 0.5));
 
 		theta += interval;
 		}
@@ -593,16 +593,16 @@ void Shape::buildSphere(float radius, float longitude, float latitude,
 	float
 		delta = 0.0, // angle of latitude
 		theta = 0.0, // angle of longitude
-		theta_interval = (2.0 * M_PI) / latitude, // angle of latitude
-		delta_interval = M_PI / longitude, // angle of longitude
+		theta_interval = (float)((2.0 * M_PI) / latitude), // angle of latitude
+		delta_interval = (float)(M_PI / longitude), // angle of longitude
 		u_lats = 0.0,
 		v_longs = 0.0,
-		u_lats_interval = 1.0 / latitude,
-		v_longs_interval = 1.0 / longitude;
+		u_lats_interval = (float)(1.0 / latitude),
+		v_longs_interval = (float)(1.0 / longitude);
 
-	verts.reserve(18.0 * latitude * longitude);
-	norms.reserve(18.0 * latitude * longitude);
-	texcoords.reserve(12.0 * latitude * longitude);
+	verts.reserve((unsigned)(18.0 * latitude * longitude));
+	norms.reserve((unsigned)(18.0 * latitude * longitude));
+	texcoords.reserve((unsigned)(12.0 * latitude * longitude));
 
 	for (int i = 0; i < longitude; ++i) {		// build 
 		for (int j = 0; j < latitude; ++j) {	// build wedge
@@ -696,18 +696,18 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 	rot_angle = angle;
 
 	float
-		interval = 2.0 * M_PI / edges,
-		diameter = 2 * radius,
+		interval = (float)(2.0 * M_PI / edges),
+		diameter = (float)(2 * radius),
 		theta = 0.0,
-		y_value = height / edges,
+		y_value = (float)(height / edges),
 		u = 0.0,
-		v = 0.45,
-		u_inter = 1.0 / edges,
-		v_inter = 0.55 / height;
+		v = (float)(0.45),
+		u_inter = (float)(1.0 / edges),
+		v_inter = (float)(0.55 / height);
 	
-	verts.reserve(18.0 * height * edges);
-	norms.reserve(18.0 * height * edges);
-	texcoords.reserve(12.0 * height * edges);
+	verts.reserve((unsigned)(18.0 * height * edges));
+	norms.reserve((unsigned)(18.0 * height * edges));
+	texcoords.reserve((unsigned)(12.0 * height * edges));
 
 	for (int i = 1; i <= height; ++i) {
 		for (int j = 0; j < edges; ++j) {
@@ -802,12 +802,12 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 				norms.push_back(0.0);
 			}
 			// bottom texture coordinates
-			texcoords.push_back(0.238);
-			texcoords.push_back(0.223);
-			texcoords.push_back(cos(theta) / diameter + 0.238);
-			texcoords.push_back(sin(theta) / diameter + 0.223);
-			texcoords.push_back(cos(theta + interval) / diameter + 0.238);
-			texcoords.push_back(sin(theta + interval) / diameter + 0.223);
+			texcoords.push_back((float)(0.238));
+			texcoords.push_back((float)(0.223));
+			texcoords.push_back((float)(cos(theta) / diameter + 0.238));
+			texcoords.push_back((float)(sin(theta) / diameter + 0.223));
+			texcoords.push_back((float)(cos(theta + interval) / diameter + 0.238));
+			texcoords.push_back((float)(sin(theta + interval) / diameter + 0.223));
 			// top disk
 			// top vertices
 			verts.push_back(0.0);
@@ -826,12 +826,12 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 				norms.push_back(0.0);
 			}
 			// top texture coordinates
-			texcoords.push_back(0.742);
-			texcoords.push_back(0.223);
-			texcoords.push_back(cos(theta) / diameter + 0.742);
-			texcoords.push_back(sin(theta) / diameter + 0.223);
-			texcoords.push_back(cos(theta + interval) / diameter + 0.742);
-			texcoords.push_back(sin(theta + interval) / diameter + 0.223);
+			texcoords.push_back((float)(0.742));
+			texcoords.push_back((float)(0.223));
+			texcoords.push_back((float)(cos(theta) / diameter + 0.742));
+			texcoords.push_back((float)(sin(theta) / diameter + 0.223));
+			texcoords.push_back((float)(cos(theta + interval) / diameter + 0.742));
+			texcoords.push_back((float)(sin(theta + interval) / diameter + 0.223));
 
 			theta += interval;
 			u += u_inter;
@@ -853,14 +853,13 @@ void Shape::buildCone(	float radius, float edges, float height,
 	rot_angle = angle;
 
 	float 
-		interval = 2.0 * M_PI / edges,
-		diameter = 2 * radius,
-		start = 0.0,
+		interval = (float)(2.0 * M_PI / edges),
+		diameter = (float)(2 * radius),
 		theta = 0.0;
 
-	verts.reserve(18.0 * edges);
-	norms.reserve(18.0 * edges);
-	texcoords.reserve(12.0 * edges);
+	verts.reserve((unsigned)(18.0 * edges));
+	norms.reserve((unsigned)(18.0 * edges));
+	texcoords.reserve((unsigned)(12.0 * edges));
 
 	for (int i = 0; i < edges; ++i) {
 		// side
@@ -909,21 +908,21 @@ void Shape::buildCone(	float radius, float edges, float height,
 
 		// side
 		// first edge
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
+		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
 		// second edge
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
+		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
 		// tip
-		texcoords.push_back(start + 0.5);
-		texcoords.push_back(start + 0.5);
+		texcoords.push_back((float)(0.5));
+		texcoords.push_back((float)(0.5));
 		// bottom disk
-		texcoords.push_back(start + 0.5);
-		texcoords.push_back(start + 0.5);
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
-		texcoords.push_back(cos(theta) / diameter + 0.5);
-		texcoords.push_back(sin(theta) / diameter + 0.5);
+		texcoords.push_back((float)(0.5));
+		texcoords.push_back((float)(0.5));
+		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
+		texcoords.push_back((float)(cos(theta + interval) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta + interval) / diameter + 0.5));
 
 		theta += interval;
 	}
@@ -942,17 +941,17 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 	float
 		delta = 0.0,									// torus angle
 		theta = 0.0,									// tube angle
-		theta_interval = (2.0 * M_PI) / tube_edges,		// torus angle
-		delta_interval = (2.0 * M_PI) / torus_edges,	// tube angle
+		theta_interval = (float)((2.0 * M_PI) / tube_edges),		// torus angle
+		delta_interval = (float)((2.0 * M_PI) / torus_edges),	// tube angle
 		u_lats = 0.0,
 		v_longs = 0.0,
-		u_lats_interval = 1.0 / torus_edges,
-		v_longs_interval = 1.0 / tube_edges;
+		u_lats_interval = (float)(1.0 / torus_edges),
+		v_longs_interval = (float)(1.0 / tube_edges);
 
-	verts.reserve(18.0 * tube_edges * torus_edges);
-	norms.reserve(18.0 * tube_edges * torus_edges);
-	texcoords.reserve(12.0 * tube_edges * torus_edges);
-
+	verts.reserve((unsigned)(18.0 * tube_edges * torus_edges));
+	norms.reserve((unsigned)(18.0 * tube_edges * torus_edges));
+	texcoords.reserve((unsigned)(12.0 * tube_edges * torus_edges));
+	
 	for (int i = 0; i < torus_edges; ++i) {
 		for (int j = 0; j < tube_edges; ++j) {
 			// Verts 0
