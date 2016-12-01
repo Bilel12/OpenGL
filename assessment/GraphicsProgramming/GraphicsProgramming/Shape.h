@@ -7,6 +7,9 @@
 #define _USE_MATH_DEFINES // for C++
 #include <cmath>
 #include <vector>
+//#include "Cube.h"
+//#include "Skybox.h"
+//#include "Icosahedron.h"
 #include "Vector3.h"
 // Remember atom beautify
 class Shape {
@@ -18,11 +21,11 @@ public:
 	void render(GLenum primitive);															// render shape with passed primitve
 	void render(GLenum primitive, GLuint *texture);											// render shape with passed primitve and texture
 	void render(GLenum primitive, float R, float G, float B, float A);						// render shape with passed primitve and colour
-	void render(GLenum primitive, float R, float G, float B, float A, GLuint *texture);		// render shape with passed primitve, texture and colour
+	void render(GLenum primitive, float R, float G, float B, float A, GLuint *texture);		// render shape with passed primitve, colour and texture
+	void render(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture); // render shape with passed primitve, colour, texture, array and 
 	// Other rendering functions
-	void renderCube(		float R, float G, float B, float A,	GLuint * texture);			// render cube with passed colour and texture
-	void renderBlendCube(	float R, float G, float B, float A, GLuint *texture);			// render cube for blending with passed colour and texture
-	void renderSkybox(		float R, float G, float B, GLuint *texture);					// render skybox with passed colour and texture
+	//void renderCube(		float R, float G, float B, float A,	GLuint * texture);			// render cube with passed colour and texture
+	void renderBlend(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture);			// render cube for blending with passed colour and texture
 	//static void drawTorus(int numc, int numt);
 	// Quads building functions
 	void buildQuad(			float sca_x, float sca_y, float sca_z, 

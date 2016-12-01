@@ -1,50 +1,50 @@
 #ifndef _SKYBOX_H
 #define _SKYBOX_H
 
-extern float skybox_verts[] = {
+static std::vector<float> skybox_verts = {
 								// front face
-								-1, -1, 1,	// Left bottom
-								1, -1, 1,	// Right bottom
-								1, 1, 1,	// Right top
-								1, 1, 1,	// Right top
-								-1, 1, 1,	// Left top
-								-1, -1, 1,	// Left bottom
+								-1.0f, -1.0f, 1.0f,	// Left bottom
+								1.0f, -1.0f, 1.0f,	// Right bottom
+								1.0f, 1.0f, 1.0f,	// Right top
+								1.0f, 1.0f, 1.0f,	// Right top
+								-1.0f, 1.0f, 1.0f,	// Left top
+								-1.0f, -1.0f, 1.0f,	// Left bottom
 								// right side face
-								1, -1, 1,	// Right bottom
-								1, -1, -1,	// Left bottom
-								1, 1, 1,	// Right top
-								1, 1, 1,	// Right top
-								1, 1, -1,	// Left top
-								1, -1, -1,	// Left bottom
+								1.0f, -1.0f, 1.0f,	// Right bottom
+								1.0f, -1.0f, -1.0f,	// Left bottom
+								1.0f, 1.0f, 1.0f,	// Right top
+								1.0f, 1.0f, 1.0f,	// Right top
+								1.0f, 1.0f, -1.0f,	// Left top
+								1.0f, -1.0f, -1.0f,	// Left bottom
 								// left side face
-								-1, -1, -1,	// Left bottom
-								-1, 1, -1,	// Left top
-								-1, 1, 1,	// Right top
-								-1, 1, 1,	// Right top
-								-1, -1, 1,	// Right bottom
-								-1, -1, -1,	// Left bottom
-								-1, -1, -1,	// Left bottom
-								-1, -1, 1,	// Left top
-								1, -1, 1,	// Right top
-								1, -1, 1,	// Right top
-								1, -1, -1,	// Right bottom
-								-1, -1, -1,	// Left bottom
+								-1.0f, -1.0f, -1.0f,	// Left bottom
+								-1.0f, 1.0f, -1.0f,	// Left top
+								-1.0f, 1.0f, 1.0f,	// Right top
+								-1.0f, 1.0f, 1.0f,	// Right top
+								-1.0f, -1.0f, 1.0f,	// Right bottom
+								-1.0f, -1.0f, -1.0f,	// Left bottom
+								-1.0f, -1.0f, -1.0f,	// Left bottom
+								-1.0f, -1.0f, 1.0f,	// Left top
+								1.0f, -1.0f, 1.0f,	// Right top
+								1.0f, -1.0f, 1.0f,	// Right top
+								1.0f, -1.0f, -1.0f,	// Right bottom
+								-1.0f, -1.0f, -1.0f,	// Left bottom
 								// back face
-								-1, -1, -1,	// Left bottom
-								1, -1, -1,	// Right bottom
-								1, 1, -1,	// Right top
-								1, 1, -1,	// Right top
-								-1, 1, -1,	// Left top
-								-1, -1, -1,	// Left bottom
+								-1.0f, -1.0f, -1.0f,	// Left bottom
+								1.0f, -1.0f, -1.0f,	// Right bottom
+								1.0f, 1.0f, -1.0f,	// Right top
+								1.0f, 1.0f, -1.0f,	// Right top
+								-1.0f, 1.0f, -1.0f,	// Left top
+								-1.0f, -1.0f, -1.0f,	// Left bottom
 								// top face
-								1, 1, 1,	// Right top
-								1, 1, -1,	// Right bottom
-								-1, 1, -1,	// Left bottom
-								-1, 1, -1,	// Left bottom
-								-1, 1, 1,	// Left top
-								1, 1, 1,	// Right top
+								1.0f, 1.0f, 1.0f,	// Right top
+								1.0f, 1.0f, -1.0f,	// Right bottom
+								-1.0f, 1.0f, -1.0f,	// Left bottom
+								-1.0f, 1.0f, -1.0f,	// Left bottom
+								-1.0f, 1.0f, 1.0f,	// Left top
+								1.0f, 1.0f, 1.0f,	// Right top
 };
-extern float skybox_norms[] = {
+static std::vector<float> skybox_norms = {
 								0.0f, 0.0f, 1.0f,
 								0.0f, 0.0f, 1.0f,
 								0.0f, 0.0f, 1.0f,
@@ -82,7 +82,7 @@ extern float skybox_norms[] = {
 								0.0f, 1.0f, 0.0f,
 								0.0f, 1.0f, 0.0f,
 };
-extern float skybox_texcoords[] = {
+static std::vector<float> skybox_texcoords = {
 									// front face
 									0.25, 0.5,
 									0.5, 0.5,

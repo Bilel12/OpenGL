@@ -24,6 +24,8 @@
 #include "TopDownCamera.h"
 #include "Camera.h"
 #include "Shape.h"
+#include "Cube.h"
+#include "Skybox.h"
 #include "Draw.h"
 #include "Model.h"
 
@@ -36,7 +38,6 @@ public:
 	void update(float dt);
 	// Resizes the OpenGL output based on new window size.
 	void resize(int w, int h);
-
 protected:
 	// Renders text (x, y positions, RGB colour of text, string of text to be rendered)
 	void displayText(float x, float y, float r, float g, float b, char* string);
@@ -71,7 +72,7 @@ protected:
 	char cameraSideText[60];
 	char cameraRotationText[60];
 	float fov, nearPlane, farPlane;
-
+	
 	// For access to user input.
 	Input* input;
 	// Cameras
@@ -171,8 +172,8 @@ protected:
 	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
 	void extendVertex(float newVert[3], float lightPosit[4], float x, float y, float z, float ext);
 	void buildExample();
-};
 
+};
 #endif
 // TODO
 //GLfloat no_mat[4];
