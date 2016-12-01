@@ -329,7 +329,7 @@ void Draw::drawSphere(double radius, double latitude, double longitude, GLuint *
 		theta = 0.0; v_longs = 0.0;
 		delta += delta_interval;
 	}
-
+	// source: http://www.cburch.com/cs/490/sched/feb8/
 	/*for (int i = 0; i <= lats; i++) {
 	float theta = M_PI * (-0.5 + (float)(i - 1) / lats);
 	float z0 = sin(theta);
@@ -638,7 +638,7 @@ void Draw::drawCone(float radius, float edges, float height, float x, float y, f
 		}
 	} glBindTexture(GL_TEXTURE_2D, NULL);
 }
-
+// source: https://www.opengl.org/archives/resources/code/samples/redbook/torus.c
 //void Draw::drawTorus(int numc, int numt) {
 //	int i, j, k;
 //	double s, t, x, y, z, twopi;
@@ -660,132 +660,4 @@ void Draw::drawCone(float radius, float edges, float height, float x, float y, f
 //		glEnd();
 //	}
 //}
-//void Draw::normalize(float v[3]) {
-//	GLfloat d = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-//	if (d == 0.0) {
-//		return;
-//	}
-//	v[0] /= d; v[1] /= d; v[2] /= d;
-//}
-//
-//void Draw::normcrossprod(float v1[3], float v2[3], float out[3]) {
-//	GLint i, j;
-//	GLfloat length;
-//
-//	out[0] = v1[1] * v2[2] - v1[2] * v2[1];
-//	out[1] = v1[2] * v2[0] - v1[0] * v2[2];
-//	out[2] = v1[0] * v2[1] - v1[1] * v2[0];
-//	normalize(out);
-//}
-
-//void Draw::drawIcosahedron() {
-//	//glBegin(GL_TRIANGLES);
-//	//for (int i = 0; i < 20; i++) {
-//	//	glNormal3fv(&vdata[tindices[i][0]][0]);
-//	//	glVertex3fv(&vdata[tindices[i][0]][0]);
-//	//	glNormal3fv(&vdata[tindices[i][1]][0]);
-//	//	glVertex3fv(&vdata[tindices[i][1]][0]);
-//	//	glNormal3fv(&vdata[tindices[i][2]][0]);
-//	//	glVertex3fv(&vdata[tindices[i][2]][0]);
-//	//}
-//	//glEnd();
-//
-//
-//	for (int i = 0; i < 20; i++) {
-//		subdivide(&vdata[tindices[i][0]][0],
-//			&vdata[tindices[i][1]][0],
-//			&vdata[tindices[i][2]][0]);
-//	}
-//	/*glBegin(GL_TRIANGLES);
-//	for (int i = 0; i < 50; i++) {
-//		float d1[3], d2[3], norm[3];
-//		for (int j = 0; j < 3; j++) {
-//			d1[j] = vdata[tindices[i][0]][j] - vdata[tindices[i][1]][j];
-//			d2[j] = vdata[tindices[i][1]][j] - vdata[tindices[i][2]][j];
-//		}
-//
-//		normcrossprod(d1, d2, norm);
-//		glNormal3fv(norm);
-//		glVertex3fv(&vdata[tindices[i][0]][0]);
-//		glVertex3fv(&vdata[tindices[i][1]][0]);
-//		glVertex3fv(&vdata[tindices[i][2]][0]);
-//	}
-//	glEnd();*/
-//}
-
-// OLD DRAWING FUNCTIONS
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
-//glBegin(GL_QUADS);	//Begin drawing state
-////glColor3f(0.8, 0, 0);
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(0.0f, 0.0f);
-//glVertex3f(-1.0f, 1.0f, 0.0f);
-
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(0.0f, 3.0f);
-//glVertex3f(-1.0f, -1.0f, 0.0f);
-
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(3.0f, 3.0f);
-//glVertex3f(1.0f, -1.0f, 0.0f);
-
-//glNormal3f(0.0f, 0.0f, 1.0f);
-//glTexCoord2f(3.0f, 0.0f);
-//glVertex3f(1.0f, 1.0f, 0.0f);
-//glEnd();		//end drawing
-
-//glBindTexture(GL_TEXTURE_2D, myTexture);	//tells opengl which texture to use
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//glBegin(GL_QUADS);	//Begin drawing state
-//	//glColor3f(0.8, 0, 0);
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0.0f, 0.0f);
-//	glVertex3f(-1.0f, 1.0f, 0.0f);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0.0f, 1.0f);
-//	glVertex3f(-1.0f, -1.0f, 0.0f);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1.0f, 1.0f);
-//	glVertex3f(1.0f, -1.0f, 0.0f);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1.0f, 0.0f);
-//	glVertex3f(1.0f, 1.0f, 0.0f);
-//glEnd();		//end drawing
-
-//glPushMatrix(); {
-//	glColor4f(0.0f, 1.0f, 0.0f, 0.2f); // Full Brightness, 50% Alpha
-//	glBegin(GL_TRIANGLES); // front face
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(-1, -1, 1.5);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1, 1);
-//	glVertex3f(1, -1, 1.5);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(1, 1, 1.5);
-//	glEnd();
-
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(1, 0);
-//	glVertex3f(1, 1, 1.5);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0, 0);
-//	glVertex3f(-1, 1, 1.5);
-
-//	glNormal3f(0.0f, 0.0f, 1.0f);
-//	glTexCoord2f(0, 1);
-//	glVertex3f(-1, -1, 1.5);
-//	glEnd();
-//} glPopMatrix();
 

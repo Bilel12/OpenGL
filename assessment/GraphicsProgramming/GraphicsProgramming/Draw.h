@@ -1,3 +1,6 @@
+// Class created to save all drawing functions before separating them into building and rendering functions
+// Should not be used to render shapes since it's building and rendering shapes every frame
+// Created to show the development process
 #ifndef _DRAW_H
 #define _DRAW_H
 
@@ -67,10 +70,6 @@ public:
 	float sphere_n_x3(float radius, float theta, float delta, float theta_interval);
 	float sphere_n_y3(float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(float radius, float theta, float delta, float theta_interval);
-
-	//void drawIcosahedron();
-	//void normalize(float v[3]);
-	//void normcrossprod(float v1[3], float v2[3], float out[3]);
 };
 
 

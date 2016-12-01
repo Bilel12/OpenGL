@@ -23,11 +23,6 @@ Shape::Shape() {
 
 Shape::~Shape() {}
 
-extern GLubyte indices[] = {
-	0,   1,   2,	//front
-	0,   2,   3,
-};
-
 float Shape::rotate(float arg) {
 	return rot_angle = arg;
 }
@@ -259,43 +254,6 @@ void Shape::render(GLenum primitive, float R, float G, float B, float A, std::ve
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
-
-//void Shape::renderCube(float R, float G, float B, float A, GLuint * texture) {
-//	glEnableClientState(GL_VERTEX_ARRAY);
-//	//glEnableClientState(GL_COLOR_ARRAY);
-//	glEnableClientState(GL_NORMAL_ARRAY);
-//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//	//glColorPointer(3, GL_FLOAT, 0, colors);
-//	glVertexPointer(3, GL_FLOAT, 0, cube_verts);
-//	glNormalPointer(GL_FLOAT, 0, cube_norms);
-//	glTexCoordPointer(2, GL_FLOAT, 0, cube_texcoords);
-//
-//	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient.data());			// set ambient to what is defined in scene
-//	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse.data());			// set diffuse to what is defined in scene
-//	glMaterialfv(GL_FRONT, GL_SPECULAR, specular.data());			// set specular to what is defined in scene
-//	glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());			// set emission to what is defined in scene
-//	glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
-//
-//	int size = (unsigned)(sizeof(cube_verts)) / (unsigned)(sizeof(cube_verts[0])) / 3;
-//
-//	glColor4f(R, G, B, A);
-//	glBindTexture(GL_TEXTURE_2D, *texture);
-//	glDrawArrays(GL_TRIANGLES, 0, size);
-//	glBindTexture(GL_TEXTURE_2D, NULL);
-//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-//
-//	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());	// set ambient to default values
-//	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());	// set diffuse to default values
-//	glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());		// set specular to default values
-//	glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());		// set emission to default values
-//	glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
-//
-//	glDisableClientState(GL_VERTEX_ARRAY);
-//	//glDisableClientState(GL_COLOR_ARRAY);
-//	glDisableClientState(GL_NORMAL_ARRAY);
-//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//}
 
 void Shape::renderBlend(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture) {
 	glPushMatrix(); {
@@ -1083,6 +1041,10 @@ std::vector<GLfloat>* Shape::get_texcoords() {
 	return &texcoords;
 }
 
+//extern GLubyte indices[] = {
+//	0,   1,   2,	//front
+//	0,   2,   3,
+//};
 //void Shape::render1() {
 //	// add code to render the cube (above) using method 1
 //	glEnableClientState(GL_VERTEX_ARRAY);

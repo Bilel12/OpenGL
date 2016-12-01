@@ -14,8 +14,8 @@
 #include <gl/GL.h>
 #include "Input.h"
 #include <stdio.h>
-#include <vector>
 // Further includes should go here:
+#include <vector>
 #include "SOIL.h"
 #include "Camera.h"
 #include "FreeCamera.h"
