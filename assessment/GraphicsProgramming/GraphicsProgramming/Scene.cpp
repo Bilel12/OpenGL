@@ -370,7 +370,7 @@ void Scene::buildShapes() {
 						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
 	//sphere.set_ambient(1, 1, 1, 1);
 	//sphere.set_diffuse(1, 1, 1, 1);
-	sphere.set_ambient(	1.0f, 1.0f, 1.0f, 1.0f);
+	sphere.set_ambient(	0.0f, 0.0f, 0.0f, 1.0f);
 	sphere.set_diffuse(	1.0f, 1.0f, 1.0f, 1.0f);
 	sphere.set_shininess(120.0f);
 
