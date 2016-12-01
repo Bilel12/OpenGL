@@ -4,12 +4,11 @@
 // Initialises Scene and Input class.
 // @author Paul Robertson
 
-
 // Include glut, opengl libraries and custom classes
-//#include "glew.h"
-//#include "glut.h"
-//#include <gl/GL.h>
-//#include <gl/GLU.h>
+#include "glew.h"
+#include "glut.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #include "Scene.h"
 #include "Input.h"
 #include "Defines.h"

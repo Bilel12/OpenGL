@@ -7,14 +7,17 @@ Scene::Scene(Input *in) {
 	camera = &freeCamera;
 	//OpenGL settings
 	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
-	//glShadeModel(GL_FLAT);						// 
+	//glShadeModel(GL_FLAT);						// Enable Flat Shading
 	//glClearColor(0.39f, 0.58f, 93.0f, 1.0f);		// Cornflour Blue Background
+	//glClearColor(0.1f, 1.0f, 0.5f, 1.0f);			// Set Clear Color (Greenish Color)
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);			// Black Background
 	glClearDepth(1.0f);								// Depth Buffer Setup
 	glClearStencil(0);								// Clear Stencil Buffer
 	glEnable(GL_DEPTH_TEST);						// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);							// The Type Of Depth Testing To Do
-
+	//glCullFace(GL_BACK);							// Set Culling Face To Back Face
+	//glEnable(GL_CULL_FACE);						// Enable Culling
+													
 	// Other OpenGL / render setting should be applied here.			
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);				// Really Nice Perspective Calculations
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);	// For a textured object we can control how the final RGB for the rendered pixel is set (combination of texture and geometry colours)
@@ -22,10 +25,6 @@ Scene::Scene(Input *in) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				// Set The Blending Function For Translucency
 	glEnable(GL_LIGHTING);											// Enable Lighting
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-
-	//glCullFace(GL_BACK);								// Set Culling Face To Back Face
-	//glEnable(GL_CULL_FACE);								// Enable Culling
-	//glClearColor(0.1f, 1.0f, 0.5f, 1.0f);				// Set Clear Color (Greenish Color)
 	// Construct functions
 	loadTextures();		// loading textures into vector
 	assignTextures();	// assign textures to pointers
@@ -34,9 +33,12 @@ Scene::Scene(Input *in) {
 	buildShapes();		// Generate vertices, normals and texture coordinates vectors
 	buildLight();		// Set up all lighting arrays
 	// Initialise variables
-	scale_x = 0, scale_y = 0, scale_z = 0;
-	blend = false;			// Blending on or off
-	wireframe = false;		// Wireframe on or off
+	scale_x = 0;
+	scale_y = 0;
+	scale_z = 0;
+
+	blend		= false;	// Blending on or off
+	wireframe	= false;	// Wireframe on or off
 	development = true;		// Turn on or off text rendering	
 	// Shadowing
 	//populateExample();
@@ -351,7 +353,7 @@ void Scene::renderStencilShadowing() {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);						// Draw floor object
+	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);			// Draw floor object
 	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 															// Draw object to reflect
@@ -394,8 +396,8 @@ void Scene::buildShapes() {
 						0, 0, 0, 			// translate x, translate y, translate z
 						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
-	quad_shadow.buildQuadShadow(	1, 1, 1,			// scale x, scale y, scale z
-									0, 0.35, 0,			// translate x, translate y, translate z
+	quad_shadow.buildQuadShadow(	1, 1, 1,				// scale x, scale y, scale z
+									0, 0.35, 0,				// translate x, translate y, translate z
 									0., 0., 0., 0.);		// rotation angle, rotation x, rotation y, rotation z
 	quad_shadow.set_ambient(		1.f, 1.f, 1.f, 1.f);
 	quad_shadow.set_diffuse(		1.f, 1.f, 1.f, 1.f);
@@ -578,7 +580,6 @@ void Scene::update(float dt) {
 	float mousePositionY(int height);
 	//
 	updateVariables();
-
 	// Calculate FPS
 	frame++;
 	time = glutGet(GLUT_ELAPSED_TIME);
@@ -632,7 +633,6 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	glDisable(GL_BLEND); // Turn blending off
 	if (development) { renderTextOutput(); }
-
 	// Swap buffers, after all objects are rendered.
 	glutSwapBuffers();
 }

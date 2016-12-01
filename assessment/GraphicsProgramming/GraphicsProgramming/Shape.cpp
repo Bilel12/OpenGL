@@ -1,24 +1,24 @@
 #include "Shape.h"
 
 Shape::Shape() {
-	ambient = {		0.0f, 0.0f, 0.0f, 0.0f };
-	diffuse = {		0.0f, 0.0f, 0.0f, 0.0f };
-	specular = {	0.0, 0.0, 0.0, 1.0 };
-	emission = {	0.0, 0.0, 0.0, 1.0 };
-	shininess = {	0.0 };
+	ambient = {			0.0f, 0.0f, 0.0f, 0.0f };
+	diffuse = {			0.0f, 0.0f, 0.0f, 0.0f };
+	specular = {		0.0, 0.0, 0.0, 1.0 };
+	emission = {		0.0, 0.0, 0.0, 1.0 };
+	shininess = {		0.0 };
 
-	ambient_def = { 0.2f, 0.2f, 0.2f, 1.0f };
-	diffuse_def = { 0.8f, 0.8f, 0.8f, 1.0f };
-	specular_def = { 0.0, 0.0, 0.0, 1.0 };
-	emission_def = { 0.0, 0.0, 0.0, 1.0 };
-	shininess_def = { 0.0 };
+	ambient_def = {		0.2f, 0.2f, 0.2f, 1.0f };
+	diffuse_def = {		0.8f, 0.8f, 0.8f, 1.0f };
+	specular_def = {	0.0, 0.0, 0.0, 1.0 };
+	emission_def = {	0.0, 0.0, 0.0, 1.0 };
+	shininess_def = {	0.0 };
 
-	colors = {		1.0f, 0.2f, 0.2f, 1.0f,
-					0.2f, 0.2f, 1.0f, 1.0f,
-					0.8f, 1.0f, 0.2f, 1.0f,
-					0.75f, 0.75f, 0.75f, 1.0f,
-					0.35f, 0.35f, 0.35f, 1.0f,
-					0.5f, 0.5f, 0.5f, 1.0f };
+	colors = {	1.0f, 0.2f, 0.2f, 1.0f,
+				0.2f, 0.2f, 1.0f, 1.0f,
+				0.8f, 1.0f, 0.2f, 1.0f,
+				0.75f, 0.75f, 0.75f, 1.0f,
+				0.35f, 0.35f, 0.35f, 1.0f,
+				0.5f, 0.5f, 0.5f, 1.0f };
 }
 
 Shape::~Shape() {}
@@ -1126,133 +1126,4 @@ std::vector<GLfloat>* Shape::get_texcoords() {
 //	glDisableClientState(GL_INDEX_ARRAY);
 //	glDisableClientState(GL_NORMAL_ARRAY);
 //	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//}
-//void Shape::renderDisc(GLuint * texture) {
-//	glPushMatrix(); {
-//		glScalef(scale.x, scale.y, scale.z);
-//		glTranslatef(translate.x, translate.y, translate.z);
-//		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-//
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//		//glEnableClientState(GL_COLOR_ARRAY);
-//		glEnableClientState(GL_NORMAL_ARRAY);
-//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//		//glColorPointer(3, GL_FLOAT, 0, colors);
-//		glVertexPointer(3, GL_FLOAT, 0, verts.data());
-//		glNormalPointer(GL_FLOAT, 0, norms.data());
-//		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-//
-//		glBindTexture(GL_TEXTURE_2D, *texture);
-//		glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
-//		glBindTexture(GL_TEXTURE_2D, NULL);
-//
-//		glDisableClientState(GL_VERTEX_ARRAY);
-//		//glDisableClientState(GL_COLOR_ARRAY);
-//		glDisableClientState(GL_NORMAL_ARRAY);
-//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	} glPopMatrix();
-//}
-//
-//void Shape::renderSphere(GLuint *texture) {
-//	glPushMatrix(); {
-//		glScalef(scale.x, scale.y, scale.z);
-//		glTranslatef(translate.x, translate.y, translate.z);
-//		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-//
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//		//glEnableClientState(GL_COLOR_ARRAY);
-//		glEnableClientState(GL_NORMAL_ARRAY);
-//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//		//glColorPointer(3, GL_FLOAT, 0, colors);
-//		glVertexPointer(3, GL_FLOAT, 0, verts.data());
-//		glNormalPointer(GL_FLOAT, 0, norms.data());
-//		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-//
-//		set_ambient(0.7, 0.7, 0.7, 1.0);
-//		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
-//		set_diffuse(0.8, 0.8, 0.8, 1); // default diffuse values
-//		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-//		set_specular(1, 1, 1, 1);
-//		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-//		set_emission(0, 0, 0, 1);
-//		glMaterialfv(GL_FRONT, GL_EMISSION, emission);
-//		set_shininess(50); // range 0 - 128
-//		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-//
-//		glBindTexture(GL_TEXTURE_2D, *texture);
-//		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
-//		glBindTexture(GL_TEXTURE_2D, NULL);
-//
-//		set_ambient(0.2, 0.2, 0.2, 1.0);					// default ambient values
-//		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);		// set ambient to default values
-//		set_diffuse(0.8, 0.8, 0.8, 1.0);					// default diffuse values
-//		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);		// set diffuse to default values
-//		set_specular(0, 0, 0, 1);							// default specular values
-//		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);		// set specular to default values
-//		set_emission(0, 0, 0, 1);							// default emission values
-//		glMaterialfv(GL_FRONT, GL_EMISSION, emission);		// set emission to default values
-//		set_shininess(0.0);									// default shininess value
-//		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);	// set shininess to default value
-//
-//		glDisableClientState(GL_VERTEX_ARRAY);
-//		//glDisableClientState(GL_COLOR_ARRAY);
-//		glDisableClientState(GL_NORMAL_ARRAY);
-//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	} glPopMatrix();
-//}
-//
-//void Shape::renderCylinder(GLuint *texture) {
-//	glPushMatrix(); {
-//		glScalef(scale.x, scale.y, scale.z);
-//		glTranslatef(translate.x, translate.y, translate.z);
-//		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-//
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//		//glEnableClientState(GL_COLOR_ARRAY);
-//		glEnableClientState(GL_NORMAL_ARRAY);
-//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//		//glColorPointer(3, GL_FLOAT, 0, colors);
-//		glVertexPointer(3, GL_FLOAT, 0, verts.data());
-//		glNormalPointer(GL_FLOAT, 0, norms.data());
-//		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-//
-//		glBindTexture(GL_TEXTURE_2D, *texture);
-//		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
-//		glBindTexture(GL_TEXTURE_2D, NULL);
-//
-//		glDisableClientState(GL_VERTEX_ARRAY);
-//		//glDisableClientState(GL_COLOR_ARRAY);
-//		glDisableClientState(GL_NORMAL_ARRAY);
-//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	} glPopMatrix();
-//}
-//
-//void Shape::renderCone(GLuint * texture) {
-//	glPushMatrix(); {
-//		glScalef(scale.x, scale.y, scale.z);
-//		glTranslatef(translate.x, translate.y, translate.z);
-//		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-//
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//		//glEnableClientState(GL_COLOR_ARRAY);
-//		glEnableClientState(GL_NORMAL_ARRAY);
-//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//		//glColorPointer(3, GL_FLOAT, 0, colors);
-//		glVertexPointer(3, GL_FLOAT, 0, verts.data());
-//		glNormalPointer(GL_FLOAT, 0, norms.data());
-//		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-//
-//		glBindTexture(GL_TEXTURE_2D, *texture);
-//		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
-//		glBindTexture(GL_TEXTURE_2D, NULL);
-//
-//		glDisableClientState(GL_VERTEX_ARRAY);
-//		//glDisableClientState(GL_COLOR_ARRAY);
-//		glDisableClientState(GL_NORMAL_ARRAY);
-//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	} glPopMatrix();
 //}

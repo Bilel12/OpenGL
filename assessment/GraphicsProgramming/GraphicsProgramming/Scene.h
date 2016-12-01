@@ -12,17 +12,15 @@
 #include "glut.h"
 #include <gl/GLU.h>
 #include <gl/GL.h>
-//#include <GL/glew.h>
-//#include <GL/glut.h>
-//#include "Input.h"
+#include "Input.h"
 #include <stdio.h>
 #include <vector>
 // Further includes should go here:
 #include "SOIL.h"
+#include "Camera.h"
 #include "FreeCamera.h"
 #include "SecurityCamera.h"
 #include "TopDownCamera.h"
-#include "Camera.h"
 #include "Shape.h"
 #include "Cube.h"
 #include "Skybox.h"

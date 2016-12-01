@@ -7,97 +7,114 @@
 #define _USE_MATH_DEFINES // for C++
 #include <cmath>
 #include <vector>
-//#include "Cube.h"
-//#include "Skybox.h"
-//#include "Icosahedron.h"
 #include "Vector3.h"
-// Remember atom beautify
+
 class Shape {
 public:
 	Shape();
 	~Shape();
-	// Rendering functions using GL_TRIANGLES
-	void render();																			// render shape with triangles
-	void render(GLenum primitive);															// render shape with passed primitve
-	void render(GLenum primitive, GLuint *texture);											// render shape with passed primitve and texture
-	void render(GLenum primitive, float R, float G, float B, float A);						// render shape with passed primitve and colour
-	void render(GLenum primitive, float R, float G, float B, float A, GLuint *texture);		// render shape with passed primitve, colour and texture
-	void render(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture); // render shape with passed primitve, colour, texture, array and 
-	// Other rendering functions
-	//void renderCube(		float R, float G, float B, float A,	GLuint * texture);			// render cube with passed colour and texture
-	void renderBlend(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture);			// render cube for blending with passed colour and texture
-	//static void drawTorus(int numc, int numt);
+
+	void render();										// Rendering shapes using GL_TRIANGLES
+	
+	void render(GLenum primitive);						// render shape with passed: primitve
+
+	void render(GLenum primitive,						// render shape with passed: primitve
+				GLuint* texture);						// texture
+
+	void render(GLenum primitive,						// render shape with passed: primitve
+				float R, float G, float B, float A);	// colour
+
+	void render(GLenum primitive,						// render shape with passed: primitve
+				float R, float G, float B, float A,		// colour
+				GLuint* texture);						// texture
+
+	void render(GLenum primitive,						// render shape with passed primitve 
+				float R, float G, float B, float A,		// colour
+				std::vector<float> verts,				// vertices
+				std::vector<float> norms,				// normals
+				std::vector<float> texcoords,			// texture coordinates
+				GLuint* texture);						// texture
+	
+	void renderBlend(GLenum primitive,					// render shape with passed primitve 
+					 float R, float G, float B, float A,// colour
+					 std::vector<float> verts, 			// vertices
+					 std::vector<float> norms, 			// normals
+					 std::vector<float> texcoords, 		// texture coordinates
+					 GLuint* texture);					// texture
 	// Quads building functions
-	void buildQuad(			float sca_x, float sca_y, float sca_z, 
-							float pos_x, float pos_y, float pos_z, 
-							float angle, float rot_x, float rot_y, float rot_z);
-	void buildQuadShadow(	float sca_x, float sca_y, float sca_z,
-							float pos_x, float pos_y, float pos_z,
-							float angle, float rot_x, float rot_y, float rot_z);
+	void buildQuad(		 float sca_x, float sca_y, float sca_z, 
+						 float pos_x, float pos_y, float pos_z, 
+						 float angle, float rot_x, float rot_y, float rot_z);
+
+	void buildQuadShadow(float sca_x, float sca_y, float sca_z,
+						 float pos_x, float pos_y, float pos_z,
+						 float angle, float rot_x, float rot_y, float rot_z);
 	// Circle build function
-	void buildCircle(		float edges, 
-							float sca_x, float sca_y, float sca_z, 
-							float pos_x, float pos_y, float pos_z, 
-							float angle, float rot_x, float rot_y, float rot_z);
+	void buildCircle(	float edges, 
+						float sca_x, float sca_y, float sca_z, 
+						float pos_x, float pos_y, float pos_z, 
+						float angle, float rot_x, float rot_y, float rot_z);
 	void renderCircle();
 	// Cone build function
-	void buildCone(			float radius, float edges, float height, 
-							float sca_x, float sca_y, float sca_z,
-							float pos_x, float pos_y, float pos_z,
-							float angle, float rot_x, float rot_y, float rot_z);
+	void buildCone(		float radius, float edges, float height, 
+						float sca_x, float sca_y, float sca_z,
+						float pos_x, float pos_y, float pos_z,
+						float angle, float rot_x, float rot_y, float rot_z);
 	// Disc build function
-	void buildDisc(			float edges, float radius, 
-							float sca_x, float sca_y, float sca_z, 
-							float pos_x, float pos_y, float pos_z, 
-							float angle, float rot_x, float rot_y, float rot_z);
+	void buildDisc(		float edges, float radius, 
+						float sca_x, float sca_y, float sca_z, 
+						float pos_x, float pos_y, float pos_z, 
+						float angle, float rot_x, float rot_y, float rot_z);
 	// Cylinder build function
-	void buildCylinder(		float radius, float edges, float height, 
-							float sca_x, float sca_y, float sca_z,
-							float pos_x, float pos_y, float pos_z,
-							float angle, float rot_x, float rot_y, float rot_z);
+	void buildCylinder(	float radius, float edges, float height, 
+						float sca_x, float sca_y, float sca_z,
+						float pos_x, float pos_y, float pos_z,
+						float angle, float rot_x, float rot_y, float rot_z);
 	// Torus building funtion
-	void buildTorus(		float r, float R, float tube_edges, float torus_edges,
-							float sca_x, float sca_y, float sca_z,
-							float pos_x, float pos_y, float pos_z,
-							float angle, float rot_x, float rot_y, float rot_z);
+	void buildTorus(	float r, float R, float tube_edges, float torus_edges,
+						float sca_x, float sca_y, float sca_z,
+						float pos_x, float pos_y, float pos_z,
+						float angle, float rot_x, float rot_y, float rot_z);
 	// Sphere build functions
-	void buildSphere(		float radius, float latitude, float longitude,
-							float sca_x, float sca_y, float sca_z, 
-							float pos_x, float pos_y, float pos_z, 
-							float angle, float rot_x, float rot_y, float rot_z);
-	float sphere_x0(		float radius, float theta, float delta);
-	float sphere_y0(		float radius, float theta, float delta);
-	float sphere_z0(		float radius, float theta, float delta);
+	void buildSphere(	float radius, float latitude, float longitude,
+						float sca_x, float sca_y, float sca_z, 
+						float pos_x, float pos_y, float pos_z, 
+						float angle, float rot_x, float rot_y, float rot_z);
+	float sphere_x0(	float radius, float theta, float delta);
+	float sphere_y0(	float radius, float theta, float delta);
+	float sphere_z0(	float radius, float theta, float delta);
 
-	float sphere_x1(		float radius, float theta, float delta, float delta_interval);
-	float sphere_y1(		float radius, float theta, float delta, float delta_interval);
-	float sphere_z1(		float radius, float theta, float delta, float delta_interval);
+	float sphere_x1(	float radius, float theta, float delta, float delta_interval);
+	float sphere_y1(	float radius, float theta, float delta, float delta_interval);
+	float sphere_z1(	float radius, float theta, float delta, float delta_interval);
 
-	float sphere_x2(		float radius, float theta, float delta, float delta_interval, float theta_interval);
-	float sphere_y2(		float radius, float theta, float delta, float delta_interval);
-	float sphere_z2(		float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_x2(	float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_y2(	float radius, float theta, float delta, float delta_interval);
+	float sphere_z2(	float radius, float theta, float delta, float delta_interval, float theta_interval);
 
-	float sphere_x3(		float radius, float theta, float delta, float theta_interval);
-	float sphere_y3(		float radius, float theta, float delta, float theta_interval);
-	float sphere_z3(		float radius, float theta, float delta, float theta_interval);
+	float sphere_x3(	float radius, float theta, float delta, float theta_interval);
+	float sphere_y3(	float radius, float theta, float delta, float theta_interval);
+	float sphere_z3(	float radius, float theta, float delta, float theta_interval);
 
-	float sphere_n_x0(		float radius, float theta, float delta);
-	float sphere_n_y0(		float radius, float theta, float delta);
-	float sphere_n_z0(		float radius, float theta, float delta);
+	float sphere_n_x0(	float radius, float theta, float delta);
+	float sphere_n_y0(	float radius, float theta, float delta);
+	float sphere_n_z0(	float radius, float theta, float delta);
 
-	float sphere_n_x1(		float radius, float theta, float delta, float delta_interval);
-	float sphere_n_y1(		float radius, float theta, float delta, float delta_interval);
-	float sphere_n_z1(		float radius, float theta, float delta, float delta_interval);
+	float sphere_n_x1(	float radius, float theta, float delta, float delta_interval);
+	float sphere_n_y1(	float radius, float theta, float delta, float delta_interval);
+	float sphere_n_z1(	float radius, float theta, float delta, float delta_interval);
 
-	float sphere_n_x2(		float radius, float theta, float delta, float delta_interval, float theta_interval);
-	float sphere_n_y2(		float radius, float theta, float delta, float delta_interval);
-	float sphere_n_z2(		float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_n_x2(	float radius, float theta, float delta, float delta_interval, float theta_interval);
+	float sphere_n_y2(	float radius, float theta, float delta, float delta_interval);
+	float sphere_n_z2(	float radius, float theta, float delta, float delta_interval, float theta_interval);
 
-	float sphere_n_x3(		float radius, float theta, float delta, float theta_interval);
-	float sphere_n_y3(		float radius, float theta, float delta, float theta_interval);
-	float sphere_n_z3(		float radius, float theta, float delta, float theta_interval);
-	// Vector3 variables to be used in render functions for tranlating, rotating and scaling shapes
-	Vector3 translate, rotation, scale;
+	float sphere_n_x3(	float radius, float theta, float delta, float theta_interval);
+	float sphere_n_y3(	float radius, float theta, float delta, float theta_interval);
+	float sphere_n_z3(	float radius, float theta, float delta, float theta_interval);
+	// Vector3 variables to be used in render functions with shapes for 
+	Vector3 translate;	//tranlating
+	Vector3 rotation;	//rotating
+	Vector3 scale;		//scaling
 	//void drawIcosahedron();
 	//void normalize(float v[3]);
 	//void normcrossprod(float v1[3], float v2[3], float out[3]);
@@ -121,7 +138,10 @@ public:
 	// Get rot_angle variable
 	float rotate(float arg);
 private:
-	std::vector<GLfloat> verts, norms, texcoords;
+	std::vector<GLfloat> verts;		// vector to store verticies when building shapes
+	std::vector<GLfloat> norms;		// vector to store normals when building shapes
+	std::vector<GLfloat> texcoords;	// vector to store texture coordinates when building shapes
+	std::vector<GLfloat> colors;
 	//std::vector<double> colors;
 	float rot_angle;
 
@@ -136,9 +156,8 @@ private:
 	std::vector<GLfloat> specular_def;
 	std::vector<GLfloat> emission_def;
 	std::vector<GLfloat> shininess_def;
+};
 
-	std::vector<GLfloat> colors;
-};								 
 //void drawtriangle(float *v1, float *v2, float *v3)
 //{
 //	glBegin(GL_TRIANGLES);
