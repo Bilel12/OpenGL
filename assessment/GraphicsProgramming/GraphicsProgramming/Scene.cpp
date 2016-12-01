@@ -416,6 +416,7 @@ void Scene::buildShapes() {
 						1, 1, 1,			// scale x, scale y, scale z
 						5, 5, -10,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
+	cone.set_ambient(0, 0, 0, 0);
 
 	cylinder.buildCylinder(	2.3, 20, 10,	// radius, edges, height
 							1, 1, 1,		// scale x, scale y, scale z
@@ -458,16 +459,16 @@ void Scene::updateVariables() {
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(1, 1, 1, 1, Light_Ambient_0);
-	setLightDiffuse(0.6, 0.6, 0.6, 1, Light_Diffuse_0);			// Light colour
+	setLightAmbient(1.0f, 1.0f, 1.0f, 1.0f, Light_Ambient_0);
+	setLightDiffuse(0.6f, 0.6f, 0.6f, 1.0f, Light_Diffuse_0);			// Light colour
 	setLightPosition(0, 3, 0, 1, Light_Position_0);
 	setLightSpecular(0.5, 0.5, 0.5, 1.0, Light_Specular_0);
 	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1
-	setLightAmbient(0.2, 0.2, 0.2, 0.2, Light_Ambient_1);
-	setLightDiffuse(0.6, 0.6, 0.6, 1, Light_Diffuse_1);			// Light colour
-	setLightPosition(0, 4, 0, 1, Light_Position_1);
-	setLightSpecular(0.5, 0.5, 0.5, 1.0, Light_Specular_1);
+	setLightAmbient(1.0f, 1.0f, 1.0f, 1.0f, Light_Ambient_1);
+	setLightDiffuse(0.6f, 0.6f, 0.6f, 1.0f, Light_Diffuse_1);			// Light colour
+	setLightPosition(0.0f, 2.0f, 0.0f, 1.0f, Light_Position_1);
+	setLightSpecular(0.5f, 0.5f, 0.5f, 1.0f, Light_Specular_1);
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 	//setLightPosition(position_x, position_y, position_z, 1, Light_Position_1);
 }
