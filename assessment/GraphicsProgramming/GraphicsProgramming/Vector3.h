@@ -37,11 +37,11 @@ public:
 
 	Vector3 operator+(const Vector3& v2);
 	Vector3 operator-(const Vector3& v2);
+	void operator=(const Vector3& v2);
 	void operator=(float* array);
 
 	Vector3& operator+=(const Vector3& v2);
 	Vector3& operator-=(const Vector3& v2);
-	//Vector3& operator=(const Vector3& v2);
 
 	float x;
 	float y;

@@ -147,6 +147,12 @@ Vector3& Vector3::operator-=(const Vector3& v2) {
 	return *this;
 }
 
+void Vector3::operator=(const Vector3& v2) {
+	this->x = v2.x;
+	this->y = v2.y;
+	this->z = v2.z;
+}
+
 void Vector3::operator=(float* array) {
 	this->x = array[0];
 	this->y = array[1];
