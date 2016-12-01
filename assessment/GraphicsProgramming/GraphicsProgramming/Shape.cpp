@@ -914,11 +914,11 @@ void Shape::buildCone(	float radius, float edges, float height,
 		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
 		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
 		// tip
-		texcoords.push_back((float)(0.5));
-		texcoords.push_back((float)(0.5));
+		texcoords.push_back(0.5);
+		texcoords.push_back(0.5);
 		// bottom disk
-		texcoords.push_back((float)(0.5));
-		texcoords.push_back((float)(0.5));
+		texcoords.push_back(0.5);
+		texcoords.push_back(0.5);
 		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
 		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
 		texcoords.push_back((float)(cos(theta + interval) / diameter + 0.5));
