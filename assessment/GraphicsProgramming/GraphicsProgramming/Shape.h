@@ -67,26 +67,30 @@ public:
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	void buildQuad(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// Circle build function
 	void Shape::buildCircle(GLenum primitive,
 		float edges,											// number of circle's edges
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// Cone build function
 	void buildCone(GLenum primitive,
 		float radius, float edges, float height,				// radius, edges, height
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// Disc build function
 	void buildDisc(GLenum primitive,
 		float edges, float radius,								// edges, radius
@@ -101,21 +105,24 @@ public:
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// Cylinder build function
 	void buildCylinder(GLenum primitive,
 		float radius, float edges, float height,				// cylinder radius, number of edges and height
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// Sphere build functions
 	void buildSphere(GLenum primitive,
 		float radius, float longitude, float latitude,			// sphere radius, number of latitudes, number of longitudes
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// 0 - left bottom
 	float sphere_x0(	float radius, float theta, float delta);
 	float sphere_y0(	float radius, float theta, float delta);
@@ -161,7 +168,8 @@ public:
 		Vector3 translate,
 		Vector3 scale,
 		Vector4 rotation,
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	float distance(		Vector3 a, Vector3 b);
 	Vector3 normalize(	Vector3 a, Vector3 b, float length);
 

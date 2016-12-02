@@ -191,7 +191,7 @@ void Scene::assignTextures() {
 	barrel_lid_1_tex	= &textures[13];
 	barrel_lid_2_tex	= &textures[14];
 	barrel_tex			= &textures[15];
-	blank				= &textures[16];
+	blank_tex			= &textures[16];
 }
 
 void Scene::loadModels() {
@@ -260,7 +260,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
 	// Draw mirror
-	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);
+	floor.render();
 	// Draw floor object()
 	glEnable(GL_DEPTH_TEST);								// Enable depth test
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);		// Turn on rendering to the frame buffer
@@ -278,7 +278,7 @@ void Scene::renderStencilBuffer(Model model) {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);						// Draw floor object
+	floor.render();						// Draw floor object
 	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
@@ -332,7 +332,7 @@ void Scene::renderStencilShadowing() {
 	// Generate shadow matrix
 	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
 	// Shadow surface
-	quad_shadow.render(GL_QUADS);
+	quad_shadow.render();
 	// Draw floor object()
 	// Render shadow
 	//glDisable(GL_DEPTH_TEST);
@@ -379,7 +379,8 @@ void Scene::buildShapes() {
 		Vector3(0.0f, 0.0f, -5.0f),		// scale x, scale y, scale z,
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z,
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		globe_tex);
 	//sphere.set_ambient(1, 1, 1, 1);
 	//sphere.set_diffuse(1, 1, 1, 1);
 	sphere.set_ambient(	0.0f, 0.0f, 0.0f, 1.0f);
@@ -390,33 +391,35 @@ void Scene::buildShapes() {
 		Vector3(-3.0f, 3.0f, 3.0f),		// scale x, scale y, scale z,
 		Vector3(Light_Position_1),		// translate x, translate y, translate z,
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		globe_tex);
 
 	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
 		Vector3(-3.0f, 3.0f, 3.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f),
-		blank);
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		disk_tex);
 
 
 	disc_2.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,				// edges, radius
 		Vector3(3.0f, 3.0f, 3.0f),		// scale x, scale y, scale z,
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z,
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
 	disc_flat.buildDisc(GL_TRIANGLE_FAN, 10, 2,				// edges, radius
 						Vector3(5.0f, 5.0f, 5.0f),		// scale x, scale y, scale z
 						Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 						Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-						Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+						Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
 	quad_shadow.buildQuad(GL_QUADS,
 		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		blank_tex);
 
 	quad_shadow.set_ambient(	1.f, 1.f, 1.f, 1.f);
 	quad_shadow.set_diffuse(	1.f, 1.f, 1.f, 1.f);
@@ -429,45 +432,51 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		blank_tex);
 
 
-	floor.buildQuad(GL_TRIANGLES, 
-		Vector3(1.0f, 1.0f, 2.0f),		// scale x, scale y, scale z
+	floor.buildQuadT(GL_TRIANGLES, 
+		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
-		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0, 1.0, 1.0, 1.0));
+		Vector4(1.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
+		blank_tex);
 	cone.buildCone(GL_TRIANGLES, 2, 10, 10,			// radius, edges, height
 		Vector3(1.0f, 1.0f, 3.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		disk_tex);
 	cone.set_ambient(	0, 0, 0, 0);
 
 	cylinder.buildCylinder(GL_TRIANGLES, 2.3, 20, 10,	// radius, edges, height
 		Vector3(1.0f, 1.0f, 4.0f),// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),	// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		barrel_tex);
 	cylinder.set_ambient(1, 1, 1, 1);
 
 	torus.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
 		Vector3(1.0f, 2.0f, 0.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		globe_tex);
 
 	ico.buildIco(GL_TRIANGLES, a, b, 1.0,
 		Vector3(1.0f, 2.0f, 2.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		blank_tex);
 	butterfly.createButterfly(GL_LINE_LOOP,
 		10000,
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	// blend_cube
 	blend_cube._translate.set(-7, 0, 1);
 	blend_cube._scale.set(1, 1, 1);
@@ -475,16 +484,16 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	//sphere.render(GL_TRIANGLES, globe_tex);
+	sphere.render();
 	disc_1.render();
 	disc_2.render();
-	//disc_flat.render(disk_tex);
-	//circle.render2D();
-	//cone.render(GL_TRIANGLES, disk_tex);
-	//cylinder.render(GL_TRIANGLES, barrel_tex);
-	//sun.render(GL_TRIANGLES);
-	//torus.render(GL_TRIANGLES, globe_tex);
-	//ico.render(GL_TRIANGLE_STRIP);
+	disc_flat.render();
+	circle.render2D();
+	cone.render();
+	cylinder.render();
+	sun.render();
+	torus.render();
+	ico.render();
 	butterfly.render2D();
 }
 
@@ -660,13 +669,13 @@ void Scene::render() {
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
-	//renderStencilBuffer(spaceship);
+	renderStencilBuffer(spaceship);
 	// Blend cube
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlend(GL_TRIANGLES, 0.0, 0.0, 0.5, 1.0, cube_verts, cube_norms, cube_texcoords, crate_trans_tex);
 	setRenderMode(blend, wireframe);
 	// Render shapes
-	renderShapes();
+	//renderShapes();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);

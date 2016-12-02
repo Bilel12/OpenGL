@@ -441,7 +441,7 @@ void Shape::renderSolarSystem(GLenum primitive,
 							  std::vector<float> verts, 
 							  std::vector<float> norms, 
 							  std::vector<float> texcoords, 
-							  GLuint * texture) {
+							  GLuint *texture) {
 
 }
 
@@ -449,7 +449,8 @@ void Shape::buildQuadT(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -457,6 +458,7 @@ void Shape::buildQuadT(GLenum primitive,
 	_scale = scale;
 	_rotation = rotation;
 	_rgba = rgba;
+	_texture = texture;
 
 	verts = {		(-1), (-1), (-1),
 					( 1), (-1), (-1),
@@ -485,7 +487,8 @@ void Shape::buildQuad(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba, 
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -493,6 +496,7 @@ void Shape::buildQuad(GLenum primitive,
 	_scale = scale;
 	_rotation = rotation;
 	_rgba = rgba;
+	_texture = texture;
 
 	verts = {	-1.f, -1.f, -1.f,	//top left
 				-1.f, -1.f,  1.f,	// bottom left
@@ -516,11 +520,12 @@ void Shape::buildQuad(GLenum primitive,
 
 
 void Shape::buildCircle(GLenum primitive,
-						float edges,
-						Vector3 translate,
-						Vector3 scale,
-						Vector4 rotation,
-						Vector4 rgba) {
+	float edges,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -529,6 +534,7 @@ void Shape::buildCircle(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	_texture = texture;
 
 	verts.reserve((unsigned)(edges));
 
@@ -683,7 +689,8 @@ void Shape::buildSphere(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -692,6 +699,7 @@ void Shape::buildSphere(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	_texture = texture;
 
 	float
 		delta = 0.0, // angle of latitude
@@ -793,7 +801,8 @@ void Shape::buildCylinder(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -802,6 +811,7 @@ void Shape::buildCylinder(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	_texture = texture;
 
 	float
 		interval = (float)(2.0 * M_PI / edges),
@@ -955,7 +965,8 @@ void Shape::buildCone(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -964,6 +975,7 @@ void Shape::buildCone(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	_texture = texture;
 
 	float 
 		interval = (float)(2.0 * M_PI / edges),
@@ -1046,7 +1058,8 @@ void Shape::buildTorus(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -1055,6 +1068,7 @@ void Shape::buildTorus(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	_texture = texture;
 	
 	float
 		delta = 0.0,									// torus angle
@@ -1209,7 +1223,8 @@ void Shape::buildIco(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -1218,6 +1233,7 @@ void Shape::buildIco(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	_texture = texture;
 	
 	Vector3 c;
 
