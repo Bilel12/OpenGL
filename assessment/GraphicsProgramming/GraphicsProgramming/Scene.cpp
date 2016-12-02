@@ -354,7 +354,7 @@ void Scene::renderStencilShadowing() {
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
 	glDisable(GL_LIGHTING);									// Disable lighting (100% reflective object)
 	glColor4f(0.8f, 0.8f, 1.0f, 0.8f);						// Set colour of floor object
-	floor.render(GL_TRIANGLES, 0.5, 0.5, 0.5, 0.5);			// Draw floor object
+	floor.render();			// Draw floor object
 	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 															// Draw object to reflect
@@ -486,9 +486,15 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// blend_cube
-	blend_cube._translate.set(-7, 0, 1);
-	blend_cube._scale.set(1, 1, 1);
-	blend_cube._rotation.set(0.0, 1.0, 1.0, 1.0);
+	blend_cube.buildCube(GL_TRIANGLES,
+		Vector3(0.0f, 5.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 1.0f, 1.0f, 1.0f),
+		Vector4(0.5f, 0.5f, 1.0f, 1.0f),
+		cube_verts,
+		cube_norms,
+		cube_texcoords,
+		crate_trans_tex);
 }
 
 void Scene::renderShapes() {
@@ -681,7 +687,7 @@ void Scene::render() {
 	//renderStencilBuffer(spaceship);
 	// Blend cube
 	setRenderMode(blend, wireframe);
-	blend_cube.renderBlend(GL_TRIANGLES, 0.0, 0.0, 0.5, 1.0, cube_verts, cube_norms, cube_texcoords, crate_trans_tex);
+	blend_cube.renderBlend();
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();

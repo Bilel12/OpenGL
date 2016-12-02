@@ -15,52 +15,11 @@ public:
 	Shape();
 	~Shape();
 
-	void render();										// Rendering shapes using GL_TRIANGLES
-
-	void render(GLenum primitive);						// render shape with passed: primitve
-
-	void render(GLenum primitive,						// render shape with passed: primitve
-				GLuint* texture);						// texture
-
-	void render(GLenum primitive,						// render shape with passed: primitve
-				float R, float G, float B, float A);	// colour
-
-	void render(GLenum primitive,						// render shape with passed: primitve
-				float R, float G, float B, float A,		// colour
-				GLuint* texture);						// texture
-
-	void render(GLenum primitive,						// render shape with passed: primitve
-				Shape shape,							// shape
-				float R, float G, float B, float A,		// colour
-				GLuint* texture);						// texture
-
-	void render(GLenum primitive,						// render shape with passed primitve 
-				float R, float G, float B, float A,		// colour
-				std::vector<float> verts,				// vertices
-				std::vector<float> norms,				// normals
-				std::vector<float> texcoords,			// texture coordinates
-				GLuint* texture);						// texture
-	
-	void renderBlend(GLenum primitive,					// render shape with passed primitve 
-					 float R, float G, float B, float A,// colour
-					 std::vector<float> verts, 			// vertices
-					 std::vector<float> norms, 			// normals
-					 std::vector<float> texcoords, 		// texture coordinates
-					 GLuint* texture);					// texture
-
-	void renderColor(GLenum primitive);					// render shape using colour array with passed: primitve
-
-	void renderColor(GLenum primitive,					// render shape using colour array with passed: primitve
-					 GLuint* texture);					// texture
-
+	void render();
+	void renderBlend();
+	void renderColor();	
 	void render2D();
-
-	void renderSolarSystem(GLenum primitive,					// render shape with passed primitve 
-						   float R, float G, float B, float A,	// colour
-						   std::vector<float> verts,			// vertices
-						   std::vector<float> norms,			// normals
-						   std::vector<float> texcoords,		// texture coordinates
-						   GLuint* texture);					// texture
+	void renderSolarSystem();
 	// Skybox
 	void buildSkybox(GLenum primitive, 
 		Vector3 translate,										// scale x, scale y, scale z
@@ -73,6 +32,16 @@ public:
 		GLuint* texture);					// texture coordinates
 	// Quads building function
 	void buildQuad(GLenum primitive,
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
+		Vector4 rgba,
+		std::vector<float> verts,
+		std::vector<float> norms,
+		std::vector<float> texcoords,
+		GLuint *texture);
+	// Cube
+	void buildCube(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
