@@ -138,9 +138,9 @@ public:
 	// Butterfly
 	void createButterfly(GLenum primitive,
 						 int N,
-						 float sca_x, float sca_y, float sca_z,
-						 float pos_x, float pos_y, float pos_z,
-						 float angle, float rot_x, float rot_y, float rot_z,
+						 Vector3 translate,
+						 Vector3 scale,
+						 Vector4 rotation,
 						 Vector4 rgba);
 	// Ico
 	void buildIco(		Vector3 a, Vector3 b, float radius,
@@ -151,9 +151,11 @@ public:
 	Vector3 normalize(	Vector3 a, Vector3 b, float length);
 
 	// Vector3 variables to be used in render functions with shapes for 
-	Vector3 translate;
-	Vector3 rotation;
-	Vector3 scale;
+	Vector3 _scale;
+	Vector3 _translate;
+	Vector3 _rotation;
+	Vector4 _rotation4;
+	Vector4 _rgba;
 	// Material setting functions
 	void set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
 	void set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
@@ -172,9 +174,7 @@ public:
 	std::vector<GLfloat>* get_norms();
 	std::vector<GLfloat>* get_texcoords();
 	// Get rot_angle variable function
-	float rotate(float arg);
-	// rgba functions
-	Vector4 _rgba;
+	void rotate(float arg);
 	// Primitive functions
 	void set_primitive(GLenum primitive);
 	GLenum get_primitive();

@@ -404,7 +404,7 @@ void Scene::buildShapes() {
 	quad_shadow.set_diffuse(	1.f, 1.f, 1.f, 1.f);
 	quad_shadow.set_specular(	1.f, 1.f, 1.f, 1.f);
 	quad_shadow.set_shininess(	120.0f );
-	quad_shadow.scale.set(		1.5, 1.5, 1.5);
+	quad_shadow._scale.set(		1.5, 1.5, 1.5);
 	
 	circle.buildCircle(	GL_LINE_LOOP,
 						50,					// edges, radius
@@ -441,14 +441,14 @@ void Scene::buildShapes() {
 
 	butterfly.createButterfly(GL_LINE_LOOP,
 							  10000,
-							  1.0f, 1.0f, 1.0f,
-							  0.0, 0.0, 0.0,
-							  0.0, 0.0, 0.0, 0.0,
-							  Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+							 Vector3(0.0f, 0.0f, 0.0f),
+							 Vector3(1.0f, 1.0f, 1.0f),
+							 Vector4(0.0, 1.0, 1.0, 1.0),
+							 Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 	// blend_cube
-	blend_cube.translate.set(-7, 0, 1);
-	blend_cube.scale.set(1, 1, 1);
-	blend_cube.rotation.set(1, 1, 1);
+	blend_cube._translate.set(-7, 0, 1);
+	blend_cube._scale.set(1, 1, 1);
+	blend_cube._rotation.set(1, 1, 1);
 }
 
 void Scene::renderShapes() {
@@ -473,7 +473,8 @@ void Scene::updateVariables() {
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
-	sun.translate = Light_Position_1;
+	butterfly.rotate(angle);
+	sun._translate = Light_Position_1;
 	//sphere.rotate(angle);
 }
 
