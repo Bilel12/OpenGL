@@ -7,6 +7,7 @@ class Vector3 {
 
 public:
 	Vector3(float x = 0, float y = 0, float z = 0);
+	Vector3(float construct[3]);
 	Vector3 copy();
 
 

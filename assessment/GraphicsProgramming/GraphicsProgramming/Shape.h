@@ -63,14 +63,16 @@ public:
 						   GLuint* texture);					// texture
 
 	// Quads building functions
+	void buildQuadT(GLenum primitive,
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
+		Vector4 rgba);
 	void buildQuad(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
-		Vector4 rotation);										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
-	void buildQuadShadow(GLenum primitive,
-		Vector3 translate,										// scale x, scale y, scale z
-		Vector3 scale,											// translate x, translate y, translate z
-		Vector4 rotation);										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rotation,
+		Vector4 rgba);
 	// Circle build function
 	void Shape::buildCircle(GLenum primitive,
 		float edges,											// number of circle's edges

@@ -6,6 +6,12 @@ Vector3::Vector3(float x, float y, float z) {
 	this->z = z;
 }
 
+Vector3::Vector3(float construct[3]) {
+	this->x = construct[0];
+	this->y = construct[1];
+	this->z = construct[2];
+}
+
 Vector3 Vector3::copy() {
 	Vector3 copy(this->x,
 				 this->y,

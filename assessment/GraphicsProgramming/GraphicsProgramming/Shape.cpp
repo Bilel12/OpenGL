@@ -441,16 +441,18 @@ void Shape::renderSolarSystem(GLenum primitive,
 
 }
 
-void Shape::buildQuad(GLenum primitive, 
+void Shape::buildQuadT(GLenum primitive, 
 	Vector3 translate,
 	Vector3 scale,
-	Vector4 rotation) {
+	Vector4 rotation,
+	Vector4 rgba) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
 	_translate = translate;
 	_scale = scale;
 	_rotation = rotation;
+	_rgba = rgba;
 
 	verts = {		(-1), (-1), (-1),
 					( 1), (-1), (-1),
@@ -475,16 +477,18 @@ void Shape::buildQuad(GLenum primitive,
 	//colors = { 0.5, 0.5, 0.5, 0.5 };
 }
 
-void Shape::buildQuadShadow(GLenum primitive,
+void Shape::buildQuad(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
-	Vector4 rotation) {
+	Vector4 rotation,
+	Vector4 rgba) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
 	_translate = translate;
 	_scale = scale;
 	_rotation = rotation;
+	_rgba = rgba;
 
 	verts = {	-1.f, -1.f, -1.f,	//top left
 				-1.f, -1.f,  1.f,	// bottom left
