@@ -448,7 +448,7 @@ void Scene::buildShapes() {
 	// blend_cube
 	blend_cube._translate.set(-7, 0, 1);
 	blend_cube._scale.set(1, 1, 1);
-	blend_cube._rotation.set(1, 1, 1);
+	blend_cube._rotation.set(0.0, 1.0, 1.0, 1.0);
 }
 
 void Scene::renderShapes() {
@@ -473,7 +473,7 @@ void Scene::updateVariables() {
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
-	butterfly._rotation4.setX(angle);
+	butterfly._rotation.setX(angle);
 	sun._translate = Light_Position_1;
 	//sphere.rotate(angle);
 }

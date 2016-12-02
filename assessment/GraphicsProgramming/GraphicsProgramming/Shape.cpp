@@ -26,8 +26,7 @@ Shape::Shape() {
 Shape::~Shape() {}
 
 void Shape::rotate(float arg) {
-	_rot_angle = arg;
-	_rotation4.setX(arg);
+	_rotation.setX(arg);
 }
 
 void Shape::set_primitive(GLenum primitive) {
@@ -43,7 +42,7 @@ void Shape::render() {
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
@@ -77,7 +76,7 @@ void Shape::render(GLenum primitive) {
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
@@ -112,7 +111,7 @@ void Shape::render(GLenum primitive,
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
@@ -150,7 +149,7 @@ void Shape::render(	GLenum primitive,
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		//glEnableClientState(GL_COLOR_ARRAY);
@@ -191,7 +190,7 @@ void Shape::render(GLenum primitive,
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		//glEnableClientState(GL_COLOR_ARRAY);
@@ -232,7 +231,7 @@ void Shape::render(GLenum primitive, Shape shape, float R, float G, float B, flo
 	glPushMatrix(); {
 		glScalef(shape._scale.x, shape._scale.y, shape._scale.z);
 		glTranslatef(shape._translate.x, shape._translate.y, shape._translate.z);
-		glRotatef(shape._rot_angle, shape._rotation.x, shape._rotation.y, shape._rotation.z);
+		glRotatef(shape._rotation.x, shape._rotation.y, shape._rotation.z, shape._rotation.w);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		//glEnableClientState(GL_COLOR_ARRAY);
@@ -318,7 +317,7 @@ void Shape::renderBlend(GLenum primitive,
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glPolygonMode(GL_FRONT, GL_LINE);
 		glEnable(GL_CULL_FACE);
@@ -338,7 +337,7 @@ void Shape::renderColor(GLenum primitive) {
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -376,7 +375,7 @@ void Shape::renderColor(GLenum primitive,
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -415,7 +414,7 @@ void Shape::render2D() {
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rotation4.x, _rotation4.y, _rotation4.z, _rotation4.w);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
 
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -442,14 +441,16 @@ void Shape::renderSolarSystem(GLenum primitive,
 
 }
 
-void Shape::buildQuad(float sca_x, float sca_y, float sca_z, 
-					  float pos_x, float pos_y, float pos_z, 
-					  float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildQuad(GLenum primitive, 
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
 
 	verts = {		(-1), (-1), (-1),
 					( 1), (-1), (-1),
@@ -474,14 +475,16 @@ void Shape::buildQuad(float sca_x, float sca_y, float sca_z,
 	//colors = { 0.5, 0.5, 0.5, 0.5 };
 }
 
-void Shape::buildQuadShadow(float sca_x, float sca_y, float sca_z,
-							float pos_x, float pos_y, float pos_z,
-							float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildQuadShadow(GLenum primitive,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
 
 	verts = {	-1.f, -1.f, -1.f,	//top left
 				-1.f, -1.f,  1.f,	// bottom left
@@ -506,19 +509,17 @@ void Shape::buildQuadShadow(float sca_x, float sca_y, float sca_z,
 
 void Shape::buildCircle(GLenum primitive,
 						float edges,
-						float sca_x, float sca_y, float sca_z,
-						float pos_x, float pos_y, float pos_z,
-						float angle, float rot_x, float rot_y, float rot_z,
+						Vector3 translate,
+						Vector3 scale,
+						Vector4 rotation,
 						Vector4 rgba) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	// angle
-	_rot_angle = angle;
-	// rgba
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
 	_rgba = rgba;
 
 	verts.reserve((unsigned)(edges));
@@ -530,15 +531,20 @@ void Shape::buildCircle(GLenum primitive,
 	}
 }
 
-void Shape::buildDisc(float edges, float radius, 
-					  float sca_x, float sca_y, float sca_z, 
-					  float pos_x, float pos_y, float pos_z, 
-					  float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildDisc(GLenum primitive, 
+	float edges, float radius,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
+	_rgba = rgba;
 
 	float
 		interval = (float)(2.0 * M_PI / edges),
@@ -661,15 +667,20 @@ float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_int
 	return (sin(theta + theta_interval) * sin(delta)) / radius;
 }
 
-void Shape::buildSphere(float radius, float longitude, float latitude,
-						float sca_x, float sca_y, float sca_z, 
-						float pos_x, float pos_y, float pos_z, 
-						float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildSphere(GLenum primitive, 
+	float radius, float longitude, float latitude,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
+	_rgba = rgba;
 
 	float
 		delta = 0.0, // angle of latitude
@@ -766,15 +777,20 @@ void Shape::buildSphere(float radius, float longitude, float latitude,
 	}
 }
 
-void Shape::buildCylinder(float radius, float edges, float height, 
-						  float sca_x, float sca_y, float sca_z,
-						  float pos_x, float pos_y, float pos_z,
-						  float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildCylinder(GLenum primitive,
+	float radius, float edges, float height,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
+	_rgba = rgba;
 
 	float
 		interval = (float)(2.0 * M_PI / edges),
@@ -923,15 +939,20 @@ void Shape::buildCylinder(float radius, float edges, float height,
 	}
 }
 
-void Shape::buildCone(float radius, float edges, float height,
-					  float sca_x, float sca_y, float sca_z,
-					  float pos_x, float pos_y, float pos_z,
-					  float angle, float rot_x, float rot_y, float rot_z ) {
+void Shape::buildCone(GLenum primitive,
+	float radius, float edges, float height,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
+	_rgba = rgba;
 
 	float 
 		interval = (float)(2.0 * M_PI / edges),
@@ -1009,16 +1030,21 @@ void Shape::buildCone(float radius, float edges, float height,
 	}
 }
 
-void Shape::buildTorus(float r, float R, float tube_edges, float torus_edges,
-					   float sca_x, float sca_y, float sca_z,
-					   float pos_x, float pos_y, float pos_z,
-					   float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildTorus(GLenum primitive,
+	float r, float R, float tube_edges, float torus_edges,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
-	//float tube_edges, float torus_edges
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
+	_rgba = rgba;
+	
 	float
 		delta = 0.0,									// torus angle
 		theta = 0.0,									// tube angle
@@ -1145,10 +1171,10 @@ void Shape::createButterfly(GLenum primitive,
 	// set vectors for translation, rotation and scale, and rotation angle
 	_translate = translate;
 	_scale = scale;
-	_rotation4 = rotation;
-	// rgba
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
 	_rgba = rgba;
-	// primitive
+	
 	// Butterfly's coordinates
 	float x, y, z;
 
@@ -1167,15 +1193,20 @@ void Shape::createButterfly(GLenum primitive,
 	}
 }
 
-void Shape::buildIco(Vector3 a, Vector3 b, float radius,
-					 float sca_x, float sca_y, float sca_z,
-					 float pos_x, float pos_y, float pos_z,
-					 float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildIco(GLenum primitive,
+	Vector3 a, Vector3 b, float radius,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba) {
+	// set primitive
+	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
-	_translate.set(pos_x, pos_y, pos_z);
-	_rotation.set(rot_x, rot_y, rot_z);
-	_scale.set(sca_x, sca_y, sca_z);
-	_rot_angle = angle;
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	// set _rbga vector for colouring shape
+	_rgba = rgba;
 	
 	Vector3 c;
 

@@ -63,46 +63,56 @@ public:
 						   GLuint* texture);					// texture
 
 	// Quads building functions
-	void buildQuad(		 float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
-						 float pos_x, float pos_y, float pos_z,					// translate x, translate y, translate z
-						 float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
-
-	void buildQuadShadow(float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
-						 float pos_x, float pos_y, float pos_z,					// translate x, translate y, translate z
-						 float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
+	void buildQuad(GLenum primitive,
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation);										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
+	void buildQuadShadow(GLenum primitive,
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation);										// rotation angle, rotation x, rotation y, rotation z
 	// Circle build function
-	void buildCircle(	GLenum primitive,
-						float edges,											// number of circle's edges
-						float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
-						float pos_x, float pos_y, float pos_z, 					// translate x, translate y, translate z
-						float angle, float rot_x, float rot_y, float rot_z,		// rotation angle, rotation x, rotation y, rotation z
-						Vector4 rgba);
-						
+	void Shape::buildCircle(GLenum primitive,
+		float edges,											// number of circle's edges
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba);
 	// Cone build function
-	void buildCone(		float radius, float edges, float height,				// radius, edges, height
-						float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
-						float pos_x, float pos_y, float pos_z,					// translate x, translate y, translate z
-						float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
+	void buildCone(GLenum primitive,
+		float radius, float edges, float height,				// radius, edges, height
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba);
 	// Disc build function
-	void buildDisc(		float edges, float radius,								// edges, radius
-						float sca_x, float sca_y, float sca_z, 					// scale x, scale y, scale z,
-						float pos_x, float pos_y, float pos_z, 					// translate x, translate y, translate z,
-						float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
-	// Cylinder build function
-	void buildCylinder(	float radius, float edges, float height,				// radius, edges, height
-						float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
-						float pos_x, float pos_y, float pos_z,					// translate x, translate y, translate z
-						float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
+	void buildDisc(GLenum primitive,
+		float edges, float radius,								// edges, radius
+		Vector3 translate,										// scale x, scale y, scale z,
+		Vector3 scale,											// translate x, translate y, translate z,
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba);
 	// Torus building funtion
-	void buildTorus(	float r, float R, float tube_edges, float torus_edges,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
-						float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
-						float pos_x, float pos_y, float pos_z,					// translate x, translate y, translate z
-						float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
+	void buildTorus(GLenum primitive,
+		float r, float R, float tube_edges, float torus_edges,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba);
+	// Cylinder build function
+	void buildCylinder(GLenum primitive,
+		float radius, float edges, float height,				// cylinder radius, number of edges and height
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba);
 	// Sphere build functions
-	void buildSphere(	float radius, float latitude, float longitude,			// sphere radius, number of latitudes, number of longitudes
-						float sca_x, float sca_y, float sca_z, 					// scale x, scale y, scale z
-						float pos_x, float pos_y, float pos_z, 					// translate x, translate y, translate z
-						float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
+	void buildSphere(GLenum primitive,
+		float radius, float longitude, float latitude,			// sphere radius, number of latitudes, number of longitudes
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba);
 	// 0 - left bottom
 	float sphere_x0(	float radius, float theta, float delta);
 	float sphere_y0(	float radius, float theta, float delta);
@@ -143,18 +153,19 @@ public:
 						 Vector4 rotation,
 						 Vector4 rgba);
 	// Ico
-	void buildIco(		Vector3 a, Vector3 b, float radius,
-						float sca_x, float sca_y, float sca_z,
-						float pos_x, float pos_y, float pos_z,
-						float angle, float rot_x, float rot_y, float rot_z);
+	void buildIco(GLenum primitive,
+		Vector3 a, Vector3 b, float radius,
+		Vector3 translate,
+		Vector3 scale,
+		Vector4 rotation,
+		Vector4 rgba);
 	float distance(		Vector3 a, Vector3 b);
 	Vector3 normalize(	Vector3 a, Vector3 b, float length);
 
 	// Vector3 variables to be used in render functions with shapes for 
 	Vector3 _scale;
 	Vector3 _translate;
-	Vector3 _rotation;
-	Vector4 _rotation4;
+	Vector4 _rotation;
 	Vector4 _rgba;
 	// Material setting functions
 	void set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
@@ -179,7 +190,6 @@ public:
 	void set_primitive(GLenum primitive);
 	GLenum get_primitive();
 private:
-	float _rot_angle;
 	// Variable to hold primitive to be used to render shape
 	GLenum _primitive;
 	// vectors for building shapes to storing:
