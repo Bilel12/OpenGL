@@ -440,7 +440,7 @@ void Scene::buildShapes() {
 					0.0, 0.0, 0.0, 0.0);
 
 	butterfly.createButterfly(GL_LINE_LOOP,
-							  10000,
+							 10000,
 							 Vector3(0.0f, 0.0f, 0.0f),
 							 Vector3(1.0f, 1.0f, 1.0f),
 							 Vector4(0.0, 1.0, 1.0, 1.0),
@@ -473,7 +473,7 @@ void Scene::updateVariables() {
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
-	butterfly.rotate(angle);
+	butterfly._rotation4.setX(angle);
 	sun._translate = Light_Position_1;
 	//sphere.rotate(angle);
 }

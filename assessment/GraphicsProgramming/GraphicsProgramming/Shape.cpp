@@ -415,7 +415,7 @@ void Shape::render2D() {
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
-		glRotatef(_rot_angle, _rotation.x, _rotation.y, _rotation.z);
+		glRotatef(_rotation4.x, _rotation4.y, _rotation4.z, _rotation4.w);
 
 		glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
