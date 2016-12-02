@@ -487,7 +487,7 @@ void Scene::renderShapes() {
 	sphere.render();
 	disc_1.render();
 	disc_2.render();
-	//disc_flat.render();
+	disc_flat.render();
 	circle.render2D();
 	cone.render();
 	cylinder.render();
