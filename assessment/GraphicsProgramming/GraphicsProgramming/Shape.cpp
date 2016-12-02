@@ -58,7 +58,9 @@ void Shape::render() {
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());		// set emission to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
-		glDrawArrays(GL_TRIANGLES, 0, verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, *_texture);
+		glDrawArrays(_primitive, 0, verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, NULL);
 
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
@@ -540,7 +542,8 @@ void Shape::buildDisc(GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
-	Vector4 rgba) {
+	Vector4 rgba,
+	GLuint *texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -549,6 +552,8 @@ void Shape::buildDisc(GLenum primitive,
 	_rotation = rotation;
 	// set _rbga vector for colouring shape
 	_rgba = rgba;
+	// texture
+	_texture = texture;
 
 	float
 		interval = (float)(2.0 * M_PI / edges),

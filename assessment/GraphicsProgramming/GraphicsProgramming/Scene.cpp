@@ -202,12 +202,12 @@ void Scene::loadLists() {
 
 	Disc = glGenLists(2);
 	glNewList(Disc, GL_COMPILE);
-	disc_1.render(GL_TRIANGLES, disk_tex);
+	disc_1.render();
 	glEndList();
 
 	Sphere = glGenLists(2);
 	glNewList(Sphere, GL_COMPILE);
-	sphere.render(GL_TRIANGLES, globe_tex);
+	sphere.render();
 	glEndList();
 
 	LowPoliCylinder = glGenLists(3);
@@ -384,23 +384,26 @@ void Scene::buildShapes() {
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
 		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 
-	disc_1.buildDisc(GL_TRIANGLE_FAN, 10.0f, 5.0f,				// edges, radius
-		Vector3(-3.0f, 3.0f, 3.0f),		// scale x, scale y, scale z,
-		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z,
-		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
+		Vector3(-3.0f, 3.0f, 3.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+		disk_tex);
 
 
-	disc_2.buildDisc(GL_TRIANGLE_FAN, 10.0f, 5.0f,				// edges, radius
+	disc_2.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,				// edges, radius
 		Vector3(3.0f, 3.0f, 3.0f),		// scale x, scale y, scale z,
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z,
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+		Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+		disk_tex);
 	disc_flat.buildDisc(GL_TRIANGLE_FAN, 10, 2,				// edges, radius
-						Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
+						Vector3(5.0f, 5.0f, 5.0f),		// scale x, scale y, scale z
 						Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 						Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
-						Vector4(0.0f, 1.0f, 0.0f, 0.0f));
+						Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+		disk_tex);
 	quad_shadow.buildQuad(GL_QUADS,
 		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
@@ -415,39 +418,39 @@ void Scene::buildShapes() {
 	
 	circle.buildCircle(	GL_LINE_LOOP,
 						50,					// edges, radius
-		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
+		Vector3(1.0f, 1.0f, 1.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
 		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 
 
 	floor.buildQuad(GL_TRIANGLES, 
-		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
+		Vector3(1.0f, 1.0f, 2.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0, 1.0, 1.0, 1.0));
 	cone.buildCone(GL_TRIANGLES, 2, 10, 10,			// radius, edges, height
-		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
+		Vector3(1.0f, 1.0f, 3.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
 		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 	cone.set_ambient(	0, 0, 0, 0);
 
 	cylinder.buildCylinder(GL_TRIANGLES, 2.3, 20, 10,	// radius, edges, height
-		Vector3(0.0f, 0.0f, 0.0f),// scale x, scale y, scale z
+		Vector3(1.0f, 1.0f, 4.0f),// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),	// rotation angle, rotation x, rotation y, rotation z
 		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 	cylinder.set_ambient(1, 1, 1, 1);
 
 	torus.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
-		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
+		Vector3(1.0f, 2.0f, 0.0f),		// scale x, scale y, scale z
 		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
 		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
 		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 
 	ico.buildIco(GL_TRIANGLES, a, b, 1.0,
-		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 2.0f, 2.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(0.0f, 1.0f, 0.0f, 0.0f));
@@ -464,15 +467,15 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	sphere.render(GL_TRIANGLES, globe_tex);
-	disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
-	disc_2.render(GL_TRIANGLE_FAN, disk_tex);
+	//sphere.render(GL_TRIANGLES, globe_tex);
+	disc_1.render();
+	disc_2.render();
 	//disc_flat.render(disk_tex);
-	circle.render2D();
-	cone.render(GL_TRIANGLES, disk_tex);
-	cylinder.render(GL_TRIANGLES, barrel_tex);
-	sun.render(GL_TRIANGLES);
-	torus.render(GL_TRIANGLES, globe_tex);
+	//circle.render2D();
+	//cone.render(GL_TRIANGLES, disk_tex);
+	//cylinder.render(GL_TRIANGLES, barrel_tex);
+	//sun.render(GL_TRIANGLES);
+	//torus.render(GL_TRIANGLES, globe_tex);
 	//ico.render(GL_TRIANGLE_STRIP);
 	butterfly.render2D();
 }

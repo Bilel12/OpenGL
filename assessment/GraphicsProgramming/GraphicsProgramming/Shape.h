@@ -93,7 +93,8 @@ public:
 		Vector3 translate,										// scale x, scale y, scale z,
 		Vector3 scale,											// translate x, translate y, translate z,
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba);
+		Vector4 rgba,
+		GLuint *texture);
 	// Torus building funtion
 	void buildTorus(GLenum primitive,
 		float r, float R, float tube_edges, float torus_edges,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
@@ -191,6 +192,7 @@ public:
 	// Primitive functions
 	void set_primitive(GLenum primitive);
 	GLenum get_primitive();
+	GLuint *_texture;
 private:
 	// Variable to hold primitive to be used to render shape
 	GLenum _primitive;
