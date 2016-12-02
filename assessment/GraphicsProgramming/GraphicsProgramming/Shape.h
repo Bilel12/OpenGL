@@ -171,8 +171,13 @@ public:
 	float rotate(float arg);
 	// rgba functions
 	Vector4 rgba;
+	// Primitive functions
+	void set_primitive(GLenum primitive);
+	GLenum get_primitive();
 private:
 	float rot_angle;
+	// Variable to hold primitive to be used to render shape
+	GLenum _primitive;
 	// vectors for building shapes to storing:
 	std::vector<GLfloat> verts;			// verticies
 	std::vector<GLfloat> norms;			// normals

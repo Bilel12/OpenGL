@@ -28,6 +28,15 @@ Shape::~Shape() {}
 float Shape::rotate(float arg) {
 	return rot_angle = arg;
 }
+
+void Shape::set_primitive(GLenum primitive) {
+	_primitive = primitive;
+}
+
+GLenum Shape::get_primitive() {
+	return _primitive;
+}
+
 // Default rendering function using GL_TRIANGLES primitive
 void Shape::render() {
 	glPushMatrix(); {
@@ -414,7 +423,7 @@ void Shape::render2D(GLenum primitive,
 		glColorPointer(4, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 
-		glColor4f(rgba.getX(), G, B, A);
+		glColor4f(rgba.getR(), rgba.getG(), rgba.getB(), rgba.getA();
 		glDrawArrays(primitive, 0, verts.size() / 3);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
