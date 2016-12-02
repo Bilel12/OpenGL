@@ -7,6 +7,13 @@ Vector4::Vector4(float x, float y, float z, float w) {
 	this->w = w;
 }
 
+Vector4::Vector4(float construct[4]) {
+	this->x = construct[0];
+	this->y = construct[1];
+	this->z = construct[2];
+	this->w = construct[3];
+}
+
 Vector4 Vector4::copy() {
 	Vector4 copy(this->x,
 				 this->y,

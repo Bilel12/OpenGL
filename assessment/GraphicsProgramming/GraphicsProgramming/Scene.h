@@ -110,7 +110,7 @@ protected:
 	Shape floor;
 	Shape cylinder;
 	Shape circle;
-	Shape quad_shadow;
+	Shape quad;
 	Shape sun;
 	Shape torus;
 	Shape ico;

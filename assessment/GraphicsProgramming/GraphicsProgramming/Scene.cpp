@@ -291,9 +291,9 @@ void Scene::renderStencilBuffer(Model model) {
 
 void Scene::renderShadowing() {
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
+	generateShadowMatrix(Light_Position_1, quad.get_verts()->data());
 	// Floor for shadowing
-	quad_shadow.renderColor(GL_QUADS);
+	quad.render();
 	// Render shadow
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
@@ -330,9 +330,9 @@ void Scene::renderStencilShadowing() {
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_1, quad_shadow.get_verts()->data());
+	generateShadowMatrix(Light_Position_1, quad.get_verts()->data());
 	// Shadow surface
-	quad_shadow.render();
+	quad.render();
 	// Draw floor object()
 	// Render shadow
 	//glDisable(GL_DEPTH_TEST);
@@ -388,11 +388,11 @@ void Scene::buildShapes() {
 	sphere.set_shininess(120.0f);
 
 	sun.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
-		Vector3(-3.0f, 3.0f, 3.0f),		// scale x, scale y, scale z,
-		Vector3(Light_Position_1),		// translate x, translate y, translate z,
-		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
+		Vector3(Light_Position_1),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		globe_tex);
+		blank_tex);
 
 	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
 		Vector3(-3.0f, 3.0f, 3.0f),
@@ -414,18 +414,18 @@ void Scene::buildShapes() {
 						Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
 						Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
-	quad_shadow.buildQuad(GL_QUADS,
-		Vector3(0.0f, 0.0f, 0.0f),		// scale x, scale y, scale z
-		Vector3(1.0f, 1.0f, 1.0f),		// translate x, translate y, translate z
-		Vector4(0.0, 1.0, 1.0, 1.0),		// rotation angle, rotation x, rotation y, rotation z
+	quad.buildQuad(GL_QUADS,
+		Vector3(0.0f, 0.35f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		blank_tex);
 
-	quad_shadow.set_ambient(	1.f, 1.f, 1.f, 1.f);
-	quad_shadow.set_diffuse(	1.f, 1.f, 1.f, 1.f);
-	quad_shadow.set_specular(	1.f, 1.f, 1.f, 1.f);
-	quad_shadow.set_shininess(	120.0f );
-	quad_shadow._scale.set(		1.5, 1.5, 1.5);
+	quad.set_ambient(	1.f, 1.f, 1.f, 1.f);
+	quad.set_diffuse(	1.f, 1.f, 1.f, 1.f);
+	quad.set_specular(	1.f, 1.f, 1.f, 1.f);
+	quad.set_shininess(	120.0f );
+	quad._scale.set(		1.5, 1.5, 1.5);
 	
 	circle.buildCircle(	GL_LINE_LOOP,
 						50,					// edges, radius
@@ -665,17 +665,17 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Shadowing
-	//renderShadowing();
+	renderShadowing();
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
-	renderStencilBuffer(spaceship);
+	//renderStencilBuffer(spaceship);
 	// Blend cube
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlend(GL_TRIANGLES, 0.0, 0.0, 0.5, 1.0, cube_verts, cube_norms, cube_texcoords, crate_trans_tex);
 	setRenderMode(blend, wireframe);
 	// Render shapes
-	//renderShapes();
+	renderShapes();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);
