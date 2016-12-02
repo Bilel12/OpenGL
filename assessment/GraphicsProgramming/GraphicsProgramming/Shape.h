@@ -168,6 +168,7 @@ public:
 	std::vector<GLfloat>* get_texcoords();
 	// Get rot_angle variable function
 	float rotate(float arg);
+	// rgba functions
 private:
 	float rot_angle;
 	// vectors for building shapes to storing:
@@ -175,6 +176,7 @@ private:
 	std::vector<GLfloat> norms;			// normals
 	std::vector<GLfloat> texcoords;		// texture coordinates
 	std::vector<GLfloat> colors;		// colours
+	std::vector<GLfloat> rgba;			// Red, Greed, Blue, Alpha colours
 	// vectors for setting up materials':
 	std::vector<GLfloat> ambient;		// ambient
 	std::vector<GLfloat> diffuse;		// diffuse

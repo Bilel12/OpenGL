@@ -7,10 +7,10 @@ Vector3::Vector3(float x, float y, float z) {
 }
 
 Vector3 Vector3::copy() {
-	Vector3 copy(
-		this->x,
-		this->y,
-		this->z);
+	Vector3 copy(this->x,
+				 this->y,
+				 this->z);
+
 	return copy;
 }
 
@@ -112,9 +112,9 @@ float Vector3::dot(const Vector3& v2) {
 }
 
 void Vector3::scale(float scale) {
-	this->x*scale;
-	this->y*scale;
-	this->z*scale;
+	((this->x) * scale);
+	((this->y) * scale);
+	((this->z) * scale);
 }
 
 void Vector3::add(const Vector3& v1, float scale) {
