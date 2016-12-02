@@ -446,7 +446,7 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		disk_tex);
+		NULL);
 	cone.set_ambient(	0, 0, 0, 0);
 
 	cylinder.buildCylinder(GL_TRIANGLES, 2.3, 20, 10,
