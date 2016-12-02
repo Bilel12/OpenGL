@@ -13,6 +13,7 @@ public:
 
 	void set(float x, float y, float z, float w);
 	void set(float translate[4]);
+	void set(const Vector4& v2);
 	void setX(float x);
 	void setY(float y);
 	void setZ(float z);

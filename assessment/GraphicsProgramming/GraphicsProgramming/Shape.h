@@ -53,8 +53,7 @@ public:
 	void renderColor(GLenum primitive,					// render shape using colour array with passed: primitve
 					 GLuint* texture);					// texture
 
-	void render2D(GLenum primitive,						// render shape with passed: primitve
-				  Vector4 rgba);						// colour
+	void render2D();
 
 	void renderSolarSystem(GLenum primitive,					// render shape with passed primitve 
 						   float R, float G, float B, float A,	// colour
@@ -72,10 +71,13 @@ public:
 						 float pos_x, float pos_y, float pos_z,					// translate x, translate y, translate z
 						 float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
 	// Circle build function
-	void buildCircle(	float edges,											// number of circle's edges
+	void buildCircle(	GLenum primitive,
+						float edges,											// number of circle's edges
 						float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
 						float pos_x, float pos_y, float pos_z, 					// translate x, translate y, translate z
-						float angle, float rot_x, float rot_y, float rot_z);	// rotation angle, rotation x, rotation y, rotation z
+						float angle, float rot_x, float rot_y, float rot_z,		// rotation angle, rotation x, rotation y, rotation z
+						Vector4 rgba);
+						
 	// Cone build function
 	void buildCone(		float radius, float edges, float height,				// radius, edges, height
 						float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z
@@ -134,10 +136,12 @@ public:
 	float sphere_n_y3(	float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(	float radius, float theta, float delta, float theta_interval);
 	// Butterfly
-	void createButterfly(	int N,													// butterfly's resolution
-							float sca_x, float sca_y, float sca_z,					// scale
-							float pos_x, float pos_y, float pos_z,					// position
-							float angle, float rot_x, float rot_y, float rot_z);	// rotation
+	void createButterfly(GLenum primitive,
+						 int N,
+						 float sca_x, float sca_y, float sca_z,
+						 float pos_x, float pos_y, float pos_z,
+						 float angle, float rot_x, float rot_y, float rot_z,
+						 Vector4 rgba);
 	// Ico
 	void buildIco(		Vector3 a, Vector3 b, float radius,
 						float sca_x, float sca_y, float sca_z,
@@ -170,12 +174,12 @@ public:
 	// Get rot_angle variable function
 	float rotate(float arg);
 	// rgba functions
-	Vector4 rgba;
+	Vector4 _rgba;
 	// Primitive functions
 	void set_primitive(GLenum primitive);
 	GLenum get_primitive();
 private:
-	float rot_angle;
+	float _rot_angle;
 	// Variable to hold primitive to be used to render shape
 	GLenum _primitive;
 	// vectors for building shapes to storing:

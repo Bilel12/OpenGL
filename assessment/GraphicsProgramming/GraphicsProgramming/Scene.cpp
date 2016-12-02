@@ -406,10 +406,12 @@ void Scene::buildShapes() {
 	quad_shadow.set_shininess(	120.0f );
 	quad_shadow.scale.set(		1.5, 1.5, 1.5);
 	
-	circle.buildCircle(	50,					// edges, radius
+	circle.buildCircle(	GL_LINE_LOOP,
+						50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						-5, 0, 0, 			// translate x, translate y, translate z
-						0, 1, 1, 1);		// rotation angle, rotation x, rotation y, rotation z
+						0, 1, 1, 1,			// rotation angle, rotation x, rotation y, rotation z
+						Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	floor.buildQuad(	1, 1, 1,			// scale x, scale y, scale z
 						0, 0, 0,			// translate x, translate y, translate z
@@ -437,10 +439,12 @@ void Scene::buildShapes() {
 					0.0, 0.0, 0.0,
 					0.0, 0.0, 0.0, 0.0);
 
-	butterfly.createButterfly( 10000,
-		1.0f, 1.0f, 1.0f,
-		0.0, 0.0, 0.0,
-		0.0, 0.0, 0.0, 0.0);
+	butterfly.createButterfly(GL_LINE_LOOP,
+							  10000,
+							  1.0f, 1.0f, 1.0f,
+							  0.0, 0.0, 0.0,
+							  0.0, 0.0, 0.0, 0.0,
+							  Vector4(0.0f, 1.0f, 0.0f, 0.0f));
 	// blend_cube
 	blend_cube.translate.set(-7, 0, 1);
 	blend_cube.scale.set(1, 1, 1);
@@ -452,13 +456,13 @@ void Scene::renderShapes() {
 	disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
 	disc_2.render(GL_TRIANGLE_FAN, disk_tex);
 	//disc_flat.render(disk_tex);
-	circle.render2D(GL_LINE_LOOP, 1.0f, 1.0f, 1.0f, 1.0f);
+	circle.render2D();
 	cone.render(GL_TRIANGLES, disk_tex);
 	cylinder.render(GL_TRIANGLES, barrel_tex);
 	sun.render(GL_TRIANGLES);
 	torus.render(GL_TRIANGLES, globe_tex);
 	//ico.render(GL_TRIANGLE_STRIP);
-	butterfly.render2D(GL_LINE_LOOP, 1.0f, 1.0f, 1.0f, 1.0f);
+	butterfly.render2D();
 }
 
 void Scene::updateVariables() {

@@ -87,6 +87,13 @@ void Vector4::set(float translate[4]) {
 	this->w = translate[3];
 }
 
+void Vector4::set(const Vector4 & v2) {
+	this->x = (v2.x);
+	this->y = (v2.y);
+	this->z = (v2.z);
+	this->w = (v2.w);
+}
+
 void Vector4::setX(float x) {
 	this->x = x;
 }
