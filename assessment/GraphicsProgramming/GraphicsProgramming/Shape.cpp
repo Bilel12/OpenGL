@@ -1033,6 +1033,40 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 	}
 }
 
+float Shape::distance(Vector3 a, Vector3 b) {
+	return sqrtf(pow(b.x - a.x, 2) + pow(b.y - a.y, 2) + pow(b.z - a.z, 2));
+}
+
+Vector3 Shape::normalize(Vector3 a, Vector3 b, float radius) {
+	float dx = b.x - a.x;
+	float dy = b.y - a.y;
+	float dz = b.z - a.z;
+	
+	dx = dx * radius / distance(a, b);
+	dy = dy * radius / distance(a, b);
+	dz = dz * radius / distance(a, b);
+
+	Vector3 c;
+	c.x = a.x + dx;
+	c.y = a.y + dy;
+	c.z = a.z + dz;
+
+	return c;
+}
+
+void Shape::buildIco(	float length, float a, float b,
+						float sca_x, float sca_y, float sca_z,
+						float pos_x, float pos_y, float pos_z,
+						float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+	
+
+}
+
 // Set material arrays (Function definitions)
 void Shape::set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	ambient[0] = R;
