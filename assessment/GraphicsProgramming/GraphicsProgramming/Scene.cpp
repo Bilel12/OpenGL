@@ -367,6 +367,16 @@ void Scene::renderStencilShadowing() {
 }
 
 void Scene::buildShapes() {
+	skybox.buildSkybox(GL_TRIANGLES, 
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+		Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+		skybox_verts, 
+		skybox_norms, 
+		skybox_texcoords, 
+		skybox_tex);
+
 	sphere.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(-8.0f, 0.0f, 0.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
@@ -413,6 +423,7 @@ void Scene::buildShapes() {
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		quad_verts,
+		quad_norms,
 		quad_texcoords,
 		NULL);
 	quad.set_ambient(	1.f, 1.f, 1.f, 1.f);
@@ -434,6 +445,7 @@ void Scene::buildShapes() {
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
 		quad_t_verts,
+		quad_t_norms,
 		quad_t_texcoords,
 		NULL);
 
@@ -445,10 +457,10 @@ void Scene::buildShapes() {
 		disk_tex);
 	cone.set_ambient(	0, 0, 0, 0);
 
-	cylinder.buildCylinder(GL_TRIANGLES, 2.3, 20, 10,
+	cylinder.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
 		Vector3(6.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
-		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(0.0f, 1.0f, 1.0f, 1.0f),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		barrel_tex);
 	cylinder.set_ambient(1, 1, 1, 1);
@@ -494,14 +506,15 @@ void Scene::renderShapes() {
 }
 
 void Scene::updateVariables() {
-	angle += 0.7;
+	angle += 0.7f;
 	/*floor.rotate(angle);
 	floor.rotation.setZ(1);
 	floor.rotation.setX(1);
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
-	butterfly._rotation.setX(angle);
+	butterfly.rotate(angle);
+	//skybox.rotate(angle);
 	sun._translate = Light_Position_1;
 	//sphere.rotate(angle);
 }
@@ -592,32 +605,32 @@ void Scene::update(float dt) {
 	}
 	// Put X scale up
 	if (input->isKeyDown('x') || input->isKeyDown('X')) {
-		scale_x += 0.1;
+		scale_x += 0.1f;
 	}
 	// Put Y scale up
 	if (input->isKeyDown('y') || input->isKeyDown('Y')) {
-		scale_y += 0.1;
+		scale_y += 0.1f;
 	}
 	// Put Z scale up
 	if (input->isKeyDown('z') || input->isKeyDown('Z')) {
-		scale_z += 0.1;
+		scale_z += 0.1f;
 	}
 	// Put X scale down
 	if (input->isKeyDown('u') || input->isKeyDown('U')) {
-		scale_x -= 0.1;
+		scale_x -= 0.1f;
 	}
 	// Put Y scale down
 	if (input->isKeyDown('i') || input->isKeyDown('I')) {
-		scale_y -= 0.1;
+		scale_y -= 0.1f;
 	}
 	// Put Z scale down
 	if (input->isKeyDown('o') || input->isKeyDown('O')) {
-		scale_z -= 0.1;
+		scale_z -= 0.1f;
 	}
 	// Put both X  and Y scale down
 	if (input->isKeyDown(VK_SPACE)) {
-		scale_x -= 0.1;
-		scale_z -= 0.1;
+		scale_x -= 0.1f;
+		scale_z -= 0.1f;
 	}
 	// Camera input controll
 	camera->cameraControll(dt, width, height, input);

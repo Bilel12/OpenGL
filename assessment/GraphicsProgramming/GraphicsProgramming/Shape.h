@@ -61,21 +61,25 @@ public:
 						   std::vector<float> norms,			// normals
 						   std::vector<float> texcoords,		// texture coordinates
 						   GLuint* texture);					// texture
-
-	// Quads building functions
+	// Skybox
+	void buildSkybox(GLenum primitive, 
+		Vector3 translate,										// scale x, scale y, scale z
+		Vector3 scale,											// translate x, translate y, translate z
+		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+		Vector4 rgba, 
+		std::vector<float> verts, 			// vertices
+		std::vector<float> norms, 			// normals
+		std::vector<float> texcoords,
+		GLuint* texture);					// texture coordinates
+	// Quads building function
 	void buildQuad(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
 		Vector4 rgba,
 		std::vector<float> verts,
+		std::vector<float> norms,
 		std::vector<float> texcoords,
-		GLuint *texture);
-	void buildQuad(GLenum primitive,
-		Vector3 translate,										// scale x, scale y, scale z
-		Vector3 scale,											// translate x, translate y, translate z
-		Vector4 rotation,
-		Vector4 rgba,
 		GLuint *texture);
 	// Circle build function
 	void Shape::buildCircle(GLenum primitive,

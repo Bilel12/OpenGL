@@ -445,12 +445,39 @@ void Shape::renderSolarSystem(GLenum primitive,
 
 }
 
+void Shape::buildSkybox(GLenum primitive, 
+	Vector3 translate,										// scale x, scale y, scale z
+	Vector3 scale,											// translate x, translate y, translate z
+	Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+	Vector4 rgba,
+	std::vector<float> verts,
+	std::vector<float> norms,
+	std::vector<float> texcoords,
+	GLuint * texture) {
+	// set primitive
+	_primitive = primitive;
+	// set vectors for translation, rotation and scale, and rotation angle
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	_rgba = rgba;
+
+	_verts = verts;
+
+	_norms = norms;
+
+	_texcoords = texcoords;
+
+	_texture = texture;
+}
+
 void Shape::buildQuad(GLenum primitive, 
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
 	std::vector<float> verts,
+	std::vector<float> norms,
 	std::vector<float> texcoords,
 	GLuint *texture) {
 	// set primitive
@@ -464,52 +491,12 @@ void Shape::buildQuad(GLenum primitive,
 
 	_verts = verts;
 
-	for (int i = 0; i < _verts.size() / 3; ++i) {
-		_norms.push_back(0.0f);
-		_norms.push_back(1.0f);
-		_norms.push_back(0.0f);
-	}
+	_norms = norms;
 
 	_texcoords = texcoords;
 
 	//_colors = { 0.5, 0.5, 0.5, 0.5 };
 }
-
-void Shape::buildQuad(GLenum primitive,
-	Vector3 translate,
-	Vector3 scale,
-	Vector4 rotation,
-	Vector4 rgba, 
-	GLuint *texture) {
-	// set primitive
-	_primitive = primitive;
-	// set vectors for translation, rotation and scale, and rotation angle
-	_translate = translate;
-	_scale = scale;
-	_rotation = rotation;
-	_rgba = rgba;
-	_texture = texture;
-
-	_verts = {	-1.f, -1.f, -1.f,	//top left
-				-1.f, -1.f,  1.f,	// bottom left
-				 1.f, -1.f,  1.f,	//bottom right
-				 1.f, -1.f, -1.f };	// top right
-		
-
-	for (int i = 0; i < 4; ++i) {
-		_norms.push_back(0.0f);
-		_norms.push_back(1.0f);
-		_norms.push_back(0.0f);
-	}
-
-	_texcoords = {	0, 0,
-					1, 0,
-					1, 1,
-					0, 1, };
-
-	//_colors = { 0.5, 0.5, 0.5, 0.5 };
-}
-
 
 void Shape::buildCircle(GLenum primitive,
 	float edges,
