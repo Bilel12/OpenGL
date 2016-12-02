@@ -63,11 +63,13 @@ public:
 						   GLuint* texture);					// texture
 
 	// Quads building functions
-	void buildQuadT(GLenum primitive,
+	void buildQuad(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
 		Vector4 rgba,
+		std::vector<float> verts,
+		std::vector<float> texcoords,
 		GLuint *texture);
 	void buildQuad(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
@@ -205,10 +207,10 @@ private:
 	// Variable to hold primitive to be used to render shape
 	GLenum _primitive;
 	// vectors for building shapes to storing:
-	std::vector<GLfloat> verts;			// verticies
-	std::vector<GLfloat> norms;			// normals
-	std::vector<GLfloat> texcoords;		// texture coordinates
-	std::vector<GLfloat> colors;		// colours
+	std::vector<GLfloat> _verts;			// verticies
+	std::vector<GLfloat> _norms;			// normals
+	std::vector<GLfloat> _texcoords;		// texture coordinates
+	std::vector<GLfloat> _colors;		// colours
 	// vectors for setting up materials':
 	std::vector<GLfloat> ambient;		// ambient
 	std::vector<GLfloat> diffuse;		// diffuse

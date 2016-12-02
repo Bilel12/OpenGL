@@ -412,6 +412,8 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		quad_verts,
+		quad_texcoords,
 		NULL);
 	quad.set_ambient(	1.f, 1.f, 1.f, 1.f);
 	quad.set_diffuse(	1.f, 1.f, 1.f, 1.f);
@@ -426,11 +428,13 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
 
-	floor.buildQuadT(GL_TRIANGLES, 
+	floor.buildQuad(GL_TRIANGLES, 
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
+		quad_t_verts,
+		quad_t_texcoords,
 		NULL);
 
 	cone.buildCone(GL_TRIANGLES, 2, 10, 10,
@@ -650,7 +654,7 @@ void Scene::render() {
 	glPushMatrix(); {
 		glTranslatef(camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
 		glDisable(GL_DEPTH_TEST); {
-			skybox.render(GL_TRIANGLES, 1.0f, 1.0f, 1.0f, 0.0f, skybox_verts, skybox_norms, skybox_texcoords, skybox_tex);
+			skybox.render();
 		}
 		glEnable(GL_DEPTH_TEST);
 	} glPopMatrix();
