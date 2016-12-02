@@ -132,14 +132,11 @@ public:
 						float angle, float rot_x, float rot_y, float rot_z);
 	float distance(		Vector3 a, Vector3 b);
 	Vector3 normalize(	Vector3 a, Vector3 b, float length);
-	
-	/*void batman(float sca_x, float sca_y, float sca_z,
-		float pos_x, float pos_y, float pos_z,
-		float angle, float rot_x, float rot_y, float rot_z);*/
+
 	// Vector3 variables to be used in render functions with shapes for 
-	Vector3 translate;	//tranlating
-	Vector3 rotation;	//rotating
-	Vector3 scale;		//scaling
+	Vector3 translate;
+	Vector3 rotation;
+	Vector3 scale;
 	// Material setting functions
 	void set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
 	void set_diffuse(GLfloat R, GLfloat G, GLfloat B, GLfloat A);
@@ -161,23 +158,23 @@ public:
 	float rotate(float arg);
 private:
 	float rot_angle;
-	
-	std::vector<GLfloat> verts;			// vector to store verticies when building shapes
-	std::vector<GLfloat> norms;			// vector to store normals when building shapes
-	std::vector<GLfloat> texcoords;		// vector to store texture coordinates when building shapes
-	std::vector<GLfloat> colors;		// vector to store colours when building shapes
-
-	std::vector<GLfloat> ambient;		// vector to store ambient when building shapes
-	std::vector<GLfloat> diffuse;		// vector to store normals when building shapes
-	std::vector<GLfloat> specular;		// vector to store texture coordinates when building shapes
-	std::vector<GLfloat> emission;		// vector to store colours when building shapes
-	std::vector<GLfloat> shininess;		// vector to store colours when building shapes
-
-	std::vector<GLfloat> ambient_def;	// vector to store verticies when building shapes
-	std::vector<GLfloat> diffuse_def;	// vector to store normals when building shapes
-	std::vector<GLfloat> specular_def;	// vector to store texture coordinates when building shapes
-	std::vector<GLfloat> emission_def;	// vector to store colours when building shapes
-	std::vector<GLfloat> shininess_def;	// vector to store colours when building shapes
+	// vectors for building shapes to storing:
+	std::vector<GLfloat> verts;			// verticies
+	std::vector<GLfloat> norms;			// normals
+	std::vector<GLfloat> texcoords;		// texture coordinates
+	std::vector<GLfloat> colors;		// colours
+	// vectors for setting up materials':
+	std::vector<GLfloat> ambient;		// ambient
+	std::vector<GLfloat> diffuse;		// diffuse
+	std::vector<GLfloat> specular;		// specular
+	std::vector<GLfloat> emission;		// emission
+	std::vector<GLfloat> shininess;		//shininess
+	// vectors for restoring default values of:
+	std::vector<GLfloat> ambient_def;	// ambient
+	std::vector<GLfloat> diffuse_def;	// diffuse
+	std::vector<GLfloat> specular_def;	// specular
+	std::vector<GLfloat> emission_def;	// emission
+	std::vector<GLfloat> shininess_def;	//shininess
 };
 
 #endif

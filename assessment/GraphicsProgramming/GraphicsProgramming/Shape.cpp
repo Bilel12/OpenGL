@@ -95,7 +95,8 @@ void Shape::render(GLenum primitive) {
 	} glPopMatrix();
 }
 
-void Shape::render(GLenum primitive, GLuint *texture) {
+void Shape::render(GLenum primitive, 
+				   GLuint *texture) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -132,7 +133,8 @@ void Shape::render(GLenum primitive, GLuint *texture) {
 	} glPopMatrix();
 }
 
-void Shape::render(GLenum primitive, float R, float G, float B, float A) {
+void Shape::render(	GLenum primitive,
+					float R, float G, float B, float A) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -171,7 +173,9 @@ void Shape::render(GLenum primitive, float R, float G, float B, float A) {
 	} glPopMatrix();
 }
 
-void Shape::render(GLenum primitive, float R, float G, float B, float A, GLuint * texture) {
+void Shape::render(GLenum primitive, 
+				   float R, float G, float B, float A,
+				   GLuint * texture) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -212,7 +216,12 @@ void Shape::render(GLenum primitive, float R, float G, float B, float A, GLuint 
 	} glPopMatrix();
 }
 
-void Shape::render(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture) {
+void Shape::render(GLenum primitive,
+				   float R, float G, float B, float A,
+				   std::vector<float> verts,
+				   std::vector<float> norms,
+				   std::vector<float> texcoords,
+				   GLuint * texture) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -247,7 +256,12 @@ void Shape::render(GLenum primitive, float R, float G, float B, float A, std::ve
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shape::renderBlend(GLenum primitive, float R, float G, float B, float A, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture) {
+void Shape::renderBlend(GLenum primitive,
+						float R, float G, float B, float A,
+						std::vector<float> verts,
+						std::vector<float> norms,
+						std::vector<float> texcoords,
+						GLuint * texture) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -304,7 +318,8 @@ void Shape::renderColor(GLenum primitive) {
 	} glPopMatrix();
 }
 
-void Shape::renderColor(GLenum primitive, GLuint * texture) {
+void Shape::renderColor(GLenum primitive, 
+						GLuint * texture) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -343,7 +358,8 @@ void Shape::renderColor(GLenum primitive, GLuint * texture) {
 	} glPopMatrix();
 }
 
-void Shape::render2D(GLenum primitive, float R, float G, float B, float A) {
+void Shape::render2D(GLenum primitive, 
+					 float R, float G, float B, float A) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -364,9 +380,9 @@ void Shape::render2D(GLenum primitive, float R, float G, float B, float A) {
 	} glPopMatrix();
 }
 
-void Shape::buildQuad(	float sca_x, float sca_y, float sca_z, 
-						float pos_x, float pos_y, float pos_z, 
-						float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildQuad(float sca_x, float sca_y, float sca_z, 
+					  float pos_x, float pos_y, float pos_z, 
+					  float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -445,10 +461,10 @@ void Shape::buildCircle(float edges,
 	}
 }
 
-void Shape::buildDisc(	float edges, float radius, 
-						float sca_x, float sca_y, float sca_z, 
-						float pos_x, float pos_y, float pos_z, 
-						float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildDisc(float edges, float radius, 
+					  float sca_x, float sca_y, float sca_z, 
+					  float pos_x, float pos_y, float pos_z, 
+					  float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -681,10 +697,10 @@ void Shape::buildSphere(float radius, float longitude, float latitude,
 	}
 }
 
-void Shape::buildCylinder(	float radius, float edges, float height, 
-							float sca_x, float sca_y, float sca_z,
-							float pos_x, float pos_y, float pos_z,
-							float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildCylinder(float radius, float edges, float height, 
+						  float sca_x, float sca_y, float sca_z,
+						  float pos_x, float pos_y, float pos_z,
+						  float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -838,10 +854,10 @@ void Shape::buildCylinder(	float radius, float edges, float height,
 	}
 }
 
-void Shape::buildCone(	float radius, float edges, float height,
-						float sca_x, float sca_y, float sca_z,
-						float pos_x, float pos_y, float pos_z,
-						float angle, float rot_x, float rot_y, float rot_z ) {
+void Shape::buildCone(float radius, float edges, float height,
+					  float sca_x, float sca_y, float sca_z,
+					  float pos_x, float pos_y, float pos_z,
+					  float angle, float rot_x, float rot_y, float rot_z ) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -924,10 +940,10 @@ void Shape::buildCone(	float radius, float edges, float height,
 	}
 }
 
-void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
-						float sca_x, float sca_y, float sca_z,
-						float pos_x, float pos_y, float pos_z,
-						float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildTorus(float r, float R, float tube_edges, float torus_edges,
+					   float sca_x, float sca_y, float sca_z,
+					   float pos_x, float pos_y, float pos_z,
+					   float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -1049,7 +1065,10 @@ Vector3 Shape::normalize(Vector3 a, Vector3 b, float radius) {
 	return c;
 }
 
-void Shape::createButterfly(int N, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::createButterfly(int N,
+							float sca_x, float sca_y, float sca_z,
+							float pos_x, float pos_y, float pos_z,
+							float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -1073,46 +1092,10 @@ void Shape::createButterfly(int N, float sca_x, float sca_y, float sca_z, float 
 	}
 }
 
-//void Shape::batman(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
-//	// set vectors for translation, rotation and scale, and rotation angle
-//	translate.set(pos_x, pos_y, pos_z);
-//	rotation.set(rot_x, rot_y, rot_z);
-//	scale.set(sca_x, sca_y, sca_z);
-//	rot_angle = angle;
-//	// Butterfly's coordinates
-//	double y0, y1, y2, y3;
-//	
-//	for (float x = -8.0; x < 8.0; x += 0.1) {
-//		/*y0 = 2 * ​sqrt(​(-(abs(​abs(​x) - ​1)))*​abs(​3 - ​abs(​x)) / ​((abs(​x) - ​1)*​(3 - ​abs(​x))))*​(1 + ​abs(​abs(​x) - ​3) / 
-//		​(abs(​x) - ​3))*​sqrt(​1 - ​(x / ​7) ^ ​2) + ​(5 + ​0.97*​(abs(​x - ​0.5) + ​abs(​x + ​0.5)) 
-//		- ​3*​(abs(​x - ​0.75) + ​abs(​x + ​0.75)))*​(1 + ​abs(​1 - ​abs(​x)) / ​(1 - ​abs(​x)));*/
-//		
-//		y1 = (‑3.0) *​ sqrtf(​1.0 - pow(​(x / ​7.0), 2)) * ​sqrt(​abs(​abs(​x) - ​4.0) / ​(abs(​x) - ​4.0));
-//
-//		/*y2 = abs(​x / ​2) - ​0.0913722*​x^​2 - ​3 + ​sqrt(​1 - ​(abs(​abs(​x) - ​2) - ​1) ^ ​2);
-//
-//		y3 = (2.71052 + ​1.5 - ​0.5* ​ abs(​x) - ​1.35526 * ​sqrt(​4 - ​(abs(​x) - ​1) ^ ​2)) * (​sqrt(​abs(​abs(​x) - ​1) / ​(abs(​x) - ​1))) + ​0.9;*/
-//
-//		verts.push_back(x);
-//		verts.push_back(y0);
-//
-//		verts.push_back(x);
-//		verts.push_back(y1);
-//
-//		verts.push_back(x);
-//		verts.push_back(y2);
-//
-//		verts.push_back(x);
-//		verts.push_back(y3);
-//
-//		//color.push_back(u, 0.0, 24 * M_PI, 4);
-//	}
-//}
-
-void Shape::buildIco(	Vector3 a, Vector3 b, float radius,
-						float sca_x, float sca_y, float sca_z,
-						float pos_x, float pos_y, float pos_z,
-						float angle, float rot_x, float rot_y, float rot_z) {
+void Shape::buildIco(Vector3 a, Vector3 b, float radius,
+					 float sca_x, float sca_y, float sca_z,
+					 float pos_x, float pos_y, float pos_z,
+					 float angle, float rot_x, float rot_y, float rot_z) {
 	// set vectors for translation, rotation and scale, and rotation angle
 	translate.set(pos_x, pos_y, pos_z);
 	rotation.set(rot_x, rot_y, rot_z);
@@ -1141,7 +1124,6 @@ void Shape::buildIco(	Vector3 a, Vector3 b, float radius,
 		texcoords.push_back(c.z);
 	}
 }
-
 // Set material arrays (Function definitions)
 void Shape::set_ambient(GLfloat R, GLfloat G, GLfloat B, GLfloat A) {
 	ambient[0] = R;
