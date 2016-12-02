@@ -397,14 +397,14 @@ void Scene::buildShapes() {
 						0, 0, 0, 			// translate x, translate y, translate z
 						-90, 1, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
 
-	quad_shadow.buildQuadShadow(	1, 1, 1,				// scale x, scale y, scale z
-									0, 0.35, 0,				// translate x, translate y, translate z
-									0., 0., 0., 0.);		// rotation angle, rotation x, rotation y, rotation z
-	quad_shadow.set_ambient(		1.f, 1.f, 1.f, 1.f);
-	quad_shadow.set_diffuse(		1.f, 1.f, 1.f, 1.f);
-	quad_shadow.set_specular(		1.f, 1.f, 1.f, 1.f);
-	quad_shadow.set_shininess(		120.0f );
-	quad_shadow.scale.set(			1.5, 1.5, 1.5);
+	quad_shadow.buildQuadShadow(1, 1, 1,				// scale x, scale y, scale z
+								0, 0.35, 0,				// translate x, translate y, translate z
+								0., 0., 0., 0.);		// rotation angle, rotation x, rotation y, rotation z
+	quad_shadow.set_ambient(	1.f, 1.f, 1.f, 1.f);
+	quad_shadow.set_diffuse(	1.f, 1.f, 1.f, 1.f);
+	quad_shadow.set_specular(	1.f, 1.f, 1.f, 1.f);
+	quad_shadow.set_shininess(	120.0f );
+	quad_shadow.scale.set(		1.5, 1.5, 1.5);
 
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
@@ -419,7 +419,7 @@ void Scene::buildShapes() {
 						1, 1, 1,			// scale x, scale y, scale z
 						5, 5, -10,			// translate x, translate y, translate z
 						0, 0, 0, 0);		// rotation angle, rotation x, rotation y, rotation z
-	cone.set_ambient(0, 0, 0, 0);
+	cone.set_ambient(	0, 0, 0, 0);
 
 	cylinder.buildCylinder(	2.3, 20, 10,	// radius, edges, height
 							1, 1, 1,		// scale x, scale y, scale z
@@ -444,15 +444,15 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	//sphere.render(GL_TRIANGLES, globe_tex);
-	//disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
-	//disc_2.render(GL_TRIANGLE_FAN, disk_tex);
-	////disc_flat.render(disk_tex);
-	//circle.renderCircle();
-	//cone.render(GL_TRIANGLES, disk_tex);
-	//cylinder.render(GL_TRIANGLES, barrel_tex);
-	//sun.render(GL_TRIANGLES);
-	torus.render(GL_LINE_LOOP, disk_tex);
+	sphere.render(GL_TRIANGLES, globe_tex);
+	disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
+	disc_2.render(GL_TRIANGLE_FAN, disk_tex);
+	//disc_flat.render(disk_tex);
+	circle.render2D(GL_LINE_LOOP, 1.0f, 1.0f, 1.0f, 1.0f);
+	cone.render(GL_TRIANGLES, disk_tex);
+	cylinder.render(GL_TRIANGLES, barrel_tex);
+	sun.render(GL_TRIANGLES);
+	torus.render(GL_TRIANGLES, globe_tex);
 	//ico.render(GL_TRIANGLE_STRIP);
 	butterfly.render2D(GL_LINE_LOOP, 1.0f, 1.0f, 1.0f, 1.0f);
 }

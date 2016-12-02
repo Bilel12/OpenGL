@@ -1000,24 +1000,24 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 			norms.push_back( (r * sin(theta)) / r);
 			norms.push_back( ((R + r * cos(theta)) * sin(delta)) / (R + r));
 
-
-			texcoords.push_back(v_longs);
+			// 0
 			texcoords.push_back(u_lats);
-
 			texcoords.push_back(v_longs);
+			// 1
 			texcoords.push_back(u_lats + u_lats_interval);
-
-			texcoords.push_back(v_longs + v_longs_interval);
-			texcoords.push_back(u_lats + u_lats_interval);
-
-			texcoords.push_back(v_longs + v_longs_interval);
-			texcoords.push_back(u_lats + u_lats_interval);
-
-			texcoords.push_back(v_longs + v_longs_interval);
-			texcoords.push_back(u_lats);
-
 			texcoords.push_back(v_longs);
+			// 2
+			texcoords.push_back(u_lats + u_lats_interval);
+			texcoords.push_back(v_longs + v_longs_interval);
+			// 2
+			texcoords.push_back(u_lats + u_lats_interval);
+			texcoords.push_back(v_longs + v_longs_interval);
+			// 3
 			texcoords.push_back(u_lats);
+			texcoords.push_back(v_longs + v_longs_interval);
+			// 0
+			texcoords.push_back(u_lats);
+			texcoords.push_back(v_longs);
 
 
 			theta += theta_interval;
@@ -1088,7 +1088,7 @@ void Shape::createButterfly(int N, float sca_x, float sca_y, float sca_z, float 
 //		​(abs(​x) - ​3))*​sqrt(​1 - ​(x / ​7) ^ ​2) + ​(5 + ​0.97*​(abs(​x - ​0.5) + ​abs(​x + ​0.5)) 
 //		- ​3*​(abs(​x - ​0.75) + ​abs(​x + ​0.75)))*​(1 + ​abs(​1 - ​abs(​x)) / ​(1 - ​abs(​x)));*/
 //		
-//		y1 = (‑3.0)*​sqrtf(​1.0 - pow(​(x / ​7.0), 2)) * ​sqrt(​abs(​abs(​x) - ​4.0) / ​(abs(​x) - ​4.0));
+//		y1 = (‑3.0) *​ sqrtf(​1.0 - pow(​(x / ​7.0), 2)) * ​sqrt(​abs(​abs(​x) - ​4.0) / ​(abs(​x) - ​4.0));
 //
 //		/*y2 = abs(​x / ​2) - ​0.0913722*​x^​2 - ​3 + ​sqrt(​1 - ​(abs(​abs(​x) - ​2) - ​1) ^ ​2);
 //
