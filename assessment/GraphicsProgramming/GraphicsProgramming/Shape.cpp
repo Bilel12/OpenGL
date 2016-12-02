@@ -216,6 +216,47 @@ void Shape::render(GLenum primitive,
 	} glPopMatrix();
 }
 
+void Shape::render(GLenum primitive, Shape shape, float R, float G, float B, float A, GLuint * texture) {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		//glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		//glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+		glNormalPointer(GL_FLOAT, 0, norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient.data());			// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse.data());			// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular.data());		// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());		// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
+
+		glColor4f(R, G, B, A);
+		glBindTexture(GL_TEXTURE_2D, *texture);
+		glDrawArrays(primitive, 0, verts.size() / 3);
+		glBindTexture(GL_TEXTURE_2D, NULL);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());	// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());	// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		//glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
 void Shape::render(GLenum primitive,
 				   float R, float G, float B, float A,
 				   std::vector<float> verts,
@@ -378,6 +419,16 @@ void Shape::render2D(GLenum primitive,
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 	} glPopMatrix();
+}
+
+void Shape::renderSolarSystem(GLenum primitive,
+							  
+							  float R, float G, float B, float A, 
+							  std::vector<float> verts, 
+							  std::vector<float> norms, 
+							  std::vector<float> texcoords, 
+							  GLuint * texture) {
+
 }
 
 void Shape::buildQuad(float sca_x, float sca_y, float sca_z, 
@@ -923,8 +974,8 @@ void Shape::buildCone(float radius, float edges, float height,
 		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
 		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
 		// second edge
-		texcoords.push_back((float)(cos(theta) / diameter + 0.5));
-		texcoords.push_back((float)(sin(theta) / diameter + 0.5));
+		texcoords.push_back((float)(cos(theta + interval) / diameter + 0.5));
+		texcoords.push_back((float)(sin(theta + interval) / diameter + 0.5));
 		// tip
 		texcoords.push_back(0.5);
 		texcoords.push_back(0.5);

@@ -28,6 +28,11 @@ public:
 				float R, float G, float B, float A,		// colour
 				GLuint* texture);						// texture
 
+	void render(GLenum primitive,						// render shape with passed: primitve
+				Shape shape,							// shape
+				float R, float G, float B, float A,		// colour
+				GLuint* texture);						// texture
+
 	void render(GLenum primitive,						// render shape with passed primitve 
 				float R, float G, float B, float A,		// colour
 				std::vector<float> verts,				// vertices
@@ -49,6 +54,13 @@ public:
 
 	void render2D(GLenum primitive,						// render shape with passed: primitve
 				  float R, float G, float B, float A);	// colour
+
+	void renderSolarSystem(GLenum primitive,					// render shape with passed primitve 
+						   float R, float G, float B, float A,	// colour
+						   std::vector<float> verts,			// vertices
+						   std::vector<float> norms,			// normals
+						   std::vector<float> texcoords,		// texture coordinates
+						   GLuint* texture);					// texture
 
 	// Quads building functions
 	void buildQuad(		 float sca_x, float sca_y, float sca_z,					// scale x, scale y, scale z

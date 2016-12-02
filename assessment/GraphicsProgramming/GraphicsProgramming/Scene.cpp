@@ -441,6 +441,10 @@ void Scene::buildShapes() {
 		1.0f, 1.0f, 1.0f,
 		0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0);
+	// blend_cube
+	blend_cube.translate.set(-7, 0, 1);
+	blend_cube.scale.set(1, 1, 1);
+	blend_cube.rotation.set(1, 1, 1);
 }
 
 void Scene::renderShapes() {
@@ -464,9 +468,6 @@ void Scene::updateVariables() {
 	floor.rotation.setX(1);
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
-	blend_cube.translate.set(-3, 0, 1);
-	blend_cube.scale.set(1, 1, 1);
-	blend_cube.rotation.set(1, 1, 1);
 	blend_cube.rotate(angle);
 	sun.translate = Light_Position_1;
 	//sphere.rotate(angle);
@@ -633,9 +634,9 @@ void Scene::render() {
 	// Stencil buffer
 	//renderStencilBuffer(spaceship);
 	// Blend cube
-	/*setRenderMode(blend, wireframe);
+	setRenderMode(blend, wireframe);
 	blend_cube.renderBlend(GL_TRIANGLES, 0.0, 0.0, 0.5, 1.0, cube_verts, cube_norms, cube_texcoords, crate_trans_tex);
-	setRenderMode(blend, wireframe);*/
+	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
 	// Geometry rendering ends here -----------------------------
