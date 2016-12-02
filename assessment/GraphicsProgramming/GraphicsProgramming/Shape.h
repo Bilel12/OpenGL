@@ -26,10 +26,10 @@ public:
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba, 
-		std::vector<float> verts, 			// vertices
-		std::vector<float> norms, 			// normals
-		std::vector<float> texcoords,
-		GLuint* texture);					// texture coordinates
+		std::vector<float> verts, 								// vertices
+		std::vector<float> norms, 								// normals
+		std::vector<float> texcoords,							// texture coordinates
+		GLuint* texture);					
 	// Quads building function
 	void buildQuad(GLenum primitive,
 		Vector3 translate,										// scale x, scale y, scale z
@@ -132,11 +132,11 @@ public:
 	float sphere_n_z3(	float radius, float theta, float delta, float theta_interval);
 	// Butterfly
 	void createButterfly(GLenum primitive,
-						 int N,
-						 Vector3 translate,
-						 Vector3 scale,
-						 Vector4 rotation,
-						 Vector4 rgba);
+		int N,
+		Vector3 translate,
+		Vector3 scale,
+		Vector4 rotation,
+		Vector4 rgba);
 	// Ico
 	void buildIco(GLenum primitive,
 		Vector3 a, Vector3 b, float radius,
@@ -180,9 +180,9 @@ private:
 	// Variable to hold primitive to be used to render shape
 	GLenum _primitive;
 	// vectors for building shapes to storing:
-	std::vector<GLfloat> _verts;			// verticies
-	std::vector<GLfloat> _norms;			// normals
-	std::vector<GLfloat> _texcoords;		// texture coordinates
+	std::vector<GLfloat> _verts;		// verticies
+	std::vector<GLfloat> _norms;		// normals
+	std::vector<GLfloat> _texcoords;	// texture coordinates
 	std::vector<GLfloat> _colors;		// colours
 	// vectors for setting up materials':
 	std::vector<GLfloat> ambient;		// ambient

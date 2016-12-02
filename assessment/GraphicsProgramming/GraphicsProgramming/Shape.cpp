@@ -162,9 +162,9 @@ void Shape::renderSolarSystem() {
 }
 
 void Shape::buildSkybox(GLenum primitive, 
-	Vector3 translate,										// scale x, scale y, scale z
-	Vector3 scale,											// translate x, translate y, translate z
-	Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
 	Vector4 rgba,
 	std::vector<float> verts,
 	std::vector<float> norms,
@@ -210,11 +210,18 @@ void Shape::buildQuad(GLenum primitive,
 	_norms = norms;
 
 	_texcoords = texcoords;
-
 	//_colors = { 0.5, 0.5, 0.5, 0.5 };
 }
 
-void Shape::buildCube(GLenum primitive, Vector3 translate, Vector3 scale, Vector4 rotation, Vector4 rgba, std::vector<float> verts, std::vector<float> norms, std::vector<float> texcoords, GLuint * texture) {
+void Shape::buildCube(GLenum primitive, 
+	Vector3 translate, 
+	Vector3 scale, 
+	Vector4 rotation, 
+	Vector4 rgba, 
+	std::vector<float> verts, 
+	std::vector<float> norms, 
+	std::vector<float> texcoords, 
+	GLuint * texture) {
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
