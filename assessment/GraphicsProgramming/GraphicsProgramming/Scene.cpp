@@ -367,10 +367,10 @@ void Scene::renderStencilShadowing() {
 }
 
 void Scene::buildShapes() {
-	sphere.buildSphere(	2.0, 5.0, 35.0,		// radius, latitude, longitude
-						1, 1, 1,			// scale x, scale y, scale z
-						0, 0, -5,			// translate x, translate y, translate z
-						angle, 0, 1, 0 );	// rotation angle, rotation x, rotation y, rotation z
+	sphere.buildSphere(	4.0f, 10.0f, 10.0f,			// radius, latitude, longitude
+						1.0f, 1.0f, 1.0f,			// scale x, scale y, scale z
+						0.0f, 0.0f, -5.0f,			// translate x, translate y, translate z
+						angle, 0.0f, 1.0f, 0.0f );	// rotation angle, rotation x, rotation y, rotation z
 	//sphere.set_ambient(1, 1, 1, 1);
 	//sphere.set_diffuse(1, 1, 1, 1);
 	sphere.set_ambient(	0.0f, 0.0f, 0.0f, 1.0f);

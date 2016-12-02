@@ -132,27 +132,6 @@ void Shape::render(GLenum primitive, GLuint *texture) {
 	} glPopMatrix();
 }
 
-void Shape::render2D(GLenum primitive, float R, float G, float B, float A) {
-	glPushMatrix(); {
-		glScalef(scale.x, scale.y, scale.z);
-		glTranslatef(translate.x, translate.y, translate.z);
-		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-
-		glEnableClientState(GL_COLOR_ARRAY);
-		glEnableClientState(GL_VERTEX_ARRAY);
-
-		glColorPointer(4, GL_FLOAT, 0, colors.data());
-		glVertexPointer(3, GL_FLOAT, 0, verts.data());
-	
-		glColor4f(R, G, B, A);
-		glDrawArrays(primitive, 0, verts.size() / 3);
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		
-		glDisableClientState(GL_COLOR_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
-	} glPopMatrix();
-}
-
 void Shape::render(GLenum primitive, float R, float G, float B, float A) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
@@ -361,6 +340,27 @@ void Shape::renderColor(GLenum primitive, GLuint * texture) {
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
+void Shape::render2D(GLenum primitive, float R, float G, float B, float A) {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
+
+		glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+
+		glColor4f(R, G, B, A);
+		glDrawArrays(primitive, 0, verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
 	} glPopMatrix();
 }
 
@@ -1018,7 +1018,6 @@ void Shape::buildTorus(	float r, float R, float tube_edges, float torus_edges,
 			// 0
 			texcoords.push_back(u_lats);
 			texcoords.push_back(v_longs);
-
 
 			theta += theta_interval;
 			v_longs += v_longs_interval;
