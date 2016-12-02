@@ -142,35 +142,45 @@ void Vector4::add(const Vector4& v1, float scale) {
 }
 
 Vector4 Vector4::operator+(const Vector4& v2) {
-	return Vector4(this->x + v2.x, this->y + v2.y, this->z + v2.z);
+	return Vector4(this->x + (v2.x), 
+				   this->y + (v2.y), 
+				   this->z + (v2.z),
+				   this->w + (v2.w));
 }
 
 Vector4 Vector4::operator-(const Vector4& v2) {
-	return Vector4(this->x - v2.x, this->y - v2.y, this->z - v2.z);
+	return Vector4(this->x - (v2.x),
+				   this->y - (v2.y),
+				   this->z - (v2.z),
+				   this->w - (v2.w));
 }
 
 Vector4& Vector4::operator+=(const Vector4& v2) {
-	this->x += v2.x;
-	this->y += v2.y;
-	this->z += v2.z;
+	this->x += (v2.x);
+	this->y += (v2.y);
+	this->z += (v2.z);
+	this->w += (v2.w);
 	return *this;
 }
 
 Vector4& Vector4::operator-=(const Vector4& v2) {
-	this->x -= v2.x;
-	this->y -= v2.y;
-	this->z -= v2.z;
+	this->x -= (v2.x);
+	this->y -= (v2.y);
+	this->z -= (v2.z);
+	this->w -= (v2.w);
 	return *this;
 }
 
 void Vector4::operator=(const Vector4& v2) {
-	this->x = v2.x;
-	this->y = v2.y;
-	this->z = v2.z;
+	this->x = (v2.x);
+	this->y = (v2.y);
+	this->z = (v2.z);
+	this->w = (v2.w);
 }
 
 void Vector4::operator=(float* array) {
 	this->x = array[0];
 	this->y = array[1];
 	this->z = array[2];
+	this->w = array[3];
 }
