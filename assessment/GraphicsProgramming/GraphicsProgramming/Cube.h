@@ -135,4 +135,16 @@ static std::vector<float> cube_texcoords = {
 								0, 0,
 };
 
+std::vector<float> quad_t_verts = { -1.0f, -1.0f, -1.0f,
+									 1.0f, -1.0f, -1.0f,
+									 1.0f, -1.0f,  1.0f,
+									 1.0f, -1.0f,  1.0f,
+									-1.0f, -1.0f,  1.0f,
+									-1.0f, -1.0f, -1.0f };
+
+std::vector<float> quad_verts = {	-1.f, -1.f, -1.f,	//top left
+									-1.f, -1.f,  1.f,	// bottom left
+									 1.f, -1.f,  1.f,	//bottom right
+									 1.f, -1.f, -1.f };	// top right
+
 #endif

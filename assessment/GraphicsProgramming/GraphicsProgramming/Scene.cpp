@@ -159,13 +159,6 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
 
-	myTexture = SOIL_load_OGL_texture( // 16
-		"gfx/blank.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-		); textures.push_back(myTexture);
-
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
 		if (i == NULL) {
@@ -191,7 +184,6 @@ void Scene::assignTextures() {
 	barrel_lid_1_tex	= &textures[13];
 	barrel_lid_2_tex	= &textures[14];
 	barrel_tex			= &textures[15];
-	blank_tex			= &textures[16];
 }
 
 void Scene::loadModels() {
@@ -392,7 +384,7 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		blank_tex);
+		NULL);
 
 	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
 		Vector3(-6.0f, 0.0f, 0.0f),
@@ -420,7 +412,7 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		blank_tex);
+		NULL);
 	quad.set_ambient(	1.f, 1.f, 1.f, 1.f);
 	quad.set_diffuse(	1.f, 1.f, 1.f, 1.f);
 	quad.set_specular(	1.f, 1.f, 1.f, 1.f);
@@ -432,21 +424,21 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		blank_tex);
+		NULL);
 
 	floor.buildQuadT(GL_TRIANGLES, 
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
-		blank_tex);
+		NULL);
 
 	cone.buildCone(GL_TRIANGLES, 2, 10, 10,
 		Vector3(3.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		NULL);
+		disk_tex);
 	cone.set_ambient(	0, 0, 0, 0);
 
 	cylinder.buildCylinder(GL_TRIANGLES, 2.3, 20, 10,
@@ -469,7 +461,7 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		blank_tex);
+		NULL);
 
 	butterfly.createButterfly(GL_LINE_LOOP, 10000,
 		Vector3(0.0f, 3.0f, 0.0f),

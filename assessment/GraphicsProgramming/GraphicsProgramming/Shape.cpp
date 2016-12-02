@@ -467,7 +467,7 @@ void Shape::buildQuadT(GLenum primitive,
 					(-1), (-1), ( 1),
 					(-1), (-1), (-1) };
 
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < verts.size() / 3; ++i) {
 		norms.push_back(0.0f);
 		norms.push_back(1.0f);
 		norms.push_back(0.0f);
