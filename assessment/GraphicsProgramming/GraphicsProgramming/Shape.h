@@ -16,6 +16,9 @@ public:
 
 	void render();										// Rendering shapes using GL_TRIANGLES
 
+	void render2D(	GLenum primitive, 
+					float R, float G, float B, float A);
+
 	void render(GLenum primitive);						// render shape with passed: primitve
 
 	void render(GLenum primitive,						// render shape with passed: primitve
@@ -60,7 +63,6 @@ public:
 						float sca_x, float sca_y, float sca_z, 
 						float pos_x, float pos_y, float pos_z, 
 						float angle, float rot_x, float rot_y, float rot_z);
-	void renderCircle();
 	// Cone build function
 	void buildCone(		float radius, float edges, float height, 
 						float sca_x, float sca_y, float sca_z,
@@ -118,12 +120,17 @@ public:
 	float sphere_n_y3(	float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(	float radius, float theta, float delta, float theta_interval);
 	// Ico
-	void buildIco(	float length, float a, float b,
+	void buildIco(	Vector3 a, Vector3 b, float radius,
 					float sca_x, float sca_y, float sca_z,
 					float pos_x, float pos_y, float pos_z,
 					float angle, float rot_x, float rot_y, float rot_z);
 	float distance(Vector3 a, Vector3 b);
 	Vector3 normalize(Vector3 a, Vector3 b, float length);
+	//
+	void createButterfly(	int N,
+					float sca_x, float sca_y, float sca_z,
+					float pos_x, float pos_y, float pos_z,
+					float angle, float rot_x, float rot_y, float rot_z);
 	// Vector3 variables to be used in render functions with shapes for 
 	Vector3 translate;	//tranlating
 	Vector3 rotation;	//rotating

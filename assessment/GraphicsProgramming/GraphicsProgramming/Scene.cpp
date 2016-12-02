@@ -42,6 +42,8 @@ Scene::Scene(Input *in) {
 	development = true;		// Turn on or off text rendering	
 	// Shadowing
 	//populateExample();
+	a.set(0.0, 0.0, 0.0);
+	b.set(1.0, 1.0, 1.0);
 }
 
 void Scene::loadTextures() {
@@ -218,10 +220,10 @@ void Scene::loadLists() {
 
 	HighPoliCylinder = glGenLists(4);
 	glNewList(HighPoliCylinder, GL_COMPILE);
-	cylinder.buildCylinder(	2.3, 20, 10,	// radius, edges, height
-							1, 1, 1,		// scale x, scale y, scale z
-							3, 3, 3,		// translate x, translate y, translate z
-							180, 0, 0, 1);	// rotation angle, rotation x, rotation y, rotation z
+	cylinder.buildCylinder(	2.3f, 20.0f, 10.0f,	// radius, edges, height
+							1.0f, 1.0f, 1.0f,		// scale x, scale y, scale z
+							3.0f, 3.0f, 3.0f,		// translate x, translate y, translate z
+							180.0f, 0.0f, 0.0f, 1.0f);	// rotation angle, rotation x, rotation y, rotation z
 	glEndList();
 }
 
@@ -429,18 +431,30 @@ void Scene::buildShapes() {
 						1, 1, 1,				// scale x, scale y, scale z
 						3., 7., 3.,				// translate x, translate y, translate z
 						0., 0., 0., 0);			// rotation angle, rotation x, rotation y, rotation z
+	
+	ico.buildIco(	a, b, 1.0,
+					1.0f, 1.0f, 1.0f,
+					0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0);
+
+	butterfly.createButterfly( 1000,
+		1.0f, 1.0f, 1.0f,
+		0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0);
 }
 
 void Scene::renderShapes() {
-	sphere.render(GL_TRIANGLES, globe_tex);
-	disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
-	disc_2.render(GL_TRIANGLE_FAN, disk_tex);
-	//disc_flat.render(disk_tex);
-	circle.renderCircle();
-	cone.render(GL_TRIANGLES, disk_tex);
-	cylinder.render(GL_TRIANGLES, barrel_tex);
-	sun.render(GL_TRIANGLES);
-	torus.render(GL_TRIANGLES, disk_tex);
+	//sphere.render(GL_TRIANGLES, globe_tex);
+	//disc_1.render(GL_TRIANGLE_FAN, 0.5, 0.0, 0.0, 0.5, disk_tex);
+	//disc_2.render(GL_TRIANGLE_FAN, disk_tex);
+	////disc_flat.render(disk_tex);
+	//circle.renderCircle();
+	//cone.render(GL_TRIANGLES, disk_tex);
+	//cylinder.render(GL_TRIANGLES, barrel_tex);
+	//sun.render(GL_TRIANGLES);
+	torus.render(GL_LINE_LOOP, disk_tex);
+	//ico.render(GL_TRIANGLE_STRIP);
+	butterfly.render2D(GL_LINE_STRIP, 1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void Scene::updateVariables() {
@@ -498,9 +512,9 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
 	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_0);
 	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_0);
-	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0);
-	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25);
-	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25f);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15f);
 	//glEnable(GL_LIGHT2);
 }
 
@@ -613,15 +627,15 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Shadowing
-	renderShadowing();
+	//renderShadowing();
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
 	//renderStencilBuffer(spaceship);
 	// Blend cube
-	setRenderMode(blend, wireframe);
+	/*setRenderMode(blend, wireframe);
 	blend_cube.renderBlend(GL_TRIANGLES, 0.0, 0.0, 0.5, 1.0, cube_verts, cube_norms, cube_texcoords, crate_trans_tex);
-	setRenderMode(blend, wireframe);
+	setRenderMode(blend, wireframe);*/
 	// Render shapes
 	renderShapes();
 	// Geometry rendering ends here -----------------------------

@@ -101,16 +101,14 @@ void Shape::render(GLenum primitive, GLuint *texture) {
 		glTranslatef(translate.x, translate.y, translate.z);
 		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
 
-		//glEnableClientState(GL_COLOR_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		//glColorPointer(4, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 		glNormalPointer(GL_FLOAT, 0, norms.data());
 		glTexCoordPointer(2, GL_FLOAT, 0, texcoords.data());
-		
+
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient.data());			// set ambient to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse.data());			// set diffuse to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular.data());		// set specular to what is defined in scene
@@ -126,11 +124,32 @@ void Shape::render(GLenum primitive, GLuint *texture) {
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());	// set specular to default values
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());	// set emission to default values
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
-		
-		//glDisableClientState(GL_COLOR_ARRAY);
+
+																	//glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
+void Shape::render2D(GLenum primitive, float R, float G, float B, float A) {
+	glPushMatrix(); {
+		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(translate.x, translate.y, translate.z);
+		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
+
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
+
+		glColorPointer(4, GL_FLOAT, 0, colors.data());
+		glVertexPointer(3, GL_FLOAT, 0, verts.data());
+	
+		glColor4f(R, G, B, A);
+		glDrawArrays(primitive, 0, verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
 	} glPopMatrix();
 }
 
@@ -418,35 +437,12 @@ void Shape::buildCircle(float edges,
 	rot_angle = angle;
 
 	verts.reserve((unsigned)(edges));
-	norms.reserve((unsigned)(edges));
-	texcoords.reserve((unsigned)(edges));
 
 	for (int i = 0; i <= edges; ++i) {
-		//glNormal3f(0.0, 1.0, 0.0);
-		//glTexCoord2f(x + (cos((2 * M_PI * i) / edges)), y + (sin((2 * M_PI * i) / edges)));
 		verts.push_back((float)cos((2 * M_PI * i) / edges));
 		verts.push_back((float)sin((2 * M_PI * i) / edges));
 		verts.push_back(0.0);
 	}
-}
-
-void Shape::renderCircle() {
-	glPushMatrix(); {
-		glScalef(scale.x, scale.y, scale.z);
-		glTranslatef(translate.x, translate.y, translate.z);
-		glRotatef(rot_angle, rotation.x, rotation.y, rotation.z);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
-	
-	//glColorPointer(3, GL_FLOAT, 0, colors);
-	glVertexPointer(3, GL_FLOAT, 0, verts.data());
-	
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, verts.size() / 3);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	//glDisableClientState(GL_COLOR_ARRAY);
-	} glPopMatrix();
 }
 
 void Shape::buildDisc(	float edges, float radius, 
@@ -1054,7 +1050,31 @@ Vector3 Shape::normalize(Vector3 a, Vector3 b, float radius) {
 	return c;
 }
 
-void Shape::buildIco(	float length, float a, float b,
+void Shape::createButterfly(int N, float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+	// set vectors for translation, rotation and scale, and rotation angle
+	translate.set(pos_x, pos_y, pos_z);
+	rotation.set(rot_x, rot_y, rot_z);
+	scale.set(sca_x, sca_y, sca_z);
+	rot_angle = angle;
+	// Butterfly's coordinates
+	float x, y, z;
+
+	for (int i = 0; i < N; ++i) {
+		float t = (float)(i * 24.0 * M_PI / N);
+
+		x = sin(t) * (exp(cos(t)) - 2 * cos(4 * t) + pow(sin(t / 12), 5.0)),
+		y = cos(t) * (exp(cos(t)) - 2 * cos(4 * t) - pow(sin(t / 12), 5.0)),
+		z = fabs(y) / 2;
+
+		verts.push_back(x);
+		verts.push_back(y);
+		verts.push_back(z);
+
+		//color.push_back(u, 0.0, 24 * M_PI, 4);
+	}
+}
+
+void Shape::buildIco(	Vector3 a, Vector3 b, float radius,
 						float sca_x, float sca_y, float sca_z,
 						float pos_x, float pos_y, float pos_z,
 						float angle, float rot_x, float rot_y, float rot_z) {
@@ -1064,7 +1084,27 @@ void Shape::buildIco(	float length, float a, float b,
 	scale.set(sca_x, sca_y, sca_z);
 	rot_angle = angle;
 	
+	Vector3 c;
 
+	for (int i = 0; i <= 8; ++i) {
+		b.setX((float)cos((2 * M_PI * i) / 8));
+		b.setY((float)sin((2 * M_PI * i) / 8));
+		b.setZ(0.0);
+
+		Vector3 c = normalize(a, b, radius);
+
+		verts.push_back(c.x);
+		verts.push_back(c.y);
+		verts.push_back(c.z);
+
+		norms.push_back(c.x);
+		norms.push_back(c.y);
+		norms.push_back(c.z);
+
+		texcoords.push_back(c.x);
+		texcoords.push_back(c.y);
+		texcoords.push_back(c.z);
+	}
 }
 
 // Set material arrays (Function definitions)
