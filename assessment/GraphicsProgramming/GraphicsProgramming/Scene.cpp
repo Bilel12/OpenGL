@@ -437,7 +437,7 @@ void Scene::buildShapes() {
 					0.0, 0.0, 0.0,
 					0.0, 0.0, 0.0, 0.0);
 
-	butterfly.createButterfly( 1000,
+	butterfly.createButterfly( 10000,
 		1.0f, 1.0f, 1.0f,
 		0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0);
@@ -454,7 +454,7 @@ void Scene::renderShapes() {
 	//sun.render(GL_TRIANGLES);
 	torus.render(GL_LINE_LOOP, disk_tex);
 	//ico.render(GL_TRIANGLE_STRIP);
-	butterfly.render2D(GL_LINE_STRIP, 1.0f, 1.0f, 1.0f, 1.0f);
+	butterfly.render2D(GL_LINE_LOOP, 1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void Scene::updateVariables() {

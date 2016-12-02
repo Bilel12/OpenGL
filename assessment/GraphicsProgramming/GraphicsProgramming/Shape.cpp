@@ -1,4 +1,4 @@
-#include "Shape.h"
+﻿#include "Shape.h"
 
 Shape::Shape() {
 	ambient = {			0.0f, 0.0f, 0.0f, 0.0f };
@@ -1062,9 +1062,9 @@ void Shape::createButterfly(int N, float sca_x, float sca_y, float sca_z, float 
 	for (int i = 0; i < N; ++i) {
 		float t = (float)(i * 24.0 * M_PI / N);
 
-		x = sin(t) * (exp(cos(t)) - 2 * cos(4 * t) + pow(sin(t / 12), 5.0)),
-		y = cos(t) * (exp(cos(t)) - 2 * cos(4 * t) - pow(sin(t / 12), 5.0)),
-		z = fabs(y) / 2;
+		x = (float)(sin(t) * (exp(cos(t)) - 2 * cos(4 * t) + pow(sin(t / 12), 5.0))),
+		y = (float)(cos(t) * (exp(cos(t)) - 2 * cos(4 * t) - pow(sin(t / 12), 5.0))),
+		z = (float)(fabs(y) / 2);
 
 		verts.push_back(x);
 		verts.push_back(y);
@@ -1073,6 +1073,42 @@ void Shape::createButterfly(int N, float sca_x, float sca_y, float sca_z, float 
 		//color.push_back(u, 0.0, 24 * M_PI, 4);
 	}
 }
+
+//void Shape::batman(float sca_x, float sca_y, float sca_z, float pos_x, float pos_y, float pos_z, float angle, float rot_x, float rot_y, float rot_z) {
+//	// set vectors for translation, rotation and scale, and rotation angle
+//	translate.set(pos_x, pos_y, pos_z);
+//	rotation.set(rot_x, rot_y, rot_z);
+//	scale.set(sca_x, sca_y, sca_z);
+//	rot_angle = angle;
+//	// Butterfly's coordinates
+//	double y0, y1, y2, y3;
+//	
+//	for (float x = -8.0; x < 8.0; x += 0.1) {
+//		/*y0 = 2 * ​sqrt(​(-(abs(​abs(​x) - ​1)))*​abs(​3 - ​abs(​x)) / ​((abs(​x) - ​1)*​(3 - ​abs(​x))))*​(1 + ​abs(​abs(​x) - ​3) / 
+//		​(abs(​x) - ​3))*​sqrt(​1 - ​(x / ​7) ^ ​2) + ​(5 + ​0.97*​(abs(​x - ​0.5) + ​abs(​x + ​0.5)) 
+//		- ​3*​(abs(​x - ​0.75) + ​abs(​x + ​0.75)))*​(1 + ​abs(​1 - ​abs(​x)) / ​(1 - ​abs(​x)));*/
+//		
+//		y1 = (‑3.0)*​sqrtf(​1.0 - pow(​(x / ​7.0), 2)) * ​sqrt(​abs(​abs(​x) - ​4.0) / ​(abs(​x) - ​4.0));
+//
+//		/*y2 = abs(​x / ​2) - ​0.0913722*​x^​2 - ​3 + ​sqrt(​1 - ​(abs(​abs(​x) - ​2) - ​1) ^ ​2);
+//
+//		y3 = (2.71052 + ​1.5 - ​0.5* ​ abs(​x) - ​1.35526 * ​sqrt(​4 - ​(abs(​x) - ​1) ^ ​2)) * (​sqrt(​abs(​abs(​x) - ​1) / ​(abs(​x) - ​1))) + ​0.9;*/
+//
+//		verts.push_back(x);
+//		verts.push_back(y0);
+//
+//		verts.push_back(x);
+//		verts.push_back(y1);
+//
+//		verts.push_back(x);
+//		verts.push_back(y2);
+//
+//		verts.push_back(x);
+//		verts.push_back(y3);
+//
+//		//color.push_back(u, 0.0, 24 * M_PI, 4);
+//	}
+//}
 
 void Shape::buildIco(	Vector3 a, Vector3 b, float radius,
 						float sca_x, float sca_y, float sca_z,
