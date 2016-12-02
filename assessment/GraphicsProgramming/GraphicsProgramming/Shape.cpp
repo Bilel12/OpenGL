@@ -20,7 +20,7 @@ Shape::Shape() {
 						0.35f, 0.35f, 0.35f, 1.0f,
 						0.5f, 0.5f, 0.5f, 1.0f };
 
-	rgba.reserve(4);
+	rgba.set(0.0, 0.0, 0.0, 0.0);
 }
 
 Shape::~Shape() {}
@@ -402,7 +402,7 @@ void Shape::renderColor(GLenum primitive,
 }
 
 void Shape::render2D(GLenum primitive, 
-					 float R, float G, float B, float A) {
+					 Vector4 rgba) {
 	glPushMatrix(); {
 		glScalef(scale.x, scale.y, scale.z);
 		glTranslatef(translate.x, translate.y, translate.z);
@@ -414,7 +414,7 @@ void Shape::render2D(GLenum primitive,
 		glColorPointer(4, GL_FLOAT, 0, colors.data());
 		glVertexPointer(3, GL_FLOAT, 0, verts.data());
 
-		glColor4f(R, G, B, A);
+		glColor4f(rgba.getX(), G, B, A);
 		glDrawArrays(primitive, 0, verts.size() / 3);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 

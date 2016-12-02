@@ -12,16 +12,26 @@ public:
 
 
 	void set(float x, float y, float z, float w);
-	void set(float translate[3]);
+	void set(float translate[4]);
 	void setX(float x);
 	void setY(float y);
 	void setZ(float z);
 	void setW(float w);
 
+	void setR(float r);
+	void setG(float g);
+	void setB(float b);
+	void setA(float a);
+
 	float getX();
 	float getY();
 	float getZ();
 	float getW();
+
+	float getR();
+	float getG();
+	float getB();
+	float getA();
 
 	void add(const Vector4& v1, float scale = 1.0);
 	void subtract(const Vector4& v1, float scale = 1.0);

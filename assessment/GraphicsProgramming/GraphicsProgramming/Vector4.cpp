@@ -103,6 +103,22 @@ void Vector4::setW(float w) {
 	this->w = w;
 }
 
+void Vector4::setR(float r) {
+	this->x = r;
+}
+
+void Vector4::setG(float g) {
+	this->y = g;
+}
+
+void Vector4::setB(float b) {
+	this->z = b;
+}
+
+void Vector4::setA(float a) {
+	this->x = a;
+}
+
 float Vector4::getX() {
 	return this->x;
 }
@@ -116,6 +132,22 @@ float Vector4::getZ() {
 }
 
 float Vector4::getW() {
+	return this->w;
+}
+
+float Vector4::getR() {
+	return this->x;
+}
+
+float Vector4::getG() {
+	return this->y;
+}
+
+float Vector4::getB() {
+	return this->z;
+}
+
+float Vector4::getA() {
 	return this->w;
 }
 

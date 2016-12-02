@@ -8,6 +8,7 @@
 #include <cmath>
 #include <vector>
 #include "Vector3.h"
+#include "Vector4.h"
 
 class Shape {
 public:
@@ -53,7 +54,7 @@ public:
 					 GLuint* texture);					// texture
 
 	void render2D(GLenum primitive,						// render shape with passed: primitve
-				  float R, float G, float B, float A);	// colour
+				  Vector4 rgba);						// colour
 
 	void renderSolarSystem(GLenum primitive,					// render shape with passed primitve 
 						   float R, float G, float B, float A,	// colour
@@ -169,6 +170,7 @@ public:
 	// Get rot_angle variable function
 	float rotate(float arg);
 	// rgba functions
+	Vector4 rgba;
 private:
 	float rot_angle;
 	// vectors for building shapes to storing:
@@ -176,7 +178,6 @@ private:
 	std::vector<GLfloat> norms;			// normals
 	std::vector<GLfloat> texcoords;		// texture coordinates
 	std::vector<GLfloat> colors;		// colours
-	std::vector<GLfloat> rgba;			// Red, Greed, Blue, Alpha colours
 	// vectors for setting up materials':
 	std::vector<GLfloat> ambient;		// ambient
 	std::vector<GLfloat> diffuse;		// diffuse

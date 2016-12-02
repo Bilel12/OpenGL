@@ -405,7 +405,7 @@ void Scene::buildShapes() {
 	quad_shadow.set_specular(	1.f, 1.f, 1.f, 1.f);
 	quad_shadow.set_shininess(	120.0f );
 	quad_shadow.scale.set(		1.5, 1.5, 1.5);
-
+	
 	circle.buildCircle(	50,					// edges, radius
 						1, 1, 1, 			// scale x, scale y, scale z
 						-5, 0, 0, 			// translate x, translate y, translate z
