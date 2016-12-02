@@ -100,6 +100,7 @@ protected:
 	GLuint *globe_tex;
 	GLuint *spaceship_tex;
 	GLuint *barrel_tex;
+	GLuint *blank;
 	// Shapes
 	Shape skybox;
 	Shape sphere;

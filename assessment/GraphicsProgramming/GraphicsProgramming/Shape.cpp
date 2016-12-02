@@ -59,7 +59,9 @@ void Shape::render() {
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
 		glBindTexture(GL_TEXTURE_2D, *_texture);
+		glColor4f(_rgba.getR(), _rgba.getG(), _rgba.getB(), _rgba.getA());
 		glDrawArrays(_primitive, 0, verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
 		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
