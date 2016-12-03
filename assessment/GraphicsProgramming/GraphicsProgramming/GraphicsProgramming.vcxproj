@@ -84,7 +84,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Draw.cpp" />
-    <ClCompile Include="FPPCamera.cpp" />
     <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -101,7 +100,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Draw.h" />
-    <ClInclude Include="FPPCamera.h" />
     <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Model.h" />

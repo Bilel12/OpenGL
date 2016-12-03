@@ -389,7 +389,7 @@ void Scene::buildShapes() {
 	sphere.set_diffuse(	1.0f, 1.0f, 1.0f, 1.0f);
 	sphere.set_shininess(120.0f);
 
-	sun.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+	light.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(Light_Position_1),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
@@ -495,6 +495,20 @@ void Scene::buildShapes() {
 		cube_norms,
 		cube_texcoords,
 		crate_trans_tex);
+	// Solar system
+	sun.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		NULL);
+
+	planet_1.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(2.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		NULL);
 }
 
 void Scene::renderShapes() {
@@ -505,7 +519,7 @@ void Scene::renderShapes() {
 	circle.render2D();
 	cone.render();
 	cylinder.render();
-	sun.render();
+	light.render();
 	torus.render();
 	//ico.render();
 	butterfly.render2D();
@@ -521,7 +535,7 @@ void Scene::updateVariables() {
 	blend_cube.rotate(angle);
 	butterfly.rotate(angle);
 	//skybox.rotate(angle);
-	sun._translate = Light_Position_1;
+	light._translate = Light_Position_1;
 	//sphere.rotate(angle);
 }
 
@@ -587,11 +601,6 @@ void Scene::update(float dt) {
 	if (input->isKeyDown('3')) {
 		camera = &topDownCamera;
 		input->SetKeyUp('3');
-	}
-	// Press 4 to switch to TopDown Camera
-	if (input->isKeyDown('4')) {
-		camera = &fppCamera;
-		input->SetKeyUp('4');
 	}
 	// Press B to toggle blending mode
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
@@ -696,6 +705,58 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
+
+	glPushMatrix(); {
+		glTranslatef(0.0f, 5.0f, 0.0f);
+		glPushMatrix(); // SOLAR SYSTEM
+		{ // OBJECT1 start. Remember where we are THE SUN
+		  // render the sun
+			sun.render();
+			//////////////////////////////////////////////////////////////////// ORBIT1
+			glPushMatrix();
+			{ // OBJECT2 start. Move from THE SUN by 1
+			  // render PLANET1
+				glRotatef(angle, 0, 1, 0);
+				//glTranslatef(1, 0, 0);
+				//glScalef(0.1, 0.1, 0.1);
+				//gluSphere(gluNewQuadric(), 0.20, 20, 20);
+				planet_1.render();
+			} glPopMatrix(); // OBJECT2 end. Move BACK to THE SUN
+							 /////////////////////////////////////////////////////////////////// ORBIT2
+			glPushMatrix();
+			{ // OBJECT3 start. REMEMBER WHERE WE ARE. Move from THE SUN by 1.5. Scale down by 0.3
+			  // draw PLANET2
+				glRotatef(angle, 0, 0, 1);
+				glTranslatef(1.5, 0, 0);
+				glScalef(0.3, 0.3, 0.3);
+				glColor3f(0.1f, 0.9f, 1.0f);
+				gluSphere(gluNewQuadric(), 0.20, 20, 20);
+				glPushMatrix();
+				{ // Object 4 start. REMEMBER WHERE WE ARE. Move from PLANET2 by 1.5. Futher scale down by 0.3
+				  // draw a MOON around PLANET2
+					glRotatef(-angle * 2.0, 0, 0, 1);
+					glTranslatef(1.5, 0, 0);
+					glScalef(0.3, 0.3, 0.3);
+					glColor3f(0.1f, 0.9f, 1.0f);
+					gluSphere(gluNewQuadric(), 0.20, 20, 20);
+					glPushMatrix(); { // Object 5 start. REMEMBER WHERE WE ARE. Move from MOON by 1.5. Futher Scale down by 0.3
+									  // draw a MOON around the MOON
+						glRotatef(-angle * 2.0, 0, 0, 1);
+						glTranslatef(1.5, 0, 0);
+						glScalef(0.3, 0.3, 0.3);
+						glColor3f(0.1f, 0.9f, 1.0f);
+						gluSphere(gluNewQuadric(), 0.20, 20, 20);
+					} glPopMatrix(); // OBJECT5 end
+				} glPopMatrix(); // OBJECT4 end
+			} glPopMatrix(); // OBJECT3 end	
+		} glPopMatrix(); // OBJECT1 end
+
+	} glPopMatrix();
+
+
+
+
+
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);

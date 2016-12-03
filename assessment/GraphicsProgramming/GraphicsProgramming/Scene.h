@@ -21,7 +21,6 @@
 #include "FreeCamera.h"
 #include "SecurityCamera.h"
 #include "TopDownCamera.h"
-#include "FPPCamera.h"
 #include "Shape.h"
 #include "Cube.h"
 #include "Skybox.h"
@@ -80,7 +79,7 @@ protected:
 	FreeCamera freeCamera;
 	SecurityCamera securityCamera;
 	TopDownCamera topDownCamera;
-	FPPCamera fppCamera;
+	//FPPCamera fppCamera;
 	// Variables for loading textures
 	std::vector<GLuint> textures;
 	GLuint myTexture;
@@ -112,10 +111,12 @@ protected:
 	Shape cylinder;
 	Shape circle;
 	Shape quad;
-	Shape sun;
+	Shape light;
 	Shape torus;
 	Shape ico;
 	Shape butterfly;
+	Shape sun;
+	Shape planet_1;
 	// Models
 	Model spaceship;
 	Model drone;
