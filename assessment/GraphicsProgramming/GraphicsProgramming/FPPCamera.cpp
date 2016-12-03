@@ -10,7 +10,6 @@ FPPCamera::FPPCamera() {
 	setPitch(0);
 	setRoll(0);
 	// Security camera settings
-	camera_speed = 0.5f;
 	clamp_value = Yaw;
 	bottomClamp = Pitch + (-40.f), topClamp = Pitch + (40.f);
 	update();
@@ -133,13 +132,6 @@ void FPPCamera::moveBackwards(float dt) {
 	position.subtract(forward, dt);
 }
 
-void FPPCamera::moveUp(float dt) {
-	position.add(up, dt);
-}
-void FPPCamera::moveDown(float dt) {
-	position.subtract(up, dt);
-}
-
 void FPPCamera::moveSideLeft(float dt) {
 	position.subtract(side, dt);
 }
@@ -171,7 +163,7 @@ void FPPCamera::updateYaw(int width, int mouseX, int speed) {
 	Yaw += static_cast<float>((mouseX - (width / 2)) / speed);
 }
 void FPPCamera::updatePitch(int height, int mouseY, int speed) {
-		Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
+	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
 void FPPCamera::cameraControll(float dt, int width, int height, Input *input) {
@@ -193,10 +185,31 @@ void FPPCamera::cameraControll(float dt, int width, int height, Input *input) {
 	}
 	// camera's Yaw mouse controll, last variable controlls speed
 	updateYaw(width, input->getMouseX(), 2);
+	// get pitch value for clamping
+	clamp_value = (int)getPitch();
 	// camera's Pitch mouse controll, last variable controlls speed
-	if (Pitch <= topClamp && Pitch >= bottomClamp) {
+	//
+	if (clamp_value <= topClamp && clamp_value >= bottomClamp) {
 		updatePitch(height, input->getMouseY(), 2);
 	}
+	else {
+		setPitch(clamp_value - 0.1);
+	}
+
+	//if (moveUp) {// lerp right
+	//	clamp_value += camera_speed * dt;	// set clamp value based on camera's speed and delta time (add to 'clamp_value' - 'camera_speed' value multiplied by 'delta time')
+	//	setYaw(clamp_value);				// use clamp value to set camera's yaw
+	//	if (clamp_value >= moveUp) {	// if clamp value is greater than or equal right clamping value stop lerping right and lerp left
+	//		moveUp = false;
+	//	}
+	//}
+	//else {	// lerp left
+	//	clamp_value -= camera_speed * dt;	// set clamp value based on camera's speed and delta time (subtrack from 'clamp_value', 'camera_speed' value multiplied by 'delta time') 
+	//	setYaw(clamp_value);				// use clamp value to set camera's yaw
+	//	if (clamp_value <= moveDown) {		// if clamp value is less than or equal right clamping value stop lerping left and lerp right
+	//		moveDown = true;
+	//	}
+	//}
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 }

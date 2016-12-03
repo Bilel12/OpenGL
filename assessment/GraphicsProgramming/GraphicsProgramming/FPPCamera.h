@@ -13,8 +13,6 @@ public:
 	virtual void update();
 	virtual void moveForward(float dt);
 	virtual void moveBackwards(float dt);
-	virtual void moveUp(float dt);
-	virtual void moveDown(float dt);
 	virtual void moveSideLeft(float dt);
 	virtual void moveSideRight(float dt);
 
@@ -68,8 +66,9 @@ private:
 	Vector3 up;
 	Vector3 side;
 	float Yaw, Pitch, Roll;
-	float clamp_value, camera_speed;
+	int clamp_value;
 	float bottomClamp, topClamp;
+	bool moveUp, moveDown;
 };
 
 #endif
