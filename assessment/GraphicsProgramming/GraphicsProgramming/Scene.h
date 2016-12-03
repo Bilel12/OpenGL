@@ -119,6 +119,7 @@ protected:
 	Shape sun;
 	Shape planet_1;
 	Shape planet_2;
+	Shape planet_3;
 	// Models
 	Model spaceship;
 	Model drone;
