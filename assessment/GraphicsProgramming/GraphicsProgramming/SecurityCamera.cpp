@@ -160,7 +160,7 @@ void SecurityCamera::updateYaw(int width, int mouseX, int speed) {
 	Yaw += static_cast<float>((mouseX - (width / 2)) / speed);
 }
 void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
-	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
+	Pitch += static_cast<float>((mouseY - (height / 2)) / speed);
 }
 
 void SecurityCamera::cameraControll(float dt, int width, int height, Input *input) {
@@ -191,27 +191,25 @@ void SecurityCamera::cameraControll(float dt, int width, int height, Input *inpu
 		stop_camera = !stop_camera;
 		input->SetKeyUp('c'); input->SetKeyUp('C');
 	}
-	// camera's Yaw mouse controll, last variable controlls speed
-	//updateYaw(width, input->getMouseX(), 2);
-	// camera's Pitch mouse controll, last variable controlls speed
-	//updatePitch(height, input->getMouseY(), 2);
-	// Force mouse to return to the centre of the window
-	if (!stop_camera) {
-		if (lerpRight) {
-			clamp_value += camera_speed * dt;
-			setYaw(clamp_value);
-			if (clamp_value >= rightClamp) {
+	// move camera procedurally
+	// set yaw based on a clamp value
+	// start lerping right
+	if (!stop_camera) { // check if camera's movement is enabled
+		if (lerpRight) {// lerp right
+			clamp_value += camera_speed * dt;	// set clamp value based on camera's speed and delta time (add to 'clamp_value' - 'camera_speed' value multiplied by 'delta time')
+			setYaw(clamp_value);				// use clamp value to set camera's yaw
+			if (clamp_value >= rightClamp) {	// if clamp value is greater than or equal right clamping value stop lerping right and lerp left
 				lerpRight = false;
 			}
-		} else {
-			clamp_value -= camera_speed * dt;
-			setYaw(clamp_value);
-			if (clamp_value <= leftClamp) {
+		} else {	// lerp left
+			clamp_value -= camera_speed * dt;	// set clamp value based on camera's speed and delta time (subtrack from 'clamp_value', 'camera_speed' value multiplied by 'delta time') 
+			setYaw(clamp_value);				// use clamp value to set camera's yaw
+			if (clamp_value <= leftClamp) {		// if clamp value is less than or equal right clamping value stop lerping left and lerp right
 				lerpRight = true;
 			}
 		}
 	}
-
+	// keep mouse cursor in the middle of the screen
 	glutWarpPointer(width / 2, height / 2);
 }
 

@@ -644,11 +644,11 @@ void Scene::update(float dt) {
 		scale_z -= 0.1f;
 	}
 	// Camera input controll
-	camera->cameraControll(dt, width, height, input);
-	// Update object and variables (camera, rotation, etc).
-	camera->update();
 	float mousePositionX(int width);
 	float mousePositionY(int height);
+	camera->cameraControll(dt, width, height, input);
+	camera->update();
+	// Update object and variables (camera, rotation, etc).
 	//
 	updateVariables();
 	// Calculate FPS
