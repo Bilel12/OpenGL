@@ -166,7 +166,6 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	); textures.push_back(myTexture);
 
-	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
 		if (i == NULL) {
 			MessageBox(NULL, "Texture failed to load", "help", MB_OK);
@@ -442,8 +441,8 @@ void Scene::buildShapes() {
 	
 	circle.buildCircle(	GL_LINE_LOOP, 50,
 		Vector3(0.0f, 0.0f, 0.0f),
-		Vector3(1.0f, 1.0f, 1.0f),
-		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector3(2.0f, 2.0f, 2.0f),
+		Vector4(90.0, 1.0, 0.0, 0.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
 
@@ -725,20 +724,19 @@ void Scene::render() {
 			{ // OBJECT2 start. Move from THE SUN by 1
 			  // render PLANET1
 				glRotatef(angle, 0, 1, 0);
-				//glTranslatef(1, 0, 0);
-				//glScalef(0.1, 0.1, 0.1);
-				//gluSphere(gluNewQuadric(), 0.20, 20, 20);
+				circle.render2D();
 				planet_1.render();
+				glPushMatrix(); {
+					glRotatef(angle, 0, 1, 0);
+					planet_1.render();
+				}glPopMatrix();
 			} glPopMatrix(); // OBJECT2 end. Move BACK to THE SUN
-							 /////////////////////////////////////////////////////////////////// ORBIT2
+			/////////////////////////////////////////////////////////////////// ORBIT2
 			glPushMatrix();
 			{ // OBJECT3 start. REMEMBER WHERE WE ARE. Move from THE SUN by 1.5. Scale down by 0.3
 			  // draw PLANET2
 				glRotatef(angle, 0, 0, 1);
-				glTranslatef(1.5, 0, 0);
-				glScalef(0.3, 0.3, 0.3);
-				glColor3f(0.1f, 0.9f, 1.0f);
-				gluSphere(gluNewQuadric(), 0.20, 20, 20);
+				planet_1.render();
 				glPushMatrix();
 				{ // Object 4 start. REMEMBER WHERE WE ARE. Move from PLANET2 by 1.5. Futher scale down by 0.3
 				  // draw a MOON around PLANET2
