@@ -607,6 +607,49 @@ void Scene::renderLight() {
 	//glEnable(GL_LIGHT2);
 }
 
+void Scene::renderSolarSystem() {
+	// SOLAR SYSTEM START //
+	glPushMatrix(); {
+		// Move entire solar system (Center of the universe is here)
+		glTranslatef(0.0f, 8.0f, 0.0f);
+		glPushMatrix(); { // SUN - start
+			sun.render();								// render sun
+														// ORBIT 1  START //
+			glPushMatrix(); {	// PLANET 1
+				circle.render2D();						// render orbit
+				glRotatef(angle, 0, 1, 0);				// planet 1 rotation
+				glTranslatef(2.0f, 0.0, 0.0);			// translate planet 1 with respect to the sun
+				planet_1.render();						// render planet 1
+				glPushMatrix(); { // PLANET 2
+					glRotatef(angle - 0.2f, 0, 1, 0);	// planet 2 rotation
+					glTranslatef(0.5f, 0.0f, 0.0f);		// translate planet 2 with respect to planet 1
+					planet_2.render();				// render planet 2
+				} glPopMatrix();
+			} glPopMatrix();
+			// ORBIT 1 END //
+			// ORBIT2 START //
+			glPushMatrix(); { // PLANET 1 - start
+				glRotatef(angle, 0, 1, 0);				// planet 1 rotation
+				glTranslatef(2.5, 0, 0);				// translate planet 1 with respect to the sun
+				planet_1.render();						// render planet 1
+				glPushMatrix(); { // PLANET 2 - start
+					glRotatef(angle * 0.5, 0, 1, 0);	// planet 2 rotation
+					glTranslatef(0.0f, 0.0f, 2.5f);		// translate planet 2 with respect to planet 1
+					planet_2.render();					// render planet 2
+					glPushMatrix(); { // PLANET 3 - start
+						glRotatef(angle * 1.5, 0, 1, 0); // planet 3 rotation
+						glTranslatef(1.5, 0, 0);		 // translate planet 3 with respect to planet 2
+						planet_3.render();				 // render planet 3
+					} glPopMatrix();  // PLANET 3 - end
+				} glPopMatrix(); // PLANET 2 - end
+			} glPopMatrix(); // PLANET 1 - end
+							 // ORBIT 2 END //
+		} glPopMatrix(); // SUN - end
+
+	} glPopMatrix();
+	// SOLAR SYSTEM END //
+}
+
 void Scene::update(float dt) {
 	// Handle user input
 	// Press 1 to switch to Free Camera
@@ -727,47 +770,8 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
-	// SOLAR SYSTEM START //
-	glPushMatrix(); {
-		// Move entire solar system (Center of the universe is here)
-		glTranslatef(0.0f, 8.0f, 0.0f);
-		glPushMatrix(); { // SUN - start
-			sun.render();								// render sun
-			// ORBIT 1  START //
-			glPushMatrix(); {	// PLANET 1
-				circle.render2D();						// render orbit
-				glRotatef(angle, 0, 1, 0);				// planet 1 rotation
-				glTranslatef(2.0f, 0.0, 0.0);			// translate planet 1 with respect to the sun
-				planet_1.render();						// render planet 1
-				glPushMatrix(); { // PLANET 2
-					glRotatef(angle - 0.2f, 0, 1, 0);	// planet 2 rotation
-					glTranslatef(0.5f, 0.0f, 0.0f);		// translate planet 2 with respect to planet 1
-						planet_2.render();				// render planet 2
-				} glPopMatrix();
-			} glPopMatrix();
-			// ORBIT 1 END //
-			// ORBIT2 START //
-			glPushMatrix(); { // PLANET 1 - start
-				glRotatef(angle, 0, 1, 0);				// planet 1 rotation
-				glTranslatef(2.5, 0, 0);				// translate planet 1 with respect to the sun
-				planet_1.render();						// render planet 1
-				glPushMatrix(); { // PLANET 2 - start
-					glRotatef(angle * 0.5, 0, 1, 0);	// planet 2 rotation
-					glTranslatef(0.0f, 0.0f, 2.5f);		// translate planet 2 with respect to planet 1
-					planet_2.render();					// render planet 2
-					glPushMatrix(); { // PLANET 3 - start
-						glRotatef(angle * 1.5, 0, 1, 0); // planet 3 rotation
-						glTranslatef(1.5, 0, 0);		 // translate planet 3 with respect to planet 2
-						planet_3.render();				 // render planet 3
-					} glPopMatrix();  // PLANET 3 - end
-				} glPopMatrix(); // PLANET 2 - end
-			} glPopMatrix(); // PLANET 1 - end
-			// ORBIT 2 END //
-		} glPopMatrix(); // SUN - end
-
-	} glPopMatrix(); 
-	// SOLAR SYSTEM END //
-
+	// Solar system
+	renderSolarSystem();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);

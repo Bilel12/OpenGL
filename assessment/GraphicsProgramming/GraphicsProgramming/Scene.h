@@ -58,6 +58,7 @@ protected:
 	void updateVariables();
 	void buildLight();
 	void renderLight();
+	void renderSolarSystem();
 	// For Window and frustum calculation.
 	int width, height;
 	// For FPS counter and mouse coordinate output.
