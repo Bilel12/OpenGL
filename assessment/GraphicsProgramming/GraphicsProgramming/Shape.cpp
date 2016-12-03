@@ -157,10 +157,6 @@ void Shape::render2D() {
 	} glPopMatrix();
 }
 
-void Shape::renderSolarSystem() {
-
-}
-
 void Shape::buildSkybox(GLenum primitive, 
 	Vector3 translate,
 	Vector3 scale,

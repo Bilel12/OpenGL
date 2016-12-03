@@ -1,14 +1,14 @@
-#ifndef _FREECAMERA_H
-#define _FREECAMERA_H
+#ifndef _FPPCAMERA_H
+#define _FPPCAMERA_H
 
 #include "glut.h"
 #include "Input.h"
 #include "Camera.h"
 
-class FreeCamera : public Camera {
+class FPPCamera : public Camera {
 public:
-	FreeCamera();
-	~FreeCamera();
+	FPPCamera();
+	~FPPCamera();
 
 	virtual void update();
 	virtual void moveForward(float dt);
@@ -53,7 +53,7 @@ public:
 	virtual void setLookAtY(float y);
 	virtual void setLookAtZ(float z);
 
-	virtual void setYaw(float arg) ;
+	virtual void setYaw(float arg);
 	virtual void setPitch(float arg);
 	virtual void setRoll(float arg);
 
@@ -71,3 +71,4 @@ private:
 };
 
 #endif
+
