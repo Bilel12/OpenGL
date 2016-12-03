@@ -588,6 +588,11 @@ void Scene::update(float dt) {
 		camera = &topDownCamera;
 		input->SetKeyUp('3');
 	}
+	// Press 4 to switch to TopDown Camera
+	if (input->isKeyDown('4')) {
+		camera = &fppCamera;
+		input->SetKeyUp('4');
+	}
 	// Press B to toggle blending mode
 	if (input->isKeyDown('b') || input->isKeyDown('B')) { // is B pressed and bp FALSE?
 		blend = !blend; // toggle blend (true/false)

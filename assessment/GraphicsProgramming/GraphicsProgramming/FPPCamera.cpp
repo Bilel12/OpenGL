@@ -9,6 +9,10 @@ FPPCamera::FPPCamera() {
 	setYaw(0);
 	setPitch(0);
 	setRoll(0);
+	// Security camera settings
+	camera_speed = 0.5f;
+	clamp_value = Yaw;
+	leftClamp = Yaw + (-40.f), rightClamp = Yaw + (40.f);
 	update();
 }
 
@@ -186,14 +190,6 @@ void FPPCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera to the right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
 		moveSideRight(dt);
-	}
-	// move camera down
-	if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
-		moveUp(dt);
-	}
-	// move camera down
-	if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
-		moveDown(dt);
 	}
 	// camera's Yaw mouse controll, last variable controlls speed
 	updateYaw(width, input->getMouseX(), 2);
