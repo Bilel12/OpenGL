@@ -166,11 +166,11 @@ void SecurityCamera::updatePitch(int height, int mouseY, int speed) {
 void SecurityCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// move camera forward
 	if (input->isKeyDown('w') || input->isKeyDown('W')) {
-		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); }
+		if (Pitch <= rightClamp) { addPitch(dt, camera_speed + 1.f); }	// use right clamping value to clamp up pitch movemnt
 	}
 	// move camera backwards
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		if (Pitch >= leftClamp) { subtractPitch(dt, camera_speed + 1.f); }
+		if (Pitch >= leftClamp) { subtractPitch(dt, camera_speed + 1.f); } // use left clamping value to clamp down pitch movemnt
 	}
 	// move camera to the left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {

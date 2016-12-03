@@ -171,9 +171,7 @@ void FPPCamera::updateYaw(int width, int mouseX, int speed) {
 	Yaw += static_cast<float>((mouseX - (width / 2)) / speed);
 }
 void FPPCamera::updatePitch(int height, int mouseY, int speed) {
-	//if ((int)(Pitch) <= (int)(topClamp)) {
 		Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
-	//}
 }
 
 void FPPCamera::cameraControll(float dt, int width, int height, Input *input) {
@@ -196,7 +194,9 @@ void FPPCamera::cameraControll(float dt, int width, int height, Input *input) {
 	// camera's Yaw mouse controll, last variable controlls speed
 	updateYaw(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll, last variable controlls speed
-	updatePitch(height, input->getMouseY(), 2);
+	if (Pitch <= topClamp && Pitch >= bottomClamp) {
+		updatePitch(height, input->getMouseY(), 2);
+	}
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
 }
