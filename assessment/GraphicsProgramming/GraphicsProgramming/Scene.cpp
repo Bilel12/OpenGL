@@ -727,58 +727,46 @@ void Scene::render() {
 	setRenderMode(blend, wireframe);
 	// Render shapes
 	renderShapes();
-
+	// SOLAR SYSTEM START //
 	glPushMatrix(); {
+		// Move entire solar system (Center of the universe is here)
 		glTranslatef(0.0f, 8.0f, 0.0f);
-		glPushMatrix(); // SOLAR SYSTEM
-		{ // OBJECT1 start. Remember where we are THE SUN
-		  // render the sun
-			sun.render();
-			//////////////////////////////////////////////////////////////////// ORBIT1
-			glPushMatrix();
-			{ // OBJECT2 start. Move from THE SUN by 1
-			  // render PLANET1
-				circle.render2D();
-				glRotatef(angle, 0, 1, 0);
-				glTranslatef(2.0f, 0.0, 0.0);
-				planet_1.render();
-				glPushMatrix(); {
-					glRotatef(angle - 0.2f, 0, 1, 0);
-					glTranslatef(0.5f, 0.0f, 0.0f);
-						planet_2.render();
+		glPushMatrix(); { // SUN - start
+			sun.render();								// render sun
+			// ORBIT 1  START //
+			glPushMatrix(); {	// PLANET 1
+				circle.render2D();						// render orbit
+				glRotatef(angle, 0, 1, 0);				// planet 1 rotation
+				glTranslatef(2.0f, 0.0, 0.0);			// translate planet 1 with respect to the sun
+				planet_1.render();						// render planet 1
+				glPushMatrix(); { // PLANET 2
+					glRotatef(angle - 0.2f, 0, 1, 0);	// planet 2 rotation
+					glTranslatef(0.5f, 0.0f, 0.0f);		// translate planet 2 with respect to planet 1
+						planet_2.render();				// render planet 2
 				} glPopMatrix();
-			} glPopMatrix(); // OBJECT2 end. Move BACK to THE SUN
-			///////////////////////////////////////////////////////////////// ORBIT2
-			glPushMatrix(); { // OBJECT3 start. REMEMBER WHERE WE ARE. Move from THE SUN by 1.5. Scale down by 0.3
-				// draw PLANET2
-				glRotatef(angle, 0, 1, 0);
-				glTranslatef(2.5, 0, 0);
-				//glScalef(0.3, 0.3, 0.3);
-				planet_1.render();
-				glPushMatrix();
-				{ // Object 4 start. REMEMBER WHERE WE ARE. Move from PLANET2 by 1.5. Futher scale down by 0.3
-				  // draw a MOON around PLANET2
-					glRotatef(angle * 0.5, 0, 1, 0);
-					glTranslatef(0.0f, 0.0f, 2.5f);
-					//glScalef(0.3, 0.3, 0.3);
-					planet_2.render();
-					glPushMatrix(); { // Object 5 start. REMEMBER WHERE WE ARE. Move from MOON by 1.5. Futher Scale down by 0.3
-									  // draw a MOON around the MOON
-						glRotatef(angle * 1.5, 0, 1, 0);
-						glTranslatef(1.5, 0, 0);
-						//glScalef(0.3, 0.3, 0.3);
-						glColor3f(0.1f, 0.9f, 1.0f);
-						planet_3.render();
-					} glPopMatrix(); // OBJECT5 end
-				} glPopMatrix(); // OBJECT4 end
-			} glPopMatrix(); // OBJECT3 end	
-		} glPopMatrix(); // OBJECT1 end
+			} glPopMatrix();
+			// ORBIT 1 END //
+			// ORBIT2 START //
+			glPushMatrix(); { // PLANET 1 - start
+				glRotatef(angle, 0, 1, 0);				// planet 1 rotation
+				glTranslatef(2.5, 0, 0);				// translate planet 1 with respect to the sun
+				planet_1.render();						// render planet 1
+				glPushMatrix(); { // PLANET 2 - start
+					glRotatef(angle * 0.5, 0, 1, 0);	// planet 2 rotation
+					glTranslatef(0.0f, 0.0f, 2.5f);		// translate planet 2 with respect to planet 1
+					planet_2.render();					// render planet 2
+					glPushMatrix(); { // PLANET 3 - start
+						glRotatef(angle * 1.5, 0, 1, 0); // planet 3 rotation
+						glTranslatef(1.5, 0, 0);		 // translate planet 3 with respect to planet 2
+						planet_3.render();				 // render planet 3
+					} glPopMatrix();  // PLANET 3 - end
+				} glPopMatrix(); // PLANET 2 - end
+			} glPopMatrix(); // PLANET 1 - end
+			// ORBIT 2 END //
+		} glPopMatrix(); // SUN - end
 
-	} glPopMatrix();
-
-
-
-
+	} glPopMatrix(); 
+	// SOLAR SYSTEM END //
 
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
