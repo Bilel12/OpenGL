@@ -118,6 +118,7 @@ protected:
 	Shape butterfly;
 	Shape sun;
 	Shape planet_1;
+	Shape planet_2;
 	// Models
 	Model spaceship;
 	Model drone;

@@ -511,10 +511,17 @@ void Scene::buildShapes() {
 		NULL);
 
 	planet_1.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
-		Vector3(2.0f, 0.0f, 0.0f),
+		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+		NULL);
+
+	planet_2.buildSphere(GL_TRIANGLES, 0.2, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 0.0f, 0.0f, 1.0f),
 		NULL);
 }
 
@@ -541,6 +548,7 @@ void Scene::updateVariables() {
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
 	butterfly.rotate(angle);
+	planet_1.rotate(angle);
 	//skybox.rotate(angle);
 	light._translate = Light_Position_1;
 	//sphere.rotate(angle);
@@ -723,12 +731,13 @@ void Scene::render() {
 			glPushMatrix();
 			{ // OBJECT2 start. Move from THE SUN by 1
 			  // render PLANET1
-				glRotatef(angle, 0, 1, 0);
 				circle.render2D();
+				glTranslatef(2.0f, 0.0f, 0.0f);
+				glRotatef(angle, 0, 1, 0);
 				planet_1.render();
 				glPushMatrix(); {
-					glRotatef(angle, 0, 1, 0);
-					planet_1.render();
+					glRotatef(angle - 0.2f, 0, 0, 1);
+						planet_2.render();
 				}glPopMatrix();
 			} glPopMatrix(); // OBJECT2 end. Move BACK to THE SUN
 			/////////////////////////////////////////////////////////////////// ORBIT2
@@ -736,7 +745,7 @@ void Scene::render() {
 			{ // OBJECT3 start. REMEMBER WHERE WE ARE. Move from THE SUN by 1.5. Scale down by 0.3
 			  // draw PLANET2
 				glRotatef(angle, 0, 0, 1);
-				planet_1.render();
+				planet_2.render();
 				glPushMatrix();
 				{ // Object 4 start. REMEMBER WHERE WE ARE. Move from PLANET2 by 1.5. Futher scale down by 0.3
 				  // draw a MOON around PLANET2
@@ -744,14 +753,14 @@ void Scene::render() {
 					glTranslatef(1.5, 0, 0);
 					glScalef(0.3, 0.3, 0.3);
 					glColor3f(0.1f, 0.9f, 1.0f);
-					gluSphere(gluNewQuadric(), 0.20, 20, 20);
+					planet_1.render();
 					glPushMatrix(); { // Object 5 start. REMEMBER WHERE WE ARE. Move from MOON by 1.5. Futher Scale down by 0.3
 									  // draw a MOON around the MOON
 						glRotatef(-angle * 2.0, 0, 0, 1);
 						glTranslatef(1.5, 0, 0);
 						glScalef(0.3, 0.3, 0.3);
 						glColor3f(0.1f, 0.9f, 1.0f);
-						gluSphere(gluNewQuadric(), 0.20, 20, 20);
+						planet_2.render();
 					} glPopMatrix(); // OBJECT5 end
 				} glPopMatrix(); // OBJECT4 end
 			} glPopMatrix(); // OBJECT3 end	
