@@ -159,6 +159,13 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 		); textures.push_back(myTexture);
 
+	myTexture = SOIL_load_OGL_texture( // 16
+		"gfx/doughnut.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
 	//for (std::array<GLuint, 5>::iterator it = textures.begin(); it != textures.end() ; ++it) {
 	for (int i : textures) {
 		if (i == NULL) {
@@ -184,6 +191,7 @@ void Scene::assignTextures() {
 	barrel_lid_1_tex	= &textures[13];
 	barrel_lid_2_tex	= &textures[14];
 	barrel_tex			= &textures[15];
+	doughnut_tex		= &textures[16];
 }
 
 void Scene::loadModels() {
@@ -470,7 +478,7 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		globe_tex);
+		doughnut_tex);
 
 	ico.buildIco(GL_TRIANGLES, a, b, 1.0,
 		Vector3(12.0f, 0.0f, 0.0f),
