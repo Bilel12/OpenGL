@@ -69,7 +69,7 @@ private:
 	Vector3 side;
 	float Yaw, Pitch, Roll;
 	float clamp_value, camera_speed;
-	float leftClamp, rightClamp;
+	float bottomClamp, topClamp;
 };
 
 #endif

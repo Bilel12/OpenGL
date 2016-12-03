@@ -12,7 +12,7 @@ FPPCamera::FPPCamera() {
 	// Security camera settings
 	camera_speed = 0.5f;
 	clamp_value = Yaw;
-	leftClamp = Yaw + (-40.f), rightClamp = Yaw + (40.f);
+	bottomClamp = Pitch + (-40.f), topClamp = Pitch + (40.f);
 	update();
 }
 
@@ -171,7 +171,9 @@ void FPPCamera::updateYaw(int width, int mouseX, int speed) {
 	Yaw += static_cast<float>((mouseX - (width / 2)) / speed);
 }
 void FPPCamera::updatePitch(int height, int mouseY, int speed) {
-	Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
+	//if ((int)(Pitch) <= (int)(topClamp)) {
+		Pitch -= static_cast<float>((mouseY - (height / 2)) / speed);
+	//}
 }
 
 void FPPCamera::cameraControll(float dt, int width, int height, Input *input) {
