@@ -507,14 +507,14 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
 
-	disc_2.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,	// edges, radius
+	disc_2.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,		// edges, radius
 		Vector3(-4.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
 
-	disc_flat.buildDisc(GL_TRIANGLE_FAN, 10, 2, // edges, radius
+	disc_flat.buildDisc(GL_TRIANGLE_FAN, 10, 2,			// edges, radius
 		Vector3(-2.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
@@ -594,7 +594,7 @@ void Scene::buildShapes() {
 		cube_texcoords,
 		crate_trans_tex);
 	// Solar system
-	sun.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+	sun.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,			// radius, latitude, longitude
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
@@ -670,7 +670,6 @@ void Scene::renderShapes() {
 	disc_1.render();
 	disc_2.render();
 	disc_flat.render();
-	circle.render2D();
 	cone.render();
 	cylinder.render();
 	light.render();
@@ -1030,8 +1029,7 @@ void Scene::resize(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void Scene::renderTextOutput()
-{
+void Scene::renderTextOutput() {
 	// Render current mouse position and frames per second.
 	sprintf_s(mouseText, "Mouse: %i, %i", input->getMouseX(), input->getMouseY());
 	sprintf_s(cameraPositionText, "Cam Pos: X:%f Y:%f Z:%f", camera->getPositionX(), camera->getPositionY(), camera->getPositionZ());
