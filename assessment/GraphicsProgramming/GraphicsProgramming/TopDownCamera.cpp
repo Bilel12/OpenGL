@@ -183,14 +183,6 @@ void TopDownCamera::cameraControll(float dt, int width, int height, Input *input
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
 		moveSideRight(dt);
 	}
-	// move camera down
-	//if (input->isKeyDown(GLUT_KEY_UP) || input->isKeyDown('r') || input->isKeyDown('R')) {
-	//	
-	//}
-	//// move camera down
-	//if (input->isKeyDown(GLUT_KEY_DOWN) || input->isKeyDown('f') || input->isKeyDown('F')) {
-	//	
-	//}
 	glutWarpPointer(width / 2, height / 2);
 }
 
