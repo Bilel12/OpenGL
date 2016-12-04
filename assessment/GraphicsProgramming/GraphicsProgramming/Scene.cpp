@@ -673,10 +673,10 @@ void Scene::renderShapes() {
 	disc_flat.render();
 	cone.render();
 	cylinder.render();
-	light.render();
 	torus.render();
-	butterfly.render2D();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	light.render();
+	butterfly.render2D();
 }
 
 void Scene::updateVariables() {
