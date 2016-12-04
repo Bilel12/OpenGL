@@ -559,7 +559,7 @@ void Scene::buildShapes() {
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
-	cone.set_ambient(	0, 0, 0, 0);
+	cone.set_ambient(0.5, 0, 0, 0);
 
 	cylinder.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
 		Vector3(6.0f, 5.0f, -6.0f),
@@ -666,6 +666,7 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
+	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	sphere.render();
 	disc_1.render();
 	disc_2.render();
@@ -675,6 +676,7 @@ void Scene::renderShapes() {
 	light.render();
 	torus.render();
 	butterfly.render2D();
+	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 }
 
 void Scene::updateVariables() {

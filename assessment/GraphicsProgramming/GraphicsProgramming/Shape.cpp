@@ -1,11 +1,11 @@
 ﻿#include "Shape.h"
 
 Shape::Shape() {
-	ambient = {			0.0f, 0.0f, 0.0f, 0.0f };
-	diffuse = {			0.0f, 0.0f, 0.0f, 0.0f };
-	specular = {		0.0, 0.0, 0.0, 1.0 };
-	emission = {		0.0, 0.0, 0.0, 1.0 };
-	shininess = {		0.0 };
+	ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+	diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
+	specular = { 0.0, 0.0, 0.0, 1.0 };
+	emission = { 0.0, 0.0, 0.0, 1.0 };
+	shininess = { 0.0 };
 
 	ambient_def = {		0.2f, 0.2f, 0.2f, 1.0f };
 	diffuse_def = {		0.8f, 0.8f, 0.8f, 1.0f };
