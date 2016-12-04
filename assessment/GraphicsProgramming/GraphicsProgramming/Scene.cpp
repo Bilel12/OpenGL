@@ -776,7 +776,7 @@ void Scene::renderSolarSystem() {
 			// ORBIT 1 END //
 			// ORBIT2 START //
 			glPushMatrix(); { // PLANET 1 - start
-				glRotatef(angle * 0.5f, 0, 1, 0);								// orbit 2 rotation
+				glRotatef(angle * 0.5f, 0, 1, 0);						// orbit 2 rotation
 
 				glPushMatrix(); { // planet 1 orbit - start
 					glRotatef(angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
@@ -885,6 +885,16 @@ void Scene::renderSolarSystem() {
 		} glPopMatrix(); // SUN - end
 	} glPopMatrix();
 	// SOLAR SYSTEM END //
+}
+
+void Scene::renderFloor() {
+}
+
+void Scene::renderWalls() {
+}
+
+void Scene::renderPlanets() {
+
 }
 
 void Scene::update(float dt) {
@@ -1009,6 +1019,12 @@ void Scene::render() {
 	renderShapes();
 	// Solar system
 	renderSolarSystem();
+	// Render floor
+	renderFloor();
+	// Render walls
+	renderWalls();
+	// Render planets for lighting testing
+	renderPlanets();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);

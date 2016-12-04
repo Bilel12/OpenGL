@@ -58,7 +58,11 @@ protected:
 	void updateVariables();
 	void buildLight();
 	void renderLight();
+	// rendering textured objects
 	void renderSolarSystem();
+	void renderFloor();
+	void renderWalls();
+	void renderPlanets();
 	// For Window and frustum calculation.
 	int width, height;
 	// For FPS counter and mouse coordinate output.
