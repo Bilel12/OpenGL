@@ -29,7 +29,6 @@ Scene::Scene(Input *in) {
 	loadTextures();		// loading textures into vector
 	assignTextures();	// assign textures to pointers
 	loadModels();		// load 3D models from files
-	//loadLists();		// load lists
 	buildShapes();		// Generate vertices, normals and texture coordinates vectors
 	buildLight();		// Set up all lighting arrays
 	// Initialise variables
@@ -296,47 +295,52 @@ void Scene::loadModels() {
 }
 
 void Scene::loadLists() {
-	Torus = glGenLists(1);
-	glNewList(Torus, GL_COMPILE);
-	//torus.buildTorus(	2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
-	//					1, 1, 1,				// scale x, scale y, scale z
-	//					3., 7., 3.,				// translate x, translate y, translate z
-	//					0., 0., 0., 0);			// rotation angle, rotation x, rotation y, rotation z
-	glEndList();
+	//Torus = glGenLists(1);
+	//glNewList(Torus, GL_COMPILE);
+	////torus.buildTorus(	2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	////					1, 1, 1,				// scale x, scale y, scale z
+	////					3., 7., 3.,				// translate x, translate y, translate z
+	////					0., 0., 0., 0);			// rotation angle, rotation x, rotation y, rotation z
+	//glEndList();
 
-	Disc = glGenLists(2);
-	glNewList(Disc, GL_COMPILE);
-	disc_1.render();
-	glEndList();
+	//Disc = glGenLists(2);
+	//glNewList(Disc, GL_COMPILE);
+	//disc_1.render();
+	//glEndList();
 
-	Sphere = glGenLists(2);
-	glNewList(Sphere, GL_COMPILE);
-	sphere.render();
-	glEndList();
+	//Sphere = glGenLists(2);
+	//glNewList(Sphere, GL_COMPILE);
+	//sphere.render();
+	//glEndList();
 
-	LowPoliCylinder = glGenLists(3);
-	glNewList(LowPoliCylinder, GL_COMPILE);
-	//cylinder.buildCylinder(	2.3f, 20.0f, 10.0f,	// radius, edges, height
-	//						1.0f, 1.0f, 1.0f,		// scale x, scale y, scale z
-	//						3.0f, 3.0f, 3.0f,		// translate x, translate y, translate z
-	//						180.0f, 0.0f, 0.0f, 1.0f);	// rotation angle, rotation x, rotation y, rotation z
-	glEndList();
+	//LowPoliCylinder = glGenLists(3);
+	//glNewList(LowPoliCylinder, GL_COMPILE);
+	////cylinder.buildCylinder(	2.3f, 20.0f, 10.0f,	// radius, edges, height
+	////						1.0f, 1.0f, 1.0f,		// scale x, scale y, scale z
+	////						3.0f, 3.0f, 3.0f,		// translate x, translate y, translate z
+	////						180.0f, 0.0f, 0.0f, 1.0f);	// rotation angle, rotation x, rotation y, rotation z
+	//glEndList();
 
-	HighPoliCylinder = glGenLists(4);
-	glNewList(HighPoliCylinder, GL_COMPILE);
-	//cylinder.buildCylinder(	2.3f, 20.0f, 10.0f,	// radius, edges, height
-	//						1.0f, 1.0f, 1.0f,		// scale x, scale y, scale z
-	//						3.0f, 3.0f, 3.0f,		// translate x, translate y, translate z
-	//						180.0f, 0.0f, 0.0f, 1.0f);	// rotation angle, rotation x, rotation y, rotation z
+	//HighPoliCylinder = glGenLists(4);
+	//glNewList(HighPoliCylinder, GL_COMPILE);
+	////cylinder.buildCylinder(	2.3f, 20.0f, 10.0f,	// radius, edges, height
+	////						1.0f, 1.0f, 1.0f,		// scale x, scale y, scale z
+	////						3.0f, 3.0f, 3.0f,		// translate x, translate y, translate z
+	////						180.0f, 0.0f, 0.0f, 1.0f);	// rotation angle, rotation x, rotation y, rotation z
+	//glEndList();
+	Floor = glGenLists(1);
+	glNewList(Floor, GL_COMPILE);
+	floor.render();
 	glEndList();
 }
 
 void Scene::renderLists() {
-	glCallList(Torus);
+	//glCallList(Torus);
 	/*glCallList(Sphere);
 	glCallList(Disc);
 	glCallList(LowPoliCylinder);
 	glCallList(HighPoliCylinder);*/
+	glCallList(Floor);
 	glFlush();
 }
 
@@ -759,19 +763,20 @@ void Scene::renderSolarSystem() {
 				glPushMatrix(); { // PLANET 2
 					glRotatef(-angle - 0.2f, 0, 1, 0);					// planet 2 rotation
 					glPushMatrix(); { // planet 2 orbit - start
-						glRotatef(angle - 0.2f, 0, 1, 0);				// rotate planet 2 orbit
+						glRotatef(angle - 0.4f, 0, 1, 0);				// rotate planet 2 orbit
 						glScalef(0.5f, 0.5f, 0.5f);						// scale planet 2 orbit
 						circle.render2D();								// render planet 2 orbit
 					} glPopMatrix(); // planet 2 orbit - end
 
 					glTranslatef(1, 0, 0);								// translate planet 2 with respect to planet 1
+					glRotatef(-angle - 0.5f, 0, 1, 0);					// rotate planet 2
 					planet_2.render();									// render planet 2
 				} glPopMatrix();
 			} glPopMatrix();
 			// ORBIT 1 END //
 			// ORBIT2 START //
 			glPushMatrix(); { // PLANET 1 - start
-				glRotatef(angle, 0, 1, 0);								// orbit 2 rotation
+				glRotatef(angle * 0.5f, 0, 1, 0);								// orbit 2 rotation
 
 				glPushMatrix(); { // planet 1 orbit - start
 					glRotatef(angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
@@ -780,22 +785,24 @@ void Scene::renderSolarSystem() {
 				} glPopMatrix(); // planet 1 orbit - end
 
 				glTranslatef(8.0f, 0, 0);								// translate planet 1 with respect to the sun
+				glRotatef(angle * 0.3f, 0, 1, 0);						// rotate planet 1
 				planet_3.render();										// render planet 1
 
 				glPushMatrix(); { // PLANET 2 - start
-					glRotatef(angle * 0.5f, 0, 1, 0);					// planet 2 rotation
+					glRotatef(angle * 0.6f, 0, 1, 0);					// planet 2 rotation
 
 					glPushMatrix(); { // planet 2 orbit - start
-						glRotatef(angle - 0.2f, 0, 1, 0);				// rotate planet 2 orbit
+						glRotatef(-angle * 0.4f, 0, 1, 0);				// rotate planet 2 orbit
 						glScalef(1.25f, 1.25f, 1.25f);					// scale planet 2 orbit
 						circle.render2D();								// render planet 2 orbit
 					} glPopMatrix(); // planet 2 orbit - end
 
 					glTranslatef(2.5f, 0, 0);							// translate planet 2 with respect to planet 1
-					planet_4.render();									// render planet 2
+					glRotatef(-angle * 0.2f, 0, 1, 0);					// planet 1 rotation
+					planet_5.render();									// render planet 2
 
 					glPushMatrix(); { // PLANET 3 - start
-						glRotatef(angle * 1.5f, 0, 1, 0);				// planet 3 rotation
+						glRotatef(angle -0.3f, 0, 1, 0);				// planet 3 rotation
 
 						glPushMatrix(); { // planet 2 orbit - start
 							glRotatef(angle - 0.2f, 0, 1, 0);			// rotate planet 3 orbit
@@ -804,7 +811,8 @@ void Scene::renderSolarSystem() {
 						} glPopMatrix(); // planet 2 orbit - end
 
 						glTranslatef(1, 0, 0);							// translate planet 3 with respect to planet 2
-						planet_5.render();								// render planet 3
+						glRotatef(angle - 0.5f, 0, 1, 0);				// planet 2 rotation
+						planet_4.render();								// render planet 3
 					} glPopMatrix();  // PLANET 3 - end
 				} glPopMatrix(); // PLANET 2 - end
 			} glPopMatrix(); // PLANET 1 - end
@@ -820,10 +828,14 @@ void Scene::renderSolarSystem() {
 				} glPopMatrix(); // planet 1 orbit - end
 
 				glTranslatef(12.0f, 0, 0);								// translate planet 1
-				planet_6.render();										// render planet 1
+
+				glPushMatrix(); {
+					glRotatef(angle * 0.5f, 0, 1, 0);					// planet 1 rotation
+					planet_6.render();									// render planet 1
+				} glPopMatrix();
 
 				glPushMatrix(); { // PLANET 2 - start
-					glRotatef(-angle * 1.5f, 0, 1, 0);					// planet 2 rotation
+				//glRotatef(-angle * 0.6f, 0, 1, 0);						// planet 1 rotation
 
 					glPushMatrix(); {									// planet 1 orbit - start
 						glRotatef(45.0f, 0, 0, 1);						// crook planet 1 orbit
@@ -832,8 +844,12 @@ void Scene::renderSolarSystem() {
 						torus_orbit.render();									// render planet 1 orbit
 					} glPopMatrix();									// planet 1 orbit - end
 
-				glTranslatef(1, 0, 0);									// translate planet 2 with respect to planet 1
-				planet_7.render();										// render planet 2
+					glTranslatef(1, 0, 0);									// translate planet 2 with respect to planet 1
+
+					glPushMatrix(); {
+						glRotatef(angle * 0.7f, 0, 1, 0);						// planet 2 rotation
+						planet_7.render();										// render planet 2
+					} glPopMatrix();
 				} glPopMatrix();  // PLANET 2 - end
 			} glPopMatrix(); // PLANET 1 - end
 			// ORBIT 3 END //
@@ -848,6 +864,7 @@ void Scene::renderSolarSystem() {
 				} glPopMatrix();										// planet 1 orbit - end
 
 				glTranslatef(16.0f, 0, 0);								// translate planet 1 with respect to the sun
+				glRotatef(angle * 2.0f, 0, 1, 0);					// planet 2 rotation
 				planet_8.render();										// render planet 1
 
 				glPushMatrix(); {										// planet 1 orbit - start
@@ -979,11 +996,11 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Shadowing
-	renderShadowing();
+	//renderShadowing();
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
-	//renderStencilBuffer(spaceship);
+	renderStencilBuffer(spaceship);
 	// Blend cube
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlend();

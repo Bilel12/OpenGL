@@ -148,6 +148,7 @@ protected:
 	GLuint Sphere;
 	GLuint LowPoliCylinder;
 	GLuint HighPoliCylinder;
+	GLuint Floor;
 	// Rotation variables
 	float scale_x;
 	float scale_y;
