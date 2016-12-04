@@ -26,12 +26,12 @@ void TopDownCamera::update() {
 	// Roll, Pitch and Yall are variables stored by the FreeCamera
 	// handle rotation
 	// Only want to calculate these values once, when rotation changes, not every frame. 
-	cosY = cosf(Yaw*3.1415 / 180);
-	cosP = cosf(Pitch*3.1415 / 180);
-	cosR = cosf(Roll*3.1415 / 180);
-	sinY = sinf(Yaw*3.1415 / 180);
-	sinP = sinf(Pitch*3.1415 / 180);
-	sinR = sinf(Roll*3.1415 / 180);
+	cosY = cosf( (Yaw*3.1415f) / 180.0f);
+	cosP = cosf( (Pitch*3.1415f) / 180.0f);
+	cosR = cosf( (Roll*3.1415f) / 180.0f);
+	sinY = sinf( (Yaw*3.1415f) / 180.0f);
+	sinP = sinf( (Pitch*3.1415f) / 180.0f);
+	sinR = sinf( (Roll*3.1415f) / 180.0f);
 	// Calculate forward vector
 	forward.x = sinY * cosP;
 	forward.y = sinP;
