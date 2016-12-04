@@ -103,6 +103,18 @@ protected:
 	GLuint *spaceship_tex;
 	GLuint *barrel_tex;
 	GLuint *doughnut_tex;
+	GLuint *earth_clouds_tex;
+	GLuint *earth_night_tex;
+	GLuint *earth_surface_tex;
+	GLuint *jupiter_tex;
+	GLuint *mars_tex;
+	GLuint *mercury_tex;
+	GLuint *moon_tex;
+	GLuint *neptune_tex;
+	GLuint *saturn_tex;
+	GLuint *sun_tex;
+	GLuint *venus_atmosphere_tex;
+	GLuint *venus_surface_tex;
 	// Shapes
 	Shape skybox;
 	Shape sphere;
@@ -122,6 +134,11 @@ protected:
 	Shape planet_1;
 	Shape planet_2;
 	Shape planet_3;
+	Shape planet_4;
+	Shape planet_5;
+	Shape planet_6;
+	Shape planet_7;
+	Shape planet_8;
 	// Models
 	Model spaceship;
 	Model drone;

@@ -166,6 +166,90 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	); textures.push_back(myTexture);
 
+	myTexture = SOIL_load_OGL_texture( // 17
+		"gfx/texture_earth_clouds.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 18
+		"gfx/texture_earth_night.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 19
+		"gfx/texture_earth_surface.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 20
+		"gfx/texture_jupiter.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 21
+		"gfx/texture_mars.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 22
+		"gfx/texture_mercury.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 23
+		"gfx/texture_moon.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 24
+		"gfx/texture_neptune.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 25
+		"gfx/texture_saturn.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 26
+		"gfx/texture_sun.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 27
+		"gfx/texture_venus_atmosphere.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
+	myTexture = SOIL_load_OGL_texture( // 28
+		"gfx/texture_venus_surface.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	); textures.push_back(myTexture);
+
 	for (int i : textures) {
 		if (i == NULL) {
 			MessageBox(NULL, "Texture failed to load", "help", MB_OK);
@@ -191,6 +275,19 @@ void Scene::assignTextures() {
 	barrel_lid_2_tex	= &textures[14];
 	barrel_tex			= &textures[15];
 	doughnut_tex		= &textures[16];
+
+	earth_clouds_tex	= &textures[17];
+	earth_night_tex		= &textures[18];
+	earth_surface_tex	= &textures[19];
+	jupiter_tex			= &textures[20];
+	mars_tex			= &textures[21];
+	mercury_tex			= &textures[22];
+	moon_tex			= &textures[23];
+	neptune_tex			= &textures[24];
+	saturn_tex			= &textures[25];
+	sun_tex				= &textures[26];
+	venus_atmosphere_tex= &textures[27];
+	venus_surface_tex	= &textures[28];
 }
 
 void Scene::loadModels() {
@@ -389,7 +486,7 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		globe_tex);
+		earth_clouds_tex);
 	//sphere.set_ambient(1, 1, 1, 1);
 	//sphere.set_diffuse(1, 1, 1, 1);
 	sphere.set_ambient(	0.0f, 0.0f, 0.0f, 1.0f);
@@ -502,28 +599,63 @@ void Scene::buildShapes() {
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		NULL);
+		sun_tex);
 
 	planet_1.buildSphere(GL_TRIANGLES, 0.5f, 15.0f, 15.0f,	// radius, latitude, longitude
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
-		Vector4(0.0f, 0.0f, 1.0f, 1.0f),
-		NULL);
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		mars_tex);
 
 	planet_2.buildSphere(GL_TRIANGLES, 0.3f, 15.0f, 15.0f,	// radius, latitude, longitude
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
-		Vector4(1.0f, 0.0f, 0.0f, 1.0f),
-		NULL);
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		moon_tex);
 
-	planet_3.buildSphere(GL_TRIANGLES, 0.1f, 15.0f, 15.0f,	// radius, latitude, longitude
+	planet_3.buildSphere(GL_TRIANGLES, 0.5f, 15.0f, 15.0f,	// radius, latitude, longitude
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
-		Vector4(0.0f, 1.0f, 0.0f, 1.0f),
-		NULL);
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		jupiter_tex);
+
+	planet_4.buildSphere(GL_TRIANGLES, 0.3f, 15.0f, 15.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		mercury_tex);
+
+	planet_5.buildSphere(GL_TRIANGLES, 0.5f, 15.0f, 15.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		neptune_tex);
+
+	planet_6.buildSphere(GL_TRIANGLES, 0.3f, 15.0f, 15.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		saturn_tex);
+
+	planet_7.buildSphere(GL_TRIANGLES, 0.2f, 15.0f, 15.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		venus_atmosphere_tex);
+
+	planet_8.buildSphere(GL_TRIANGLES, 0.8f, 15.0f, 15.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		venus_surface_tex);
 
 	torus_orbit.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
 		Vector3(0.0f, 0.0f, 0.0f),
@@ -647,7 +779,7 @@ void Scene::renderSolarSystem() {
 				} glPopMatrix(); // planet 1 orbit - end
 
 				glTranslatef(8.0f, 0, 0);								// translate planet 1 with respect to the sun
-				planet_1.render();										// render planet 1
+				planet_3.render();										// render planet 1
 
 				glPushMatrix(); { // PLANET 2 - start
 					glRotatef(angle * 0.5f, 0, 1, 0);					// planet 2 rotation
@@ -659,7 +791,7 @@ void Scene::renderSolarSystem() {
 					} glPopMatrix(); // planet 2 orbit - end
 
 					glTranslatef(2.5f, 0, 0);							// translate planet 2 with respect to planet 1
-					planet_2.render();									// render planet 2
+					planet_4.render();									// render planet 2
 
 					glPushMatrix(); { // PLANET 3 - start
 						glRotatef(angle * 1.5f, 0, 1, 0);				// planet 3 rotation
@@ -671,7 +803,7 @@ void Scene::renderSolarSystem() {
 						} glPopMatrix(); // planet 2 orbit - end
 
 						glTranslatef(1, 0, 0);							// translate planet 3 with respect to planet 2
-						planet_3.render();								// render planet 3
+						planet_5.render();								// render planet 3
 					} glPopMatrix();  // PLANET 3 - end
 				} glPopMatrix(); // PLANET 2 - end
 			} glPopMatrix(); // PLANET 1 - end
@@ -687,7 +819,7 @@ void Scene::renderSolarSystem() {
 				} glPopMatrix(); // planet 1 orbit - end
 
 				glTranslatef(12.0f, 0, 0);								// translate planet 1
-				planet_2.render();										// render planet 1
+				planet_6.render();										// render planet 1
 
 				glPushMatrix(); { // PLANET 2 - start
 					glRotatef(-angle * 1.5f, 0, 1, 0);					// planet 2 rotation
@@ -700,7 +832,7 @@ void Scene::renderSolarSystem() {
 					} glPopMatrix();									// planet 1 orbit - end
 
 				glTranslatef(1, 0, 0);									// translate planet 2 with respect to planet 1
-				planet_3.render();										// render planet 2
+				planet_7.render();										// render planet 2
 				} glPopMatrix();  // PLANET 2 - end
 			} glPopMatrix(); // PLANET 1 - end
 			// ORBIT 3 END //
@@ -715,7 +847,7 @@ void Scene::renderSolarSystem() {
 				} glPopMatrix();										// planet 1 orbit - end
 
 				glTranslatef(16.0f, 0, 0);								// translate planet 1 with respect to the sun
-				planet_1.render();										// render planet 1
+				planet_8.render();										// render planet 1
 
 				glPushMatrix(); {										// planet 1 orbit - start
 					glRotatef(45.0f, 0, 0, 1);							// crook planet 1 orbit
