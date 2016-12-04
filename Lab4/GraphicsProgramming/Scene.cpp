@@ -28,9 +28,9 @@ Scene::Scene(Input *in)
 	specular = 0.1f;
 	rotation = 1;
 	rotation2 = 1;
-	position_x = 0;
-	position_y = -1;
-	position_z = 0;
+	light_x = 0;
+	light_y = -1;
+	light_z = 0;
 	speed = 5;
 
 	// Light 0
@@ -55,27 +55,27 @@ void Scene::update(float dt)
 	}
 	// move right
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
-		position_x += 1;
+		light_x += 1;
 	}
 	// move left
 	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		position_x -= 1;
+		light_x -= 1;
 	}
 	// move up
 	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		position_y += 1;
+		light_y += 1;
 	}
 	// move down
 	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		position_y -= 1;
+		light_y -= 1;
 	}
 	// move z towards
 	if (input->isKeyDown('r') || input->isKeyDown('R')) {
-		position_z += 1;
+		light_z += 1;
 	}
 	// move z inwards
 	if (input->isKeyDown('f') || input->isKeyDown('F')) {
-		position_z -= 1;
+		light_z -= 1;
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {
 		light0 = !light0;
@@ -151,7 +151,7 @@ void Scene::render() {
 	setLightAmbient(0.4f, 0.4f, 0.4f, 1.0f, Light_Ambient);
 	setLightDiffuse(1.0f, 1.0f, 1.0f, 1.0f, Light_Diffuse);
 	setLightSpecular(specular, specular, specular, specular, Light_Specular);
-	setLightPosition(position_x, position_y, position_z, 1, Light_Position);
+	setLightPosition(light_x, light_y, light_z, 1, Light_Position);
 
 	set_shininess(100.0, shininess);
 	setHighSpec(1.0, 1.0, 1.0, 1.0, highSpec);

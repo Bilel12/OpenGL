@@ -961,7 +961,7 @@ void Scene::update(float dt) {
 		scale_z -= 0.1f;
 	}
 	// Put both X  and Y scale down
-	if (input->isSpecialKeyDown(VK_SPACE)) {
+	if (input->isKeyDown(32)) { // 32 - ASCII space code, (13 - enter)
 		scale_x -= 0.1f;
 		scale_z -= 0.1f;
 	}

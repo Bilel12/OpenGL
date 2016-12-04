@@ -50,9 +50,9 @@ protected:
 	float specular;
 	float rotation;
 	float rotation2;
-	float position_x;
-	float position_y;
-	float position_z;
+	float light_x;
+	float light_y;
+	float light_z;
 	float speed;
 	// light variables
 	GLfloat highSpec[4];
