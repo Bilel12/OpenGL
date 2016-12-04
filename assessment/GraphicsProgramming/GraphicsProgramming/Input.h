@@ -20,6 +20,10 @@ public:
 	void SetKeyUp(unsigned char key);
 	bool isKeyDown(int);
 
+	void SetSpecialKeyDown(unsigned char key);
+	void SetSpecialKeyUp(unsigned char key);
+	bool isSpecialKeyDown(int key);
+
 	// getters and setters for mouse buttons and position.
 	void setMouseX(int);
 	void setMouseY(int);
@@ -33,6 +37,7 @@ private:
 	// Boolean array, element per key
 	// Mouse struct object.
 	bool keys[256];
+	bool specialKeys[256];
 	Mouse mouse;
 
 };

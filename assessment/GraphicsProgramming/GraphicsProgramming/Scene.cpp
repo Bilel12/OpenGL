@@ -694,7 +694,8 @@ void Scene::updateVariables() {
 	butterfly.rotate(angle);
 	//planet_1.rotate(angle);
 	//skybox.rotate(angle);
-	light._translate = Light_Position_1;
+	light._translate = Light_Position_0;
+	setLightPosition(light_x, light_y, light_z, 1.0f, Light_Position_0);
 	//sphere.rotate(angle);
 }
 
@@ -722,7 +723,7 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
 	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
-	//glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT0);
 	
 	// Light 1
 	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
@@ -732,7 +733,7 @@ void Scene::renderLight() {
 	/*glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
 	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
 	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);*/
-	glEnable(GL_LIGHT1);
+	//glEnable(GL_LIGHT1);
 	// Light 2
 	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_0);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_0);
@@ -960,34 +961,34 @@ void Scene::update(float dt) {
 		scale_z -= 0.1f;
 	}
 	// Put both X  and Y scale down
-	if (input->isKeyDown(VK_SPACE)) {
+	if (input->isSpecialKeyDown(VK_SPACE)) {
 		scale_x -= 0.1f;
 		scale_z -= 0.1f;
 	}
 	// Light controlls
 	// move light's position right
-	if (input) {
-		light_x += 1;
+	if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
+		light_x += 0.1f;
 	}
 	// move light's position left
-	if (input->isKeyDown('a') || input->isKeyDown('A')) {
-		light_x -= 1;
+	if (input->isSpecialKeyDown(GLUT_KEY_LEFT)) {
+		light_x -= 0.1f;
 	}
 	// move light's position up
-	if (input->isKeyDown('w') || input->isKeyDown('w')) {
-		light_y += 1;
+	if (input->isSpecialKeyDown(GLUT_KEY_UP)) {
+		light_y += 0.1f;
 	}
 	// move light's position down
-	if (input->isKeyDown('s') || input->isKeyDown('S')) {
-		light_y -= 1;
+	if (input->isSpecialKeyDown(GLUT_KEY_DOWN)) {
+		light_y -= 0.1f;
 	}
 	// move light's position z towards
-	if (input->isKeyDown('r') || input->isKeyDown('R')) {
-		light_z += 1;
+	if (input->isKeyDown('t') || input->isKeyDown('T')) {
+		light_z += 0.1f;
 	}
 	// move light's position z inwards
-	if (input->isKeyDown('f') || input->isKeyDown('F')) {
-		light_z -= 1;
+	if (input->isKeyDown('g') || input->isKeyDown('G')) {
+		light_z -= 0.1f;
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {
 		light_0 = !light_0;

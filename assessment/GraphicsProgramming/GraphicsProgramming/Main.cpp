@@ -80,7 +80,7 @@ void processNormalKeysUp(unsigned char key, int x, int y)
 // Mouse coordinates are handled separately.
 void processSpecialKeys(int key, int x, int y)
 {
-	input->SetKeyDown(key);
+	input->SetSpecialKeyDown(key);
 }
 
 // Handles keyboard input events from GLUT.
@@ -91,7 +91,7 @@ void processSpecialKeys(int key, int x, int y)
 // Mouse coordinates are handled separately.
 void processSpecialKeysUp(int key, int x, int y)
 {
-	input->SetKeyUp(key);
+	input->SetSpecialKeyUp(key);
 }
 
 // Handles mouse movement events from GLUT.
@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 	// Register Input callback functions.
 	glutKeyboardFunc(processNormalKeys);
 	glutKeyboardUpFunc(processNormalKeysUp);
-	glutSpecialFunc(NULL);
+	//glutSpecialFunc(NULL);
 	// Special keys not processed, as currently not required.
 	glutSpecialFunc(processSpecialKeys);
 	glutSpecialUpFunc(processSpecialKeysUp);

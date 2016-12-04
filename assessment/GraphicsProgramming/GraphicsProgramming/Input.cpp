@@ -19,6 +19,21 @@ bool Input::isKeyDown(int key)
 	return keys[key];
 }
 
+void Input::SetSpecialKeyDown(unsigned char key)
+{
+	specialKeys[key] = true;
+}
+
+void Input::SetSpecialKeyUp(unsigned char key)
+{
+	specialKeys[key] = false;
+}
+
+bool Input::isSpecialKeyDown(int key)
+{
+	return specialKeys[key];
+}
+
 void Input::setMouseX(int pos)
 {
 	mouse.x = pos;
