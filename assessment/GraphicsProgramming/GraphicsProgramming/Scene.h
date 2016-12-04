@@ -114,6 +114,7 @@ protected:
 	Shape circle;
 	Shape quad;
 	Shape light;
+	Shape torus_orbit;
 	Shape torus;
 	Shape ico;
 	Shape butterfly;

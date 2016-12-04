@@ -465,26 +465,20 @@ void Scene::buildShapes() {
 	cone.set_ambient(	0, 0, 0, 0);
 
 	cylinder.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
-		Vector3(6.0f, 0.0f, 0.0f),
+		Vector3(6.0f, 5.0f, -6.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
-		Vector4(0.0f, 1.0f, 1.0f, 1.0f),
+		Vector4(180.0f, 1.0f, 0.0f, 0.0f),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		barrel_tex);
 	cylinder.set_ambient(1, 1, 1, 1);
 
+	//Torus
 	torus.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
-		Vector3(0.0f, 0.0f, 0.0f),
-		Vector3(1.0f, 1.0f, 1.0f),
-		Vector4(0.0, 1.0, 1.0, 1.0),
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		doughnut_tex);
-
-	ico.buildIco(GL_TRIANGLES, a, b, 1.0,
 		Vector3(12.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
-		NULL);
+		doughnut_tex);
 
 	butterfly.createButterfly(GL_LINE_LOOP, 10000,
 		Vector3(0.0f, 3.0f, 0.0f),
@@ -530,6 +524,13 @@ void Scene::buildShapes() {
 		Vector4(0.0f, 0.0f, 0.0f, 0.0f),
 		Vector4(0.0f, 1.0f, 0.0f, 1.0f),
 		NULL);
+
+	torus_orbit.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		doughnut_tex);
 }
 
 void Scene::renderShapes() {
@@ -542,7 +543,6 @@ void Scene::renderShapes() {
 	cylinder.render();
 	light.render();
 	torus.render();
-	//ico.render();
 	butterfly.render2D();
 }
 
@@ -624,7 +624,7 @@ void Scene::renderSolarSystem() {
 				glTranslatef(2.0f, 0.0, 0.0);							// translate planet 1 with respect to the sun
 				planet_1.render();										// render planet 1
 				glPushMatrix(); { // PLANET 2
-					glRotatef(angle - 0.2f, 0, 1, 0);					// planet 2 rotation
+					glRotatef(-angle - 0.2f, 0, 1, 0);					// planet 2 rotation
 					glPushMatrix(); { // planet 2 orbit - start
 						glRotatef(angle - 0.2f, 0, 1, 0);				// rotate planet 2 orbit
 						glScalef(0.5f, 0.5f, 0.5f);						// scale planet 2 orbit
@@ -696,7 +696,7 @@ void Scene::renderSolarSystem() {
 						glRotatef(45.0f, 0, 0, 1);						// crook planet 1 orbit
 						glRotatef(-angle - 0.2f, 0, 1, 0);				// rotate planet 1 orbit
 						glScalef(0.2f, 0.2f, 0.2f);						// scale planet 1 orbit into elipse
-						torus.render();									// render planet 1 orbit
+						torus_orbit.render();									// render planet 1 orbit
 					} glPopMatrix();									// planet 1 orbit - end
 
 				glTranslatef(1, 0, 0);									// translate planet 2 with respect to planet 1
