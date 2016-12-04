@@ -886,13 +886,13 @@ void Scene::renderSolarSystem() {
 	} glPopMatrix();
 	// SOLAR SYSTEM END //
 }
-
+// TODO
 void Scene::renderFloor() {
 }
-
+// TODO
 void Scene::renderWalls() {
 }
-
+// TODO
 void Scene::renderPlanets() {
 
 }
@@ -963,6 +963,36 @@ void Scene::update(float dt) {
 	if (input->isKeyDown(VK_SPACE)) {
 		scale_x -= 0.1f;
 		scale_z -= 0.1f;
+	}
+	// Light controlls
+	// move light's position right
+	if (input) {
+		light_x += 1;
+	}
+	// move light's position left
+	if (input->isKeyDown('a') || input->isKeyDown('A')) {
+		light_x -= 1;
+	}
+	// move light's position up
+	if (input->isKeyDown('w') || input->isKeyDown('w')) {
+		light_y += 1;
+	}
+	// move light's position down
+	if (input->isKeyDown('s') || input->isKeyDown('S')) {
+		light_y -= 1;
+	}
+	// move light's position z towards
+	if (input->isKeyDown('r') || input->isKeyDown('R')) {
+		light_z += 1;
+	}
+	// move light's position z inwards
+	if (input->isKeyDown('f') || input->isKeyDown('F')) {
+		light_z -= 1;
+	}
+	if (input->isKeyDown('l') || input->isKeyDown('L')) {
+		light_0 = !light_0;
+		light_1 = !light_1;
+		input->SetKeyUp('l'); input->SetKeyUp('L');
 	}
 	// Camera input controll
 	float mousePositionX(int width);

@@ -158,10 +158,16 @@ protected:
 	float scale_y;
 	float scale_z;
 	float angle;		// Rotate by angle
+	// Light position
+	float light_x;
+	float light_y;
+	float light_z;
 	// Toggling variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode
 	bool development;	// toggle development mode i.e. display text
+	bool light_0;
+	bool light_1;
 	// Lighting
 	// Light 0
 	GLfloat Light_Ambient_0[4];
