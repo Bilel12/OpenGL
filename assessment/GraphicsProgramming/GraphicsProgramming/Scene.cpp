@@ -983,11 +983,11 @@ void Scene::update(float dt) {
 		light_y -= 0.1f;
 	}
 	// move light's position z towards
-	if (input->isKeyDown('t') || input->isKeyDown('T')) {
+	if (input->isKeyDown('g') || input->isKeyDown('G')) {
 		light_z += 0.1f;
 	}
 	// move light's position z inwards
-	if (input->isKeyDown('g') || input->isKeyDown('G')) {
+	if (input->isKeyDown('t') || input->isKeyDown('T')) {
 		light_z -= 0.1f;
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {

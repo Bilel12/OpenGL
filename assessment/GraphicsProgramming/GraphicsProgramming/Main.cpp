@@ -151,10 +151,10 @@ int main(int argc, char **argv)
 	glutIdleFunc(renderScene);
 
 	// Register Input callback functions.
+	// 'Normal' keys processing
 	glutKeyboardFunc(processNormalKeys);
 	glutKeyboardUpFunc(processNormalKeysUp);
-	//glutSpecialFunc(NULL);
-	// Special keys not processed, as currently not required.
+	// Special keys processing
 	glutSpecialFunc(processSpecialKeys);
 	glutSpecialUpFunc(processSpecialKeysUp);
 
