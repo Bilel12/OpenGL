@@ -473,7 +473,7 @@ void Scene::buildShapes() {
 	cylinder.set_ambient(1, 1, 1, 1);
 
 	torus.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
-		Vector3(9.0f, 0.0f, 0.0f),
+		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
@@ -610,65 +610,129 @@ void Scene::renderLight() {
 void Scene::renderSolarSystem() {
 	// SOLAR SYSTEM START //
 	glPushMatrix(); {
-		glTranslatef(0, 8.0f, 0);								// Move entire solar system (Center of the universe is here)
-		glScalef(2.0f, 2.0f, 2.0f);								// Scale entire solar system
+		glTranslatef(0, 8.0f, 0);										// Move entire solar system (Center of the universe is here)
+		glScalef(2.0f, 2.0f, 2.0f);										// Scale entire solar system
 		glPushMatrix(); { // SUN - start
 			glPushMatrix(); {
-				glRotatef(angle / 2.0f, 0, 1, 0);				// Rotate sun
-				sun.render();									// render sun
+				glRotatef(angle / 2.0f, 0, 1, 0);						// Rotate sun
+				sun.render();											// render sun
 			} glPopMatrix();
 			// ORBIT 1  START //
 			glPushMatrix(); {	// PLANET 1
-				glRotatef(angle, 0, 1, 0);						// planet 1 rotation
-				circle.render2D();								// render planet 1 orbit
-				glTranslatef(2.0f, 0.0, 0.0);					// translate planet 1 with respect to the sun
-				planet_1.render();								// render planet 1
+				glRotatef(angle, 0, 1, 0);								// orbit 1 rotation
+				circle.render2D();										// render planet 1 orbit
+				glTranslatef(2.0f, 0.0, 0.0);							// translate planet 1 with respect to the sun
+				planet_1.render();										// render planet 1
 				glPushMatrix(); { // PLANET 2
-					glRotatef(angle - 0.2f, 0, 1, 0);			// planet 2 rotation
+					glRotatef(angle - 0.2f, 0, 1, 0);					// planet 2 rotation
 					glPushMatrix(); { // planet 2 orbit - start
-						glRotatef(angle - 0.2f, 0, 1, 0);		// rotate planet 2 orbit
-						glScalef(0.5f, 0.5f, 0.5f);				// scale planet 2 orbit
-						circle.render2D();						// render planet 2 orbit
+						glRotatef(angle - 0.2f, 0, 1, 0);				// rotate planet 2 orbit
+						glScalef(0.5f, 0.5f, 0.5f);						// scale planet 2 orbit
+						circle.render2D();								// render planet 2 orbit
 					} glPopMatrix(); // planet 2 orbit - end
-					glTranslatef(1, 0, 0);						// translate planet 2 with respect to planet 1
-					planet_2.render();							// render planet 2
+
+					glTranslatef(1, 0, 0);								// translate planet 2 with respect to planet 1
+					planet_2.render();									// render planet 2
 				} glPopMatrix();
 			} glPopMatrix();
 			// ORBIT 1 END //
 			// ORBIT2 START //
 			glPushMatrix(); { // PLANET 1 - start
-				glRotatef(angle, 0, 1, 0);						// planet 1 rotation
+				glRotatef(angle, 0, 1, 0);								// orbit 2 rotation
+
 				glPushMatrix(); { // planet 1 orbit - start
-					glRotatef(angle - 0.2f, 0, 1, 0);			// rotate planet 1 orbit
-					glScalef(4.0f, 4.0f, 4.0f);					// scale planet 1 orbit
-					circle.render2D();							// render planet 1 orbit
+					glRotatef(angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
+					glScalef(4.0f, 4.0f, 4.0f);							// scale planet 1 orbit
+					circle.render2D();									// render planet 1 orbit
 				} glPopMatrix(); // planet 1 orbit - end
-				glTranslatef(8.0f, 0, 0);						// translate planet 1 with respect to the sun
-				planet_1.render();								// render planet 1
+
+				glTranslatef(8.0f, 0, 0);								// translate planet 1 with respect to the sun
+				planet_1.render();										// render planet 1
+
 				glPushMatrix(); { // PLANET 2 - start
-					glRotatef(angle * 0.5f, 0, 1, 0);			// planet 2 rotation
+					glRotatef(angle * 0.5f, 0, 1, 0);					// planet 2 rotation
+
 					glPushMatrix(); { // planet 2 orbit - start
-						glRotatef(angle - 0.2f, 0, 1, 0);		// rotate planet 2 orbit
-						glScalef(1.25f, 1.25f, 1.25f);			// scale planet 2 orbit
-						circle.render2D();						// render planet 2 orbit
+						glRotatef(angle - 0.2f, 0, 1, 0);				// rotate planet 2 orbit
+						glScalef(1.25f, 1.25f, 1.25f);					// scale planet 2 orbit
+						circle.render2D();								// render planet 2 orbit
 					} glPopMatrix(); // planet 2 orbit - end
-					glTranslatef(2.5f, 0, 0);					// translate planet 2 with respect to planet 1
-					planet_2.render();							// render planet 2
+
+					glTranslatef(2.5f, 0, 0);							// translate planet 2 with respect to planet 1
+					planet_2.render();									// render planet 2
+
 					glPushMatrix(); { // PLANET 3 - start
-						glRotatef(angle * 1.5f, 0, 1, 0);		// planet 3 rotation
+						glRotatef(angle * 1.5f, 0, 1, 0);				// planet 3 rotation
+
 						glPushMatrix(); { // planet 2 orbit - start
-							glRotatef(angle - 0.2f, 0, 1, 0);		// rotate planet 3 orbit
-							glScalef(0.5f, 0.5f, 0.5f);				// scale planet 3 orbit
-							circle.render2D();						// render planet 3 orbit
+							glRotatef(angle - 0.2f, 0, 1, 0);			// rotate planet 3 orbit
+							glScalef(0.5f, 0.5f, 0.5f);					// scale planet 3 orbit
+							circle.render2D();							// render planet 3 orbit
 						} glPopMatrix(); // planet 2 orbit - end
-						glTranslatef(1, 0, 0);					// translate planet 3 with respect to planet 2
-						planet_3.render();						// render planet 3
+
+						glTranslatef(1, 0, 0);							// translate planet 3 with respect to planet 2
+						planet_3.render();								// render planet 3
 					} glPopMatrix();  // PLANET 3 - end
 				} glPopMatrix(); // PLANET 2 - end
 			} glPopMatrix(); // PLANET 1 - end
 			// ORBIT 2 END //
-		} glPopMatrix(); // SUN - end
+			// ORBIT 3 START //
+			glPushMatrix(); { // PLANET 1 - start
+				glRotatef(-angle * 0.5f, 0, 1, 0);						// orbit 3 rotation
 
+				glPushMatrix(); { // planet 1 orbit - start
+					glRotatef(angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
+					glScalef(6.0f, 6.0f, 6.0f);							// scale planet 1 orbit
+					circle.render2D();									// render planet 1 orbit
+				} glPopMatrix(); // planet 1 orbit - end
+
+				glTranslatef(12.0f, 0, 0);								// translate planet 1
+				planet_2.render();										// render planet 1
+
+				glPushMatrix(); { // PLANET 2 - start
+					glRotatef(-angle * 1.5f, 0, 1, 0);					// planet 2 rotation
+
+					glPushMatrix(); {									// planet 1 orbit - start
+						glRotatef(45.0f, 0, 0, 1);						// crook planet 1 orbit
+						glRotatef(-angle - 0.2f, 0, 1, 0);				// rotate planet 1 orbit
+						glScalef(0.2f, 0.2f, 0.2f);						// scale planet 1 orbit into elipse
+						torus.render();									// render planet 1 orbit
+					} glPopMatrix();									// planet 1 orbit - end
+
+				glTranslatef(1, 0, 0);									// translate planet 2 with respect to planet 1
+				planet_3.render();										// render planet 2
+				} glPopMatrix();  // PLANET 2 - end
+			} glPopMatrix(); // PLANET 1 - end
+			// ORBIT 3 END //
+			// ORBIT 4 START //
+			glPushMatrix(); { // PLANET 1 - start
+				glRotatef(-angle, 0, 1, 0);								// orbit 4 rotation
+
+				glPushMatrix(); {										// planet 1 orbit - start
+					glRotatef(-angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
+					glScalef(8.0f, 8.0f, 8.0f);							// scale planet 1 orbit
+					circle.render2D();									// render planet 1 orbit
+				} glPopMatrix();										// planet 1 orbit - end
+
+				glTranslatef(16.0f, 0, 0);								// translate planet 1 with respect to the sun
+				planet_1.render();										// render planet 1
+
+				glPushMatrix(); {										// planet 1 orbit - start
+					glRotatef(45.0f, 0, 0, 1);							// crook planet 1 orbit
+					glRotatef(-angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
+					glScalef(2.0f, 1, 1);								// scale planet 1 orbit into elipse
+					circle.render2D();									// render planet 1 orbit
+				} glPopMatrix();										// planet 1 orbit - end
+
+				glPushMatrix(); {										// planet 1 orbit - start
+					glRotatef(45.0f, 0, 0, 1);							// crook planet 1 orbit
+					glRotatef(angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
+					glScalef(2.0f, 1, 1);								// scale planet 1 orbit into elipse
+					circle.render2D();									// render planet 1 orbit
+				} glPopMatrix();										// planet 1 orbit - end
+			} glPopMatrix(); // PLANET 1 - end
+			// ORBIT 4 END //
+		} glPopMatrix(); // SUN - end
 	} glPopMatrix();
 	// SOLAR SYSTEM END //
 }
