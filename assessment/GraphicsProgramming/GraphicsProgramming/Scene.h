@@ -46,8 +46,6 @@ protected:
 	// Functions
 	void loadTextures();
 	void assignTextures();
-	void loadLists();
-	void renderLists();
 	void setRenderMode(bool blend, bool wireframe);
 	void loadModels();
 	void renderStencilBuffer(Model model);
