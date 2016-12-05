@@ -170,6 +170,8 @@ protected:
 	bool development;	// toggle development mode i.e. display text
 	bool light_0;
 	bool light_1;
+	bool light_2;
+	//enum light {light_0, light_1, light_2};
 	// Lighting
 	// Light 0
 	GLfloat Light_Ambient_0[4];

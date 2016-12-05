@@ -217,7 +217,7 @@ Vector4& Vector4::operator-=(const Vector4& v2) {
 	return *this;
 }
 
-void Vector4::operator=(const Vector4& v2) {
+void Vector4::operator=(const Vector4 v2) {
 	this->x = (v2.x);
 	this->y = (v2.y);
 	this->z = (v2.z);

@@ -24,7 +24,7 @@ Scene::Scene(Input *in)
 	setSpotDirection(0, -1, 0, 0, spot_Direction);
 
 	// Initialise variables
-	light0 = true; light1 = false;
+	light0 = false; light1 = false;
 	specular = 0.1f;
 	rotation = 1;
 	rotation2 = 1;
@@ -79,7 +79,7 @@ void Scene::update(float dt)
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {
 		light0 = !light0;
-		light1 = !light1;
+		//light1 = !light1;
 		input->SetKeyUp('l'); input->SetKeyUp('L');
 	}
 

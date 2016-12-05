@@ -52,7 +52,7 @@ public:
 
 	Vector4 operator+(const Vector4& v2);
 	Vector4 operator-(const Vector4& v2);
-	void operator=(const Vector4& v2);
+	void operator=(const Vector4 v2);
 	void operator=(float* array);
 
 	Vector4& operator+=(const Vector4& v2);
