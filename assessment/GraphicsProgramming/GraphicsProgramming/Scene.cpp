@@ -700,38 +700,38 @@ void Scene::renderShapes() {
 
 void Scene::buildLight() {
 	// Light 0 - setting up
+	light_0_position.set( 0.0f,  3.0f,  0.0f,  1.0f );
 	Vector4 ambient_0  (  0.5f,  0.5f,  0.5f,  0.5f );
-	Vector4 diffuse_0  (  1.3f,  1.3f,  1.3f,  1.3f );
-	Vector4 light_0_position(  0.0f,  3.0f,  0.0f,  1.0f );
+	Vector4 diffuse_0  (  1.0f,  1.0f,  1.0f,  1.0f );
 	Vector4 specular_0 (  0.5f,  0.5f,  0.5f,  1.0f );
 	Vector3 direction_0(  0.0f, -1.0f,  0.0f );
 
+	setLightPosition(light_0_position, Light_Position_0 );
 	setLightAmbient( ambient_0,  Light_Ambient_0  );
 	setLightDiffuse( diffuse_0,  Light_Diffuse_0  );						// Light colour
-	setLightPosition(light_0_position, Light_Position_0 );
 	setLightSpecular(specular_0, Light_Specular_0 );
 	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1 - setting up
+	light_1_position.set( 0.0f,  1.0f,  0.0f,  1.0f);
 	Vector4 ambient_1  (  1.0f,  1.0f,  1.0f,  1.0f);
 	Vector4 diffuse_1  (  0.6f,  0.6f,  0.6f,  1.0f);
-	Vector4 light_1_position(  0.0f,  1.0f,  0.0f,  1.0f);
 	Vector4 specular_1 (  0.0f,  3.0f,  0.0f,  1.0f);
 	Vector3 direction_1(  0.0f, -1.0f,  0.0f);
 
+	setLightPosition(light_1_position, Light_Position_1 );
 	setLightAmbient(ambient_1,   Light_Ambient_1  );
 	setLightDiffuse(diffuse_1,   Light_Diffuse_1  );						// Light colour
-	setLightPosition(light_1_position, Light_Position_1 );
 	setLightSpecular(specular_1, Light_Specular_1 );
 	// Light 2 - setting up
+	Vector4 position_2(0.0f, 3.0f, 0.0f, 1.0f);
 	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
 	Vector4 diffuse_2(0.6f, 0.6f, 0.6f, 1.0f);
-	Vector4 position_2(0.0f, 3.0f, 0.0f, 1.0f);
 	Vector4 specular_2(0.0f, 3.0f, 0.0f, 1.0f);
 	Vector3 direction_2(0.0f, -1.0f, 0.0f);
 
+	setLightPosition(position_2, Light_Position_2);
 	setLightAmbient(ambient_2, Light_Ambient_2);
 	setLightDiffuse(diffuse_2, Light_Diffuse_2);							// Light colour
-	setLightPosition(position_2, Light_Position_2);
 	setLightSpecular(specular_2, Light_Specular_2);
 }
 
@@ -762,18 +762,18 @@ void Scene::updateVariables() {
 
 void Scene::renderLight() {
 	// Light 0
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
-	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
 	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
 	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
 	glEnable(GL_LIGHT0);													// Enable Light 0
 	
 	// Light 1
+	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
 	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
-	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
 	//glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
 	//glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
@@ -781,9 +781,9 @@ void Scene::renderLight() {
 	glEnable(GL_LIGHT1);													// Enable Light 1
 
 	// Light 2
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
 	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_2);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_2);
-	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
 	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_2);
 	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0f);
 	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25f);
