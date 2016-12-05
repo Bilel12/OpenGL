@@ -56,6 +56,7 @@ protected:
 	void buildShapes();
 	void renderShapes();
 	void updateVariables();
+	void setMaterials();
 	void buildLight();
 	void renderLight();
 	// rendering textured objects
@@ -121,7 +122,15 @@ protected:
 	GLuint *venus_surface_tex;
 	// Shapes
 	Shape skybox;
-	Shape sphere;
+	// Spheres for material altering
+	Shape sphere_1;
+	Shape sphere_2;
+	Shape sphere_3;
+	Shape sphere_4;
+	Shape sphere_5;
+	Shape sphere_6;
+	Shape sphere_8;
+	Shape sphere_9;
 	Shape cone;
 	Shape disc_1, disc_2, disc_flat;
 	Shape blend_cube;

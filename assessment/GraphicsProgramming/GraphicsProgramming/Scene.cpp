@@ -30,6 +30,7 @@ Scene::Scene(Input *in) {
 	assignTextures();	// assign textures to pointers
 	loadModels();		// load 3D models from files
 	buildShapes();		// Generate vertices, normals and texture coordinates vectors
+	setMaterials();		// Set up materials on shapes
 	buildLight();		// Set up all lighting arrays
 	// Initialise variables
 	scale_x = 0;
@@ -484,19 +485,21 @@ void Scene::buildShapes() {
 		skybox_norms,
 		skybox_texcoords,
 		skybox_tex);
-
-	sphere.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
-		Vector3(-8.0f, 0.0f, 0.0f),						// translate x, translate y, translate z,
+	// Sphere's for material altering
+	sphere_1.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, 0.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
 		earth_clouds_tex);
-	//sphere.set_ambient(1, 1, 1, 1);
-	//sphere.set_diffuse(1, 1, 1, 1);
-	sphere.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
-	sphere.set_shininess(120.0f);
 
+	sphere_2.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	
 	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
 		Vector3(-6.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
@@ -683,21 +686,15 @@ void Scene::buildShapes() {
 		NULL);
 }
 
-void Scene::renderShapes() {
-	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-	sphere.render();
-	disc_1.render();
-	disc_2.render();
-	disc_flat.render();
-	cone.render();
-	cylinder.render();
-	torus.render();
-	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-	light_sphere_0.render();
-	light_sphere_1.render();
-	butterfly.render2D();
-}
+void Scene::setMaterials() {
+	sphere_1.set_ambient(1.0f, 1.0f, 1.0f, 1.0f);
+	sphere_1.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
+	sphere_1.set_shininess(120.0f);
 
+	sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_2.set_shininess(0.0f);
+}
 void Scene::buildLight() {
 	// Light 0 - setting up
 	light_0_position.set(-1.0f,  0.0f,  0.0f,  0.0f );
@@ -758,7 +755,13 @@ void Scene::updateVariables() {
 	light_sphere_2._translate = Light_Position_2;				// Translate light_shpere_1 object into LIGHT_1's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 	//sphere.rotate(angle);
-	sphere.set_ambient(1.0, 1.0, 1.0, 1.0);
+	/*sphere_1.set_ambient(1.0f, 1.0f, 1.0f, 1.0f);
+	sphere_1.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
+	sphere_1.set_shininess(120.0f);
+
+	sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_2.set_shininess(0.0f);*/
 }
 
 void Scene::renderLight() {
@@ -793,6 +796,20 @@ void Scene::renderLight() {
 	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15f);
 	//if (light_2) { glEnable(GL_LIGHT2); }													// Enable Light 2
 	//else glDisable(GL_LIGHT2);
+}
+
+void Scene::renderShapes() {
+	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	disc_1.render();
+	disc_2.render();
+	disc_flat.render();
+	cone.render();
+	cylinder.render();
+	torus.render();
+	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	light_sphere_0.render();
+	light_sphere_1.render();
+	butterfly.render2D();
 }
 
 void Scene::renderSolarSystem() {
@@ -945,7 +962,16 @@ void Scene::renderWalls() {
 }
 
 void Scene::renderPlanets() {
-	// TODO
+	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	glPushMatrix(); {
+		glTranslatef(-10.0f, 0.0f, 0.0f);
+		glScalef(1, 1, 1);
+		glRotatef(0, 0, 0, 0);
+
+		sphere_1.render();
+		sphere_2.render();
+	} glPopMatrix();
+	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 }
 
 void Scene::update(float dt) {
@@ -1127,12 +1153,12 @@ void Scene::render() {
 	renderShapes();
 	// Solar system
 	renderSolarSystem();
+	// Render planets for lighting testing
+	renderPlanets();
 	// Render floor
 	renderFloor();
 	// Render walls
 	renderWalls();
-	// Render planets for lighting testing
-	renderPlanets();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);
