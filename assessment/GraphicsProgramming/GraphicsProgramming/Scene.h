@@ -129,8 +129,8 @@ protected:
 	Shape sphere_4;
 	Shape sphere_5;
 	Shape sphere_6;
+	Shape sphere_7;
 	Shape sphere_8;
-	Shape sphere_9;
 	Shape cone;
 	Shape disc_1, disc_2, disc_flat;
 	Shape blend_cube;

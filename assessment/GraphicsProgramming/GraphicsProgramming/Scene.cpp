@@ -486,14 +486,57 @@ void Scene::buildShapes() {
 		skybox_texcoords,
 		skybox_tex);
 	// Sphere's for material altering
-	sphere_1.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+	// 5x5 spheres
+	sphere_1.buildSphere(GL_TRIANGLES, 0.5, 5.0, 5.0,	// radius, latitude, longitude
 		Vector3(0.0f, 2.0f, 0.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
 		earth_clouds_tex);
-
-	sphere_2.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+	// 10x10 sphere
+	sphere_2.buildSphere(GL_TRIANGLES, 0.5, 10.0, 10.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	// 15x15 sphere
+	sphere_3.buildSphere(GL_TRIANGLES, 0.5, 10.0, 15.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	// 15x10 sphere
+	sphere_4.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	// 15x10 sphere
+	sphere_5.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	// 15x10 sphere
+	sphere_6.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	// 15x10 sphere
+	sphere_7.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
+		earth_clouds_tex);
+	// 15x10 sphere
+	sphere_8.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
 		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
@@ -687,6 +730,7 @@ void Scene::buildShapes() {
 }
 
 void Scene::setMaterials() {
+	// 15x15 spheres
 	sphere_1.set_ambient(1.0f, 1.0f, 1.0f, 1.0f);
 	sphere_1.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
 	sphere_1.set_shininess(120.0f);
@@ -694,6 +738,30 @@ void Scene::setMaterials() {
 	sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
 	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
 	sphere_2.set_shininess(0.0f);
+
+	sphere_3.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_3.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_3.set_shininess(0.0f);
+
+	sphere_4.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_4.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_4.set_shininess(0.0f);
+	// 150x150 spheres
+	sphere_5.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_5.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_5.set_shininess(0.0f);
+
+	sphere_6.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_6.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_6.set_shininess(0.0f);
+
+	sphere_7.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_7.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_7.set_shininess(0.0f);
+
+	sphere_8.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_8.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_8.set_shininess(0.0f);
 }
 void Scene::buildLight() {
 	// Light 0 - setting up
