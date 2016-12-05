@@ -514,28 +514,28 @@ void Scene::buildShapes() {
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
 		earth_clouds_tex);
-	// 15x10 sphere
-	sphere_5.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
+	// 30x30 sphere
+	sphere_5.buildSphere(GL_TRIANGLES, 0.5, 30.0, 30.0,	// radius, latitude, longitude
 		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
 		earth_clouds_tex);
-	// 15x10 sphere
+	// 45x30 sphere
 	sphere_6.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
 		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
 		earth_clouds_tex);
-	// 15x10 sphere
+	// 80x80 sphere
 	sphere_7.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
 		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
 		earth_clouds_tex);
-	// 15x10 sphere
+	// 160x160 sphere
 	sphere_8.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
 		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
