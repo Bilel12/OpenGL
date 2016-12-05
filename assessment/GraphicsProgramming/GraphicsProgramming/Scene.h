@@ -160,9 +160,14 @@ protected:
 	float scale_z;
 	float angle;		// Rotate by angle
 	// Light position
-	float light_x;
-	float light_y;
-	float light_z;
+	// LIGHT0
+	float light_0_x;
+	float light_0_y;
+	float light_0_z;
+	// LIGHT1
+	float light_1_x;
+	float light_1_y;
+	float light_1_z;
 	// Toggling variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode

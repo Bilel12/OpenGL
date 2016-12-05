@@ -704,11 +704,11 @@ void Scene::updateVariables() {
 	//skybox.rotate(angle);
 	// Light spheres settings
 	// Light 0
-	setLightPosition(light_x, light_y, light_z, 1.0f, Light_Position_0);	// Set LIGHT_0 position through amendable varaibles
-	light_sphere_0._translate = Light_Position_0;							// Translate light_shpere_0 object into LIGHT_0's position
+	setLightPosition(light_0_x, light_0_y, light_0_z, 1.0f, Light_Position_0);	// Set LIGHT_0 position through amendable varaibles
+	light_sphere_0._translate = Light_Position_0;								// Translate light_shpere_0 object into LIGHT_0's position
 	// Light 1
-	setLightPosition(light_x, light_y, light_z, 1.0f, Light_Position_1);	// Set LIGHT_1 position through amendable varaibles
-	light_sphere_1._translate = Light_Position_1;							// Translate light_shpere_1 object into LIGHT_1's position
+	setLightPosition(light_1_x, light_1_y, light_1_z, 1.0f, Light_Position_1);	// Set LIGHT_1 position through amendable varaibles
+	light_sphere_1._translate = Light_Position_1;								// Translate light_shpere_1 object into LIGHT_1's position
 	//sphere.rotate(angle);
 }
 
@@ -982,52 +982,52 @@ void Scene::update(float dt) {
 	// LIGHT_0 controlls
 	// move light's position right
 	if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
-		light_x += 0.1f;
+		light_0_x += 0.1f;
 	}
 	// move light's position left
 	if (input->isSpecialKeyDown(GLUT_KEY_LEFT)) {
-		light_x -= 0.1f;
+		light_0_x -= 0.1f;
 	}
 	// move light's position up
 	if (input->isSpecialKeyDown(GLUT_KEY_UP)) {
-		light_y += 0.1f;
+		light_0_y += 0.1f;
 	}
 	// move light's position down
 	if (input->isSpecialKeyDown(GLUT_KEY_DOWN)) {
-		light_y -= 0.1f;
+		light_0_y -= 0.1f;
 	}
 	// move light's position z towards
 	if (input->isKeyDown('g') || input->isKeyDown('G')) {
-		light_z += 0.1f;
+		light_0_z += 0.1f;
 	}
 	// move light's position z inwards
 	if (input->isKeyDown('t') || input->isKeyDown('T')) {
-		light_z -= 0.1f;
+		light_0_z -= 0.1f;
 	}
-	// LIGHT_1 controlls
+	// light_0_1 controlls
 	// move light's position right
 	if (input->isSpecialKeyDown(GLUT_KEY_PAGE_DOWN)) {
-		light_x += 0.1f;
+		light_1_x += 0.1f;
 	}
 	// move light's position left
 	if (input->isKeyDown(127)) { // 127 - DELETE
-		light_x -= 0.1f;
+		light_1_x -= 0.1f;
 	}
 	// move light's position up
 	if (input->isSpecialKeyDown(GLUT_KEY_HOME)) {
-		light_y += 0.1f;
+		light_1_y += 0.1f;
 	}
 	// move light's position down
 	if (input->isSpecialKeyDown(GLUT_KEY_END)) {
-		light_y -= 0.1f;
+		light_1_y -= 0.1f;
 	}
 	// move light's position z towards
 	if (input->isSpecialKeyDown(GLUT_KEY_PAGE_UP)) {
-		light_z += 0.1f;
+		light_1_z += 0.1f;
 	}
 	// move light's position z inwards
 	if (input->isSpecialKeyDown(GLUT_KEY_INSERT)) {
-		light_z -= 0.1f;
+		light_1_z -= 0.1f;
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {
 		light_0 = !light_0;
