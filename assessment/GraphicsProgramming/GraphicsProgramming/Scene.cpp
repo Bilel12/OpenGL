@@ -767,14 +767,14 @@ void Scene::setMaterials() {
 	//sphere_6.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
 	sphere_6.set_shininess(80.0f);
 	// 80x80 sphere
-	sphere_7.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_7.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	//sphere_7.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
-	sphere_7.set_shininess(96.0f);
+	sphere_7.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
+	sphere_7.set_diffuse(0.8f, 0.8f, 0.8f, 1.0f);
+	sphere_7.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_7.set_shininess(0.0f);
 	// 160x160 sphere
-	sphere_8.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_8.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	//sphere_8.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_8.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
+	sphere_8.set_diffuse(0.8f, 0.8f, 0.8f, 1.0f);
+	sphere_8.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
 	sphere_8.set_shininess(112.0f);
 }
 
@@ -942,7 +942,7 @@ void Scene::renderWalls() {
 }
 
 void Scene::renderPlanets() {
-	//glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	glPushMatrix(); {
 		glTranslatef(-10.0f, 0.0f, 0.0f);
 		glScalef(1, 1, 1);
@@ -957,7 +957,7 @@ void Scene::renderPlanets() {
 		sphere_7.render();
 		sphere_8.render();
 	} glPopMatrix();
-	//glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 }
 
 void Scene::buildLight() {
@@ -974,7 +974,7 @@ void Scene::buildLight() {
 	setLightSpecular(specular_0, Light_Specular_0);
 	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1 - setting up
-	light_1_position.set(0.0f, 1.0f, 0.0f, 1.0f);
+	light_1_position.set(0.0f, 3.0f, 0.0f, 1.0f);
 	Vector4 ambient_1(0.8f, 0.8f, 0.8f, 0.2f);
 	Vector4 diffuse_1(0.6f, 0.6f, 0.6f, 0.2f);
 	Vector4 specular_1(0.0f, 3.0f, 0.0f, 1.0f);
@@ -1017,8 +1017,8 @@ void Scene::renderLight() {
 	//glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
 	//glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
 	//glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
-	//if (light_1) { glEnable(GL_LIGHT1); }													// Enable Light 1
-	//else glDisable(GL_LIGHT1);
+	if (light_1) { glEnable(GL_LIGHT1); }													// Enable Light 1
+	else glDisable(GL_LIGHT1);
 
 	// Light 2
 	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
@@ -1028,8 +1028,8 @@ void Scene::renderLight() {
 	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0f);
 	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25f);
 	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15f);
-	//if (light_2) { glEnable(GL_LIGHT2); }													// Enable Light 2
-	//else glDisable(GL_LIGHT2);
+	if (light_2) { glEnable(GL_LIGHT2); }													// Enable Light 2
+	else glDisable(GL_LIGHT2);
 }
 
 void Scene::updateVariables() {
@@ -1132,6 +1132,18 @@ void Scene::update(float dt) {
 		scale_z -= 0.1f;
 	}
 	// Light controlls
+	if (input->isSpecialKeyDown(GLUT_KEY_F1)) {
+		light_0 = !light_0;
+		input->SetSpecialKeyUp(GLUT_KEY_F1);
+	}
+	if (input->isSpecialKeyDown(GLUT_KEY_F2)) {
+		light_1 = !light_1;
+		input->SetSpecialKeyUp(GLUT_KEY_F2);
+	}
+	if (input->isSpecialKeyDown(GLUT_KEY_F3)) {
+		light_2 = !light_2;
+		input->SetSpecialKeyUp(GLUT_KEY_F3);
+	}
 	// LIGHT_0 controlls
 	// move light's position right
 	if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
