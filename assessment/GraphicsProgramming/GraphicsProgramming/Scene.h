@@ -189,18 +189,21 @@ protected:
 	GLfloat Light_Position_0[4];
 	GLfloat Light_Specular_0[4];
 	GLfloat Light_Spot_Direction_0[3];
+	GLfloat Light_Cut_Off_0;
 	// Light 1
 	GLfloat Light_Ambient_1[4];
 	GLfloat Light_Diffuse_1[4];
 	GLfloat Light_Position_1[4];
 	GLfloat Light_Specular_1[4];
 	GLfloat Light_Spot_Direction_1[3];
+	GLfloat Light_Cut_Off_1;
 	// Light 2
 	GLfloat Light_Ambient_2[4];
 	GLfloat Light_Diffuse_2[4];
 	GLfloat Light_Position_2[4];
 	GLfloat Light_Specular_2[4];
 	GLfloat Light_Spot_Direction_2[3];
+	GLfloat Light_Cut_Off_2;
 	// Material arrays
 	GLfloat no_mat[4]				= { 0.0, 0.0, 0.0, 0.0 };
 	GLfloat mat_ambient[4]			= { 0.7f, 0.7f, 0.7f, 1.0f };
@@ -231,6 +234,9 @@ protected:
 
 	void setLightShininess(GLfloat *arg, GLfloat* lightShininess);
 	void setLightShininess(GLfloat arg, GLfloat* lightShininess);
+
+	void setLightCutOff(GLfloat *arg, GLfloat& lightCuttOff);
+	void setLightCutOff(GLfloat arg, GLfloat& lightCutOff);
 	// Shadowing
 	GLfloat shadowMatrix[16];
 	std::vector<float> shadowVolume;
