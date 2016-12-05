@@ -940,12 +940,14 @@ void Scene::buildLight() {
 	Vector4 ambient_1(0.2f, 0.2f, 0.2f, 1.0f);
 	Vector4 diffuse_1(0.8f, 0.8f, 0.8f, 1.0f);
 	Vector4 specular_1(0.3f, 0.3f, 0.3f, 1.0f);
-	Vector3 direction_1(0.0f, -1.0f, 0.0f);
+	//Vector3 spot_direction_1(1.0f, 0.0f, 0.0f);
 
 	setLightPosition(light_1_position, Light_Position_1);
 	setLightAmbient(ambient_1, Light_Ambient_1);
 	setLightDiffuse(diffuse_1, Light_Diffuse_1);						// Light colour
 	setLightSpecular(specular_1, Light_Specular_1);
+	//setSpotDirection(spot_direction_1, Light_Spot_Direction_1);
+	setLightCutOff(180.0f, Light_Cut_Off_1);
 	// Light 2 - low attenuation light
 	light_2_position.set(0.0f, 5.0f, 0.0f, 1.0f);
 	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
@@ -985,7 +987,8 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, Light_Spot_Direction_1);
+	//glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, Light_Spot_Direction_1);
+	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, Light_Cut_Off_1);
 	if (light_1) { glEnable(GL_LIGHT1); }									// Enable Light 1
 	else glDisable(GL_LIGHT1);
 
