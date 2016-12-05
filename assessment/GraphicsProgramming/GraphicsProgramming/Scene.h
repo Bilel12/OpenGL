@@ -131,6 +131,7 @@ protected:
 	Shape quad;
 	Shape light_sphere_0;
 	Shape light_sphere_1;
+	Shape light_sphere_2;
 	Shape torus_orbit;
 	Shape torus;
 	Shape ico;
@@ -159,15 +160,10 @@ protected:
 	float scale_y;
 	float scale_z;
 	float angle;		// Rotate by angle
-	// Light position
-	// LIGHT0
-	float light_0_x;
-	float light_0_y;
-	float light_0_z;
-	// LIGHT1
-	float light_1_x;
-	float light_1_y;
-	float light_1_z;
+	// Lights' positions
+	Vector4 light_0_position;
+	Vector4 light_1_position;
+	Vector4 light_2_position;
 	// Toggling variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode
@@ -179,55 +175,42 @@ protected:
 	GLfloat Light_Ambient_0[4];
 	GLfloat Light_Diffuse_0[4];
 	GLfloat Light_Position_0[4];
-	GLfloat Light_Spot_Direction_0[3];
 	GLfloat Light_Specular_0[4];
-
-	Vector4 light_0_ambient;
-	Vector4 light_0_diffuse;
-	Vector4 light_0_position;
-	Vector4 light_0_specular;
-	Vector3 light_0_spot_direction;
+	GLfloat Light_Spot_Direction_0[3];
 	// Light 1
 	GLfloat Light_Ambient_1[4];
 	GLfloat Light_Diffuse_1[4];
 	GLfloat Light_Position_1[4];
 	GLfloat Light_Specular_1[4];
 	GLfloat Light_Spot_Direction_1[3];
-
-	Vector4 light_1_ambient;
-	Vector4 light_1_diffuse;
-	Vector4 light_1_position;
-	Vector4 light_1_specular;
-	Vector3 light_1_spot_direction;
+	// Light 2
+	GLfloat Light_Ambient_2[4];
+	GLfloat Light_Diffuse_2[4];
+	GLfloat Light_Position_2[4];
+	GLfloat Light_Specular_2[4];
+	GLfloat Light_Spot_Direction_2[3];
 	// Material arrays
-	//GLfloat no_mat[4] = { 0.0, 0.0, 0.0, 0.0 };
-	/*GLfloat mat_ambient[4] = { 0.7f, 0.7f, 0.7f, 1.0f };
-	GLfloat mat_ambient_colour[4] = { 0.8f, 0.8f, 0.2f, 1.0f };
-	GLfloat mat_diffuse[4] = { 0.1f, 0.5f, 0.8f, 1.0f };
-	GLfloat mat_specular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat mat_emission[4] = { 0.3f, 0.2f, 0.2f, 0.0f };
-	GLfloat no_shininess[1] = { 0.0 };
-	GLfloat low_shininess[1] = { 50 };
-	GLfloat high_shininess[1] = { 100 };
-	GLfloat spot_cutoff[1] = { 180 };*/
-	// Vectors
-	Vector4 no_mat = ( 0.0f, 0.0f, 0.0f, 0.0f );
-	Vector4 mat_ambient = ( 0.7f, 0.7f, 0.7f, 1.0f );
-	Vector4 mat_ambient_colour = ( 0.8f, 0.8f, 0.2f, 1.0f );
-	Vector4 mat_diffuse = ( 0.1f, 0.5f, 0.8f, 1.0f );
-	Vector4 mat_specular = ( 1.0f, 1.0f, 1.0f, 1.0f );
-	Vector4 mat_emission = ( 0.3f, 0.2f, 0.2f, 0.0f );
-	GLfloat no_shininess[1] = { 0.0 };
-	GLfloat low_shininess[1] = { 50 };
-	GLfloat high_shininess[1] = { 100 };
-	GLfloat spot_cutoff[1] = { 180 };
+	GLfloat no_mat[4]				= { 0.0, 0.0, 0.0, 0.0 };
+	GLfloat mat_ambient[4]			= { 0.7f, 0.7f, 0.7f, 1.0f };
+	GLfloat mat_ambient_colour[4]	= { 0.8f, 0.8f, 0.2f, 1.0f };
+
+	GLfloat mat_diffuse[4]			= { 0.1f, 0.5f, 0.8f, 1.0f };
+
+	GLfloat mat_specular[4]			= { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat mat_emission[4]			= { 0.3f, 0.2f, 0.2f, 0.0f };
+
+	GLfloat no_shininess[1]			= { 0.0 };
+	GLfloat low_shininess[1]		= { 50 };
+	GLfloat high_shininess[1]		= { 100 };
+
+	GLfloat spot_cutoff[1]			= { 180 };
 	// Set light
 	void setLightAmbient(float x, float y, float z, float w, GLfloat* lightAmbient);	// Set light's ambient
 	void setLightDiffuse(float x, float y, float z, float w, GLfloat* lightDiffuse);	// Set light's diffuse
 	void setLightPosition(float x, float y, float z, float w, GLfloat* lightPosition);	// Set light's position
 	void setSpotDirection(float x, float y, float z, GLfloat* spotDirection);			// Set light's direction
 	void setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular);	// Set light's specular
-	// Vector4
+	// Set light using Vector4 and Vector3
 	void setLightAmbient(Vector4 ambient, GLfloat* lightAmbient);						// Set light's ambient
 	void setLightDiffuse(Vector4 diffuse, GLfloat* lightDiffuse);						// Set light's diffuse
 	void setLightPosition(Vector4 position, GLfloat* lightPosition);					// Set light's position
@@ -239,7 +222,6 @@ protected:
 	// Shadowing
 	GLfloat shadowMatrix[16];
 	std::vector<float> shadowVolume;
-
 	void generateShadowMatrix(float light_pos[4], GLfloat floor[12]);
 };
 
