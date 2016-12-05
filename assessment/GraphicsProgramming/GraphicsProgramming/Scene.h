@@ -120,8 +120,13 @@ protected:
 	GLuint *sun_tex;
 	GLuint *venus_atmosphere_tex;
 	GLuint *venus_surface_tex;
+	GLuint *blue_tex;
 	// Shapes
 	Shape skybox;
+	// Spheres to be rendered in lights' place
+	Shape light_sphere_0;
+	Shape light_sphere_1;
+	Shape light_sphere_2;
 	// Spheres for material altering
 	Shape sphere_1;
 	Shape sphere_2;
@@ -131,20 +136,7 @@ protected:
 	Shape sphere_6;
 	Shape sphere_7;
 	Shape sphere_8;
-	Shape cone;
-	Shape disc_1, disc_2, disc_flat;
-	Shape blend_cube;
-	Shape floor;
-	Shape cylinder;
-	Shape circle;
-	Shape quad;
-	Shape light_sphere_0;
-	Shape light_sphere_1;
-	Shape light_sphere_2;
-	Shape torus_orbit;
-	Shape torus;
-	Shape ico;
-	Shape butterfly;
+	// Solar system planets
 	Shape sun;
 	Shape planet_1;
 	Shape planet_2;
@@ -154,6 +146,17 @@ protected:
 	Shape planet_6;
 	Shape planet_7;
 	Shape planet_8;
+	Shape torus_orbit;
+	// Diffrent shapes
+	Shape cone;
+	Shape disc_1, disc_2, disc_flat;
+	Shape blend_cube;
+	Shape floor;
+	Shape cylinder;
+	Shape circle;
+	Shape quad;
+	Shape torus;
+	Shape butterfly;
 	// Models
 	Model spaceship;
 	Model drone;

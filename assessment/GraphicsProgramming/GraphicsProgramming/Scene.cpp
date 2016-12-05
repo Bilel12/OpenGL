@@ -250,6 +250,13 @@ void Scene::loadTextures() {
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
 	); textures.push_back(myTexture);
 
+	myTexture = SOIL_load_OGL_texture( // 29
+		"gfx/blue.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		); textures.push_back(myTexture);
+
 	for (int i : textures) {
 		if (i == NULL) {
 			MessageBox(NULL, "Texture failed to load", "help", MB_OK);
@@ -288,6 +295,8 @@ void Scene::assignTextures() {
 	sun_tex				= &textures[26];
 	venus_atmosphere_tex= &textures[27];
 	venus_surface_tex	= &textures[28];
+
+	blue_tex = &textures[29];
 }
 
 void Scene::loadModels() {
@@ -487,61 +496,61 @@ void Scene::buildShapes() {
 		skybox_tex);
 	// Sphere's for material altering
 	// 5x5 spheres
-	sphere_1.buildSphere(GL_TRIANGLES, 0.5, 5.0, 5.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, 0.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_1.buildSphere(GL_TRIANGLES, 0.5f, 5.0f, 5.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, 0.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 10x10 sphere
-	sphere_2.buildSphere(GL_TRIANGLES, 0.5, 10.0, 10.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_2.buildSphere(GL_TRIANGLES, 0.5f, 10.0f, 10.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -2.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 15x15 sphere
-	sphere_3.buildSphere(GL_TRIANGLES, 0.5, 10.0, 15.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_3.buildSphere(GL_TRIANGLES, 0.5f, 10.0f, 15.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -4.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 15x10 sphere
-	sphere_4.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_4.buildSphere(GL_TRIANGLES, 0.5f, 15.0f, 10.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 2.0f, -6.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 30x30 sphere
-	sphere_5.buildSphere(GL_TRIANGLES, 0.5, 30.0, 30.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_5.buildSphere(GL_TRIANGLES, 0.5f, 30.0f, 30.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, 0.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 45x30 sphere
-	sphere_6.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_6.buildSphere(GL_TRIANGLES, 0.5f, 45.0f, 30.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, -2.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 80x80 sphere
-	sphere_7.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_7.buildSphere(GL_TRIANGLES, 0.5f, 80.0f, 80.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, -4.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	// 160x160 sphere
-	sphere_8.buildSphere(GL_TRIANGLES, 0.5, 15.0, 10.0,	// radius, latitude, longitude
-		Vector3(0.0f, 2.0f, -2.0f),						// translate x, translate y, translate z,
-		Vector3(1.0f, 1.0f, 1.0f),						// scale x, scale y, scale z,
-		Vector4(0.0, 1.0, 1.0, 1.0),					// rotation angle, rotation x, rotation y, rotation z
-		Vector4(1.0f, 1.0f, 1.0f, 1.0f),				// red, green, blue, alpha colour
-		earth_clouds_tex);
+	sphere_8.buildSphere(GL_TRIANGLES, 0.5f, 160.0f, 160.0f,	// radius, latitude, longitude
+		Vector3(0.0f, 0.0f, -6.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 0.0, 1.0, 0.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		blue_tex);
 	
 	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
 		Vector3(-6.0f, 0.0f, 0.0f),
@@ -730,140 +739,43 @@ void Scene::buildShapes() {
 }
 
 void Scene::setMaterials() {
-	// 15x15 spheres
-	sphere_1.set_ambient(1.0f, 1.0f, 1.0f, 1.0f);
+	//// 5x5 sphere
+	/*sphere_1.set_ambient(0.0f, 1.0f, 1.0f, 1.0f);
 	sphere_1.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
-	sphere_1.set_shininess(120.0f);
-
-	sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_2.set_shininess(0.0f);
-
-	sphere_3.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_3.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_3.set_shininess(0.0f);
-
-	sphere_4.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_4.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_4.set_shininess(0.0f);
-	// 150x150 spheres
-	sphere_5.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_5.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_5.set_shininess(0.0f);
-
-	sphere_6.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_6.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_6.set_shininess(0.0f);
-
-	sphere_7.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_7.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_7.set_shininess(0.0f);
-
-	sphere_8.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_8.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_8.set_shininess(0.0f);
-}
-void Scene::buildLight() {
-	// Light 0 - setting up
-	light_0_position.set(-1.0f,  0.0f,  0.0f,  0.0f );
-	Vector4 ambient_0  (  0.5f,  0.5f,  0.5f,  0.5f );
-	Vector4 diffuse_0  (  1.0f,  1.0f,  1.0f,  1.0f );
-	Vector4 specular_0 (  0.5f,  0.5f,  0.5f,  1.0f );
-	Vector3 direction_0(  0.0f, -1.0f,  0.0f );
-
-	setLightPosition(light_0_position, Light_Position_0 );
-	setLightAmbient( ambient_0,  Light_Ambient_0  );
-	setLightDiffuse( diffuse_0,  Light_Diffuse_0  );						// Light colour
-	setLightSpecular(specular_0, Light_Specular_0 );
-	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
-	// Light 1 - setting up
-	light_1_position.set( 0.0f,  1.0f,  0.0f,  1.0f);
-	Vector4 ambient_1  (  1.0f,  1.0f,  1.0f,  1.0f);
-	Vector4 diffuse_1  (  0.6f,  0.6f,  0.6f,  1.0f);
-	Vector4 specular_1 (  0.0f,  3.0f,  0.0f,  1.0f);
-	Vector3 direction_1(  0.0f, -1.0f,  0.0f);
-
-	setLightPosition(light_1_position, Light_Position_1 );
-	setLightAmbient(ambient_1,   Light_Ambient_1  );
-	setLightDiffuse(diffuse_1,   Light_Diffuse_1  );						// Light colour
-	setLightSpecular(specular_1, Light_Specular_1 );
-	// Light 2 - setting up
-	Vector4 position_2(0.0f, 3.0f, 0.0f, 1.0f);
-	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
-	Vector4 diffuse_2(0.6f, 0.6f, 0.6f, 1.0f);
-	Vector4 specular_2(0.0f, 3.0f, 0.0f, 1.0f);
-	Vector3 direction_2(0.0f, -1.0f, 0.0f);
-
-	setLightPosition(position_2, Light_Position_2);
-	setLightAmbient(ambient_2, Light_Ambient_2);
-	setLightDiffuse(diffuse_2, Light_Diffuse_2);							// Light colour
-	setLightSpecular(specular_2, Light_Specular_2);
-}
-
-void Scene::updateVariables() {
-	angle += 0.7f;
-	/*floor.rotate(angle);
-	floor.rotation.setZ(1);
-	floor.rotation.setX(1);
-	floor.scale.setX(10);
-	floor.translate.setX(1);*/
-	blend_cube.rotate(angle);
-	butterfly.rotate(angle);
-	//planet_1.rotate(angle);
-	//skybox.rotate(angle);
-
-	// Light spheres settings
-	// Light 0
-	setLightPosition(light_0_position, Light_Position_0);		// Set LIGHT_0 position through amendable varaibles
-	light_sphere_0._translate = Light_Position_0;				// Translate light_shpere_0 object into LIGHT_0's position
-	// Light 1
-	setLightPosition(light_1_position, Light_Position_1);		// Set LIGHT_1 position through amendable varaibles
-	light_sphere_1._translate = Light_Position_1;				// Translate light_shpere_1 object into LIGHT_1's position
-	// Light 2
-	light_sphere_2._translate = Light_Position_2;				// Translate light_shpere_1 object into LIGHT_1's position
-	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
-	//sphere.rotate(angle);
-	/*sphere_1.set_ambient(1.0f, 1.0f, 1.0f, 1.0f);
-	sphere_1.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
-	sphere_1.set_shininess(120.0f);
-
-	sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_2.set_shininess(0.0f);*/
-}
-
-void Scene::renderLight() {
-	// Light 0
-	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
-	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
-	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
-	if (light_0) { glEnable(GL_LIGHT0); }													// Enable Light 0
-	else glDisable(GL_LIGHT0);
-	
-	// Light 1
-	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
-	//glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
-	//glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
-	//glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
-	if (light_1) { glEnable(GL_LIGHT1); }													// Enable Light 1
-	else glDisable(GL_LIGHT1);
-
-	// Light 2
-	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
-	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_2);
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_2);
-	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_2);
-	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0f);
-	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25f);
-	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15f);
-	//if (light_2) { glEnable(GL_LIGHT2); }													// Enable Light 2
-	//else glDisable(GL_LIGHT2);
+	sphere_1.set_specular(0.75f, 0.75f, 0.75f, 1.0f);*/
+	sphere_1.set_shininess(0.0f);
+	// 10x10 sphere
+	/*sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);*/
+	sphere_2.set_shininess(16.0f);
+	// 15x15 sphere
+	/*sphere_3.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_3.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);*/
+	sphere_3.set_shininess(32.0f);
+	// 15x10 sphere
+	//sphere_4.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	//sphere_4.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_4.set_shininess(48.0f);
+	// 30x30 sphere
+	//sphere_5.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	//sphere_5.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	//sphere_5.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_5.set_shininess(64.0f);
+	// 45x30
+	//sphere_6.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	//sphere_6.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	//sphere_6.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_6.set_shininess(80.0f);
+	// 80x80 sphere
+	//sphere_7.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	//sphere_7.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	//sphere_7.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_7.set_shininess(96.0f);
+	// 160x160 sphere
+	//sphere_8.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	//sphere_8.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	//sphere_8.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_8.set_shininess(112.0f);
 }
 
 void Scene::renderShapes() {
@@ -1030,16 +942,125 @@ void Scene::renderWalls() {
 }
 
 void Scene::renderPlanets() {
-	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	//glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	glPushMatrix(); {
 		glTranslatef(-10.0f, 0.0f, 0.0f);
 		glScalef(1, 1, 1);
-		glRotatef(0, 0, 0, 0);
+		glRotatef(90, 0, 1, 0);
 
 		sphere_1.render();
 		sphere_2.render();
+		sphere_3.render();
+		sphere_4.render();
+		sphere_5.render();
+		sphere_6.render();
+		sphere_7.render();
+		sphere_8.render();
 	} glPopMatrix();
-	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	//glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+}
+
+void Scene::buildLight() {
+	// Light 0 - setting up
+	light_0_position.set(-1.0f, 0.0f, 0.0f, 0.0f);
+	Vector4 ambient_0(0.2f, 0.2f, 0.2f, 1.0f);
+	Vector4 diffuse_0(0.8f, 0.8f, 0.8f, 1.0f);
+	Vector4 specular_0(0.0f, 0.0f, 0.0f, 1.0f);
+	Vector3 direction_0(0.0f, -1.0f, 0.0f);
+
+	setLightPosition(light_0_position, Light_Position_0);
+	setLightAmbient(ambient_0, Light_Ambient_0);
+	setLightDiffuse(diffuse_0, Light_Diffuse_0);						// Light colour
+	setLightSpecular(specular_0, Light_Specular_0);
+	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
+	// Light 1 - setting up
+	light_1_position.set(0.0f, 1.0f, 0.0f, 1.0f);
+	Vector4 ambient_1(0.8f, 0.8f, 0.8f, 0.2f);
+	Vector4 diffuse_1(0.6f, 0.6f, 0.6f, 0.2f);
+	Vector4 specular_1(0.0f, 3.0f, 0.0f, 1.0f);
+	Vector3 direction_1(0.0f, 0.0f, 0.0f);
+
+	setLightPosition(light_1_position, Light_Position_1);
+	setLightAmbient(ambient_1, Light_Ambient_1);
+	setLightDiffuse(diffuse_1, Light_Diffuse_1);						// Light colour
+	setLightSpecular(specular_1, Light_Specular_1);
+	// Light 2 - setting up
+	Vector4 position_2(0.0f, 3.0f, 0.0f, 1.0f);
+	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
+	Vector4 diffuse_2(0.6f, 0.6f, 0.6f, 1.0f);
+	Vector4 specular_2(0.0f, 3.0f, 0.0f, 1.0f);
+	Vector3 direction_2(0.0f, -1.0f, 0.0f);
+
+	setLightPosition(position_2, Light_Position_2);
+	setLightAmbient(ambient_2, Light_Ambient_2);
+	setLightDiffuse(diffuse_2, Light_Diffuse_2);							// Light colour
+	setLightSpecular(specular_2, Light_Specular_2);
+}
+
+void Scene::renderLight() {
+	// Light 0
+	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
+	//glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
+	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
+	if (light_0) { glEnable(GL_LIGHT0); }													// Enable Light 0
+	else glDisable(GL_LIGHT0);
+
+	// Light 1
+	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
+	//glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.0);
+	//glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.125);
+	//glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.0);
+	//if (light_1) { glEnable(GL_LIGHT1); }													// Enable Light 1
+	//else glDisable(GL_LIGHT1);
+
+	// Light 2
+	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
+	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_2);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_2);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, Light_Specular_2);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.25f);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15f);
+	//if (light_2) { glEnable(GL_LIGHT2); }													// Enable Light 2
+	//else glDisable(GL_LIGHT2);
+}
+
+void Scene::updateVariables() {
+	angle += 0.7f;
+	/*floor.rotate(angle);
+	floor.rotation.setZ(1);
+	floor.rotation.setX(1);
+	floor.scale.setX(10);
+	floor.translate.setX(1);*/
+	blend_cube.rotate(angle);
+	butterfly.rotate(angle);
+	//planet_1.rotate(angle);
+	//skybox.rotate(angle);
+
+	// Light spheres settings
+	// Light 0
+	setLightPosition(light_0_position, Light_Position_0);		// Set LIGHT_0 position through amendable varaibles
+	light_sphere_0._translate = Light_Position_0;				// Translate light_shpere_0 object into LIGHT_0's position
+																// Light 1
+	setLightPosition(light_1_position, Light_Position_1);		// Set LIGHT_1 position through amendable varaibles
+	light_sphere_1._translate = Light_Position_1;				// Translate light_shpere_1 object into LIGHT_1's position
+																// Light 2
+	light_sphere_2._translate = Light_Position_2;				// Translate light_shpere_1 object into LIGHT_1's position
+																//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
+	sphere_1.rotate(angle);
+	sphere_2.rotate(angle);
+	sphere_3.rotate(angle);
+	sphere_4.rotate(angle);
+	sphere_5.rotate(angle);
+	sphere_6.rotate(angle);
+	sphere_7.rotate(angle);
+	sphere_8.rotate(angle);
 }
 
 void Scene::update(float dt) {
