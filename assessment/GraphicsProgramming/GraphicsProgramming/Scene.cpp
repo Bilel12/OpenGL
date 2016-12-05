@@ -740,13 +740,13 @@ void Scene::buildShapes() {
 
 void Scene::setMaterials() {
 	//// 5x5 sphere
-	/*sphere_1.set_ambient(0.0f, 1.0f, 1.0f, 1.0f);
-	sphere_1.set_diffuse(1.0f, 1.0f, 1.0f, 1.0f);
-	sphere_1.set_specular(0.75f, 0.75f, 0.75f, 1.0f);*/
+	sphere_1.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
+	sphere_1.set_diffuse(0.8f, 0.8f, 0.8f, 0.8f);
+	sphere_1.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
 	sphere_1.set_shininess(0.0f);
 	// 10x10 sphere
-	/*sphere_2.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_2.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);*/
+	sphere_2.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
+	sphere_2.set_diffuse(0.8f, 0.8f, 0.8f, 0.8f);
 	sphere_2.set_shininess(16.0f);
 	// 15x15 sphere
 	/*sphere_3.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
@@ -767,13 +767,13 @@ void Scene::setMaterials() {
 	//sphere_6.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
 	sphere_6.set_shininess(80.0f);
 	// 80x80 sphere
-	//sphere_7.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	//sphere_7.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_7.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_7.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
 	//sphere_7.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
 	sphere_7.set_shininess(96.0f);
 	// 160x160 sphere
-	//sphere_8.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	//sphere_8.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_8.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_8.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
 	//sphere_8.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
 	sphere_8.set_shininess(112.0f);
 }
@@ -962,7 +962,7 @@ void Scene::renderPlanets() {
 
 void Scene::buildLight() {
 	// Light 0 - setting up
-	light_0_position.set(-1.0f, 0.0f, 0.0f, 0.0f);
+	light_0_position.set(0.0f, 1.0f, 0.0f, 1.0f);
 	Vector4 ambient_0(0.2f, 0.2f, 0.2f, 1.0f);
 	Vector4 diffuse_0(0.8f, 0.8f, 0.8f, 1.0f);
 	Vector4 specular_0(0.0f, 0.0f, 0.0f, 1.0f);
@@ -1002,9 +1002,10 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
-	//glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
-	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Light_Spot_Direction_0);
-	//glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, Light_Specular_0);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0);			// Light 0 attenuation - only a short distance away will receive little or no light from this source
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.25);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.15);
 	if (light_0) { glEnable(GL_LIGHT0); }													// Enable Light 0
 	else glDisable(GL_LIGHT0);
 
