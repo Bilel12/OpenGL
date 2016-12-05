@@ -886,34 +886,40 @@ void Scene::setMaterials() {
 	sphere_1.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
 	sphere_1.set_diffuse(0.8f, 0.8f, 0.8f, 0.8f);
 	sphere_1.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_7.set_emission(0.0f, 0.0f, 0.0f, 1.0f);
 	sphere_1.set_shininess(0.0f);
 	// 10x10 sphere
 	sphere_2.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
 	sphere_2.set_diffuse(0.8f, 0.8f, 0.8f, 0.8f);
+	sphere_2.set_specular(0.0f, 0.0f, 1.0f, 1.0f);
+	sphere_2.set_emission(0.0f, 0.0f, 1.0f, 1.0f);
 	sphere_2.set_shininess(16.0f);
-	// 15x15 sphere
-	/*sphere_3.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	sphere_3.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);*/
-	sphere_3.set_shininess(32.0f);
-	// 15x10 sphere
-	//sphere_4.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	//sphere_4.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	sphere_4.set_shininess(48.0f);
-	// 30x30 sphere
-	//sphere_5.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
-	//sphere_5.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
-	//sphere_5.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
-	sphere_5.set_shininess(64.0f);
-	// 45x30
-	sphere_6.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
-	sphere_6.set_diffuse(0.8f, 0.8f, 0.8f, 1.0f);
-	sphere_6.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
-	sphere_6.set_shininess(80.0f);
+	// 15x15 sphere - Diffuse material only *No ambient or specular
+	sphere_3.set_ambient(0.1f, 0.1f, 0.1f, 1.0f);
+	sphere_3.set_diffuse(0.6f, 0.6f, 0.6f, 1.0f);
+	//sphere_3.set_shininess(32.0f);
+	// 15x10 sphere - Diffuse and specular material/reflection + low shininess *Noambient *Shininess of 50
+	sphere_4.set_ambient(0.1f, 0.1f, 0.1f, 1.0f);
+	sphere_4.set_diffuse(0.6f, 0.6f, 0.6f, 1.0f);
+	sphere_4.set_shininess(50.0f);
+	// 30x30 sphere Diffuse and specular material/reflection + high shininess *No ambient *Shininess set to 128
+	sphere_5.set_ambient(0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_5.set_diffuse(0.0f, 0.0f, 0.0f, 0.0f);
+	sphere_5.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
+	sphere_5.set_shininess(128.0f);
+	// 45x30 Diffuse and emission materials *Emission set to a low blue *No ambient or specular
+	sphere_6.set_ambient(  0.2f, 0.2f, 0.2f, 1.0f);
+	sphere_6.set_diffuse(  0.8f, 0.8f, 0.8f, 1.0f);
+	sphere_6.set_specular( 0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_6.set_emission( 0.0f, 0.0f, 0.5f, 1.0f);
+	//sphere_6.set_shininess(80.0f);
 	// 80x80 sphere
-	sphere_7.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
-	sphere_7.set_diffuse(0.8f, 0.8f, 0.8f, 1.0f);
-	sphere_7.set_specular(0.75f, 0.75f, 0.75f, 1.0f);
-	sphere_7.set_shininess(0.0f);
+	sphere_7.set_ambient(  0.2f, 0.2f, 0.2f, 1.0f);
+	sphere_7.set_diffuse(  0.8f, 0.8f, 0.8f, 1.0f);
+	sphere_7.set_specular( 0.0f, 0.0f, 0.0f, 1.0f);
+	sphere_7.set_emission( 0.0f, 0.5f, 0.5f, 1.0f);
+	sphere_7.set_shininess(80.0f);
+
 	// 160x160 sphere
 	sphere_8.set_ambient(0.2f, 0.2f, 0.2f, 1.0f);
 	sphere_8.set_diffuse(0.8f, 0.8f, 0.8f, 1.0f);
@@ -947,7 +953,7 @@ void Scene::buildLight() {
 	setLightDiffuse(diffuse_1, Light_Diffuse_1);						// Light colour
 	setLightSpecular(specular_1, Light_Specular_1);
 	//setSpotDirection(spot_direction_1, Light_Spot_Direction_1);
-	setLightCutOff(180.0f, Light_Cut_Off_1);
+	//setLightCutOff(180.0f, Light_Cut_Off_1);
 	// Light 2 - low attenuation light
 	light_2_position.set(0.0f, 5.0f, 0.0f, 1.0f);
 	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
@@ -972,7 +978,7 @@ void Scene::buildLight() {
 }
 
 void Scene::renderLight() {
-	// Light 0 - spot light in -y direction and 45.0 degree cut off
+	// Light 0 - spot light in -y direction and 45.0 degree cut off - the lowest specular
 	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
@@ -982,17 +988,17 @@ void Scene::renderLight() {
 	if (light_0) { glEnable(GL_LIGHT0); }									// Enable Light 0
 	else glDisable(GL_LIGHT0);
 
-	// Light 1 - directional light in positive x direction
+	// Light 1 - directional light in positive x direction - lower specular
 	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
 	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, Light_Specular_1);
 	//glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, Light_Spot_Direction_1);
-	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, Light_Cut_Off_1);
+	//glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, Light_Cut_Off_1);
 	if (light_1) { glEnable(GL_LIGHT1); }									// Enable Light 1
 	else glDisable(GL_LIGHT1);
 
-	// Light 2 - low attenuation light
+	// Light 2 - low attenuation light - high specular
 	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
 	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_2);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_2);
