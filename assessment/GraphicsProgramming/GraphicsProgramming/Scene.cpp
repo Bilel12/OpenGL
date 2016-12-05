@@ -702,30 +702,42 @@ void Scene::updateVariables() {
 	butterfly.rotate(angle);
 	//planet_1.rotate(angle);
 	//skybox.rotate(angle);
+
 	// Light spheres settings
 	// Light 0
-	setLightPosition(light_0_x, light_0_y, light_0_z, 1.0f, Light_Position_0);	// Set LIGHT_0 position through amendable varaibles
-	light_sphere_0._translate = Light_Position_0;								// Translate light_shpere_0 object into LIGHT_0's position
+	setLightPosition(light_0_x, light_0_y, light_0_z, 1.0f, Light_Position_0);		// Set LIGHT_0 position through amendable varaibles
+	light_sphere_0._translate = Light_Position_0;									// Translate light_shpere_0 object into LIGHT_0's position
 	// Light 1
-	setLightPosition(light_1_x, light_1_y, light_1_z, 1.0f, Light_Position_1);	// Set LIGHT_1 position through amendable varaibles
-	light_sphere_1._translate = Light_Position_1;								// Translate light_shpere_1 object into LIGHT_1's position
+	setLightPosition(light_1_x, light_1_y, light_1_z, 1.0f, Light_Position_1);		// Set LIGHT_1 position through amendable varaibles
+	light_sphere_1._translate = Light_Position_1;									// Translate light_shpere_1 object into LIGHT_1's position
+	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 	//sphere.rotate(angle);
 }
 
 void Scene::buildLight() {
 	// Light 0
-	setLightAmbient(1.0f, 1.0f, 1.0f, 1.0f, Light_Ambient_0);
-	setLightDiffuse(0.6f, 0.6f, 0.6f, 1.0f, Light_Diffuse_0);			// Light colour
-	setLightPosition(0, 3, 0, 1, Light_Position_0);
-	setLightSpecular(0.5, 0.5, 0.5, 1.0, Light_Specular_0);
+	Vector4 ambient_0  (  0.5f,  0.5f,  0.5f,  0.5f );
+	Vector4 diffuse_0  (  1.3f,  1.3f,  1.3f,  1.3f );
+	Vector4 position_0 (  0.0f,  3.0f,  0.0f,  1.0f );
+	Vector4 specular_0 (  0.5f,  0.5f,  0.5f,  1.0f );
+	Vector3 direction_0(  0.0f, -1.0f,  0.0f );
+	// Light 0
+	setLightAmbient( ambient_0,  Light_Ambient_0);
+	setLightDiffuse( diffuse_0,  Light_Diffuse_0);								// Light colour
+	setLightPosition(position_0, Light_Position_0);
+	setLightSpecular(specular_0, Light_Specular_0);
 	//setSpotDirection(0.0, 1.0, 0.0, Light_Spot_Direction_0);
 	// Light 1
-	setLightAmbient(1.0f, 1.0f, 1.0f, 1.0f, Light_Ambient_1);
-	setLightDiffuse(0.6f, 0.6f, 0.6f, 1.0f, Light_Diffuse_1);			// Light colour
-	setLightPosition(0.0f, 3.0f, 0.0f, 1.0f, Light_Position_1);
-	setLightSpecular(0.5f, 0.5f, 0.5f, 1.0f, Light_Specular_1);
-	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
-	//setLightPosition(position_x, position_y, position_z, 1, Light_Position_1);
+	Vector4 ambient_1  (  1.0f,  1.0f,  1.0f,  1.0f);
+	Vector4 diffuse_1  (  0.6f,  0.6f,  0.6f,  1.0f);
+	Vector4 position_1 (  0.0f,  3.0f,  0.0f,  1.0f);
+	Vector4 specular_1 (  0.0f,  3.0f,  0.0f,  1.0f);
+	Vector3 direction_1(  0.0f, -1.0f,  0.0f);
+	// Light 1
+	setLightAmbient(ambient_1, Light_Ambient_1);
+	setLightDiffuse(diffuse_1, Light_Diffuse_1);					// Light colour
+	setLightPosition(position_1, Light_Position_1);
+	setLightSpecular(specular_1, Light_Specular_1);
 }
 
 void Scene::renderLight() {
@@ -1206,18 +1218,59 @@ void Scene::setLightPosition(float x, float y, float z, float w, GLfloat* lightP
 	lightPosition[3] = w;
 }
 
-void Scene::setSpotDirection(float x, float y, float z, GLfloat* spotDirection) {
-	spotDirection[0] = x;
-	spotDirection[1] = y;
-	spotDirection[2] = z;
-	//spotDirection[3] = w;
-}
-
 void Scene::setLightSpecular(float x, float y, float z, float w, GLfloat* lightSpecular) {
 	lightSpecular[0] = x;
 	lightSpecular[1] = y;
 	lightSpecular[2] = z;
 	lightSpecular[3] = w;
+}
+
+void Scene::setSpotDirection(float x, float y, float z, GLfloat* spotDirection) {
+	spotDirection[0] = x;
+	spotDirection[1] = y;
+	spotDirection[2] = z;
+}
+// Setting light with Vector4 and Vector3
+void Scene::setLightAmbient(Vector4 ambient, GLfloat* lightAmbient) {
+	lightAmbient[0] = ambient.x;
+	lightAmbient[1] = ambient.y;
+	lightAmbient[2] = ambient.z;
+	lightAmbient[3] = ambient.w;
+}
+
+void Scene::setLightDiffuse(Vector4 diffuse, GLfloat* lightDiffuse) {
+	lightDiffuse[0] = diffuse.x;
+	lightDiffuse[1] = diffuse.y;
+	lightDiffuse[2] = diffuse.z;
+	lightDiffuse[3] = diffuse.w;
+}
+
+void Scene::setLightPosition(Vector4 position, GLfloat* lightPosition) {
+	lightPosition[0] = position.x;
+	lightPosition[1] = position.y;
+	lightPosition[2] = position.z;
+	lightPosition[3] = position.w;
+}
+
+void Scene::setLightSpecular(Vector4 specular, GLfloat* lightSpecular) {
+	lightSpecular[0] = specular.x;
+	lightSpecular[1] = specular.y;
+	lightSpecular[2] = specular.z;
+	lightSpecular[3] = specular.w;
+}
+
+void Scene::setSpotDirection(Vector3 spot_direction, GLfloat* spotDirection) {
+	spotDirection[0] = spot_direction.x;
+	spotDirection[1] = spot_direction.y;
+	spotDirection[2] = spot_direction.z;
+}
+
+void Scene::setLightShininess(GLfloat *arg, GLfloat* lightShininess) {
+	lightShininess[0] = arg[0];
+}
+
+void Scene::setLightShininess(GLfloat arg, GLfloat* lightShininess) {
+	lightShininess[0] = arg;
 }
 
 // Shadowing
