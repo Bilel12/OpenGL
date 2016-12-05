@@ -125,6 +125,7 @@ protected:
 	Shape light_sphere_0;
 	Shape light_sphere_1;
 	Shape light_sphere_2;
+	Shape light_sphere_3;
 	// Spheres for material altering
 	Shape sphere_1;
 	Shape sphere_2;
@@ -170,10 +171,6 @@ protected:
 	float scale_y;
 	float scale_z;
 	float angle;		// Rotate by angle
-	// Lights' positions
-	Vector4 light_0_position;
-	Vector4 light_1_position;
-	Vector4 light_2_position;
 	// Toggling variables
 	bool blend;			// toggle bledning effect
 	bool wireframe;		// toggle wireframe mode
@@ -181,9 +178,11 @@ protected:
 	bool light_0;
 	bool light_1;
 	bool light_2;
+	bool light_3;
 	//enum light {light_0, light_1, light_2};
 	// Lighting
 	// Light 0
+	Vector4 light_0_position;			// Light 0 position
 	GLfloat Light_Ambient_0[4];
 	GLfloat Light_Diffuse_0[4];
 	GLfloat Light_Position_0[4];
@@ -191,6 +190,7 @@ protected:
 	GLfloat Light_Spot_Direction_0[3];
 	GLfloat Light_Cut_Off_0;
 	// Light 1
+	Vector4 light_1_position;			// Light 1 position
 	GLfloat Light_Ambient_1[4];
 	GLfloat Light_Diffuse_1[4];
 	GLfloat Light_Position_1[4];
@@ -198,12 +198,21 @@ protected:
 	GLfloat Light_Spot_Direction_1[3];
 	GLfloat Light_Cut_Off_1;
 	// Light 2
+	Vector4 light_2_position;			// Light 2 position
 	GLfloat Light_Ambient_2[4];
 	GLfloat Light_Diffuse_2[4];
 	GLfloat Light_Position_2[4];
 	GLfloat Light_Specular_2[4];
 	GLfloat Light_Spot_Direction_2[3];
 	GLfloat Light_Cut_Off_2;
+	// Light 3
+	Vector4 light_3_position;			// Light 3 position
+	GLfloat Light_Ambient_3[4];
+	GLfloat Light_Diffuse_3[4];
+	GLfloat Light_Position_3[4];
+	GLfloat Light_Specular_3[4];
+	GLfloat Light_Spot_Direction_3[3];
+	GLfloat Light_Cut_Off_3;
 	// Material arrays
 	GLfloat no_mat[4]				= { 0.0, 0.0, 0.0, 0.0 };
 	GLfloat mat_ambient[4]			= { 0.7f, 0.7f, 0.7f, 1.0f };

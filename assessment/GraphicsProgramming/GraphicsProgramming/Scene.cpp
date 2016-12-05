@@ -44,6 +44,7 @@ Scene::Scene(Input *in) {
 	light_0		= true;
 	light_1		= false;
 	light_2		= false;
+	light_3		= false;
 }
 
 void Scene::loadTextures() {
@@ -686,6 +687,13 @@ void Scene::buildShapes() {
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
+
+	light_sphere_3.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(Light_Position_3),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		NULL);
 }
 
 void Scene::renderShapes() {
@@ -697,10 +705,12 @@ void Scene::renderShapes() {
 	cylinder.render();
 	torus.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	butterfly.render2D();
+	// Lights' spheres
 	light_sphere_0.render();
 	light_sphere_1.render();
 	light_sphere_2.render();
-	butterfly.render2D();
+	light_sphere_3.render();
 }
 
 void Scene::renderSolarSystem() {
@@ -912,7 +922,7 @@ void Scene::setMaterials() {
 }
 
 void Scene::buildLight() {
-	// Light 0 - setting up
+	// Light 0 - spot light in -y direction and 45.0 degree cut off
 	light_0_position.set(0.0f, 1.0f, 0.0f, 1.0f);
 	Vector4 ambient_0(0.2f, 0.2f, 0.2f, 1.0f);
 	Vector4 diffuse_0(0.8f, 0.8f, 0.8f, 1.0f);
@@ -925,10 +935,10 @@ void Scene::buildLight() {
 	setLightSpecular(specular_0, Light_Specular_0);
 	setSpotDirection(spot_direction_0, Light_Spot_Direction_0);
 	setLightCutOff(45.0f, Light_Cut_Off_0);
-	// Light 1 - setting up
+	// Light 1 - directional light in positive x direction
 	light_1_position.set(-1.0f, 0.0f, 0.0f, 0.0f);
-	Vector4 ambient_1(0.8f, 0.8f, 0.8f, 0.2f);
-	Vector4 diffuse_1(0.6f, 0.6f, 0.6f, 0.2f);
+	Vector4 ambient_1(0.2f, 0.2f, 0.2f, 1.0f);
+	Vector4 diffuse_1(0.8f, 0.8f, 0.8f, 1.0f);
 	Vector4 specular_1(0.3f, 0.3f, 0.3f, 1.0f);
 	Vector3 direction_1(0.0f, -1.0f, 0.0f);
 
@@ -936,7 +946,7 @@ void Scene::buildLight() {
 	setLightAmbient(ambient_1, Light_Ambient_1);
 	setLightDiffuse(diffuse_1, Light_Diffuse_1);						// Light colour
 	setLightSpecular(specular_1, Light_Specular_1);
-	// Light 2 - setting up
+	// Light 2 - low attenuation light
 	light_2_position.set(0.0f, 5.0f, 0.0f, 1.0f);
 	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
 	Vector4 diffuse_2(0.6f, 0.6f, 0.6f, 1.0f);
@@ -945,12 +955,22 @@ void Scene::buildLight() {
 
 	setLightPosition(light_2_position, Light_Position_2);
 	setLightAmbient(ambient_2, Light_Ambient_2);
-	setLightDiffuse(diffuse_2, Light_Diffuse_2);							// Light colour
+	setLightDiffuse(diffuse_2, Light_Diffuse_2);						// Light colour
 	setLightSpecular(specular_2, Light_Specular_2);
+	// Light 3 - point light
+	light_3_position.set(0.0f, 5.0f, 0.0f, 1.0f);
+	Vector4 ambient_3(0.8f, 0.8f, 0.8f, 1.0f);
+	Vector4 diffuse_3(0.6f, 0.6f, 0.6f, 1.0f);
+	Vector4 specular_3(1.0f, 1.0f, 1.0f, 1.0f);
+
+	setLightPosition(light_3_position, Light_Position_3);
+	setLightAmbient(ambient_3, Light_Ambient_3);
+	setLightDiffuse(diffuse_3, Light_Diffuse_3);						// Light colour
+	setLightSpecular(specular_3, Light_Specular_3);
 }
 
 void Scene::renderLight() {
-	// Light 0
+	// Light 0 - spot light in -y direction and 45.0 degree cut off
 	glLightfv(GL_LIGHT0, GL_POSITION, Light_Position_0);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, Light_Ambient_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light_Diffuse_0);
@@ -960,7 +980,7 @@ void Scene::renderLight() {
 	if (light_0) { glEnable(GL_LIGHT0); }									// Enable Light 0
 	else glDisable(GL_LIGHT0);
 
-	// Light 1
+	// Light 1 - directional light in positive x direction
 	glLightfv(GL_LIGHT1, GL_POSITION, Light_Position_1);
 	glLightfv(GL_LIGHT1, GL_AMBIENT, Light_Ambient_1);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, Light_Diffuse_1);
@@ -969,7 +989,7 @@ void Scene::renderLight() {
 	if (light_1) { glEnable(GL_LIGHT1); }									// Enable Light 1
 	else glDisable(GL_LIGHT1);
 
-	// Light 2
+	// Light 2 - low attenuation light
 	glLightfv(GL_LIGHT2, GL_POSITION, Light_Position_2);
 	glLightfv(GL_LIGHT2, GL_AMBIENT, Light_Ambient_2);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, Light_Diffuse_2);
@@ -979,6 +999,14 @@ void Scene::renderLight() {
 	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.15f);
 	if (light_2) { glEnable(GL_LIGHT2); }									// Enable Light 2
 	else glDisable(GL_LIGHT2);
+
+	// Light 3 - point light
+	glLightfv(GL_LIGHT3, GL_POSITION, Light_Position_3);
+	glLightfv(GL_LIGHT3, GL_AMBIENT, Light_Ambient_3);
+	glLightfv(GL_LIGHT3, GL_DIFFUSE, Light_Diffuse_3);
+	glLightfv(GL_LIGHT3, GL_SPECULAR, Light_Specular_3);
+	if (light_3) { glEnable(GL_LIGHT3); }									// Enable Light 3
+	else glDisable(GL_LIGHT3);
 }
 
 void Scene::updateVariables() {
@@ -990,9 +1018,7 @@ void Scene::updateVariables() {
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
 	butterfly.rotate(angle);
-	//planet_1.rotate(angle);
 	//skybox.rotate(angle);
-
 	// Light spheres settings
 	// Light 0
 	setLightPosition(light_0_position, Light_Position_0);		// Set LIGHT_0 position through amendable varaibles
@@ -1003,6 +1029,9 @@ void Scene::updateVariables() {
 	// Light 2
 	setLightPosition(light_2_position, Light_Position_2);		// Set LIGHT_2 position through amendable varaibles
 	light_sphere_2._translate = Light_Position_2;				// Translate light_shpere_1 object into LIGHT_1's position
+	// Light 2
+	setLightPosition(light_3_position, Light_Position_3);		// Set LIGHT_2 position through amendable varaibles
+	light_sphere_3._translate = Light_Position_3;				// Translate light_shpere_1 object into LIGHT_1's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 	sphere_1.rotate(angle);
 	sphere_2.rotate(angle);
@@ -1097,6 +1126,11 @@ void Scene::update(float dt) {
 		light_2 = !light_2;
 		input->SetSpecialKeyUp(GLUT_KEY_F3);
 	}
+	// Toggle light 3 on/off
+	if (input->isSpecialKeyDown(GLUT_KEY_F4)) {
+		light_3 = !light_3;
+		input->SetSpecialKeyUp(GLUT_KEY_F4);
+	}
 	// Light 0 controlls
 	if (light_0) {
 		// move light right
@@ -1176,6 +1210,33 @@ void Scene::update(float dt) {
 		// move light z inwards
 		if (input->isKeyDown('t') || input->isKeyDown('T') || input->isSpecialKeyDown(GLUT_KEY_HOME)) {
 			light_2_position.z -= 0.1f;
+		}
+	}
+	// Light 2 controlls
+	if (light_3) {
+		// move light right
+		if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
+			light_3_position.x += 0.1f;
+		}
+		// move light left
+		if (input->isSpecialKeyDown(GLUT_KEY_LEFT)) {
+			light_3_position.x -= 0.1f;
+		}
+		// move light up
+		if (input->isSpecialKeyDown(GLUT_KEY_UP)) {
+			light_3_position.y += 0.1f;
+		}
+		// move light down
+		if (input->isSpecialKeyDown(GLUT_KEY_DOWN)) {
+			light_3_position.y -= 0.1f;
+		}
+		// move light z towards
+		if (input->isKeyDown('g') || input->isKeyDown('G') || input->isSpecialKeyDown(GLUT_KEY_PAGE_UP)) {
+			light_3_position.z += 0.1f;
+		}
+		// move light z inwards
+		if (input->isKeyDown('t') || input->isKeyDown('T') || input->isSpecialKeyDown(GLUT_KEY_HOME)) {
+			light_3_position.z -= 0.1f;
 		}
 	}
 	// Camera input controll
