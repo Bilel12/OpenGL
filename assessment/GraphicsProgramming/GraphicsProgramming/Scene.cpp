@@ -497,7 +497,14 @@ void Scene::buildShapes() {
 	sphere.set_diffuse(	1.0f, 1.0f, 1.0f, 1.0f);
 	sphere.set_shininess(120.0f);
 
-	light.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+	light_sphere_0.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(Light_Position_1),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		NULL);
+
+	light_sphere_1.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(Light_Position_1),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
@@ -679,7 +686,8 @@ void Scene::renderShapes() {
 	cylinder.render();
 	torus.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-	light.render();
+	light_sphere_0.render();
+	light_sphere_1.render();
 	butterfly.render2D();
 }
 
@@ -694,8 +702,13 @@ void Scene::updateVariables() {
 	butterfly.rotate(angle);
 	//planet_1.rotate(angle);
 	//skybox.rotate(angle);
-	light._translate = Light_Position_0;
-	setLightPosition(light_x, light_y, light_z, 1.0f, Light_Position_0);
+	// Light spheres settings
+	// Light 0
+	setLightPosition(light_x, light_y, light_z, 1.0f, Light_Position_0);	// Set LIGHT_0 position through amendable varaibles
+	light_sphere_0._translate = Light_Position_0;							// Translate light_shpere_0 object into LIGHT_0's position
+	// Light 1
+	setLightPosition(light_x, light_y, light_z, 1.0f, Light_Position_1);	// Set LIGHT_1 position through amendable varaibles
+	light_sphere_1._translate = Light_Position_1;							// Translate light_shpere_1 object into LIGHT_1's position
 	//sphere.rotate(angle);
 }
 
@@ -966,6 +979,7 @@ void Scene::update(float dt) {
 		scale_z -= 0.1f;
 	}
 	// Light controlls
+	// LIGHT_0 controlls
 	// move light's position right
 	if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
 		light_x += 0.1f;
@@ -988,6 +1002,31 @@ void Scene::update(float dt) {
 	}
 	// move light's position z inwards
 	if (input->isKeyDown('t') || input->isKeyDown('T')) {
+		light_z -= 0.1f;
+	}
+	// LIGHT_1 controlls
+	// move light's position right
+	if (input->isSpecialKeyDown(GLUT_KEY_PAGE_DOWN)) {
+		light_x += 0.1f;
+	}
+	// move light's position left
+	if (input->isKeyDown(127)) { // 127 - DELETE
+		light_x -= 0.1f;
+	}
+	// move light's position up
+	if (input->isSpecialKeyDown(GLUT_KEY_HOME)) {
+		light_y += 0.1f;
+	}
+	// move light's position down
+	if (input->isSpecialKeyDown(GLUT_KEY_END)) {
+		light_y -= 0.1f;
+	}
+	// move light's position z towards
+	if (input->isSpecialKeyDown(GLUT_KEY_PAGE_UP)) {
+		light_z += 0.1f;
+	}
+	// move light's position z inwards
+	if (input->isSpecialKeyDown(GLUT_KEY_INSERT)) {
 		light_z -= 0.1f;
 	}
 	if (input->isKeyDown('l') || input->isKeyDown('L')) {

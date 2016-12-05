@@ -129,7 +129,8 @@ protected:
 	Shape cylinder;
 	Shape circle;
 	Shape quad;
-	Shape light;
+	Shape light_sphere_0;
+	Shape light_sphere_1;
 	Shape torus_orbit;
 	Shape torus;
 	Shape ico;
