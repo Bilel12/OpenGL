@@ -58,6 +58,7 @@ void Shape::render() {
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());		// set emission to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
+
 		if (_texture) glBindTexture(GL_TEXTURE_2D, *_texture);
 		glColor4f(_rgba.getR(), _rgba.getG(), _rgba.getB(), _rgba.getA());
 		glDrawArrays(_primitive, 0, _verts.size() / 3);
@@ -155,6 +156,95 @@ void Shape::render2D() {
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 	} glPopMatrix();
+}
+
+void Shape::render(bool point,
+	bool biliner,
+	bool mipmapping,
+	bool half_mipmapping,
+	bool half_trilinear,
+	bool trilinear) {
+	glPushMatrix(); {
+		glScalef(_scale.x, _scale.y, _scale.z);
+		glTranslatef(_translate.x, _translate.y, _translate.z);
+		glRotatef(_rotation.x, _rotation.y, _rotation.z, _rotation.w);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		glVertexPointer(3, GL_FLOAT, 0, _verts.data());
+		glNormalPointer(GL_FLOAT, 0, _norms.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, _texcoords.data());
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient.data());			// set ambient to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse.data());			// set diffuse to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular.data());		// set specular to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());		// set emission to what is defined in scene
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
+
+
+		if (_texture) glBindTexture(GL_TEXTURE_2D, *_texture);
+		// Point Sampling
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		// Bilinear
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// Mipmapping
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+		// Half mipmapping
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+		// Half trilinear
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+		// Trilinear
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+		glColor4f(_rgba.getR(), _rgba.getG(), _rgba.getB(), _rgba.getA());
+		glDrawArrays(_primitive, 0, _verts.size() / 3);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_def.data());		// set ambient to default values
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_def.data());		// set diffuse to default values
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular_def.data());	// set specular to default values
+		glMaterialfv(GL_FRONT, GL_EMISSION, emission_def.data());	// set emission to default values
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess_def.data());	// set shininess to default value
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	} glPopMatrix();
+}
+
+void Shape::buildFromArray(GLenum primitive,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba,
+	std::vector<float> verts,
+	std::vector<float> norms,
+	std::vector<float> texcoords,
+	GLuint * texture) {
+	// set primitive
+	_primitive = primitive;
+	// set vectors for translation, rotation and scale, and rotation angle
+	_translate = translate;
+	_scale = scale;
+	_rotation = rotation;
+	_rgba = rgba;
+
+	_verts = verts;
+
+	_norms = norms;
+
+	_texcoords = texcoords;
+
+	_texture = texture;
 }
 
 void Shape::buildSkybox(GLenum primitive, 

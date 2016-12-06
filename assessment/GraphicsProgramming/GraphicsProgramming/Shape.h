@@ -19,6 +19,21 @@ public:
 	void renderBlend();
 	void renderColor();	
 	void render2D();
+	void render(bool point, 
+		bool biliner,
+		bool mipmapping,
+		bool half_mipmapping, 
+		bool half_trilinear, 
+		bool trilinear);
+	void buildFromArray(GLenum primitive,
+		Vector3 translate,
+		Vector3 scale,
+		Vector4 rotation,
+		Vector4 rgba,
+		std::vector<float> verts,
+		std::vector<float> norms,
+		std::vector<float> texcoords,
+		GLuint * texture);
 	// Skybox
 	void buildSkybox(GLenum primitive, 
 		Vector3 translate,										// scale x, scale y, scale z

@@ -436,7 +436,7 @@ void Scene::renderStencilShadowing() {
 }
 
 void Scene::buildShapes() {
-	skybox.buildSkybox(GL_TRIANGLES,
+	skybox.buildFromArray(GL_TRIANGLES,
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0f, 1.0f, 0.0f, 1.0f),
@@ -524,7 +524,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
 
-	quad.buildQuad(GL_QUADS,
+	quad.buildFromArray(GL_QUADS,
 		Vector3(0.0f, 0.35f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
@@ -546,7 +546,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
 
-	floor.buildQuad(GL_TRIANGLES,
+	floor.buildFromArray(GL_TRIANGLES,
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
@@ -556,7 +556,7 @@ void Scene::buildShapes() {
 		quad_t_texcoords,
 		NULL);
 
-	main_floor.buildQuad(GL_TRIANGLES,
+	main_floor.buildFromArray(GL_TRIANGLES,
 		Vector3(0.0f, 1.0f, 0.0f),
 		Vector3(20.0f, 20.0f, 25.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
@@ -564,7 +564,7 @@ void Scene::buildShapes() {
 		quad_t_verts,
 		quad_t_norms,
 		quad_t_texcoords,
-		checked_tex);
+		grass_tex);
 
 	cone_1.buildCone(GL_TRIANGLES, 2.0f, 10.0f, 10.0f,
 		Vector3(0.0f, 0.0f, 0.0f),
@@ -609,7 +609,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// blend_cube
-	blend_cube.buildCube(GL_TRIANGLES,
+	blend_cube.buildFromArray(GL_TRIANGLES,
 		Vector3(0.0f, 5.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0f, 1.0f, 1.0f, 1.0f),
@@ -874,6 +874,24 @@ void Scene::renderSolarSystem() {
 }
 
 inline void Scene::renderFloor() {
+	// Point Sampling
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	// Bilinear
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Mitmapping
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	// half mippaing
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+	// half trilinear
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+	// Trilinear
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	main_floor.render();
 }
 
