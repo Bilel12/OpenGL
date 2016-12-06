@@ -339,7 +339,7 @@ void Scene::renderStencilBuffer() {
 	// Draw reflection
 	//////////////////
 	glPushMatrix(); {
-		glScalef(1.0, -2.0, 1.0);							// Flip the scale vertically
+		glScalef(1.0, -1.0, 1.0);							// Flip the scale vertically
 		glTranslatef(0, 1, 0);							// Translate up (this will put us above the floor)
 		glRotatef(angle, 0, 1, 0);							// Rotate(the shape will be spinning)
 		//spaceship.render();									// Render a model
@@ -563,7 +563,7 @@ void Scene::buildShapes() {
 
 	floor.buildFromArray(GL_TRIANGLES,
 		Vector3(0.0f, 1.0f, 0.0f),
-		Vector3(25.0f, 25.0f, 25.0f),
+		Vector3(20.0f, 20.0f, 25.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
 		quad_t_verts,
