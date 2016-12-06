@@ -151,7 +151,8 @@ protected:
 	Shape disc_1, disc_2, disc_flat;
 	Shape blend_cube;
 	Shape floor;
-	Shape cylinder;
+	Shape cylinder_1;
+	Shape cylinder_2;
 	Shape circle;
 	Shape quad;
 	Shape torus;

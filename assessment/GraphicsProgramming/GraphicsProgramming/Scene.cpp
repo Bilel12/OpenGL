@@ -564,13 +564,19 @@ void Scene::buildShapes() {
 		disk_tex);
 	cone.set_ambient(0.5, 0, 0, 0);
 
-	cylinder.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
-		Vector3(6.0f, 5.0f, -6.0f),
-		Vector3(1.0f, 1.0f, 1.0f),
-		Vector4(180.0f, 1.0f, 0.0f, 0.0f),
+	cylinder_1.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(-1.0f, -1.0f, 1.0f),
+		Vector4(1.0f, 0.0f, 1.0f, 0.0f),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		barrel_tex);
-	cylinder.set_ambient(1, 1, 1, 1);
+
+	cylinder_2.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(-1.0f, -1.0f, 1.0f),
+		Vector4(1.0f, 0.0f, 1.0f, 0.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		barrel_tex);
 
 	//Torus
 	torus.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
@@ -702,7 +708,6 @@ void Scene::renderShapes() {
 	disc_2.render();
 	disc_flat.render();
 	cone.render();
-	cylinder.render();
 	torus.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	butterfly.render2D();
@@ -859,7 +864,44 @@ void Scene::renderFloor() {
 }
 
 void Scene::renderWalls() {
-	// TODO
+	glPushMatrix(); {
+		glTranslatef(-12.0f, 5.0f, 0.0f);
+		//cylinder.render();
+
+		//glPushMatrix(); {
+		//		glTranslatef(0.0f, 0.0, -4.6f);
+		//		cylinder.render();
+		//		//glPushMatrix();
+		//		glTranslatef(2.3f, 0.0, -3.9f);
+		//		cylinder.render();
+		//		//glPopMatrix();
+		//} glPopMatrix();
+
+		for (float i = 0.0; i <= 46.0f; i += 4.6f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				if ((int)i % 2 == 0) {						// if i modulo 2 is 0 - generate cylinder 1
+					glTranslatef(0.0, 0.0, -i);
+					cylinder_1.render();
+				} else {									// else generate cylinder 2
+					glTranslatef(0.0, 0.0, -i);
+					cylinder_2.render();
+				}
+			} glPopMatrix();
+		}
+
+		for (float i = 0.0; i <= 46.0f; i += 4.6f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				if ((int)i % 2 == 0) {						// if i modulo 2 is 0 - generate cylinder 1
+					glTranslatef(0.0, 5.0f, -i);
+					cylinder_2.render();
+				}											// else generate cylinder 2
+				else {
+					glTranslatef(0.0, 5.0f, -i);
+					cylinder_1.render();
+				}
+			} glPopMatrix();
+		}
+	} glPopMatrix();
 }
 
 void Scene::renderPlanets() {
@@ -1027,7 +1069,17 @@ void Scene::updateVariables() {
 	floor.translate.setX(1);*/
 	blend_cube.rotate(angle);
 	butterfly.rotate(angle);
+	cylinder_1.rotate(angle);
+	cylinder_2.rotate(-angle);
 	//skybox.rotate(angle);
+	sphere_1.rotate(angle);
+	sphere_2.rotate(angle);
+	sphere_3.rotate(angle);
+	sphere_4.rotate(angle);
+	sphere_5.rotate(angle);
+	sphere_6.rotate(angle);
+	sphere_7.rotate(angle);
+	sphere_8.rotate(angle);
 	// Light spheres settings
 	// Light 0
 	setLightPosition(light_0_position, Light_Position_0);		// Set LIGHT_0 position through amendable varaibles
@@ -1042,14 +1094,6 @@ void Scene::updateVariables() {
 	setLightPosition(light_3_position, Light_Position_3);		// Set LIGHT_2 position through amendable varaibles
 	light_sphere_3._translate = Light_Position_3;				// Translate light_shpere_1 object into LIGHT_1's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
-	sphere_1.rotate(angle);
-	sphere_2.rotate(angle);
-	sphere_3.rotate(angle);
-	sphere_4.rotate(angle);
-	sphere_5.rotate(angle);
-	sphere_6.rotate(angle);
-	sphere_7.rotate(angle);
-	sphere_8.rotate(angle);
 }
 
 void Scene::update(float dt) {
