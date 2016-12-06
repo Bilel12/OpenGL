@@ -62,6 +62,7 @@ protected:
 	void renderFloor();
 	void renderLeftWall();
 	void renderBackWall();
+	void renderRightWall();
 	void renderPlanets();
 	// For Window and frustum calculation.
 	int width, height;
