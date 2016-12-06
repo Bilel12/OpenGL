@@ -329,7 +329,7 @@ void Scene::renderStencilBuffer() {
 	glStencilFunc(GL_ALWAYS, 1, 1);							// Set the stencil function to always pass
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);				// Set the Stencil Operation to replace values when the test passes
 	glDisable(GL_DEPTH_TEST);								// Disable the depth test (we don’t want to store depths values while writing to the stencil buffer
-	// Draw mirror
+	// Draw mirror (Get stencil shape)
 	floor.render();
 	// Draw floor object()
 	glEnable(GL_DEPTH_TEST);								// Enable depth test
@@ -339,8 +339,8 @@ void Scene::renderStencilBuffer() {
 	// Draw reflection
 	//////////////////
 	glPushMatrix(); {
-		glScalef(1.0, -1.0, 1.0);							// Flip the scale vertically
-		glTranslatef(0, -4.0, 0);							// Translate down (this will put us under the floor)
+		glScalef(20.0, -20.0, 20.0);							// Flip the scale vertically
+		glTranslatef(0, -2.0, 0);							// Translate up (this will put us above the floor)
 		glRotatef(angle, 0, 1, 0);							// Rotate(the shape will be spinning)
 		spaceship.render();									// Render a model
 	} glPopMatrix();
@@ -356,7 +356,7 @@ void Scene::renderStencilBuffer() {
 	// Draw object to reflect
 	//////////////////////////
 	glPushMatrix(); {
-		glTranslatef(0, 2.0, 0);							// Translate(this is where the model will render, distance should match)
+		glTranslatef(2, 14.0, 0);							// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
 		spaceship.render();										// Render the real object
 	} glPopMatrix();
@@ -560,8 +560,8 @@ void Scene::buildShapes() {
 		NULL);
 
 	floor.buildFromArray(GL_TRIANGLES,
-		Vector3(0.0f, 4.0f, 0.0f),
-		Vector3(1.0f, 1.0f, 1.0f),
+		Vector3(0.0f, 2.0f, 0.0f),
+		Vector3(20.0f, 20.0f, 20.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
 		quad_t_verts,
