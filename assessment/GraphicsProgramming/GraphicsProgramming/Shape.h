@@ -25,6 +25,7 @@ public:
 		bool half_mipmapping, 
 		bool half_trilinear, 
 		bool trilinear);
+	// Build shapes by passing arrays of vertices, normals and texture coordinates
 	void buildFromArray(GLenum primitive,
 		Vector3 translate,
 		Vector3 scale,
@@ -34,36 +35,6 @@ public:
 		std::vector<float> norms,
 		std::vector<float> texcoords,
 		GLuint * texture);
-	// Skybox
-	void buildSkybox(GLenum primitive, 
-		Vector3 translate,										// scale x, scale y, scale z
-		Vector3 scale,											// translate x, translate y, translate z
-		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
-		Vector4 rgba, 
-		std::vector<float> verts, 								// vertices
-		std::vector<float> norms, 								// normals
-		std::vector<float> texcoords,							// texture coordinates
-		GLuint* texture);					
-	// Quad build function
-	void buildQuad(GLenum primitive,
-		Vector3 translate,										// scale x, scale y, scale z
-		Vector3 scale,											// translate x, translate y, translate z
-		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
-		Vector4 rgba,
-		std::vector<float> verts,
-		std::vector<float> norms,
-		std::vector<float> texcoords,
-		GLuint *texture);
-	// Cube build function
-	void buildCube(GLenum primitive,
-		Vector3 translate,										// scale x, scale y, scale z
-		Vector3 scale,											// translate x, translate y, translate z
-		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation zfloat rot_z);
-		Vector4 rgba,
-		std::vector<float> verts,
-		std::vector<float> norms,
-		std::vector<float> texcoords,
-		GLuint *texture);
 	// Circle build function
 	void Shape::buildCircle(GLenum primitive,
 		float edges,											// number of circle's edges
