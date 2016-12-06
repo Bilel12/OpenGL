@@ -322,7 +322,7 @@ void Scene::setRenderMode(bool blend, bool wireframe) {
 	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				// Turn wireframe off
 }
 
-void Scene::renderStencilBuffer(Model model) {
+void Scene::renderStencilBuffer() {
 	// Stencil buffer settings
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);	// Turn off writing to the frame buffer
 	glEnable(GL_STENCIL_TEST);								// Enable the stencil test
@@ -337,12 +337,14 @@ void Scene::renderStencilBuffer(Model model) {
 	glStencilFunc(GL_EQUAL, 1, 1);							// Set stencil function to test if the value is 1
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);					// Set the stencil operation to keep all values (we don’t want to change the stencil)
 	// Draw reflection
+	//////////////////
 	glPushMatrix(); {
 		glScalef(1.0, -1.0, 1.0);							// Flip the scale vertically
-		glTranslatef(0, 1, 0);								// Translate down (this will put us under the floor)
+		glTranslatef(2, -5.5, 0);								// Translate down (this will put us under the floor)
 		glRotatef(angle, 0, 1, 0);							// Rotate(the shape will be spinning)
-		model.render();										// Render a model
+		spaceship.render();									// Render a model
 	} glPopMatrix();
+	//////////////////
 	// Draw mirror
 	glDisable(GL_STENCIL_TEST);								// Disable stencil test (no longer needed)
 	glEnable(GL_BLEND);										// Enable alpha blending (to combine the floor object with model)
@@ -352,11 +354,13 @@ void Scene::renderStencilBuffer(Model model) {
 	glEnable(GL_LIGHTING);									// Enable lighting (rest of scene is lit correctly)
 	glDisable(GL_BLEND);									// Disable blend (no longer blending)
 	// Draw object to reflect
+	//////////////////////////
 	glPushMatrix(); {
-		glTranslatef(0, 0.5, 0);							// Translate(this is where the model will render, distance should match)
+		glTranslatef(2, 5.5, 0);							// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
-		model.render();										// Render the real object
+		spaceship.render();										// Render the real object
 	} glPopMatrix();
+	//////////////////////////
 }
 
 void Scene::renderShadowing() {
@@ -556,7 +560,7 @@ void Scene::buildShapes() {
 		NULL);
 
 	floor.buildFromArray(GL_TRIANGLES,
-		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(2.0f, 6.5f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
@@ -1032,8 +1036,8 @@ void Scene::renderRightWall() {
 void Scene::renderPlanets() {
 	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	glPushMatrix(); {
-		glTranslatef(-10.0f, 0.0f, 0.0f);
-		glScalef(1, 1, 1);
+		glTranslatef(-3.0f, 1.0f, 0.0f);
+		glScalef(2.0f, 2.0f, 2.0f);
 		glRotatef(90, 0, 1, 0);
 
 		sphere_1.render();
@@ -1638,7 +1642,7 @@ void Scene::render() {
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
-	renderStencilBuffer(spaceship);
+	renderStencilBuffer();
 	// Blend cube
 	setRenderMode(blend, wireframe);
 	blend_cube.renderBlend();
