@@ -151,7 +151,9 @@ protected:
 	// Diffrent shapes
 	Shape cone_1;
 	Shape cone_2;
-	Shape disc_1, disc_2, disc_flat;
+	Shape disc_1;
+	Shape disc_2;
+	Shape disc_3;
 	Shape blend_cube;
 	Shape floor;
 	Shape main_floor;
