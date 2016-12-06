@@ -339,10 +339,11 @@ void Scene::renderStencilBuffer() {
 	// Draw reflection
 	//////////////////
 	glPushMatrix(); {
-		glScalef(20.0, -20.0, 20.0);							// Flip the scale vertically
-		glTranslatef(0, -2.0, 0);							// Translate up (this will put us above the floor)
+		glScalef(1.0, -2.0, 1.0);							// Flip the scale vertically
+		glTranslatef(0, 1, 0);							// Translate up (this will put us above the floor)
 		glRotatef(angle, 0, 1, 0);							// Rotate(the shape will be spinning)
-		spaceship.render();									// Render a model
+		//spaceship.render();									// Render a model
+		renderSolarSystem();
 	} glPopMatrix();
 	//////////////////
 	// Draw mirror
@@ -356,9 +357,10 @@ void Scene::renderStencilBuffer() {
 	// Draw object to reflect
 	//////////////////////////
 	glPushMatrix(); {
-		glTranslatef(2, 14.0, 0);							// Translate(this is where the model will render, distance should match)
+		glTranslatef(0, 1, 0);							// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
-		spaceship.render();										// Render the real object
+		//spaceship.render();										// Render the real object
+		renderSolarSystem();
 	} glPopMatrix();
 	//////////////////////////
 }
@@ -560,8 +562,8 @@ void Scene::buildShapes() {
 		NULL);
 
 	floor.buildFromArray(GL_TRIANGLES,
-		Vector3(0.0f, 2.0f, 0.0f),
-		Vector3(20.0f, 20.0f, 20.0f),
+		Vector3(0.0f, 1.0f, 0.0f),
+		Vector3(25.0f, 25.0f, 25.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
 		quad_t_verts,
@@ -570,7 +572,7 @@ void Scene::buildShapes() {
 		NULL);
 
 	main_floor.buildFromArray(GL_TRIANGLES,
-		Vector3(0.0f, 1.0f, 0.0f),
+		Vector3(0.0f, 2.0f, 0.0f),
 		Vector3(20.0f, 20.0f, 25.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
@@ -825,7 +827,7 @@ void Scene::renderSolarSystem() {
 				planet_5.render();									// render planet 2
 
 				glPushMatrix(); { // PLANET 3 - start
-					glRotatef(angle -0.3f, 0, 1, 0);				// planet 3 rotation
+					glRotatef(angle - 0.3f, 0, 1, 0);				// planet 3 rotation
 
 					glPushMatrix(); { // planet 2 orbit - start
 						glRotatef(angle - 0.2f, 0, 1, 0);			// rotate planet 3 orbit
@@ -878,7 +880,7 @@ void Scene::renderSolarSystem() {
 		// ORBIT 3 END //
 		// ORBIT 4 START //
 		glPushMatrix(); { // PLANET 1 - start
-			glRotatef(-angle, 0, 1, 0);								// orbit 4 rotation
+			glRotatef(-angle * 2.0f, 0, 1, 0);						// orbit 4 rotation
 
 			glPushMatrix(); {										// planet 1 orbit - start
 				glRotatef(-angle - 0.2f, 0, 1, 0);					// rotate planet 1 orbit
@@ -887,8 +889,10 @@ void Scene::renderSolarSystem() {
 			} glPopMatrix();										// planet 1 orbit - end
 
 			glTranslatef(16.0f, 0, 0);								// translate planet 1 with respect to the sun
-			glRotatef(angle * 2.0f, 0, 1, 0);					// planet 2 rotation
-			planet_8.render();										// render planet 1
+			glPushMatrix(); {
+				glRotatef(angle, 0, 1, 0);							// planet 1 rotation
+				planet_8.render();									// render planet 1
+			} glPopMatrix();
 
 			glPushMatrix(); {										// planet 1 orbit - start
 				glRotatef(45.0f, 0, 0, 1);							// crook planet 1 orbit
@@ -1650,7 +1654,7 @@ void Scene::render() {
 	// Render shapes
 	renderShapes();
 	// Solar system
-	renderSolarSystem();
+	//renderSolarSystem();
 	// Render planets for lighting testing
 	renderPlanets();
 	// Render floor
