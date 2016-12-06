@@ -59,7 +59,7 @@ void Shape::render() {
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
 
-		if (_texture) glBindTexture(GL_TEXTURE_2D, *_texture);
+		if (_texture) { glBindTexture(GL_TEXTURE_2D, *_texture); }
 		glColor4f(_rgba.getR(), _rgba.getG(), _rgba.getB(), _rgba.getA());
 		glDrawArrays(_primitive, 0, _verts.size() / 3);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -118,7 +118,7 @@ void Shape::renderColor() {
 		glMaterialfv(GL_FRONT, GL_EMISSION, emission.data());		// set emission to what is defined in scene
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
-		if (_texture) glBindTexture(GL_TEXTURE_2D, *_texture);
+		if (_texture) { glBindTexture(GL_TEXTURE_2D, *_texture); }
 		glColor4f(_rgba.getR(), _rgba.getG(), _rgba.getB(), _rgba.getA());
 		glDrawArrays(_primitive, 0, _verts.size() / 3);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -184,7 +184,7 @@ void Shape::render(bool point,
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess.data());		// set shininess to what is defined in scene
 
 
-		if (_texture) glBindTexture(GL_TEXTURE_2D, *_texture);
+		if (_texture) { glBindTexture(GL_TEXTURE_2D, *_texture); }
 		// Point Sampling
 		if (point) {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
