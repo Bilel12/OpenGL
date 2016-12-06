@@ -670,7 +670,7 @@ void Scene::buildShapes() {
 		disk_tex);
 
 	butterfly.createButterfly(GL_LINE_LOOP, 10000,
-		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(0.0f, 9.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 0.0, 0.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f));
