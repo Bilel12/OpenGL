@@ -164,7 +164,9 @@ protected:
 	Shape cylinder_2;
 	Shape circle;
 	Shape quad;
-	Shape torus;
+	Shape torus_1;
+	Shape torus_2;
+	Shape torus_3;
 	Shape butterfly;
 	// Models
 	Model spaceship;

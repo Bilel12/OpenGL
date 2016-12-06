@@ -610,11 +610,25 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		barrel_tex);
 
-	//Torus
-	torus.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	//Toruses
+	torus_1.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
 		Vector3(12.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		doughnut_tex);
+
+	torus_2.buildTorus(GL_TRIANGLES, 2.0, 4.0, 32.0, 32.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+		Vector3(12.0f, 0.0f, 8.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(45.0, 1.0, 0.0, 0.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		doughnut_tex);
+
+	torus_3.buildTorus(GL_TRIANGLES, 2.0, 4.0, 128.0, 128.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+		Vector3(12.0f, 4.0f, 4.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(-45.0, 1.0, 0.0, 0.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
 
@@ -758,7 +772,9 @@ void Scene::buildShapes() {
 
 void Scene::renderShapes() {
 	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-		torus.render();
+		torus_1.render();
+		torus_2.render();
+		torus_3.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	butterfly.render2D();
 	// Lights' spheres
