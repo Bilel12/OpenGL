@@ -59,7 +59,7 @@ protected:
 	void renderLight();
 	// rendering textured objects
 	void renderSolarSystem();
-	void renderFloor();
+	inline void renderFloor();
 	void renderLeftWall();
 	void renderBackWall();
 	void renderRightWall();

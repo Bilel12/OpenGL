@@ -503,7 +503,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
 		blue_tex);
 	
-	disc_1.buildDisc(GL_TRIANGLE_FAN, 8.0f, 2.0f,
+	disc_1.buildDisc(GL_TRIANGLE_FAN, 32.0f, 2.0f,
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 0.0, 1.0, 0.0),
@@ -720,9 +720,6 @@ void Scene::buildShapes() {
 
 void Scene::renderShapes() {
 	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-	disc_1.render();
-	disc_2.render();
-	disc_flat.render();
 	torus.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	butterfly.render2D();
@@ -732,7 +729,7 @@ void Scene::renderShapes() {
 	light_sphere_2.render();
 	light_sphere_3.render();
 	// Main floor
-	main_floor.render();
+	
 }
 
 void Scene::renderSolarSystem() {
@@ -876,8 +873,8 @@ void Scene::renderSolarSystem() {
 	// SOLAR SYSTEM END //
 }
 
-void Scene::renderFloor() {
-	// TODO
+inline void Scene::renderFloor() {
+	main_floor.render();
 }
 
 void Scene::renderLeftWall() {
@@ -925,7 +922,7 @@ void Scene::renderBackWall() {
 		glTranslatef(-14.0f, 0.0f, -25.0f);
 		glRotatef(-90.0f, 0, 1, 0);
 
-		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 8 cones
 			glPushMatrix(); {
 				glTranslatef(0.0, 0.0, -i);
 				glRotatef(-90.0f, 0, 0, 1);
@@ -933,7 +930,7 @@ void Scene::renderBackWall() {
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 7 cones
 			glPushMatrix(); {
 				glTranslatef(-5.0f, 2.0f, -i - 2.0f);
 				glRotatef(-90.0f, 0, 0, 1);
@@ -941,7 +938,7 @@ void Scene::renderBackWall() {
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 8 cones
 			glPushMatrix(); {
 				glTranslatef(0.0, 4.0, -i);
 				glRotatef(-90.0f, 0, 0, 1);
@@ -949,7 +946,7 @@ void Scene::renderBackWall() {
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 7 cones
 			glPushMatrix(); {
 				glTranslatef(-5.0f, 6.0f, -i - 2.0f);
 				glRotatef(-90.0f, 0, 0, 1);
@@ -957,7 +954,7 @@ void Scene::renderBackWall() {
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 8 cones
 			glPushMatrix(); {
 				glTranslatef(0.0, 8.0, -i);
 				glRotatef(-90.0f, 0, 0, 1);
@@ -969,46 +966,46 @@ void Scene::renderBackWall() {
 
 void Scene::renderRightWall() {
 	glPushMatrix(); {
-		glTranslatef(-14.0f, 0.0f, -25.0f);
-		glRotatef(-90.0f, 0, 1, 0);
+		glTranslatef(0.0f, 0.0f, 0.0f);
+		//glRotatef(-90.0f, 0, 1, 0);
 
-		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 discs
 			glPushMatrix(); {
 				glTranslatef(0.0, 0.0, -i);
-				glRotatef(-90.0f, 0, 0, 1);
-				cone_1.render();
+				//glRotatef(-90.0f, 0, 0, 1);
+				disc_1.render();
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 discs
 			glPushMatrix(); {
 				glTranslatef(-5.0f, 2.0f, -i - 2.0f);
-				glRotatef(-90.0f, 0, 0, 1);
-				cone_1.render();
+				//glRotatef(-90.0f, 0, 0, 1);
+				disc_1.render();
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 discs
 			glPushMatrix(); {
 				glTranslatef(0.0, 4.0, -i);
 				glRotatef(-90.0f, 0, 0, 1);
-				cone_2.render();
+				disc_2.render();
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 discs
 			glPushMatrix(); {
 				glTranslatef(-5.0f, 6.0f, -i - 2.0f);
 				glRotatef(-90.0f, 0, 0, 1);
-				cone_1.render();
+				disc_1.render();
 			} glPopMatrix();
 		}
 
-		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 discs
 			glPushMatrix(); {
 				glTranslatef(0.0, 8.0, -i);
 				glRotatef(-90.0f, 0, 0, 1);
-				cone_2.render();
+				disc_2.render();
 			} glPopMatrix();
 		}
 	} glPopMatrix();
@@ -1468,6 +1465,7 @@ void Scene::render() {
 	// Render walls
 	renderLeftWall();
 	renderBackWall();
+	renderRightWall();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);
