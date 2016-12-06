@@ -340,7 +340,7 @@ void Scene::renderStencilBuffer() {
 	//////////////////
 	glPushMatrix(); {
 		glScalef(1.0, -1.0, 1.0);							// Flip the scale vertically
-		glTranslatef(2, -5.5, 0);								// Translate down (this will put us under the floor)
+		glTranslatef(0, -4.0, 0);							// Translate down (this will put us under the floor)
 		glRotatef(angle, 0, 1, 0);							// Rotate(the shape will be spinning)
 		spaceship.render();									// Render a model
 	} glPopMatrix();
@@ -356,7 +356,7 @@ void Scene::renderStencilBuffer() {
 	// Draw object to reflect
 	//////////////////////////
 	glPushMatrix(); {
-		glTranslatef(2, 5.5, 0);							// Translate(this is where the model will render, distance should match)
+		glTranslatef(0, 2.0, 0);							// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
 		spaceship.render();										// Render the real object
 	} glPopMatrix();
@@ -560,7 +560,7 @@ void Scene::buildShapes() {
 		NULL);
 
 	floor.buildFromArray(GL_TRIANGLES,
-		Vector3(2.0f, 6.5f, 0.0f),
+		Vector3(0.0f, 4.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
