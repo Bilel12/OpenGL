@@ -128,6 +128,9 @@ protected:
 	Shape light_sphere_1;
 	Shape light_sphere_2;
 	Shape light_sphere_3;
+	Shape light_sphere_4;
+	Shape light_sphere_5;
+	Shape light_sphere_6;
 	// Spheres for material altering
 	Shape sphere_1;
 	Shape sphere_2;
@@ -186,6 +189,8 @@ protected:
 	bool light_1;
 	bool light_2;
 	bool light_3;
+	bool light_4;
+	bool light_5;
 	// Texture filtering on/off
 	bool point;
 	bool biliner;
@@ -227,6 +232,30 @@ protected:
 	GLfloat Light_Specular_3[4];
 	GLfloat Light_Spot_Direction_3[3];
 	GLfloat Light_Cut_Off_3;
+	// Light 4
+	Vector4 light_4_position;			// Light 3 position
+	GLfloat Light_Ambient_4[4];
+	GLfloat Light_Diffuse_4[4];
+	GLfloat Light_Position_4[4];
+	GLfloat Light_Specular_4[4];
+	GLfloat Light_Spot_Direction_4[3];
+	GLfloat Light_Cut_Off_4;
+	// Light 5
+	Vector4 light_5_position;			// Light 5 position
+	GLfloat Light_Ambient_5[4];
+	GLfloat Light_Diffuse_5[4];
+	GLfloat Light_Position_5[4];
+	GLfloat Light_Specular_5[4];
+	GLfloat Light_Spot_Direction_5[3];
+	GLfloat Light_Cut_Off_5;
+	// Light 6
+	Vector4 light_6_position;			// Light 6 position
+	GLfloat Light_Ambient_6[4];
+	GLfloat Light_Diffuse_6[4];
+	GLfloat Light_Position_6[4];
+	GLfloat Light_Specular_6[4];
+	GLfloat Light_Spot_Direction_6[3];
+	GLfloat Light_Cut_Off_6;
 	// Material arrays
 	GLfloat no_mat[4]				= { 0.0, 0.0, 0.0, 0.0 };
 	GLfloat mat_ambient[4]			= { 0.7f, 0.7f, 0.7f, 1.0f };

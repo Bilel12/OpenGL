@@ -45,6 +45,8 @@ Scene::Scene(Input *in) {
 	light_1		= false;
 	light_2		= false;
 	light_3		= false;
+	light_4		= false;
+	light_5		= false;
 	// Texture filtering
 	point			= false;
 	biliner			= false;
@@ -696,32 +698,54 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
 	// Lighting spheres
+	// Sphere to indicate LIGHT0's position
 	light_sphere_0.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(Light_Position_1),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
-
+	// Sphere to indicate LIGHT1's position
 	light_sphere_1.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(Light_Position_1),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
-
+	// Sphere to indicate LIGHT2's position
 	light_sphere_2.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(Light_Position_2),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		NULL);
-
+	// Sphere to indicate LIGHT3's position
 	light_sphere_3.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
 		Vector3(Light_Position_3),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(1.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		NULL);
+	// Sphere to indicate LIGHT4's position - red
+	light_sphere_4.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(Light_Position_4),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+		NULL);
+	// Sphere to indicate LIGHT5's position - green
+	light_sphere_5.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(Light_Position_5),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+		NULL);
+	// Sphere to indicate LIGHT6's position - blue
+	light_sphere_6.buildSphere(GL_TRIANGLES, 0.5, 15.0, 15.0,	// radius, latitude, longitude
+		Vector3(Light_Position_6),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(0.0f, 0.0f, 1.0f, 1.0f),
 		NULL);
 }
 
@@ -735,8 +759,9 @@ void Scene::renderShapes() {
 	light_sphere_1.render();
 	light_sphere_2.render();
 	light_sphere_3.render();
-	// Main floor
-	
+	light_sphere_4.render();
+	light_sphere_5.render();
+	light_sphere_6.render();
 }
 
 void Scene::renderSolarSystem() {
@@ -1101,7 +1126,7 @@ void Scene::buildLight() {
 	Vector4 ambient_2(1.0f, 1.0f, 1.0f, 1.0f);
 	Vector4 diffuse_2(0.6f, 0.6f, 0.6f, 1.0f);
 	Vector4 specular_2(0.0f, 1.0f, 0.0f, 1.0f);
-	Vector3 direction_2(0.0f, -1.0f, 0.0f);
+	//Vector3 direction_2(0.0f, -1.0f, 0.0f);
 
 	setLightPosition(light_2_position, Light_Position_2);
 	setLightAmbient(ambient_2, Light_Ambient_2);
@@ -1117,6 +1142,36 @@ void Scene::buildLight() {
 	setLightAmbient(ambient_3, Light_Ambient_3);
 	setLightDiffuse(diffuse_3, Light_Diffuse_3);						// Light colour
 	setLightSpecular(specular_3, Light_Specular_3);
+	// Light 4 - point light - medium attenuation - red colour
+	light_4_position.set(0.0f, 7.0f, 0.0f, 1.0f);
+	Vector4 ambient_4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vector4 diffuse_4(1.0f, 0.0f, 0.0f, 1.0f);
+	Vector4 specular_4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	setLightPosition(light_4_position, Light_Position_4);
+	setLightAmbient(ambient_4, Light_Ambient_4);
+	setLightDiffuse(diffuse_4, Light_Diffuse_4);						// Light colour
+	setLightSpecular(specular_4, Light_Specular_4);
+	// Light 5 - point light - medium attenuation - green colour
+	light_5_position.set(0.0f, 9.0f, 0.0f, 1.0f);
+	Vector4 ambient_5(1.0f, 1.0f, 1.0f, 1.0f);
+	Vector4 diffuse_5(0.0f, 1.0f, 0.0f, 1.0f);							// Light colour
+	Vector4 specular_5(0.0f, 1.0f, 0.0f, 1.0f);
+
+	setLightPosition(light_5_position, Light_Position_5);
+	setLightAmbient(ambient_5, Light_Ambient_5);
+	setLightDiffuse(diffuse_5, Light_Diffuse_5);						// Light colour
+	setLightSpecular(specular_5, Light_Specular_5);
+	// Light 6 - point light - medium attenuation - blue colour
+	light_6_position.set(13.0f, 4.0f, 0.0f, 1.0f);
+	Vector4 ambient_6(1.0f, 1.0f, 1.0f, 1.0f);
+	Vector4 diffuse_6(0.0f, 0.0f, 1.0f, 1.0f);
+	Vector4 specular_6(0.0f, 0.0f, 1.0f, 1.0f);
+
+	setLightPosition(light_6_position, Light_Position_6);
+	setLightAmbient(ambient_6, Light_Ambient_6);
+	setLightDiffuse(diffuse_6, Light_Diffuse_6);						// Light colour
+	setLightSpecular(specular_6, Light_Specular_6);
 }
 
 void Scene::renderLight() {
@@ -1158,6 +1213,39 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT3, GL_SPECULAR, Light_Specular_3);
 	if (light_3) { glEnable(GL_LIGHT3); }									// Enable Light 3
 	else glDisable(GL_LIGHT3);
+
+	// Light 4 - medium attenuation light - red colour
+	glLightfv(GL_LIGHT4, GL_POSITION, Light_Position_4);
+	glLightfv(GL_LIGHT4, GL_AMBIENT, Light_Ambient_4);
+	glLightfv(GL_LIGHT4, GL_DIFFUSE, Light_Diffuse_4);
+	glLightfv(GL_LIGHT4, GL_SPECULAR, Light_Specular_4);
+	glLightf(GL_LIGHT4, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 4 attenuation - medium distance away will receive little or no light from this source
+	glLightf(GL_LIGHT4, GL_LINEAR_ATTENUATION, 0.25f);
+	glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 0.15f);
+	if (light_4) { glEnable(GL_LIGHT4); }									// Enable Light 4
+	else glDisable(GL_LIGHT4);
+
+	// Light 5 - medium attenuation light - blue colour
+	glLightfv(GL_LIGHT5, GL_POSITION, Light_Position_5);
+	glLightfv(GL_LIGHT5, GL_AMBIENT, Light_Ambient_5);
+	glLightfv(GL_LIGHT5, GL_DIFFUSE, Light_Diffuse_5);
+	glLightfv(GL_LIGHT5, GL_SPECULAR, Light_Specular_5);
+	glLightf(GL_LIGHT5, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 5 attenuation - medium distance away will receive little or no light from this source
+	glLightf(GL_LIGHT5, GL_LINEAR_ATTENUATION, 0.25f);
+	glLightf(GL_LIGHT5, GL_QUADRATIC_ATTENUATION, 0.15f);
+	if (light_5) { glEnable(GL_LIGHT5); }									// Enable Light 5
+	else glDisable(GL_LIGHT5);
+	// Light 6 - medium attenuation light - blue colour
+	glLightfv(GL_LIGHT6, GL_POSITION, Light_Position_6);
+	glLightfv(GL_LIGHT6, GL_AMBIENT, Light_Ambient_6);
+	glLightfv(GL_LIGHT6, GL_DIFFUSE, Light_Diffuse_6);
+	glLightfv(GL_LIGHT6, GL_SPECULAR, Light_Specular_6);
+	glLightf(GL_LIGHT6, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 6 attenuation - medium distance away will receive little or no light from this source
+	glLightf(GL_LIGHT6, GL_LINEAR_ATTENUATION, 0.10f);
+	glLightf(GL_LIGHT6, GL_QUADRATIC_ATTENUATION, 0.05f);
+	glEnable(GL_LIGHT6);
+	//if (light_6) { glEnable(GL_LIGHT5); }									// Enable Light 6
+	//else glDisable(GL_LIGHT5);
 }
 
 void Scene::updateVariables() {
@@ -1197,10 +1285,19 @@ void Scene::updateVariables() {
 	light_sphere_1._translate = Light_Position_1;				// Translate light_shpere_1 object into LIGHT_1's position
 	// Light 2
 	setLightPosition(light_2_position, Light_Position_2);		// Set LIGHT_2 position through amendable varaibles
-	light_sphere_2._translate = Light_Position_2;				// Translate light_shpere_1 object into LIGHT_1's position
-	// Light 2
-	setLightPosition(light_3_position, Light_Position_3);		// Set LIGHT_2 position through amendable varaibles
-	light_sphere_3._translate = Light_Position_3;				// Translate light_shpere_1 object into LIGHT_1's position
+	light_sphere_2._translate = Light_Position_2;				// Translate light_shpere_2 object into LIGHT_2's position
+	// Light 3
+	setLightPosition(light_3_position, Light_Position_3);		// Set LIGHT_3 position through amendable varaibles
+	light_sphere_3._translate = Light_Position_3;				// Translate light_shpere_3 object into LIGHT_3's position
+	// Light 4
+	setLightPosition(light_4_position, Light_Position_4);		// Set LIGHT_4 position through amendable varaibles
+	light_sphere_4._translate = Light_Position_4;				// Translate light_shpere_4 object into LIGHT_4's position
+	// Light 5
+	setLightPosition(light_5_position, Light_Position_5);		// Set LIGHT_5 position through amendable varaibles
+	light_sphere_5._translate = Light_Position_5;				// Translate light_shpere_5 object into LIGHT_5's position
+	// Light 6
+	setLightPosition(light_6_position, Light_Position_6);		// Set LIGHT_6 position through amendable varaibles
+	light_sphere_6._translate = Light_Position_6;				// Translate light_shpere_6 object into LIGHT_6's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
 }
 
@@ -1273,34 +1370,34 @@ void Scene::update(float dt) {
 	}
 	// Texture filtering on/off
 	// Toggle Point Sampling
-	if (input->isSpecialKeyDown(GLUT_KEY_F5)) {
-		point = !point;
-		input->SetSpecialKeyUp(GLUT_KEY_F5);
-	}
-	// Toggle Bilinear Filtering
-	if (input->isSpecialKeyDown(GLUT_KEY_F6)) {
-		biliner = !biliner;
-		input->SetSpecialKeyUp(GLUT_KEY_F6);
-	}
-	// Toggle Mipmapping Filtering
 	if (input->isSpecialKeyDown(GLUT_KEY_F7)) {
-		mipmapping = !mipmapping;
+		point = !point;
 		input->SetSpecialKeyUp(GLUT_KEY_F7);
 	}
-	// Toggle Half Mipmapping Filtering
+	// Toggle Bilinear Filtering
 	if (input->isSpecialKeyDown(GLUT_KEY_F8)) {
-		half_mipmapping = !half_mipmapping;
+		biliner = !biliner;
 		input->SetSpecialKeyUp(GLUT_KEY_F8);
 	}
-	// Toggle Half Trilinear Filtering
+	// Toggle Mipmapping Filtering
 	if (input->isSpecialKeyDown(GLUT_KEY_F9)) {
-		half_trilinear = !half_trilinear;
+		mipmapping = !mipmapping;
 		input->SetSpecialKeyUp(GLUT_KEY_F9);
 	}
-	// Toggle Trilinear Filtering
+	// Toggle Half Mipmapping Filtering
 	if (input->isSpecialKeyDown(GLUT_KEY_F10)) {
-		trilinear = !trilinear;
+		half_mipmapping = !half_mipmapping;
 		input->SetSpecialKeyUp(GLUT_KEY_F10);
+	}
+	// Toggle Half Trilinear Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F11)) {
+		half_trilinear = !half_trilinear;
+		input->SetSpecialKeyUp(GLUT_KEY_F11);
+	}
+	// Toggle Trilinear Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F12)) {
+		trilinear = !trilinear;
+		input->SetSpecialKeyUp(GLUT_KEY_F12);
 	}
 	// Turn lights on/off
 	// Toggle light 0 on/off
@@ -1322,6 +1419,16 @@ void Scene::update(float dt) {
 	if (input->isSpecialKeyDown(GLUT_KEY_F4)) {
 		light_3 = !light_3;
 		input->SetSpecialKeyUp(GLUT_KEY_F4);
+	}
+	// Toggle light 4 on/off
+	if (input->isSpecialKeyDown(GLUT_KEY_F5)) {
+		light_4 = !light_4;
+		input->SetSpecialKeyUp(GLUT_KEY_F5);
+	}
+	// Toggle light 5 on/off
+	if (input->isSpecialKeyDown(GLUT_KEY_F6)) {
+		light_5 = !light_5;
+		input->SetSpecialKeyUp(GLUT_KEY_F6);
 	}
 	// Light 0 controlls
 	if (light_0) {
@@ -1404,7 +1511,7 @@ void Scene::update(float dt) {
 			light_2_position.z -= 0.1f;
 		}
 	}
-	// Light 2 controlls
+	// Light 3 controlls
 	if (light_3) {
 		// move light right
 		if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
@@ -1429,6 +1536,60 @@ void Scene::update(float dt) {
 		// move light z inwards
 		if (input->isKeyDown('t') || input->isKeyDown('T') || input->isSpecialKeyDown(GLUT_KEY_HOME)) {
 			light_3_position.z -= 0.1f;
+		}
+	}
+	// Light 4 controlls
+	if (light_4) {
+		// move light right
+		if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
+			light_4_position.x += 0.1f;
+		}
+		// move light left
+		if (input->isSpecialKeyDown(GLUT_KEY_LEFT)) {
+			light_4_position.x -= 0.1f;
+		}
+		// move light up
+		if (input->isSpecialKeyDown(GLUT_KEY_UP)) {
+			light_4_position.y += 0.1f;
+		}
+		// move light down
+		if (input->isSpecialKeyDown(GLUT_KEY_DOWN)) {
+			light_4_position.y -= 0.1f;
+		}
+		// move light z towards
+		if (input->isKeyDown('g') || input->isKeyDown('G') || input->isSpecialKeyDown(GLUT_KEY_PAGE_UP)) {
+			light_4_position.z += 0.1f;
+		}
+		// move light z inwards
+		if (input->isKeyDown('t') || input->isKeyDown('T') || input->isSpecialKeyDown(GLUT_KEY_HOME)) {
+			light_4_position.z -= 0.1f;
+		}
+	}
+	// Light 5 controlls
+	if (light_5) {
+		// move light right
+		if (input->isSpecialKeyDown(GLUT_KEY_RIGHT)) {
+			light_5_position.x += 0.1f;
+		}
+		// move light left
+		if (input->isSpecialKeyDown(GLUT_KEY_LEFT)) {
+			light_5_position.x -= 0.1f;
+		}
+		// move light up
+		if (input->isSpecialKeyDown(GLUT_KEY_UP)) {
+			light_5_position.y += 0.1f;
+		}
+		// move light down
+		if (input->isSpecialKeyDown(GLUT_KEY_DOWN)) {
+			light_5_position.y -= 0.1f;
+		}
+		// move light z towards
+		if (input->isKeyDown('g') || input->isKeyDown('G') || input->isSpecialKeyDown(GLUT_KEY_PAGE_UP)) {
+			light_5_position.z += 0.1f;
+		}
+		// move light z inwards
+		if (input->isKeyDown('t') || input->isKeyDown('T') || input->isSpecialKeyDown(GLUT_KEY_HOME)) {
+			light_5_position.z -= 0.1f;
 		}
 	}
 	// Camera input controll
