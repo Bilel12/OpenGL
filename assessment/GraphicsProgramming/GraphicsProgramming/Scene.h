@@ -198,6 +198,8 @@ protected:
 	bool half_mipmapping;
 	bool half_trilinear;
 	bool trilinear;
+	// light 6 lerping
+	bool right;
 	//enum light {light_0, light_1, light_2};
 	// Lighting
 	// Light 0

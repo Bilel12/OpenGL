@@ -54,6 +54,7 @@ Scene::Scene(Input *in) {
 	half_mipmapping	= false;
 	half_trilinear	= false;
 	trilinear		= false;
+	right			= true;
 }
 
 void Scene::loadTextures() {
@@ -357,7 +358,7 @@ void Scene::renderStencilBuffer() {
 	// Draw object to reflect
 	//////////////////////////
 	glPushMatrix(); {
-		glTranslatef(0, 1, 0);							// Translate(this is where the model will render, distance should match)
+		glTranslatef(0, 1.7f, 0);							// Translate(this is where the model will render, distance should match)
 		glRotatef(angle, 0, 1, 0);
 		//spaceship.render();										// Render the real object
 		renderSolarSystem();
@@ -757,7 +758,7 @@ void Scene::buildShapes() {
 
 void Scene::renderShapes() {
 	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-	torus.render();
+		torus.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	butterfly.render2D();
 	// Lights' spheres
@@ -765,8 +766,8 @@ void Scene::renderShapes() {
 	light_sphere_1.render();
 	light_sphere_2.render();
 	light_sphere_3.render();
-	light_sphere_4.render();
 	light_sphere_5.render();
+	light_sphere_4.render();
 	light_sphere_6.render();
 }
 
@@ -1171,7 +1172,7 @@ void Scene::buildLight() {
 	setLightDiffuse(diffuse_5, Light_Diffuse_5);						// Light colour
 	setLightSpecular(specular_5, Light_Specular_5);
 	// Light 6 - point light - medium attenuation - blue colour
-	light_6_position.set(13.0f, 4.0f, 0.0f, 1.0f);
+	light_6_position.set(0.0f, 3.15f, 0.0f, 1.0f);
 	Vector4 ambient_6(1.0f, 1.0f, 1.0f, 1.0f);
 	Vector4 diffuse_6(0.0f, 0.0f, 1.0f, 1.0f);
 	Vector4 specular_6(0.0f, 0.0f, 1.0f, 1.0f);
@@ -1304,6 +1305,15 @@ void Scene::updateVariables() {
 	setLightPosition(light_5_position, Light_Position_5);		// Set LIGHT_5 position through amendable varaibles
 	light_sphere_5._translate = Light_Position_5;				// Translate light_shpere_5 object into LIGHT_5's position
 	// Light 6
+	// animate light 6
+	if (right) {
+		light_6_position.x += 0.1f;
+		if (light_6_position.x >= 16.0f) right = false;
+	}
+	else {
+		light_6_position.x -= 0.1;
+		if (light_6_position.x <= -16.0f) right = true;
+	}
 	setLightPosition(light_6_position, Light_Position_6);		// Set LIGHT_6 position through amendable varaibles
 	light_sphere_6._translate = Light_Position_6;				// Translate light_shpere_6 object into LIGHT_6's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
