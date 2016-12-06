@@ -1528,11 +1528,6 @@ void Scene::update(float dt) {
 		light_5 = !light_5;
 		input->SetSpecialKeyUp(GLUT_KEY_F6);
 	}
-	// Toggle light 5 on/off
-	if (input->isKeyDown('6')) {
-		light_6 = !light_6;
-		input->SetKeyUp('6');
-	}
 	// Light 0 controlls
 	if (light_0) {
 		// move light right
