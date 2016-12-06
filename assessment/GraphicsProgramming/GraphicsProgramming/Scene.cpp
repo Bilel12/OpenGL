@@ -368,7 +368,7 @@ void Scene::renderStencilBuffer() {
 
 void Scene::renderShadowing() {
 	// Generate shadow matrix
-	generateShadowMatrix(Light_Position_1, quad.get_verts()->data());
+	generateShadowMatrix(Light_Position_2, quad.get_verts()->data());
 	// Floor for shadowing
 	quad.render();
 	// Render shadow
@@ -393,6 +393,7 @@ void Scene::renderShadowing() {
 	// Render object with corresponding	translate, rotate and scale
 	glPushMatrix(); {
 		glTranslatef(0.f, 1.f, 0.f);
+		//glTranslatef(Light_Position_6[0], Light_Position_6[1], Light_Position_6[2]);
 		glRotatef(angle, 0.f, 1.f, 0.f);
 		glScalef(1.f, 1.f, 1.f);
 		spaceship.render();
@@ -669,9 +670,9 @@ void Scene::buildShapes() {
 		disk_tex);
 
 	butterfly.createButterfly(GL_LINE_LOOP, 10000,
-		Vector3(0.0f, 3.0f, 0.0f),
+		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
-		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0, 0.0, 0.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// blend_cube
@@ -1380,15 +1381,20 @@ void Scene::updateVariables() {
 	setLightPosition(light_6_position, Light_Position_6);		// Set LIGHT_6 position through amendable varaibles
 	light_sphere_6._translate = Light_Position_6;				// Translate light_shpere_6 object into LIGHT_6's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
+	// Butterfly lepring
 	if (right) {
-		butterfly._scale.y *= -1.0f;
 		butterfly._translate.y += 0.1f;
-		if (butterfly._translate.y >= 16.0f) right = false;
+		if (butterfly._translate.y >= 16.0f) {
+			right = false;
+			//butterfly._scale.y *= -1.0f;
+		}
 	}
 	else {
-		butterfly._scale.y *= -1.0f;
 		butterfly._translate.y -= 0.1;
-		if (butterfly._translate.y <= -16.0f) right = true;
+		if (butterfly._translate.y <= -16.0f) {
+			right = true;
+			//butterfly._scale.y *= -1.0f;
+		}
 	}
 }
 
@@ -1725,7 +1731,7 @@ void Scene::render() {
 	// Lighting
 	renderLight();
 	// Shadowing
-	//renderShadowing();
+	renderShadowing();
 	//renderStencilShadowing();
 	// Render geometry here -------------------------------------
 	// Stencil buffer
