@@ -627,7 +627,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
 
-	torus_3.buildTorus(GL_TRIANGLES, 2.0, 4.0, 128.0, 128.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	torus_3.buildTorus(GL_TRIANGLES, 2.0, 4.0, 64.0, 64.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
 		Vector3(12.0f, 4.0f, 4.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(-45.0, 1.0, 0.0, 0.0),
@@ -655,7 +655,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		barrel_tex);
 
-	sphere_pres.buildSphere(GL_TRIANGLES, 2.0f, 160.0f, 160.0f,	// radius, latitude, longitude
+	sphere_pres.buildSphere(GL_TRIANGLES, 2.0f, 64.0f, 64.0f,	// radius, latitude, longitude
 		Vector3(-5.0f, 3.0f, 20.0f),							// translate x, translate y, translate z,
 		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
 		Vector4(0.0, 1.0, 1.0, 1.0),						// rotation angle, rotation x, rotation y, rotation z
@@ -1287,33 +1287,33 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT4, GL_AMBIENT, Light_Ambient_4);
 	glLightfv(GL_LIGHT4, GL_DIFFUSE, Light_Diffuse_4);
 	glLightfv(GL_LIGHT4, GL_SPECULAR, Light_Specular_4);
-	glLightf(GL_LIGHT4, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 4 attenuation - medium distance away will receive little or no light from this source
+	glLightf(GL_LIGHT4, GL_CONSTANT_ATTENUATION, 0.5f);						// Light 4 attenuation - medium distance away will receive little or no light from this source
 	glLightf(GL_LIGHT4, GL_LINEAR_ATTENUATION, 0.25f);
 	glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 0.15f);
 	if (light_4) { glEnable(GL_LIGHT4); }									// Enable Light 4
 	else glDisable(GL_LIGHT4);
 
-	// Light 5 - medium attenuation light - blue colour
+	// Light 5 - medium attenuation light - green colour
 	glLightfv(GL_LIGHT5, GL_POSITION, Light_Position_5);
 	glLightfv(GL_LIGHT5, GL_AMBIENT, Light_Ambient_5);
 	glLightfv(GL_LIGHT5, GL_DIFFUSE, Light_Diffuse_5);
 	glLightfv(GL_LIGHT5, GL_SPECULAR, Light_Specular_5);
-	glLightf(GL_LIGHT5, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 5 attenuation - medium distance away will receive little or no light from this source
+	glLightf(GL_LIGHT5, GL_CONSTANT_ATTENUATION, 0.5f);						// Light 5 attenuation - medium distance away will receive little or no light from this source
 	glLightf(GL_LIGHT5, GL_LINEAR_ATTENUATION, 0.25f);
 	glLightf(GL_LIGHT5, GL_QUADRATIC_ATTENUATION, 0.15f);
 	if (light_5) { glEnable(GL_LIGHT5); }									// Enable Light 5
 	else glDisable(GL_LIGHT5);
-	// Light 6 - medium attenuation light - blue colour
+	// Light 6 - low attenuation light - blue colour
 	glLightfv(GL_LIGHT6, GL_POSITION, Light_Position_6);
 	glLightfv(GL_LIGHT6, GL_AMBIENT, Light_Ambient_6);
 	glLightfv(GL_LIGHT6, GL_DIFFUSE, Light_Diffuse_6);
 	glLightfv(GL_LIGHT6, GL_SPECULAR, Light_Specular_6);
-	glLightf(GL_LIGHT6, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 6 attenuation - medium distance away will receive little or no light from this source
+	glLightf(GL_LIGHT6, GL_CONSTANT_ATTENUATION, 0.5f);						// Light 6 attenuation - medium distance away will receive little or no light from this source
 	glLightf(GL_LIGHT6, GL_LINEAR_ATTENUATION, 0.25f);
 	glLightf(GL_LIGHT6, GL_QUADRATIC_ATTENUATION, 0.15f);
-	glEnable(GL_LIGHT6);
-	//if (light_6) { glEnable(GL_LIGHT5); }									// Enable Light 6
-	//else glDisable(GL_LIGHT5);
+	//glEnable(GL_LIGHT6);
+	if (light_6) { glEnable(GL_LIGHT5); }									// Enable Light 6
+	else glDisable(GL_LIGHT5);
 }
 
 void Scene::updateVariables() {
@@ -1526,6 +1526,11 @@ void Scene::update(float dt) {
 	if (input->isSpecialKeyDown(GLUT_KEY_F6)) {
 		light_5 = !light_5;
 		input->SetSpecialKeyUp(GLUT_KEY_F6);
+	}
+	// Toggle light 5 on/off
+	if (input->isKeyDown('6')) {
+		light_6 = !light_6;
+		input->SetKeyUp('6');
 	}
 	// Light 0 controlls
 	if (light_0) {

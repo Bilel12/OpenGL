@@ -198,6 +198,7 @@ protected:
 	bool light_3;
 	bool light_4;
 	bool light_5;
+	bool light_6;
 	// Texture filtering on/off
 	bool point;
 	bool biliner;
