@@ -549,6 +549,7 @@ void Scene::buildShapes() {
 		quad_norms,
 		quad_texcoords,
 		NULL);
+	// TODO
 	quad.set_ambient(1.f, 1.f, 1.f, 1.f);
 	quad.set_diffuse(1.f, 1.f, 1.f, 1.f);
 	quad.set_specular(1.f, 1.f, 1.f, 1.f);
@@ -631,6 +632,41 @@ void Scene::buildShapes() {
 		Vector4(-45.0, 1.0, 0.0, 0.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
+
+	torus_pres.buildTorus(GL_TRIANGLES, 2.0, 4.0, 128.0, 128.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+		Vector3(15.0f, 6.0f, 20.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		doughnut_tex);
+
+	disc_pres.buildDisc(GL_TRIANGLE_FAN, 128.0f, 2.0f,		// edges, radius
+		Vector3(2.0f, 3.0f, 10.0f),
+		Vector3(2.0f, 2.0f, 2.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		disk_tex);
+
+	cylinder_pres.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
+		Vector3(0.0f, -8.0f, 20.0f),
+		Vector3(-1.0f, -1.0f, 1.0f),
+		Vector4(0.0f, 1.0f, 1.0f, 1.0f),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		barrel_tex);
+
+	sphere_pres.buildSphere(GL_TRIANGLES, 2.0f, 160.0f, 160.0f,	// radius, latitude, longitude
+		Vector3(-5.0f, 3.0f, 20.0f),							// translate x, translate y, translate z,
+		Vector3(1.0f, 1.0f, 1.0f),							// scale x, scale y, scale z,
+		Vector4(0.0, 1.0, 1.0, 1.0),						// rotation angle, rotation x, rotation y, rotation z
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
+		earth_clouds_tex);
+
+	cone_pres.buildCone(GL_TRIANGLES, 2.0f, 10.0f, 5.0f,
+		Vector3(-10.0f, 9.0f, 20.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		disk_tex);
 
 	butterfly.createButterfly(GL_LINE_LOOP, 10000,
 		Vector3(0.0f, 3.0f, 0.0f),
@@ -771,12 +807,15 @@ void Scene::buildShapes() {
 }
 
 void Scene::renderShapes() {
-	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
-		torus_1.render();
-		torus_2.render();
-		torus_3.render();
-	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	//glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
+	//
+	disc_pres.render();
+	torus_pres.render();
+	cylinder_pres.render();
+	sphere_pres.render();
+	cone_pres.render();
 	butterfly.render2D();
+	//glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	// Lights' spheres
 	light_sphere_0.render();
 	light_sphere_1.render();
@@ -1070,6 +1109,9 @@ void Scene::renderPlanets() {
 		sphere_7.render();
 		sphere_8.render();
 	} glPopMatrix();
+	torus_1.render();
+	torus_2.render();
+	torus_3.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 }
 
@@ -1266,8 +1308,8 @@ void Scene::renderLight() {
 	glLightfv(GL_LIGHT6, GL_DIFFUSE, Light_Diffuse_6);
 	glLightfv(GL_LIGHT6, GL_SPECULAR, Light_Specular_6);
 	glLightf(GL_LIGHT6, GL_CONSTANT_ATTENUATION, 0.0f);						// Light 6 attenuation - medium distance away will receive little or no light from this source
-	glLightf(GL_LIGHT6, GL_LINEAR_ATTENUATION, 0.10f);
-	glLightf(GL_LIGHT6, GL_QUADRATIC_ATTENUATION, 0.05f);
+	glLightf(GL_LIGHT6, GL_LINEAR_ATTENUATION, 0.25f);
+	glLightf(GL_LIGHT6, GL_QUADRATIC_ATTENUATION, 0.15f);
 	glEnable(GL_LIGHT6);
 	//if (light_6) { glEnable(GL_LIGHT5); }									// Enable Light 6
 	//else glDisable(GL_LIGHT5);
@@ -1280,7 +1322,12 @@ void Scene::updateVariables() {
 	floor.rotation.setX(1);
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
+	torus_pres.rotate(angle * 0.5);
 	blend_cube.rotate(angle);
+	disc_pres.rotate(angle);
+	cylinder_pres.rotate(angle);
+	sphere_pres.rotate(angle);
+	cone_pres.rotate(angle);
 	butterfly.rotate(angle);
 	// Left wall rotation
 	cylinder_1.rotate(angle);

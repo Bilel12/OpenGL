@@ -154,19 +154,24 @@ protected:
 	// Diffrent shapes
 	Shape cone_1;
 	Shape cone_2;
+	Shape cone_pres;
 	Shape disc_1;
 	Shape disc_2;
 	Shape disc_3;
+	Shape disc_pres;
 	Shape blend_cube;
 	Shape floor;
 	Shape main_floor;
 	Shape cylinder_1;
 	Shape cylinder_2;
+	Shape cylinder_pres;
 	Shape circle;
 	Shape quad;
 	Shape torus_1;
 	Shape torus_2;
 	Shape torus_3;
+	Shape torus_pres;
+	Shape sphere_pres;
 	Shape butterfly;
 	// Models
 	Model spaceship;
