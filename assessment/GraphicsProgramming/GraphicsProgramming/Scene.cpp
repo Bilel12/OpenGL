@@ -965,7 +965,7 @@ void Scene::renderBackWall() {
 			} glPopMatrix();
 		}
 	} glPopMatrix();
-}
+}//
 
 void Scene::renderPlanets() {
 	glDisable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
