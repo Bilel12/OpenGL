@@ -1328,7 +1328,7 @@ void Scene::updateVariables() {
 	cylinder_pres.rotate(angle);
 	sphere_pres.rotate(angle);
 	cone_pres.rotate(angle);
-	butterfly.rotate(angle);
+	//butterfly.rotate(angle);
 	// Left wall rotation
 	cylinder_1.rotate(angle);
 	cylinder_2.rotate(-angle);
@@ -1380,6 +1380,16 @@ void Scene::updateVariables() {
 	setLightPosition(light_6_position, Light_Position_6);		// Set LIGHT_6 position through amendable varaibles
 	light_sphere_6._translate = Light_Position_6;				// Translate light_shpere_6 object into LIGHT_6's position
 	//setLightSpecular(specular, specular, specular, specular, Light_Specular_1);
+	if (right) {
+		butterfly._scale.y *= -1.0f;
+		butterfly._translate.y += 0.1f;
+		if (butterfly._translate.y >= 16.0f) right = false;
+	}
+	else {
+		butterfly._scale.y *= -1.0f;
+		butterfly._translate.y -= 0.1;
+		if (butterfly._translate.y <= -16.0f) right = true;
+	}
 }
 
 void Scene::update(float dt) {
