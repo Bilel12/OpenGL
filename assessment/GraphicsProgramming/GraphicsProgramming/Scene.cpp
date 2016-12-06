@@ -556,13 +556,29 @@ void Scene::buildShapes() {
 		quad_t_texcoords,
 		NULL);
 
-	cone.buildCone(GL_TRIANGLES, 2, 10, 10,
-		Vector3(3.0f, 0.0f, 0.0f),
+	main_floor.buildQuad(GL_TRIANGLES,
+		Vector3(0.0f, 1.0f, 0.0f),
+		Vector3(20.0f, 20.0f, 25.0f),
+		Vector4(1.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 0.5f),
+		quad_t_verts,
+		quad_t_norms,
+		quad_t_texcoords,
+		checked_tex);
+
+	cone_1.buildCone(GL_TRIANGLES, 2.0f, 10.0f, 10.0f,
+		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		disk_tex);
-	cone.set_ambient(0.5, 0, 0, 0);
+
+	cone_2.buildCone(GL_TRIANGLES, 2.0f, 10.0f, 10.0f,
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		disk_tex);
 
 	cylinder_1.buildCylinder(GL_TRIANGLES, 2.3f, 20.0f, 10.f,
 		Vector3(0.0f, 0.0f, 0.0f),
@@ -707,7 +723,6 @@ void Scene::renderShapes() {
 	disc_1.render();
 	disc_2.render();
 	disc_flat.render();
-	cone.render();
 	torus.render();
 	glEnable(GL_COLOR_MATERIAL);									// Without it all glColor3f() changes are ignored when lighting is enabled
 	butterfly.render2D();
@@ -716,6 +731,8 @@ void Scene::renderShapes() {
 	light_sphere_1.render();
 	light_sphere_2.render();
 	light_sphere_3.render();
+	// Main floor
+	main_floor.render();
 }
 
 void Scene::renderSolarSystem() {
@@ -863,10 +880,9 @@ void Scene::renderFloor() {
 	// TODO
 }
 
-void Scene::renderWalls() {
+void Scene::renderLeftWall() {
 	glPushMatrix(); {
-		glTranslatef(-12.0f, 5.0f, 0.0f);
-		//cylinder.render();
+		glTranslatef(-18.0f, 5.0f, 23.0f);
 
 		//glPushMatrix(); {
 		//		glTranslatef(0.0f, 0.0, -4.6f);
@@ -899,6 +915,29 @@ void Scene::renderWalls() {
 					glTranslatef(0.0, 5.0f, -i);
 					cylinder_1.render();
 				}
+			} glPopMatrix();
+		}
+	} glPopMatrix();
+}
+
+void Scene::renderBackWall() {
+	glPushMatrix(); {
+		glTranslatef(-14.0f, 0.0f, -25.0f);
+		glRotatef(-90.0f, 0, 1, 0);
+
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				glTranslatef(0.0, 0.0, -i);
+				glRotatef(-90.0f, 0, 0, 1);
+				cone_1.render();
+			} glPopMatrix();
+		}
+
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				glTranslatef(0.0, 4.0, -i);
+				glRotatef(-90.0f, 0, 0, 1);
+				cone_2.render();
 			} glPopMatrix();
 		}
 	} glPopMatrix();
@@ -1352,7 +1391,8 @@ void Scene::render() {
 	// Render floor
 	renderFloor();
 	// Render walls
-	renderWalls();
+	renderLeftWall();
+	renderBackWall();
 	// Geometry rendering ends here -----------------------------
 	// Render text, should be last object rendered.
 	setRenderMode(blend, wireframe);

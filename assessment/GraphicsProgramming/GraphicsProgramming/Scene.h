@@ -60,7 +60,8 @@ protected:
 	// rendering textured objects
 	void renderSolarSystem();
 	void renderFloor();
-	void renderWalls();
+	void renderLeftWall();
+	void renderBackWall();
 	void renderPlanets();
 	// For Window and frustum calculation.
 	int width, height;
@@ -147,10 +148,12 @@ protected:
 	Shape planet_8;
 	Shape torus_orbit;
 	// Diffrent shapes
-	Shape cone;
+	Shape cone_1;
+	Shape cone_2;
 	Shape disc_1, disc_2, disc_flat;
 	Shape blend_cube;
 	Shape floor;
+	Shape main_floor;
 	Shape cylinder_1;
 	Shape cylinder_2;
 	Shape circle;
