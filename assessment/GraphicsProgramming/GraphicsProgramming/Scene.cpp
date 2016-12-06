@@ -933,9 +933,33 @@ void Scene::renderBackWall() {
 			} glPopMatrix();
 		}
 
+		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				glTranslatef(-5.0f, 2.0f, -i - 2.0f);
+				glRotatef(-90.0f, 0, 0, 1);
+				cone_1.render();
+			} glPopMatrix();
+		}
+
 		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
 			glPushMatrix(); {
 				glTranslatef(0.0, 4.0, -i);
+				glRotatef(-90.0f, 0, 0, 1);
+				cone_2.render();
+			} glPopMatrix();
+		}
+
+		for (float i = 0.0; i <= 28.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				glTranslatef(-5.0f, 6.0f, -i - 2.0f);
+				glRotatef(-90.0f, 0, 0, 1);
+				cone_1.render();
+			} glPopMatrix();
+		}
+
+		for (float i = 0.0; i <= 32.0f; i += 4.0f) {		// Generate a row of 10 cylidners
+			glPushMatrix(); {
+				glTranslatef(0.0, 8.0, -i);
 				glRotatef(-90.0f, 0, 0, 1);
 				cone_2.render();
 			} glPopMatrix();
