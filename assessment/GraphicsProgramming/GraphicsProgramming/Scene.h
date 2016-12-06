@@ -59,7 +59,7 @@ protected:
 	void renderLight();
 	// rendering textured objects
 	void renderSolarSystem();
-	inline void renderFloor();
+	void renderFloor();
 	void renderLeftWall();
 	void renderBackWall();
 	void renderRightWall();
@@ -186,6 +186,13 @@ protected:
 	bool light_1;
 	bool light_2;
 	bool light_3;
+	// Texture filtering on/off
+	bool point;
+	bool biliner;
+	bool mipmapping;
+	bool half_mipmapping;
+	bool half_trilinear;
+	bool trilinear;
 	//enum light {light_0, light_1, light_2};
 	// Lighting
 	// Light 0

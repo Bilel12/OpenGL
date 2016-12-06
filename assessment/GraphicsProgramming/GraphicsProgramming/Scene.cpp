@@ -45,6 +45,13 @@ Scene::Scene(Input *in) {
 	light_1		= false;
 	light_2		= false;
 	light_3		= false;
+	// Texture filtering
+	point			= false;
+	biliner			= false;
+	mipmapping		= false;
+	half_mipmapping	= false;
+	half_trilinear	= false;
+	trilinear		= false;
 }
 
 void Scene::loadTextures() {
@@ -873,26 +880,13 @@ void Scene::renderSolarSystem() {
 	// SOLAR SYSTEM END //
 }
 
-inline void Scene::renderFloor() {
-	// Point Sampling
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Bilinear
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Mitmapping
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-	// half mippaing
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	// half trilinear
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-	// Trilinear
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	main_floor.render();
+void Scene::renderFloor() {
+	main_floor.render(point,
+		biliner,
+		mipmapping,
+		half_mipmapping,
+		half_trilinear,
+		trilinear);
 }
 
 void Scene::renderLeftWall() {
@@ -1276,6 +1270,37 @@ void Scene::update(float dt) {
 	if (input->isKeyDown(32)) { // 32 - ASCII code for spacebar, (13 - enter)
 		scale_x -= 0.1f;
 		scale_z -= 0.1f;
+	}
+	// Texture filtering on/off
+	// Toggle Point Sampling
+	if (input->isSpecialKeyDown(GLUT_KEY_F5)) {
+		point = !point;
+		input->SetSpecialKeyUp(GLUT_KEY_F5);
+	}
+	// Toggle Bilinear Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F6)) {
+		biliner = !biliner;
+		input->SetSpecialKeyUp(GLUT_KEY_F6);
+	}
+	// Toggle Mipmapping Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F7)) {
+		mipmapping = !mipmapping;
+		input->SetSpecialKeyUp(GLUT_KEY_F7);
+	}
+	// Toggle Half Mipmapping Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F8)) {
+		half_mipmapping = !half_mipmapping;
+		input->SetSpecialKeyUp(GLUT_KEY_F8);
+	}
+	// Toggle Half Trilinear Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F9)) {
+		half_trilinear = !half_trilinear;
+		input->SetSpecialKeyUp(GLUT_KEY_F9);
+	}
+	// Toggle Trilinear Filtering
+	if (input->isSpecialKeyDown(GLUT_KEY_F10)) {
+		trilinear = !trilinear;
+		input->SetSpecialKeyUp(GLUT_KEY_F10);
 	}
 	// Turn lights on/off
 	// Toggle light 0 on/off
