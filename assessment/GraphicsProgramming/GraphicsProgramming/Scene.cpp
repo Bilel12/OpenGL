@@ -1324,7 +1324,7 @@ void Scene::updateVariables() {
 	floor.rotation.setX(1);
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
-	torus_pres.rotate(angle * 0.5);
+	torus_pres.rotate(angle * 0.5f);
 	blend_cube.rotate(angle);
 	disc_pres.rotate(angle);
 	cylinder_pres.rotate(angle);
@@ -1340,7 +1340,7 @@ void Scene::updateVariables() {
 	// Right wall rotation
 	disc_1.rotate(angle);
 	disc_2.rotate(-angle);
-	disc_3.rotate(angle * 0.2);
+	disc_3.rotate(angle * 0.2f);
 	//skybox.rotate(angle);
 	sphere_1.rotate(angle);
 	sphere_2.rotate(angle);
@@ -1376,7 +1376,7 @@ void Scene::updateVariables() {
 		if (light_6_position.x >= 16.0f) right = false;
 	}
 	else {
-		light_6_position.x -= 0.1;
+		light_6_position.x -= 0.1f;
 		if (light_6_position.x <= -16.0f) right = true;
 	}
 	setLightPosition(light_6_position, Light_Position_6);		// Set LIGHT_6 position through amendable varaibles
@@ -1391,7 +1391,7 @@ void Scene::updateVariables() {
 		}
 	}
 	else {
-		butterfly._translate.y -= 0.1;
+		butterfly._translate.y -= 0.1f;
 		if (butterfly._translate.y <= -16.0f) {
 			right = true;
 			//butterfly._scale.y *= -1.0f;
