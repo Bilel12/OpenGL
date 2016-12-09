@@ -613,29 +613,43 @@ void Scene::buildShapes() {
 		barrel_tex);
 
 	//Toruses
-	torus_1.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	torus_1.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges
 		Vector3(12.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
 
-	torus_2.buildTorus(GL_TRIANGLES, 2.0, 4.0, 32.0, 32.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	torus_2.buildTorus(GL_TRIANGLES, 2.0, 4.0, 32.0, 32.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges
 		Vector3(12.0f, 0.0f, 8.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(45.0, 1.0, 0.0, 0.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
 
-	torus_3.buildTorus(GL_TRIANGLES, 2.0, 4.0, 64.0, 64.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	torus_3.buildTorus(GL_TRIANGLES, 2.0, 4.0, 64.0, 64.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges
 		Vector3(12.0f, 4.0f, 4.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(-45.0, 1.0, 0.0, 0.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		doughnut_tex);
 
-	torus_pres.buildTorus(GL_TRIANGLES, 2.0, 4.0, 128.0, 128.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	torus_pres.buildTorus(GL_TRIANGLES, 2.0, 4.0, 128.0, 128.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges
 		Vector3(15.0f, 6.0f, 20.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		doughnut_tex);
+
+	torus_three.buildTorus(GL_TRIANGLES, 1.0, 2.0, 3.0, 32.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges 
+		Vector3(-14.0f, 7.0f, 20.0f),
+		Vector3(1.0f, 1.0f, 1.0f),
+		Vector4(0.0, 1.0, 1.0, 1.0),
+		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+		doughnut_tex);
+
+	torus_three_1.buildTorus(GL_TRIANGLES, 1.0, 2.0, 32.0, 3.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges
+		Vector3(-10.0f, 4.0f, 18.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
@@ -662,7 +676,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),					// red, green, blue, alpha colour
 		earth_clouds_tex);
 
-	cone_pres.buildCone(GL_TRIANGLES, 2.0f, 10.0f, 5.0f,
+	cone_pres.buildCone(GL_TRIANGLES, 2.0f, 64.0f, 5.0f,
 		Vector3(-10.0f, 9.0f, 20.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
@@ -749,7 +763,7 @@ void Scene::buildShapes() {
 		Vector4(1.0f, 1.0f, 1.0f, 1.0f),
 		venus_surface_tex);
 
-	torus_orbit.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
+	torus_orbit.buildTorus(GL_TRIANGLES, 2.0, 4.0, 20.0, 10.0,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, torus edges, tube edges
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(1.0f, 1.0f, 1.0f),
 		Vector4(0.0, 1.0, 1.0, 1.0),
@@ -812,6 +826,8 @@ void Scene::renderShapes() {
 	//
 	disc_pres.render();
 	torus_pres.render();
+	torus_three.render();
+	torus_three_1.render();
 	cylinder_pres.render();
 	sphere_pres.render();
 	cone_pres.render();
@@ -1325,6 +1341,8 @@ void Scene::updateVariables() {
 	floor.scale.setX(10);
 	floor.translate.setX(1);*/
 	torus_pres.rotate(angle * 0.5f);
+	torus_three.rotate(angle * 0.5f);
+	torus_three_1.rotate(-angle * 0.5f);
 	blend_cube.rotate(angle);
 	disc_pres.rotate(angle);
 	cylinder_pres.rotate(angle);

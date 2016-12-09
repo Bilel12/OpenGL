@@ -24,7 +24,6 @@
 #include "Shape.h"
 #include "Cube.h"
 #include "Skybox.h"
-#include "Draw.h"
 #include "Model.h"
 
 class Scene {
@@ -151,6 +150,8 @@ protected:
 	Shape planet_7;
 	Shape planet_8;
 	Shape torus_orbit;
+	Shape torus_three;
+	Shape torus_three_1;
 	// Diffrent shapes
 	Shape cone_1;
 	Shape cone_2;
