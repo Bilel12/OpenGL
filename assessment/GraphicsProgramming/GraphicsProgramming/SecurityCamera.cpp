@@ -209,7 +209,7 @@ void SecurityCamera::cameraControll(float dt, int width, int height, Input *inpu
 			}
 		}
 	}
-	// keep mouse cursor in the middle of the screen
-	glutWarpPointer(width / 2, height / 2);
+	//// keep mouse cursor in the middle of the screen
+	//glutWarpPointer(width / 2, height / 2);
 }
 

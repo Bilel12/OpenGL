@@ -1,7 +1,7 @@
 #ifndef _SECURITYCAMERA_H
 #define _SECURITYCAMERA_H
 
-#include "glut.h"
+//#include "glut.h"
 #include "Input.h"
 #include "Camera.h"
 

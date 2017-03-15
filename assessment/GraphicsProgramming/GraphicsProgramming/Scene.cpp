@@ -1712,6 +1712,8 @@ void Scene::update(float dt) {
 	float mousePositionX(int width);
 	float mousePositionY(int height);
 	camera->cameraControll(dt, width, height, input);
+	// Force mouse to return to the centre of the window
+	glutWarpPointer(width / 2, height / 2);
 	camera->update();
 	// Update object and variables (camera, rotation, etc).
 	//

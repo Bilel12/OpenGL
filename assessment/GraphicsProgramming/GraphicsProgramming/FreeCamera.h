@@ -1,7 +1,7 @@
 #ifndef _FREECAMERA_H
 #define _FREECAMERA_H
 
-#include "glut.h"
+//#include "glut.h"
 #include "Input.h"
 #include "Camera.h"
 
