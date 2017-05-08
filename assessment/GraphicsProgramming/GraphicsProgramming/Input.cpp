@@ -70,3 +70,43 @@ bool Input::isLeftMouseButtonPressed()
 	return mouse.left;
 }
 
+void Input::setRightMouseButton(bool b)
+{
+	mouse.right = b;
+}
+
+bool Input::isRightMouseButtonPressed()
+{
+	return mouse.right;
+}
+
+void Input::setMiddleMouseButton(bool b)
+{
+	mouse.middle = b;
+}
+
+bool Input::isMiddleMouseButtonPressed()
+{
+	return mouse.middle;
+}
+
+void Input::setScrollUpMouseWheel(bool b)
+{
+	mouse.scroll_up = b;
+}
+
+bool Input::isScrollUpMouseWheel()
+{
+	return mouse.scroll_up;
+}
+
+void Input::setScrollDownMouseWheel(bool b)
+{
+	mouse.scroll_down = b;
+}
+
+bool Input::isScrollDownMouseWheel()
+{
+	return mouse.scroll_down;
+}
+

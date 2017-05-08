@@ -9,12 +9,20 @@
 #include "glut.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "Scene.h"
 #include "Input.h"
+#include "Scene.h"
+#include "GameScene.h"
+#include "LoadScene.h"
 
 // Required variables; pointer to scene and input objects. Initialise variable used in delta time calculation.
-Scene *scene;
+
 Input *input;
+__declspec(selectany) LoadScene *load_scene;
+__declspec(selectany) GameScene *game_scene;
+__declspec(selectany) Scene *scene;
+
+// GameScene
+// LoadingScene
 
 int oldTimeSinceStart = 0;
 // Window properties
@@ -26,6 +34,8 @@ const unsigned initWindowX = 25, initWindowY = 10;
 // scene object to refresh the OpenGL buffers to the new dimensions.
 void changeSize(int w, int h)
 {
+	scene = game_scene;
+
 	scene->resize(w, h);
 }
 
@@ -34,11 +44,24 @@ void changeSize(int w, int h)
 // Calls Scene update and render for the next frame.
 void renderScene(void)
 {
+	
 	// Calculate delta time.
 	int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (float)timeSinceStart - (float)oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;
 	deltaTime = deltaTime / 100.0f;
+
+	// switch game state
+	/*
+		switch(gameState) {
+			case Loading:
+				scene = loadingScene;
+
+			case Game:
+				scene = gameScene;
+		}
+	*/
+
 
 	// Update Scene and render next frame.
 	scene->update(deltaTime);
@@ -117,16 +140,75 @@ void processPassiveMouseMove(int x, int y)
 // button state (up and down), and current cursor position.
 void processMouseButtons(int button, int state, int x, int y)
 {
-	// Detect left button press/released
-	if (button == GLUT_LEFT_BUTTON) {
-		// when the button is released
-		if (state == GLUT_DOWN) {
-			input->setLeftMouseButton(true);
+	enum
+	{
+		MOUSE_LEFT_BUTTON = 0,
+		MOUSE_MIDDLE_BUTTON = 1,
+		MOUSE_RIGHT_BUTTON = 2,
+		MOUSE_SCROLL_UP = 3,
+		MOUSE_SCROLL_DOWN = 4,
+		MOUSE_BUTTON_DOWN = 0,
+		MOUSE_BUTTON_UP = 1
+	};
+
+	switch (button) {
+		// Detect left button press/released
+	case MOUSE_LEFT_BUTTON: {
+		switch (state) {
+		case MOUSE_BUTTON_DOWN: input->setLeftMouseButton(true);
+			break;
+		default: input->setLeftMouseButton(false);
+			break;
 		}
-		// else button state == GLUT_UP
-		else {
-			input->setLeftMouseButton(false);
+	} break;
+		// Detect middle button press/released
+	case MOUSE_MIDDLE_BUTTON: {
+		switch (state) {
+		case MOUSE_BUTTON_DOWN: input->setMiddleMouseButton(true);
+			break;
+		default: input->setMiddleMouseButton(false);
+			break;
 		}
+	} break;
+		// Detect right button press/released
+	case MOUSE_RIGHT_BUTTON: {
+		switch (state) {
+		case MOUSE_BUTTON_DOWN: input->setRightMouseButton(true);
+			break;
+		default: input->setRightMouseButton(false);
+			break;
+		}
+	} break;
+		// Detect mouse wheel scroll up (setScrollUpMouseWheel(false) must be called in update() after isScrollUpMouseWheel())  
+		//case MOUSE_SCROLL_UP: {
+		//	switch (state) {
+		//	case MOUSE_BUTTON_DOWN: input->setScrollUpMouseWheel(true);
+		//		break;
+		//	}
+		//} break;
+		//// Detect mouse wheel scroll down (setScrollDownMouseWheel(false) must be called in update() after isScrollDownMouseWheel())
+		//case MOUSE_SCROLL_DOWN: {
+		//	switch (state) {
+		//	case MOUSE_BUTTON_DOWN: input->setScrollDownMouseWheel(true);
+		//		break;
+		//	}
+		//} break;
+	}
+}
+
+void processMouseWheel(int wheel, int direction, int x, int y) {
+	enum {
+		UP = 1,
+		DOWN = -1,
+	};
+
+	switch (direction) {
+	case UP:
+		input->setScrollUpMouseWheel(true);
+		break;
+	case DOWN:
+		input->setScrollDownMouseWheel(true);
+		break;
 	}
 }
 
@@ -135,7 +217,6 @@ void processMouseButtons(int button, int state, int x, int y)
 // Registers callback functions for handling GLUT input events
 // Registers callback functions for window resizing and rendering.
 // Initialises Input and Scene class, prior to starting Main Loop.
-
 int main(int argc, char **argv)
 {
 	// Init GLUT and create window
@@ -161,15 +242,27 @@ int main(int argc, char **argv)
 	// Mouse callbacks
 	glutMotionFunc(processActiveMouseMove);
 	glutPassiveMotionFunc(processPassiveMouseMove);
+	// void glutMouseFunc(void(*func)(int button, int state, int x, int y))
 	glutMouseFunc(processMouseButtons);
+	glutMouseWheelFunc(processMouseWheel);
 	// Position mouse in centre of windows before main loop (window not resized yet)
 	glutWarpPointer(windowWidth / 2, windowHeight / 2);
 	// Hide mouse cursor
 	glutSetCursor(GLUT_CURSOR_NONE);
 	// warp
+	
 	// Initialise input and scene objects.
 	input = new Input();
-	scene = new Scene(input);
+
+	//scene = new LoadingScene(input);
+	load_scene = new LoadScene();
+	game_scene = new GameScene(input);
+
+	// load scene 
+	// Create GameScene();
+	// Create LoadingScene(GameScene *)
+	// delete LoadingScene();
+	// LoadingScene thread tells game to start loafing assetss
 
 	// Enter GLUT event processing cycle
 	glutMainLoop();

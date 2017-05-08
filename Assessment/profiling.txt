@@ -1,0 +1,29 @@
+Identyfing bottlenecks
+
+-- renderScene                             -- 6,629
+   --Scene::render                         -- 5,809
+      -- Model::render                     -- 5,368	
+      -- Shape::render                     -- 142
+      -- Scene::renderStencilBuffer        -- 142
+         -- Shape::render                  -- 137
+         -- Shape::render2D                -- 4
+      -- Scene::renderTextOutput           -- 130
+         -- Scene::displayText             -- 121
+         -- std::to_string                 -- 3
+   -- Shape::render                        -- 778
+   -- Shape::render2D                      -- 30
+   -- Scene::update                        -- 6
+
+Scene::loadTextures                        -- 5,324
+   -- _SOIL_load_OGL_texture               -- 5,324
+      -- _SOIL_internal_create_OGL_texture -- 3,703
+      -- _SOIL_load_image
+
+Scene::Scene                               -- 103
+   -- _SOIL_load_OGL_texture               -- 81
+   -- Scene::buildShapes                   -- 16
+       -- Shape::buildSphere               -- 9
+       -- Shape::buildTorus                -- 4
+       -- Shape::createButterfly           -- 1
+   -- Model::loadModel                     -- 6
+

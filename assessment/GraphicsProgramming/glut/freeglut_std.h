@@ -161,6 +161,8 @@
 #define  GLUT_LEFT_BUTTON                   0x0000
 #define  GLUT_MIDDLE_BUTTON                 0x0001
 #define  GLUT_RIGHT_BUTTON                  0x0002
+#define  GLUT_SCROLL_UP                     0x0003
+#define  GLUT_SCROLL_DOWN                   0x0004
 #define  GLUT_DOWN                          0x0000
 #define  GLUT_UP                            0x0001
 #define  GLUT_LEFT                          0x0000
@@ -480,6 +482,8 @@ FGAPI void    FGAPIENTRY glutReshapeFunc( void (* callback)( int, int ) );
 FGAPI void    FGAPIENTRY glutVisibilityFunc( void (* callback)( int ) );
 FGAPI void    FGAPIENTRY glutDisplayFunc( void (* callback)( void ) );
 FGAPI void    FGAPIENTRY glutMouseFunc( void (* callback)( int, int, int, int ) );
+FGAPI void    FGAPIENTRY glutMouseWheelFunc(void(* callback)(int , int , int , int ) );
+
 FGAPI void    FGAPIENTRY glutMotionFunc( void (* callback)( int, int ) );
 FGAPI void    FGAPIENTRY glutPassiveMotionFunc( void (* callback)( int, int ) );
 FGAPI void    FGAPIENTRY glutEntryFunc( void (* callback)( int ) );

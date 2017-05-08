@@ -1,6 +1,7 @@
 ﻿#include "Shape.h"
 
-Shape::Shape() {
+Shape::Shape() 
+{
 	ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
 	diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	specular = { 0.0, 0.0, 0.0, 1.0 };
@@ -25,20 +26,24 @@ Shape::Shape() {
 
 Shape::~Shape() {}
 
-void Shape::rotate(float arg) {
+void Shape::rotate(float arg) 
+{
 	_rotation.setX(arg);
 }
 
-void Shape::set_primitive(GLenum primitive) {
+void Shape::set_primitive(GLenum primitive) 
+{
 	_primitive = primitive;
 }
 
-GLenum Shape::get_primitive() {
+GLenum Shape::get_primitive() 
+{
 	return _primitive;
 }
 
 // Default rendering function using GL_TRIANGLES primitive
-void Shape::render() {
+void Shape::render() 
+{
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
@@ -85,7 +90,8 @@ void Shape::render() {
 	} glPopMatrix();
 }
 
-void Shape::renderBlend() {
+void Shape::renderBlend() 
+{
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
@@ -105,7 +111,8 @@ void Shape::renderBlend() {
 	} glPopMatrix();
 }
 
-void Shape::renderColor() {
+void Shape::renderColor() 
+{
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
@@ -152,8 +159,9 @@ void Shape::renderColor() {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	} glPopMatrix();
 }
-
-void Shape::render2D() {
+// TODO maybe thread (34)
+void Shape::render2D() 
+{
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
@@ -174,12 +182,14 @@ void Shape::render2D() {
 	} glPopMatrix();
 }
 
-void Shape::render(bool point,
+void Shape::render(
+	bool point,
 	bool biliner,
 	bool mipmapping,
 	bool half_mipmapping,
 	bool half_trilinear,
-	bool trilinear) {
+	bool trilinear) 
+{
 	glPushMatrix(); {
 		glScalef(_scale.x, _scale.y, _scale.z);
 		glTranslatef(_translate.x, _translate.y, _translate.z);
@@ -253,7 +263,8 @@ void Shape::render(bool point,
 	} glPopMatrix();
 }
 
-void Shape::buildFromArray(GLenum primitive,
+void Shape::buildFromArray(
+	GLenum primitive,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
@@ -261,7 +272,11 @@ void Shape::buildFromArray(GLenum primitive,
 	std::vector<float> verts,
 	std::vector<float> norms,
 	std::vector<float> texcoords,
-	GLuint * texture) {
+	GLuint * texture,
+	char* id) 
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -277,15 +292,28 @@ void Shape::buildFromArray(GLenum primitive,
 	_texcoords = texcoords;
 
 	_texture = texture;
+
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
-void Shape::buildCircle(GLenum primitive,
+void Shape::buildCircle(
+	GLenum primitive,
 	float edges,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
-	GLuint *texture) {
+	GLuint *texture,
+	char* id) 
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
+
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -303,15 +331,28 @@ void Shape::buildCircle(GLenum primitive,
 		_verts.push_back((float)sin((2 * M_PI * i) / edges));
 		_verts.push_back(0.0);
 	}
+
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
-void Shape::buildDisc(GLenum primitive, 
+void Shape::buildDisc(
+	GLenum primitive, 
 	float edges, float radius,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
-	GLuint *texture) {
+	GLuint *texture,
+	char* id) 
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
+
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -326,7 +367,6 @@ void Shape::buildDisc(GLenum primitive,
 	float
 		interval = (float)(2.0 * M_PI / edges),
 		diameter = (float)(2 * radius),
-		start = 0.0,
 		theta = 0.0;
 
 	_verts.reserve((unsigned)(9.0 * edges));
@@ -359,6 +399,12 @@ void Shape::buildDisc(GLenum primitive,
 
 		theta += interval;
 		}
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
 //no need to use inline since a function defined entirely inside a class/struct/union definition, 
@@ -444,13 +490,18 @@ float Shape::sphere_n_z3(float radius, float theta, float delta, float theta_int
 	return (sin(theta + theta_interval) * sin(delta)) / radius;
 }
 
-void Shape::buildSphere(GLenum primitive, 
+void Shape::buildSphere(
+	GLenum primitive, 
 	float radius, float longitude, float latitude,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
-	GLuint *texture) {
+	GLuint *texture,
+	char * id) 
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -554,15 +605,28 @@ void Shape::buildSphere(GLenum primitive,
 		theta = 0.0; u_lats = 0.0;
 		delta += delta_interval;
 	}
+
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
-void Shape::buildCylinder(GLenum primitive,
+void Shape::buildCylinder(
+	GLenum primitive,
 	float radius, float edges, float height,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
-	GLuint *texture) {
+	GLuint *texture,
+	char* id)
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
+
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -718,15 +782,28 @@ void Shape::buildCylinder(GLenum primitive,
 		u = 0;
 		theta = 0.0;
 	}
+
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
-void Shape::buildCone(GLenum primitive,
+void Shape::buildCone(
+	GLenum primitive,
 	float radius, float edges, float height,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
-	GLuint *texture) {
+	GLuint *texture,
+	char* id)
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
+
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -811,15 +888,28 @@ void Shape::buildCone(GLenum primitive,
 
 		theta += interval;
 	}
+
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
-void Shape::buildTorus(GLenum primitive,
+void Shape::buildTorus(
+	GLenum primitive,
 	float r, float R, float tube_edges, float torus_edges,
 	Vector3 translate,
 	Vector3 scale,
 	Vector4 rotation,
 	Vector4 rgba,
-	GLuint *texture) {
+	GLuint *texture,
+	char* id)
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
+
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -922,13 +1012,21 @@ void Shape::buildTorus(GLenum primitive,
 		theta = 0.0; v_longs = 0.0;
 		delta += delta_interval;
 	}
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
-float Shape::distance(Vector3 a, Vector3 b) {
+float Shape::distance(Vector3 a, Vector3 b) 
+{
 	return sqrtf(pow(b.x - a.x, 2) + pow(b.y - a.y, 2) + pow(b.z - a.z, 2));
 }
 
-Vector3 Shape::normalize(Vector3 a, Vector3 b, float radius) {
+Vector3 Shape::normalize(Vector3 a, Vector3 b, float radius)
+{
 	float dx = b.x - a.x;
 	float dy = b.y - a.y;
 	float dz = b.z - a.z;
@@ -945,12 +1043,17 @@ Vector3 Shape::normalize(Vector3 a, Vector3 b, float radius) {
 	return c;
 }
 
-void Shape::createButterfly(GLenum primitive, 
-							int N,
-							Vector3 translate,
-							Vector3 scale,
-							Vector4 rotation,
-							Vector4 rgba) {
+void Shape::createButterfly(
+	GLenum primitive, 
+	int N,
+	Vector3 translate,
+	Vector3 scale,
+	Vector4 rotation,
+	Vector4 rgba,
+	char* id)
+{
+	// Start timing
+	the_clock::time_point start = the_clock::now();
 	// set primitive
 	_primitive = primitive;
 	// set vectors for translation, rotation and scale, and rotation angle
@@ -976,6 +1079,13 @@ void Shape::createButterfly(GLenum primitive,
 
 		//color.push_back(u, 0.0, 24 * M_PI, 4);
 	}
+
+	// Stop timing
+	the_clock::time_point end = the_clock::now();
+
+	// Compute the difference between the two times in milliseconds
+	auto time_taken = duration_cast<microseconds>(end - start).count();
+	time_map.emplace(id, time_taken);
 }
 
 void Shape::buildIco(GLenum primitive,

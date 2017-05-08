@@ -9,6 +9,7 @@
 #include <vector>
 #include "Vector3.h"
 #include "Vector4.h"
+#include "Timing.h"
 
 class Shape {
 public:
@@ -21,12 +22,13 @@ public:
 	void render2D();
 	void render(bool point, 
 		bool biliner,
-		bool mipmapping,
+		bool mipmaping,
 		bool half_mipmapping, 
 		bool half_trilinear, 
 		bool trilinear);
 	// Build shapes by passing arrays of vertices, normals and texture coordinates
-	void buildFromArray(GLenum primitive,
+	void buildFromArray(
+		GLenum primitive,
 		Vector3 translate,
 		Vector3 scale,
 		Vector4 rotation,
@@ -34,15 +36,18 @@ public:
 		std::vector<float> verts,
 		std::vector<float> norms,
 		std::vector<float> texcoords,
-		GLuint * texture);
+		GLuint * texture,
+		char* id);
 	// Circle build function
-	void Shape::buildCircle(GLenum primitive,
+	void Shape::buildCircle(
+		GLenum primitive,
 		float edges,											// number of circle's edges
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba,
-		GLuint *texture);
+		GLuint *texture,
+		char* id);
 	// Cone build function
 	void buildCone(GLenum primitive,
 		float radius, float edges, float height,				// radius, edges, height
@@ -50,39 +55,48 @@ public:
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba,
-		GLuint *texture);
+		GLuint *texture,
+		char* id);
 	// Disc build function
-	void buildDisc(GLenum primitive,
+	void buildDisc(
+		GLenum primitive,
 		float edges, float radius,								// edges, radius
 		Vector3 translate,										// scale x, scale y, scale z,
 		Vector3 scale,											// translate x, translate y, translate z,
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba,
-		GLuint *texture);
+		GLuint *texture,
+		char* id);
 	// Torus build funtion
-	void buildTorus(GLenum primitive,
+	void buildTorus(
+		GLenum primitive,
 		float r, float R, float tube_edges, float torus_edges,	// r - radius of the tube, R - distance from the center of the tube to the center of the torus, tube edges, torus edges
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba,
-		GLuint *texture);
+		GLuint *texture,
+		char* id);
 	// Cylinder build function
-	void buildCylinder(GLenum primitive,
+	void buildCylinder(
+		GLenum primitive,
 		float radius, float edges, float height,				// cylinder radius, number of edges and height
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba,
-		GLuint *texture);
+		GLuint *texture,
+		char* id);
 	// Sphere build functions
-	void buildSphere(GLenum primitive,
+	void buildSphere(
+		GLenum primitive,
 		float radius, float longitude, float latitude,			// sphere radius, number of latitudes, number of longitudes
 		Vector3 translate,										// scale x, scale y, scale z
 		Vector3 scale,											// translate x, translate y, translate z
 		Vector4 rotation,										// rotation angle, rotation x, rotation y, rotation z
 		Vector4 rgba,
-		GLuint *texture);
+		GLuint *texture,
+		char* id);
 	// 0 - left bottom
 	float sphere_x0(	float radius, float theta, float delta);
 	float sphere_y0(	float radius, float theta, float delta);
@@ -116,12 +130,14 @@ public:
 	float sphere_n_y3(	float radius, float theta, float delta, float theta_interval);
 	float sphere_n_z3(	float radius, float theta, float delta, float theta_interval);
 	// Butterfly
-	void createButterfly(GLenum primitive,
+	void createButterfly(
+		GLenum primitive,
 		int N,
 		Vector3 translate,
 		Vector3 scale,
 		Vector4 rotation,
-		Vector4 rgba);
+		Vector4 rgba,
+		char* id);
 	// Ico
 	void buildIco(GLenum primitive,
 		Vector3 a, Vector3 b, float radius,

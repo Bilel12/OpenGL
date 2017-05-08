@@ -11,7 +11,7 @@ class Input
 	struct Mouse
 	{
 		int x,y;
-		bool left, right;
+		bool left, middle, right, scroll_up, scroll_down;
 	};
 
 public:
@@ -32,6 +32,14 @@ public:
 	int getMouseY();
 	void setLeftMouseButton(bool b);
 	bool isLeftMouseButtonPressed();
+	void setRightMouseButton(bool b);
+	bool isRightMouseButtonPressed();
+	void setMiddleMouseButton(bool b);
+	bool isMiddleMouseButtonPressed();
+	void setScrollUpMouseWheel(bool b);
+	bool isScrollUpMouseWheel();
+	void setScrollDownMouseWheel(bool b);
+	bool isScrollDownMouseWheel();
 
 private:
 	// Boolean array, element per key
