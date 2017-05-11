@@ -199,6 +199,6 @@ void FreeCamera::cameraControll(float dt, int width, int height, Input *input) {
 	updateYaw(width, input->getMouseX(), 2);
 	// camera's Pitch mouse controll, last variable controlls speed
 	updatePitch(height, input->getMouseY(), 2);
-	// Force mouse to return to the centre of the window
-	glutWarpPointer(width / 2, height / 2);
+	//// Force mouse to return to the centre of the window
+	//glutWarpPointer(width / 2, height / 2);
 }

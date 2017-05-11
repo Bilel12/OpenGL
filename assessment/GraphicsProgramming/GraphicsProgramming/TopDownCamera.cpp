@@ -183,6 +183,9 @@ void TopDownCamera::cameraControll(float dt, int width, int height, Input *input
 	if (input->isKeyDown('d') || input->isKeyDown('D')) {
 		moveSideRight(dt);
 	}
+
+	//// Force mouse to return to the centre of the window
+
 	//glutWarpPointer(width / 2, height / 2);
 }
 

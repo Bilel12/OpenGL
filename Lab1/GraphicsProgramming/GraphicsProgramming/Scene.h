@@ -13,7 +13,11 @@
 #include "Input.h"
 #include <stdio.h>
 // Further includes should go here:
-
+#include <amp.h>
+#include <array>
+//#include "dependencies.h"
+//#include "complex.h"
+//#include "mandelbrot.h"
 
 class Scene{
 
