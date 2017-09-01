@@ -1832,6 +1832,7 @@ void GameScene::update(float dt) {
 	camera->cameraControll(dt, width, height, input);
 	// Force mouse to return to the centre of the window
 	glutWarpPointer(width / 2, height / 2);
+	
 	camera->update();
 	// Update object and variables (camera, rotation, etc).
 	//
